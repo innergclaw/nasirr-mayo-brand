@@ -59,6 +59,66 @@
             font-size: 0.8rem;
         }
 
+        /* Mobile menu toggle */
+        .nav-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: 1px solid var(--grey);
+            border-radius: 8px;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--green);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu dropdown */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            z-index: 99;
+        }
+
+        .mobile-menu.open { display: flex; flex-direction: column; gap: 1rem; }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--grey);
+        }
+
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--green); }
+
         /* ===== HERO ===== */
         .hero {
             padding: 5rem 1.25rem 2.5rem;
@@ -407,6 +467,8 @@
         /* ===== DESKTOP ===== */
         @media (min-width: 1024px) {
             .nav { padding: 1.5rem 2rem; }
+            .nav-toggle { display: none; }
+            .mobile-menu { display: none !important; }
             .nav-links {
                 display: flex;
                 gap: 2rem;
@@ -453,6 +515,9 @@
 <body>
     <nav class="nav">
         <div class="logo">NM</div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
         <div class="nav-links">
             <a href="#about">About</a>
             <a href="speaking.html">Speaking</a>
@@ -460,6 +525,13 @@
         </div>
         <a href="#contact" class="nav-cta">Book a Call</a>
     </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about">About</a>
+        <a href="speaking.html">Speaking</a>
+        <a href="#content">Content</a>
+        <a href="#contact">Book a Call</a>
+    </div>
 
     <section class="hero">
         <div class="hero-content">
@@ -573,5 +645,19 @@
         <div class="footer-motto">"Become Intelligence. Become INNERG."</div>
         <div class="footer-copy">© 2026 Nasirr Mayo. All rights reserved.</div>
     </footer>
+    <script>
+        const toggle = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            menu.classList.toggle('open');
+        });
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggle.classList.remove('active');
+                menu.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
