@@ -7,22 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --black: #0a0a0a;
-            --black-light: #141414;
-            --grey: #2a2a2a;
-            --green: #00FF41;
-            --green-dim: #00CC33;
+            --bg-light: #f8f9fa;
             --white: #ffffff;
-            --white-soft: #f5f5f5;
-            --gold: #d4af37;
+            --primary: #2563eb;
+            --primary-dim: #1d4ed8;
+            --text-primary: #1a1a2e;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
@@ -36,16 +35,15 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--green);
+            color: var(--primary);
             text-decoration: none;
         }
 
@@ -55,7 +53,7 @@
         }
 
         .nav-links a {
-            color: var(--white);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
@@ -63,7 +61,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--green);
+            color: var(--primary);
         }
 
         /* Hero */
@@ -73,7 +71,7 @@
             align-items: center;
             justify-content: center;
             padding: 8rem 2rem 4rem;
-            background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+            background: var(--white);
             text-align: center;
         }
 
@@ -82,15 +80,16 @@
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .hero h1 span {
-            color: var(--green);
+            color: var(--primary);
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--white-soft);
+            color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto 2rem;
         }
@@ -98,19 +97,19 @@
         .hero-price {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: var(--green);
+            color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
         .hero-price span {
             font-size: 1rem;
-            color: var(--white-soft);
+            color: var(--text-secondary);
         }
 
         /* Topics */
         .topics {
             padding: 4rem 2rem;
-            background: var(--black-light);
+            background: var(--bg-light);
         }
 
         .section-header {
@@ -119,7 +118,7 @@
         }
 
         .section-header span {
-            color: var(--green);
+            color: var(--primary);
             font-size: 0.875rem;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -129,6 +128,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-top: 1rem;
+            color: var(--text-primary);
         }
 
         .topics-grid {
@@ -140,16 +140,18 @@
         }
 
         .topic-card {
-            background: var(--black);
-            border: 1px solid var(--grey);
+            background: var(--white);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
             transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         .topic-card:hover {
-            border-color: var(--green);
+            border-color: var(--primary);
             transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
         }
 
         .topic-icon {
@@ -160,25 +162,25 @@
         .topic-card h3 {
             font-size: 1.25rem;
             margin-bottom: 1rem;
-            color: var(--green);
+            color: var(--primary);
         }
 
         .topic-card p {
-            color: var(--white-soft);
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
 
         .topic-audience {
             font-size: 0.875rem;
-            color: #888;
+            color: var(--text-secondary);
             padding-top: 1rem;
-            border-top: 1px solid var(--grey);
+            border-top: 1px solid var(--border);
         }
 
         /* Pricing */
         .pricing {
             padding: 4rem 2rem;
-            background: var(--black);
+            background: var(--white);
         }
 
         .pricing-grid {
@@ -190,33 +192,35 @@
         }
 
         .pricing-card {
-            background: var(--black-light);
-            border: 2px solid var(--grey);
+            background: var(--white);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         .pricing-card.featured {
-            border-color: var(--green);
+            border: 2px solid var(--primary);
             transform: scale(1.05);
         }
 
         .pricing-card h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
 
         .pricing-card .price {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: var(--green);
+            color: var(--primary);
             margin: 1rem 0;
         }
 
         .pricing-card .duration {
-            color: #888;
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
 
@@ -230,21 +234,22 @@
             padding: 0.5rem 0;
             padding-left: 1.5rem;
             position: relative;
+            color: var(--text-secondary);
         }
 
         .pricing-card li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: var(--green);
+            color: var(--primary);
         }
 
         .btn-book {
             display: block;
             width: 100%;
             padding: 1rem;
-            background: var(--green);
-            color: var(--black);
+            background: var(--primary);
+            color: var(--white);
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
@@ -253,21 +258,22 @@
 
         .btn-book:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
         }
 
         /* Booking CTA */
         .booking-cta {
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--green-dim) 0%, var(--green) 100%);
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
             text-align: center;
-            color: var(--black);
+            color: var(--text-primary);
         }
 
         .booking-cta h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .booking-cta p {
@@ -276,13 +282,14 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            color: var(--text-secondary);
         }
 
         .btn-dark {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: var(--black);
-            color: var(--green);
+            background: var(--primary);
+            color: var(--white);
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
@@ -292,14 +299,14 @@
 
         .btn-dark:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
         }
 
         /* Footer */
         footer {
-            background: var(--black);
+            background: var(--white);
             padding: 3rem 2rem;
-            border-top: 1px solid var(--grey);
+            border-top: 1px solid var(--border);
             text-align: center;
         }
 
@@ -307,18 +314,18 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--green);
+            color: var(--primary);
         }
 
         footer .title {
-            color: var(--green);
+            color: var(--primary);
             font-weight: 600;
             font-size: 0.9rem;
             margin: 0.5rem 0;
         }
 
         footer .company {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 1rem;
         }
@@ -329,13 +336,13 @@
         }
 
         footer .contact a {
-            color: var(--green);
+            color: var(--primary);
             text-decoration: none;
         }
 
         footer .tagline {
             font-size: 0.75rem;
-            color: #888;
+            color: var(--text-secondary);
             font-style: italic;
         }
 
@@ -355,7 +362,7 @@
             <a href="#topics">Topics</a>
             <a href="#pricing">Pricing</a>
         </div>
-        <a href="https://calendly.com/innerg-nasirr" class="nav-links" style="background: var(--green); color: var(--black); padding: 0.5rem 1rem; border-radius: 6px;">Book Now</a>
+        <a href="https://calendly.com/innerg-nasirr" class="nav-links" style="background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border-radius: 6px;">Book Now</a>
     </nav>
 
     <section class="hero">
@@ -366,7 +373,7 @@
                 Practical, engaging, and designed to move your audience from confusion to clarity.
             </p>
             <div class="hero-price">$250<span>/hour</span></div>
-            <p style="color: #888; font-size: 0.9rem;">Flexible formats • Custom content • Interactive sessions</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Flexible formats • Custom content • Interactive sessions</p>
         </div>
     </section>
 
