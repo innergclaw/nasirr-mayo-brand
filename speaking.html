@@ -1,479 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Nasirr to Speak | AI Education & Workshops</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-light: #f8f9fa;
-            --white: #ffffff;
-            --primary: #2563eb;
-            --primary-dim: #1d4ed8;
-            --text-primary: #1a1a2e;
-            --text-secondary: #6b7280;
-            --border: #e5e7eb;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--white);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: var(--white);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 2rem 4rem;
-            background: var(--white);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .hero-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-price span {
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-
-        /* Topics */
-        .topics {
-            padding: 4rem 2rem;
-            background: var(--bg-light);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header span {
-            color: var(--primary);
-            font-size: 0.875rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-top: 1rem;
-            color: var(--text-primary);
-        }
-
-        .topics-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .topic-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-
-        .topic-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-        }
-
-        .topic-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .topic-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .topic-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .topic-audience {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Pricing */
-        .pricing {
-            padding: 4rem 2rem;
-            background: var(--white);
-        }
-
-        .pricing-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .pricing-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-
-        .pricing-card.featured {
-            border: 2px solid var(--primary);
-            transform: scale(1.05);
-        }
-
-        .pricing-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .pricing-card .price {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .pricing-card .duration {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-card ul {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-card li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            color: var(--text-secondary);
-        }
-
-        .pricing-card li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        .btn-book {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-book:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Booking CTA */
-        .booking-cta {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            text-align: center;
-            color: var(--text-primary);
-        }
-
-        .booking-cta h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .booking-cta p {
-            font-size: 1.125rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--text-secondary);
-        }
-
-        .btn-dark {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .btn-dark:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--white);
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        footer .name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        footer .title {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
-        }
-
-        footer .company {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-        }
-
-        footer .contact {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        footer .contact a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        footer .tagline {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .pricing-card.featured { transform: none; }
-            .topics-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOOK TO SPEAK — INNERG INTEL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #000000;
+      --primary: #00ff41;
+      --primary-dim: #00aa2a;
+      --secondary: #ffbf00;
+      --red: #ff3333;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --border: #00aa2a;
+      --panel: #0a0a0a;
+    }
+    
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* Scanline */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.03) 2px,
+        rgba(0, 255, 65, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    /* LED */
+    .led {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--primary); }
+      50% { opacity: 0.5; box-shadow: 0 0 5px var(--primary); }
+    }
+    
+    /* NAV */
+    nav {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    .logo span {
+      color: var(--secondary);
+    }
+    
+    .back-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    
+    .back-link:hover {
+      color: var(--primary);
+    }
+    
+    /* HERO */
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--secondary);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+    
+    .hero h1 span {
+      color: var(--primary);
+      text-shadow: 0 0 20px var(--primary);
+    }
+    
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .rate-box {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 1px solid var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .rate-box .amount {
+      font-size: 2rem;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+    }
+    
+    .rate-box .unit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    
+    /* SECTIONS */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-tag {
+      font-size: 0.75rem;
+      color: var(--secondary);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    /* TOPICS */
+    .topic {
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      background: var(--panel);
+      transition: all 0.3s;
+    }
+    
+    .topic:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    }
+    
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .topic-icon {
+      font-size: 1.5rem;
+    }
+    
+    .topic h3 {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .topic p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .topic-meta {
+      font-size: 0.75rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* PACKAGES */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .package {
+      border: 1px solid var(--border);
+      padding: 2rem;
+      background: var(--panel);
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .package:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    }
+    
+    .package.featured {
+      border-color: var(--secondary);
+      position: relative;
+    }
+    
+    .package.featured::before {
+      content: 'RECOMMENDED';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--secondary);
+      color: var(--bg);
+      padding: 4px 12px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+    }
+    
+    .package h3 {
+      font-size: 1.25rem;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .package .price {
+      font-size: 2rem;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .package .duration {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .package ul {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    
+    .package li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 170, 42, 0.2);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    .package li:last-child {
+      border-bottom: none;
+    }
+    
+    .btn {
+      display: block;
+      padding: 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border: 1px solid;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--primary);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--secondary);
+      border-color: var(--secondary);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--secondary);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--secondary);
+    }
+    
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    
+    .cta-section h2 {
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-section h2 span {
+      color: var(--primary);
+    }
+    
+    .cta-section p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* FOOTER */
+    footer {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-top: 1px solid var(--border);
+    }
+    
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+      
+      .section-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav class="nav">
-        <a href="index.html" class="logo">NM</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About</a>
-            <a href="#topics">Topics</a>
-            <a href="#pricing">Pricing</a>
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">[ NM ]</a>
+      <a href="index.html" class="back-link">← BACK TO MAIN</a>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tag">
+        <span class="led"></span>
+        SPEAKING ENGAGEMENTS
+      </div>
+      <h1>BOOK TO <span>SPEAK</span></h1>
+      <p>AI education for schools, corporate teams, and conferences. Practical, engaging, and designed to move your audience from confusion to clarity.</p>
+      <div class="rate-box">
+        <div class="amount">$250</div>
+        <div class="unit">/ HOUR</div>
+      </div>
+      <div class="hero-note">Flexible Formats • Custom Content • Interactive Sessions</div>
+    </div>
+  </section>
+  
+  <section id="topics">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">[ AVAILABLE TOPICS ]</div>
+        <h2 class="section-title">SESSION MODULES</h2>
+      </div>
+      
+      <div class="topic">
+        <div class="topic-header">
+          <span class="topic-icon">🤖</span>
+          <h3>AI Fundamentals for Beginners</h3>
         </div>
-        <a href="https://calendly.com/innerg-nasirr" class="nav-links" style="background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border-radius: 6px;">Book Now</a>
-    </nav>
-
-    <section class="hero">
-        <div>
-            <h1>Book Me to <span>Speak</span></h1>
-            <p class="hero-subtitle">
-                AI education for schools, corporate teams, and conferences. 
-                Practical, engaging, and designed to move your audience from confusion to clarity.
-            </p>
-            <div class="hero-price">$250<span>/hour</span></div>
-            <p style="color: var(--text-secondary); font-size: 0.9rem;">Flexible formats • Custom content • Interactive sessions</p>
+        <p>No technical background required. This session breaks down what AI actually is, how it works in simple terms, and how everyday people can start using it immediately. Perfect for students, educators, or professionals feeling left behind.</p>
+        <div class="topic-meta">BEST FOR: Schools, Community Groups, Professional Associations</div>
+      </div>
+      
+      <div class="topic">
+        <div class="topic-header">
+          <span class="topic-icon">⚙️</span>
+          <h3>Automating Your Business with AI</h3>
         </div>
-    </section>
-
-    <section id="topics" class="topics">
-        <div class="section-header">
-            <span>Speaking Topics</span>
-            <h2>Choose Your Focus</h2>
+        <p>Stop doing repetitive tasks. Learn how to use AI to automate content creation, customer service, data analysis, and more. Real tools, real workflows, real time savings. Bring your laptop — this is hands-on.</p>
+        <div class="topic-meta">BEST FOR: Entrepreneurs, Small Business Owners, Marketing Teams</div>
+      </div>
+      
+      <div class="topic">
+        <div class="topic-header">
+          <span class="topic-icon">🧠</span>
+          <h3>AI + Human Skills: The Future of Work</h3>
+        </div>
+        <p>What happens when AI can do your job? This session explores which skills become more valuable, how to future-proof your career, and why human judgment matters more than ever. Strategic, forward-looking, slightly uncomfortable — in a good way.</p>
+        <div class="topic-meta">BEST FOR: Corporate Teams, Leadership Retreats, Career Development Programs</div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="packages">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">[ PACKAGES ]</div>
+        <h2 class="section-title">BOOKING OPTIONS</h2>
+      </div>
+      
+      <div class="packages-grid">
+        <div class="package">
+          <h3>KEYNOTE</h3>
+          <div class="price">$250</div>
+          <div class="duration">45 Minutes + Q&A</div>
+          <ul>
+            <li>Single Topic Deep-Dive</li>
+            <li>Interactive Presentation</li>
+            <li>Digital Handouts</li>
+            <li>15-Min Post-Event Call</li>
+          </ul>
+          <a href="https://buy.stripe.com/deposit-keynote" class="btn btn-primary">Book Keynote ($50 Deposit)</a>
         </div>
         
-        <div class="topics-grid">
-            <div class="topic-card">
-                <div class="topic-icon">🤖</div>
-                <h3>AI Fundamentals for Beginners</h3>
-                <p>No technical background required. This session breaks down what AI actually is, how it works in simple terms, and how everyday people can start using it immediately. Perfect for students, educators, or professionals feeling left behind.</p>
-                <div class="topic-audience"><strong>Best for:</strong> Schools, community groups, professional associations</div>
-            </div>
-            
-            <div class="topic-card">
-                <div class="topic-icon">⚙️</div>
-                <h3>Automating Your Business with AI</h3>
-                <p>Stop doing repetitive tasks. Learn how to use AI to automate content creation, customer service, data analysis, and more. Real tools, real workflows, real time savings. Bring your laptop — this is hands-on.</p>
-                <div class="topic-audience"><strong>Best for:</strong> Entrepreneurs, small business owners, marketing teams</div>
-            </div>
-            
-            <div class="topic-card">
-                <div class="topic-icon">🧠</div>
-                <h3>AI + Human Skills: The Future of Work</h3>
-                <p>What happens when AI can do your job? This session explores which skills become more valuable, how to future-proof your career, and why human judgment matters more than ever. Strategic, forward-looking, slightly uncomfortable — in a good way.</p>
-                <div class="topic-audience"><strong>Best for:</strong> Corporate teams, leadership retreats, career development programs</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="pricing">
-        <div class="section-header">
-            <span>Investment</span>
-            <h2>Simple, Transparent Pricing</h2>
+        <div class="package featured">
+          <h3>WORKSHOP</h3>
+          <div class="price">$450</div>
+          <div class="duration">2 Hours</div>
+          <ul>
+            <li>Hands-On Exercises</li>
+            <li>Bring Your Laptop</li>
+            <li>Worksheets & Resources</li>
+            <li>30-Day Email Support</li>
+            <li>Recording (If Permitted)</li>
+          </ul>
+          <a href="https://buy.stripe.com/deposit-workshop" class="btn btn-secondary">Book Workshop ($100 Deposit)</a>
         </div>
         
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Keynote</h3>
-                <div class="price">$250</div>
-                <div class="duration">45 minutes + Q&A</div>
-                <ul>
-                    <li>Single topic deep-dive</li>
-                    <li>Interactive presentation</li>
-                    <li>Digital handouts</li>
-                    <li>15-min post-event call</li>
-                </ul>
-                <a href="https://buy.stripe.com/deposit-keynote" class="btn-book">Book Keynote ($50 Deposit)</a>
-            </div>
-            
-            <div class="pricing-card featured">
-                <h3>Workshop</h3>
-                <div class="price">$450</div>
-                <div class="duration">2 hours</div>
-                <ul>
-                    <li>Hands-on exercises</li>
-                    <li>Bring your laptop</li>
-                    <li>Worksheets & resources</li>
-                    <li>30-day email support</li>
-                    <li>Recording (if permitted)</li>
-                </ul>
-                <a href="https://buy.stripe.com/deposit-workshop" class="btn-book">Book Workshop ($100 Deposit)</a>
-            </div>
-            
-            <div class="pricing-card">
-                <h3>Half-Day Intensive</h3>
-                <div class="price">$800</div>
-                <div class="duration">4 hours (with breaks)</div>
-                <ul>
-                    <li>Multiple topics covered</li>
-                    <li>Team exercises</li>
-                    <li>Implementation planning</li>
-                    <li>Customized content</li>
-                    <li>60-day follow-up support</li>
-                </ul>
-                <a href="https://buy.stripe.com/deposit-intensive" class="btn-book">Book Intensive ($200 Deposit)</a>
-            </div>
+        <div class="package">
+          <h3>HALF-DAY INTENSIVE</h3>
+          <div class="price">$800</div>
+          <div class="duration">4 Hours (With Breaks)</div>
+          <ul>
+            <li>Multiple Topics Covered</li>
+            <li>Team Exercises</li>
+            <li>Implementation Planning</li>
+            <li>Customized Content</li>
+            <li>60-Day Follow-Up Support</li>
+          </ul>
+          <a href="https://buy.stripe.com/deposit-intensive" class="btn btn-primary">Book Intensive ($200 Deposit)</a>
         </div>
-    </section>
-
-    <section class="booking-cta">
-        <h2>Ready to Bring AI to Your Audience?</h2>
-        <p>Check my calendar and book a quick intro call. We'll discuss your goals, audience, and how to make this session impactful for your group.</p>
-        
-        <a href="https://calendly.com/innerg-nasirr" class="btn-dark">View Calendar & Book</a>
-    </section>
-
-    <footer>
-        <div class="name">Nasirr Mayo</div>
-        <div class="title">Founder & Lead Instructor</div>
-        <div class="company">InnerG Intel | AI Education & Professional Training</div>
-        <div class="contact">
-            <a href="tel:267-473-0397">📱 267-473-0397</a> | 
-            <a href="mailto:nasirr@innergintel.org">📧 nasirr@innergintel.org</a>
-        </div>
-        <div class="tagline">"Become Intelligence. Become INNERG."</div>
-    </footer>
-
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta-section">
+    <div class="container">
+      <h2>READY TO BRING <span>AI</span> TO YOUR AUDIENCE?</h2>
+      <p>Check my calendar and book a quick intro call. We'll discuss your goals, audience, and how to make this session impactful for your group.</p>
+      <a href="https://calendly.com/innerg-nasirr" class="btn btn-secondary">View Calendar & Book</a>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <p>© 2026 NASIRR MAYO — ALL SYSTEMS OPERATIONAL</p>
+    </div>
+  </footer>
 </body>
 </html>
