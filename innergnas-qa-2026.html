@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INNERGNAS Q&A 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050505;
+      --panel: #0e0e0e;
+      --panel-2: #121212;
+      --text: #f3f3f3;
+      --muted: #9d9d9d;
+      --line: rgba(0,255,106,0.18);
+      --green: #00ff6a;
+      --green-dim: #00c853;
+      --gold: #ffcb44;
+      --shadow: 0 0 32px rgba(0,255,106,0.08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, rgba(0,255,106,0.08), transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,106,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,106,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0 28px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 48px;
+      gap: 16px;
+    }
+
+    .brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .back {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .hero {
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    h1 span {
+      color: var(--green);
+      text-shadow: 0 0 22px rgba(0,255,106,0.28);
+    }
+
+    .lede {
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .meta-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .intro-card,
+    .question-card,
+    .note-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .intro-card p,
+    .note-card p,
+    .note-card li {
+      color: var(--muted);
+    }
+
+    .questions {
+      display: grid;
+      gap: 18px;
+    }
+
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .followup {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .note-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .note-list li::before {
+      content: '> ';
+      color: var(--green);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .footer {
+      margin-top: 42px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .wrap { padding: 18px; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .question-text { font-size: 1.08rem; }
+      .intro-card, .question-card, .note-card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="index.html">NASIRR / INNERG INTEL</a>
+      <a class="back" href="speaking.html">← Speaking Page</a>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> Host Interview Sheet</div>
+      <h1>INNERGNAS <span>Q&amp;A 2026</span></h1>
+      <p class="lede">A clean interviewer sheet for conversations about AI, the future of work, agent systems, and what everyday people actually need to understand right now. Built from Nasirr Mayo’s perspective as an AI educator, digital strategist, founder of InnerG Intel, and builder across education, web systems, and real business workflows.</p>
+    </section>
+
+    <section class="meta-grid">
+      <div class="meta-card">
+        <div class="meta-label">Use Case</div>
+        <div class="meta-value">Podcast, livestream, panel, interview, community talk</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">Core Themes</div>
+        <div class="meta-value">AI literacy, agents, future of work, readiness, real-world adoption</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">Best Tone</div>
+        <div class="meta-value">Clear, practical, visionary, no hype-noise</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Opening framing for the host</div>
+      <div class="intro-card">
+        <p>Use these questions to guide a conversation that helps regular people, creators, freelancers, and business owners understand what AI means now, what agents change next, and how to prepare without getting lost in fear or jargon.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Main questions</div>
+      <div class="questions">
+        <article class="question-card">
+          <div class="question-number">Question 01</div>
+          <div class="question-text">A lot of people still think AI just means ChatGPT. How do you explain what AI actually is today — and what it’s evolving into?</div>
+          <div class="followup">Follow-up angle: Let Nasirr define the landscape in plain language before the conversation gets deeper.</div>
+        </article>
+
+        <article class="question-card">
+          <div class="question-number">Question 02</div>
+          <div class="question-text">What’s the real difference between using AI like a tool and using AI agents like a system?</div>
+          <div class="followup">Follow-up angle: This opens the door to workflows, automation, memory, task execution, and where things stop being “just prompts.”</div>
+        </article>
+
+        <article class="question-card">
+          <div class="question-number">Question 03</div>
+          <div class="question-text">You’ve been pushing the idea of agent readiness. What does that mean, and why are so many people excited about AI but still unprepared for it?</div>
+          <div class="followup">Follow-up angle: Great setup for InnerG Intel’s education + consulting perspective.</div>
+        </article>
+
+        <article class="question-card">
+          <div class="question-number">Question 04</div>
+          <div class="question-text">Over the next two to five years, how do you think AI will change life for creators, freelancers, and small business owners in real everyday terms?</div>
+          <div class="followup">Follow-up angle: Pull examples from content, operations, customer support, web work, sales, and personal productivity.</div>
+        </article>
+
+        <article class="question-card">
+          <div class="question-number">Question 05</div>
+          <div class="question-text">What are the biggest myths or fears people have about AI right now — and what should they really be paying attention to instead?</div>
+          <div class="followup">Follow-up angle: This helps shift the conversation from fear narratives to strategy and discernment.</div>
+        </article>
+
+        <article class="question-card">
+          <div class="question-number">Question 06</div>
+          <div class="question-text">If someone wants to prepare for the future of AI without getting overwhelmed, what are the first three moves they should make right now?</div>
+          <div class="followup">Follow-up angle: Strong closing question. Actionable. Useful for the masses.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Optional closer / viral clip question</div>
+      <div class="note-card">
+        <p><strong>Bonus question:</strong> Do you think AI will replace people — or is the real shift that people who know how to work with AI will replace people who don’t?</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Host notes</div>
+      <div class="note-card">
+        <ul class="note-list">
+          <li>Keep the conversation practical. The audience should leave smarter, not just impressed.</li>
+          <li>Ask for examples from real businesses, creators, and systems — not just theory.</li>
+          <li>Push into what preparation looks like, because that’s where the real value is.</li>
+          <li>If time is short, ask Questions 1, 3, and 6 for the strongest arc.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">INNERGNAS Q&amp;A 2026 • NASIRR MAYO • INNERG INTEL</div>
+  </div>
+</body>
+</html>
