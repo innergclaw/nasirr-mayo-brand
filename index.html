@@ -367,6 +367,64 @@
       color: var(--accent);
     }
     
+    /* Links */
+    .links-section {
+      padding: 96px 48px;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .links-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .link-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: all 0.25s ease;
+    }
+
+    .link-row:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .link-row-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--text);
+    }
+
+    .link-row a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .link-row a:hover {
+      color: var(--accent-dim);
+    }
+
     /* About */
     .about {
       background: var(--bg-secondary);
@@ -578,6 +636,9 @@
       .stat-number { font-size: 24px; }
       section { padding: 64px 24px; }
       .section-heading { font-size: 28px; }
+      .links-section { padding: 64px 24px; }
+      .links-grid { grid-template-columns: 1fr; }
+      .link-row { flex-direction: column; align-items: flex-start; }
       .videos-grid { grid-template-columns: 1fr; }
       .footer { flex-direction: column; gap: 24px; text-align: center; }
       .footer-links { flex-direction: column; gap: 12px; }
@@ -607,6 +668,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <a href="#about">About</a>
       <a href="speaking.html">Speaking</a>
+      <a href="#links">Links</a>
       <a href="#content">Content</a>
       <a href="https://innergclaw.github.io/innerg-ai-program-signup/">AI Program Sign Up</a>
       <a href="#contact">Book a Call</a>
@@ -642,6 +704,24 @@
         </div>
         <div class="hero-image">
           <img src="hero-photo.jpg" alt="Nasirr Mayo">
+        </div>
+      </div>
+    </section>
+
+    <!-- Links -->
+    <section id="links" class="links-section">
+      <div class="links-inner">
+        <h2 class="section-title">InnerG Intel Links</h2>
+        <h3 class="section-heading">Clean <span>Access Points</span></h3>
+        <div class="links-grid">
+          <div class="link-row"><div class="link-row-title">Foundation — Weeks 1–4</div><a href="https://buy.stripe.com/3cI28tdoz3i1gFMbubao80K" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">Exploration — Weeks 5–8</div><a href="https://buy.stripe.com/4gM28tckvbOx3T0eGnao80L" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">Application — Weeks 9–12</div><a href="https://buy.stripe.com/00w8wR3NZ7yhcpwbubao80M" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">Readiness — Weeks 13–16</div><a href="https://buy.stripe.com/bJeaEZ84f8Cl4X48hZao80N" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">Full Program — 18 Weeks</div><a href="https://buy.stripe.com/5kQ4gB98j7yhexE9m3ao80R" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">OpenClaw Setup Session — Zoom</div><a href="https://buy.stripe.com/7sY4gB84f3i175ccyfao80P" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">OpenClaw Setup Session — In Person</div><a href="https://buy.stripe.com/00wdRbfwH7yhgFM2XFao80Q" target="_blank" rel="noopener">Open Link</a></div>
+          <div class="link-row"><div class="link-row-title">InnerG Intel Discord</div><a href="https://discord.gg/MtAS5ufpRp" target="_blank" rel="noopener">Join</a></div>
         </div>
       </div>
     </section>
