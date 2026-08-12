@@ -265,12 +265,19 @@
       overflow: hidden;
       background: var(--ink);
     }
-    .hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 24%; }
+    .hero-video-frame {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: #000;
+    }
+    .hero-video-frame iframe { width: 100%; height: 100%; border: 0; }
     .hero-visual::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 55%, rgba(10, 11, 10, .82));
+      background: linear-gradient(180deg, rgba(10, 11, 10, .76), transparent 28%);
       pointer-events: none;
     }
 
@@ -279,12 +286,13 @@
       z-index: 2;
       left: 24px;
       right: 24px;
-      bottom: 24px;
+      top: 24px;
       display: flex;
-      align-items: end;
+      align-items: start;
       justify-content: space-between;
       gap: 24px;
       color: var(--paper);
+      pointer-events: none;
     }
     .hero-label b { display: block; font-size: 1.06rem; margin-bottom: 5px; }
     .hero-label span { color: rgba(247,246,240,.68); }
@@ -749,7 +757,6 @@
       .button { width: 100%; }
       .hero-foot { align-items: start; flex-direction: column; }
       .hero-visual { min-height: 590px; }
-      .hero-visual img { object-position: 50% 20%; }
       .section-inner { padding: 76px 0; }
       .section-heading { font-size: clamp(2.8rem, 13vw, 4.4rem); }
       .manifesto-grid, .story-grid { grid-template-columns: 1fr; margin-top: 46px; }
@@ -847,9 +854,11 @@
         </div>
       </div>
       <div class="hero-visual">
-        <img src="portrait.jpg" alt="Portrait of Nasirr Mayo" width="1351" height="1800">
+        <div class="hero-video-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/l51OeTcUJK4?rel=0" title="Systems and Automation Changed Everything, Part 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
         <div class="hero-label">
-          <div><b>The practitioner era.</b><span>Experience made visible.</span></div>
+          <div><b>From the archive.</b><span>Recorded three years ago.</span></div>
           <div class="signal-stack" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         </div>
       </div>
