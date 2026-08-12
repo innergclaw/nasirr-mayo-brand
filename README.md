@@ -1,4 +1,4 @@
-# Nasirr Mayo — Founder Identity
+# Nasirr Mayo: Founder Identity
 
 The personal identity site for Nasirr Mayo: founder, builder, designer, and AI educator.
 
@@ -8,9 +8,9 @@ The personal identity site for Nasirr Mayo: founder, builder, designer, and AI e
 
 The site connects Nasirr’s work across:
 
-- **InnerG Intel** — practical AI education and applied intelligence
-- **OwnYourWeb** — owned customer paths and digital business systems
-- **ShopNasGraphics** — visual identity and conversion-ready creative
+- **InnerG Intel:** practical AI education and applied intelligence
+- **OwnYourWeb:** owned customer paths and digital business systems
+- **ShopNasGraphics:** visual identity and conversion-ready creative
 
 ## Live site
 
