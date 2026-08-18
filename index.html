@@ -916,5 +916,83 @@
           });
       })();
     </script>
+    <style>
+      .social-links.t-tabs {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 12px;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+      }
+      .social-links.t-tabs .t-tabs-pill {
+        display: none;
+      }
+      .social-links.t-tabs .t-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 64px;
+        height: auto;
+        min-height: 52px;
+        padding: 8px 5px 5px;
+        color: #777;
+        background: #fff;
+        border: 1px solid #e5e5e0;
+        border-radius: 10px;
+        transform: none;
+      }
+      .social-links.t-tabs .t-tab:hover,
+      .social-links.t-tabs .t-tab:focus-visible {
+        color: #171717;
+        background: #f3f3f0;
+        transform: translateY(-2px);
+      }
+      .social-links.t-tabs .t-tab svg {
+        width: 18px;
+        height: 18px;
+      }
+      .social-links.t-tabs .t-tab .substack-icon {
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+      }
+      .social-label {
+        color: #777;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+      .social-links.t-tabs .t-tab:hover .social-label,
+      .social-links.t-tabs .t-tab:focus-visible .social-label {
+        color: #171717;
+      }
+    </style>
+    <script>
+      (function () {
+        document.querySelectorAll(".social-links").forEach(function (bar) {
+          bar.classList.add("t-tabs");
+          bar.querySelectorAll(".t-tabs-pill").forEach(function (pill) {
+            pill.remove();
+          });
+          bar.querySelectorAll("a").forEach(function (link) {
+            link.classList.add("t-tab");
+            if (!link.querySelector(".social-label")) {
+              var label = document.createElement("small");
+              label.className = "social-label";
+              label.textContent = link.getAttribute("aria-label") || "Link";
+              link.appendChild(label);
+            }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
