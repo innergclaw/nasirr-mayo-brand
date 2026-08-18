@@ -994,5 +994,74 @@
         });
       })();
     </script>
+    <style>
+      .social-links.t-tabs .t-tab {
+        width: 68px;
+        min-height: 64px;
+        gap: 6px;
+        padding: 3px 2px 2px;
+        color: #171717;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+      }
+      .social-links.t-tabs .t-tab:hover,
+      .social-links.t-tabs .t-tab:focus-visible {
+        color: #171717;
+        background: transparent;
+        transform: translateY(-2px);
+      }
+      .icon-circle {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        color: #171717;
+        background: #fff;
+        border: 1px solid #171717;
+        border-radius: 50%;
+        transition: background-color 180ms ease, color 180ms ease,
+          transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .social-links.t-tabs .t-tab:hover .icon-circle,
+      .social-links.t-tabs .t-tab:focus-visible .icon-circle {
+        color: #fff;
+        background: #171717;
+        transform: scale(1.04);
+      }
+      .social-links.t-tabs .t-tab svg,
+      .social-links.t-tabs .t-tab .substack-icon {
+        width: 18px;
+        height: 18px;
+      }
+      .social-links.t-tabs .t-tab .substack-icon {
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .social-links.t-tabs .t-tab .social-label {
+        color: #171717;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1;
+      }
+    </style>
+    <script>
+      (function () {
+        document.querySelectorAll(".social-links").forEach(function (bar) {
+          bar.querySelectorAll("a").forEach(function (link) {
+            if (link.querySelector(".icon-circle")) return;
+            var icon = link.querySelector("svg, .substack-icon");
+            if (!icon) return;
+            var circle = document.createElement("span");
+            circle.className = "icon-circle";
+            icon.parentNode.insertBefore(circle, icon);
+            circle.appendChild(icon);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
