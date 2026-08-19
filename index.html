@@ -428,7 +428,12 @@
       (function () {
         function ensureOdyssey() {
           var nav = document.querySelector('.link-list');
-          if (!nav || document.querySelector('[data-odyssey-ambassador]')) return;
+          var reference = document.querySelector('.home-reference-room');
+          var ambassador = document.querySelector('[data-odyssey-ambassador]');
+          if (reference && ambassador && reference.nextElementSibling !== ambassador) {
+            reference.parentNode.insertBefore(reference, ambassador);
+          }
+          if (!nav || ambassador) return;
           nav.insertAdjacentHTML('afterend', '<section class="odyssey-ambassador" data-odyssey-ambassador="true" aria-labelledby="odyssey-runtime-title"><div class="odyssey-head"><div><p class="section-label">AMBASSADOR LINK</p><h2 id="odyssey-runtime-title">Odyssey Functional Energy</h2><p class="odyssey-sub">Functional energy for the days you’re building, creating, and moving with intention.</p></div><span class="odyssey-badge">Ambassador</span></div><p class="odyssey-note">If you shop through my links, I may earn a commission at no extra cost to you.</p><details class="odyssey-benefits"><summary>Why Try Odyssey?</summary><ul><li><strong>Organic Lion’s Mane · 1500MG</strong><span>Focus + clarity</span></li><li><strong>Organic Cordyceps · 1250MG</strong><span>Endurance + stamina</span></li><li><strong>Green Tea Caffeine · 222MG</strong><span>Energy + alertness</span></li><li><strong>L-Theanine · 85MG</strong><span>Calm + balance</span></li><li><strong>Panax Ginseng · 100MG</strong><span>Drive + vitality</span></li></ul></details><div class="odyssey-actions"><a class="odyssey-action" href="https://OdysseyFunctionalEnergy.com/nasirrmayo" target="_blank" rel="sponsored noopener"><strong>Explore Odyssey</strong><small>Discover the full functional energy lineup.</small></a><a class="odyssey-action" href="https://OdysseyFunctionalEnergy.com/products/222-variety-pack?bg_ref=XOoB0hKjMs" target="_blank" rel="sponsored noopener"><strong>Variety Pack 222MG</strong><small>Shop the high-strength variety pack.</small></a><a class="odyssey-action" href="https://OdysseyFunctionalEnergy.com/products/variety-pack?bg_ref=XOoB0hKjMs" target="_blank" rel="sponsored noopener"><strong>Variety Pack 85MG</strong><small>Shop the everyday variety pack.</small></a></div><p class="odyssey-code">20% off any order with code <strong>ODYSSEYNASIRR</strong></p></section>');
         }
         setTimeout(ensureOdyssey, 500);
