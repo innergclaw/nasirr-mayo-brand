@@ -61,6 +61,16 @@
       .odyssey-benefits ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; margin: 8px 0 0; padding: 0; list-style: none; }
       .odyssey-benefits li { display: grid; gap: 2px; font-size: .72rem; }
       .odyssey-benefits li span { color: rgba(31, 45, 38, .62); }
+      .home-reference-room { order: 2; }
+      .odyssey-ambassador { order: 3; }
+      .link-tree-footer { order: 4; }
+      .profile-social-links { width: 42px; height: 42px; }
+      .profile-social-links .social-menu__items { z-index: 1; }
+      .profile-social-links .social-menu__trigger { z-index: 3; }
+      .link-tree-footer .social-menu { width: auto; height: auto; }
+      .link-tree-footer .social-menu__items { position: static; pointer-events: auto; gap: 8px; }
+      .link-tree-footer .social-menu__item { position: static; opacity: 1; transform: none !important; }
+      .link-tree-footer .social-menu__trigger { display: none; }
       @media (max-width: 560px) { .odyssey-ambassador { padding: 22px; } .odyssey-head { display: block; } .odyssey-badge { display: inline-block; margin-top: 14px; } .odyssey-action { display: block; } .odyssey-action small { display: block; margin-top: 5px; text-align: left; } .odyssey-benefits ul { grid-template-columns: 1fr; } }
     </style>
     <script src="/_next/static/chunks/03~yq9q893hmn.js" nomodule=""></script>
@@ -262,7 +272,7 @@
             ></a
           >
         </nav>
-        <section class="odyssey-ambassador" aria-labelledby="odyssey-title">
+        <section class="odyssey-ambassador" data-odyssey-ambassador="true" aria-labelledby="odyssey-title">
           <div class="odyssey-head">
             <div>
               <p class="section-label">AMBASSADOR LINK</p>
