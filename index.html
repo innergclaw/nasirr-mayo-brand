@@ -61,7 +61,7 @@
       .odyssey-benefits ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; margin: 8px 0 0; padding: 0; list-style: none; }
       .odyssey-benefits li { display: grid; gap: 2px; font-size: .72rem; }
       .odyssey-benefits li span { color: rgba(31, 45, 38, .62); }
-      .home-reference-room { order: 2; }
+      .reference-room-card { order: 2; }
       .odyssey-ambassador { order: 3; }
       .link-tree-footer { order: 4; }
       .profile-social-links { width: 42px; height: 42px; }
@@ -299,28 +299,18 @@
           </div>
           <p class="odyssey-code">20% off any order with code <strong>ODYSSEYNASIRR</strong></p>
         </section>
-        <section
-          class="home-reference-room"
-          aria-labelledby="home-reference-title"
+        <a
+          class="link-card reference-room-card"
+          href="resources/"
+          target="_blank"
+          rel="noreferrer"
+          ><span class="link-number">06</span
+          ><span class="link-copy"
+            ><strong>REFERENCE ROOM ACCESS</strong
+            ><small>PNG packs, prompts, image references, and Codex skills.</small
+            ></span
+          ></a
         >
-          <div class="home-reference-heading">
-            <p class="section-label">
-              REFERENCE ROOM ACCESS
-            </p>
-            <span>06</span>
-          </div>
-          <h2 id="home-reference-title">
-            Give the next idea a better starting point.
-          </h2>
-          <p>
-            PNG packs, master prompts, GPT image references, and Codex skills
-            for business owners and creatives who need more range than generic
-            AI can provide.
-          </p>
-          <a class="home-reference-link" href="resources/"
-            >REFERENCE ROOM ACCESS <span>↗</span></a
-          >
-        </section>
         <footer class="link-tree-footer">
           <span>NM</span
           ><span>Making useful things, one system at a time.</span>
@@ -428,17 +418,16 @@
       (function () {
         function ensureOdyssey() {
           var nav = document.querySelector('.link-list');
-          var reference = document.querySelector('.home-reference-room');
+          var reference = document.querySelector('.reference-room-card');
+          var legacyReference = document.querySelector('.home-reference-room');
+          if (!reference && legacyReference) {
+            legacyReference.outerHTML = '<a class="link-card reference-room-card" href="resources/" target="_blank" rel="noreferrer"><span class="link-number">06</span><span class="link-copy"><strong>REFERENCE ROOM ACCESS</strong><small>PNG packs, prompts, image references, and Codex skills.</small></span></a>';
+            reference = document.querySelector('.reference-room-card');
+          }
           var ambassador = document.querySelector('[data-odyssey-ambassador]');
           var cards = nav && nav.querySelectorAll('.link-card');
           if (cards && cards[3]) cards[3].querySelector('strong').textContent = 'SHOPNASGFX';
           if (cards && cards[4]) cards[4].querySelector('strong').textContent = 'AGENT ACADEMY ( COMING SOON )';
-          if (reference) {
-            var refLabel = reference.querySelector('.section-label');
-            var refLink = reference.querySelector('.home-reference-link');
-            if (refLabel) refLabel.textContent = 'REFERENCE ROOM ACCESS';
-            if (refLink) refLink.childNodes[0].textContent = 'REFERENCE ROOM ACCESS ';
-          }
           if (reference && ambassador && reference.nextElementSibling !== ambassador) {
             reference.parentNode.insertBefore(reference, ambassador);
           }
