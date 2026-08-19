@@ -251,7 +251,7 @@
             rel="noreferrer"
             ><span class="link-number">04</span
             ><span class="link-copy"
-              ><strong>CREATIVE DESIGN SERVICES</strong
+              ><strong>SHOPNASGFX</strong
               ><small
                 >Graphics, branding, and creative services built with
                 purpose.</small
@@ -264,7 +264,7 @@
             rel="noreferrer"
             ><span class="link-number">05</span
             ><span class="link-copy"
-              ><strong>AGENT ACADEMY</strong
+              ><strong>AGENT ACADEMY ( COMING SOON )</strong
               ><small
                 >Hands-on training for directing, building, and evaluating AI
                 agent systems.</small
@@ -305,7 +305,7 @@
         >
           <div class="home-reference-heading">
             <p class="section-label">
-              REFERENCE ROOM / CREATIVE ASSET RESOURCE
+              REFERENCE ROOM ACCESS
             </p>
             <span>06</span>
           </div>
@@ -318,7 +318,7 @@
             AI can provide.
           </p>
           <a class="home-reference-link" href="resources/"
-            >ENTER REFERENCE ROOM <span>↗</span></a
+            >REFERENCE ROOM ACCESS <span>↗</span></a
           >
         </section>
         <footer class="link-tree-footer">
@@ -430,6 +430,15 @@
           var nav = document.querySelector('.link-list');
           var reference = document.querySelector('.home-reference-room');
           var ambassador = document.querySelector('[data-odyssey-ambassador]');
+          var cards = nav && nav.querySelectorAll('.link-card');
+          if (cards && cards[3]) cards[3].querySelector('strong').textContent = 'SHOPNASGFX';
+          if (cards && cards[4]) cards[4].querySelector('strong').textContent = 'AGENT ACADEMY ( COMING SOON )';
+          if (reference) {
+            var refLabel = reference.querySelector('.section-label');
+            var refLink = reference.querySelector('.home-reference-link');
+            if (refLabel) refLabel.textContent = 'REFERENCE ROOM ACCESS';
+            if (refLink) refLink.childNodes[0].textContent = 'REFERENCE ROOM ACCESS ';
+          }
           if (reference && ambassador && reference.nextElementSibling !== ambassador) {
             reference.parentNode.insertBefore(reference, ambassador);
           }
