@@ -71,6 +71,14 @@
         outline-offset: 3px;
       }
 
+      .social-menu:has(.mentorship-social-link).is-open .social-menu__item {
+        transform: translateX(calc((var(--social-index) - 2) * 43px)) scale(1);
+      }
+
+      .social-menu:has(.mentorship-social-link).is-open .social-menu__item:hover {
+        transform: translateX(calc((var(--social-index) - 2) * 43px)) translateY(-3px) scale(1.08);
+      }
+
       .talk-business h2 {
         max-width: 440px;
         margin: 18px 0 0;
@@ -326,7 +334,14 @@
           <p class="section-label" id="hire-links-title">HIRE ME LINKS</p>
         </section>
         <nav class="link-list" aria-label="Nasirr&#x27;s links">
-          <a class="link-card" href="about/" target="_blank" rel="noreferrer"
+          <a class="link-card mentorship-link-card" href="mentorship/"
+            ><span class="link-number">00</span
+            ><span class="link-copy"
+              ><strong>MENTORSHIP / ACCOUNTABILITY</strong
+              ><small>Practical conversation, guidance, and follow-through.</small
+              ></span
+            ></a
+          ><a class="link-card" href="about/" target="_blank" rel="noreferrer"
             ><span class="link-number">01</span
             ><span class="link-copy"
               ><strong>HIRE / BOOK ME</strong
@@ -547,5 +562,6 @@
     <script src="/odyssey-card.js"></script>
     <script src="/business-booking.js"></script>
     <script src="/mentorship-entry.js"></script>
+    <script src="/mentorship-social.js"></script>
   </body>
 </html>
