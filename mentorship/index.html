@@ -44,6 +44,7 @@
       .start-link { display:inline-flex; align-items:center; justify-content:center; min-height:45px; margin-top:auto; padding:12px 14px; border:1px solid var(--accent); color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms ease,background-color 180ms ease,color 180ms ease; }
       .start-link:hover { color:var(--dark); background:var(--accent); }
       .start-link:active,.footer-link:active { transform:scale(.97); }
+      .start-link:active,.footer-link:active,.topline a:active { opacity:.82; }
       .support-note { max-width:620px; margin:34px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.6; }
       .clarity { padding:11vh 0 10vh; }
       .clarity-inner { max-width:760px; }
@@ -92,6 +93,26 @@
         const reveals = [...document.querySelectorAll('.reveal')];
         const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting)), { threshold: .16, rootMargin: '0px 0px -8% 0px' });
         reveals.forEach((element) => revealObserver.observe(element));
+        let audioContext;
+        const playClick = () => {
+          try {
+            audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') audioContext.resume();
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(320, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(210, audioContext.currentTime + .045);
+            gain.gain.setValueAtTime(.0001, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(.028, audioContext.currentTime + .006);
+            gain.gain.exponentialRampToValueAtTime(.0001, audioContext.currentTime + .06);
+            oscillator.connect(gain).connect(audioContext.destination);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + .065);
+          } catch (error) { /* Audio is optional when the browser blocks it. */ }
+        };
+        document.addEventListener('pointerdown', (event) => { if (event.isPrimary && typeof navigator.vibrate === 'function') navigator.vibrate(8); }, { passive: true });
+        document.addEventListener('click', (event) => { if (event.target.closest('a,button')) playClick(); });
       })();
     </script>
   </body>
