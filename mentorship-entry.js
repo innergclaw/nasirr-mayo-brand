@@ -10,7 +10,7 @@
       <p class="section-label">MENTORSHIP / ACCOUNTABILITY</p>
       <h2 id="mentorship-entry-title">Build with someone in your corner.</h2>
       <p class="mentorship-entry-copy">Practical conversation, guidance, and follow-through for new entrepreneurs.</p>
-      <a class="mentorship-entry-action" href="mentorship/">EXPLORE MENTORSHIP <span aria-hidden="true">↗</span></a>
+      <a class="mentorship-entry-action" href="mentorship/">OPEN MENTORSHIP</a>
     `;
     return section;
   };
