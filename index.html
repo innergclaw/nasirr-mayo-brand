@@ -10,6 +10,96 @@
       data-precedence="next"
     />
     <link rel="stylesheet" href="/odyssey-card.css" />
+    <style>
+      .talk-business {
+        order: 3;
+        margin-top: 34px;
+        padding: 28px 4px 30px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .talk-business h2 {
+        max-width: 440px;
+        margin: 18px 0 0;
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 0.96;
+        letter-spacing: -0.07em;
+      }
+
+      .talk-business-intro {
+        max-width: 480px;
+        margin: 14px 0 0;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .talk-business-actions {
+        display: grid;
+        gap: 11px;
+        margin-top: 22px;
+      }
+
+      .talk-business-action {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2px 14px;
+        align-items: start;
+        padding: 16px 17px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #ffffffb8;
+        color: var(--ink);
+        text-decoration: none;
+        transition: transform 180ms ease, background-color 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .talk-business-action:hover {
+        background: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px #17171712;
+      }
+
+      .talk-business-action:focus-visible {
+        outline: 3px solid #c8d9ff;
+        outline-offset: 3px;
+      }
+
+      .talk-business-time {
+        grid-row: span 2;
+        padding-top: 2px;
+        color: #999;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+      }
+
+      .talk-business-action strong {
+        font-size: 16px;
+        letter-spacing: -0.04em;
+      }
+
+      .talk-business-action small {
+        color: #7d7d76;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      #odyssey-ambassador {
+        order: 4;
+      }
+
+      .link-tree-footer {
+        order: 5;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .talk-business-action {
+          transition: none;
+        }
+      }
+    </style>
     <link
       rel="preload"
       as="script"
@@ -262,6 +352,36 @@
           <a class="home-reference-link" href="resources/"
             >ENTER REFERENCE ROOM <span>↗</span></a
           >
+        </section>
+        <section class="talk-business" aria-labelledby="talk-business-title">
+          <p class="section-label">LET’S TALK BUSINESS</p>
+          <h2 id="talk-business-title">Choose the right next step.</h2>
+          <p class="talk-business-intro">
+            Have a project in mind? Start with a short fit check, or bring the
+            full brief when you are ready to map the work.
+          </p>
+          <div class="talk-business-actions">
+            <a
+              class="talk-business-action"
+              href="https://cal.com/ownyourwebsmm/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="talk-business-time">15 MIN</span>
+              <strong>Project fit call</strong>
+              <small>Decide the best next step for your idea.</small>
+            </a>
+            <a
+              class="talk-business-action"
+              href="https://cal.com/ownyourwebsmm/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="talk-business-time">30 MIN</span>
+              <strong>Website &amp; system briefing</strong>
+              <small>Discuss goals, scope, timeline, and setup.</small>
+            </a>
+          </div>
         </section>
         <footer class="link-tree-footer">
           <span>NM</span
