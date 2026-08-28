@@ -19,6 +19,58 @@
         border-bottom: 1px solid var(--line);
       }
 
+      .mentorship-entry {
+        order: 2;
+        margin-top: 34px;
+        padding: 28px 4px 30px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mentorship-entry h2 {
+        max-width: 520px;
+        margin: 18px 0 0;
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 0.96;
+        letter-spacing: -0.07em;
+      }
+
+      .mentorship-entry-copy {
+        max-width: 500px;
+        margin: 14px 0 0;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .mentorship-entry-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 22px;
+        padding: 14px 16px;
+        border: 1px solid var(--ink);
+        border-radius: 14px;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
+      }
+
+      .mentorship-entry-action:hover {
+        color: var(--paper);
+        background: var(--ink);
+        transform: translateY(-2px);
+      }
+
+      .mentorship-entry-action:focus-visible {
+        outline: 3px solid #c8d9ff;
+        outline-offset: 3px;
+      }
+
       .talk-business h2 {
         max-width: 440px;
         margin: 18px 0 0;
@@ -353,6 +405,12 @@
             >ENTER REFERENCE ROOM <span>↗</span></a
           >
         </section>
+        <section class="mentorship-entry" id="mentorship-entry" aria-labelledby="mentorship-entry-title">
+          <p class="section-label">MENTORSHIP / ACCOUNTABILITY</p>
+          <h2 id="mentorship-entry-title">Build with someone in your corner.</h2>
+          <p class="mentorship-entry-copy">Practical conversation, guidance, and follow-through for new entrepreneurs.</p>
+          <a class="mentorship-entry-action" href="mentorship/">EXPLORE MENTORSHIP <span aria-hidden="true">↗</span></a>
+        </section>
         <section class="talk-business" aria-labelledby="talk-business-title">
           <p class="section-label">LET’S TALK BUSINESS</p>
           <h2 id="talk-business-title">Choose the right next step.</h2>
@@ -488,5 +546,6 @@
     </script>
     <script src="/odyssey-card.js"></script>
     <script src="/business-booking.js"></script>
+    <script src="/mentorship-entry.js"></script>
   </body>
 </html>
