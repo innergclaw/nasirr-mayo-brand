@@ -43,6 +43,42 @@
         line-height: 1.6;
       }
 
+      .account-entry {
+        order: 2;
+        margin-top: 18px;
+        padding: 18px 4px 0;
+      }
+
+      .account-entry-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        color: var(--ink);
+        background: #ffffffb8;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
+      }
+
+      .account-entry-link:hover {
+        color: var(--paper);
+        background: var(--ink);
+        transform: translateY(-2px);
+      }
+
+      .account-entry-link:focus-visible {
+        outline: 3px solid #c8d9ff;
+        outline-offset: 3px;
+      }
+
       .mentorship-entry-action {
         display: inline-flex;
         align-items: center;
@@ -398,6 +434,11 @@
             ><span class="link-status">COMING SOON</span>
           </div>
         </nav>
+        <section class="account-entry" aria-label="Member access">
+          <a class="account-entry-link" href="account/">
+            <span>MEMBER ACCESS</span><span aria-hidden="true">↗</span>
+          </a>
+        </section>
         <section class="talk-business" aria-labelledby="talk-business-title">
           <p class="section-label">LET’S TALK BUSINESS</p>
           <h2 id="talk-business-title">Choose the right next step.</h2>
