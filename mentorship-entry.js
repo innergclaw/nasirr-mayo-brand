@@ -38,4 +38,5 @@
   mountSection();
   const observer = new MutationObserver(mountSection);
   observer.observe(document.body, { childList: true, subtree: true });
+  [250, 750, 1500, 3000].forEach((delay) => window.setTimeout(mountSection, delay));
 })();
