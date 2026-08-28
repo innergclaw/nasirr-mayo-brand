@@ -1,20 +1,6 @@
 (() => {
   const sectionId = "mentorship-entry";
 
-  const buildSection = () => {
-    const section = document.createElement("section");
-    section.className = sectionId;
-    section.id = sectionId;
-    section.setAttribute("aria-labelledby", "mentorship-entry-title");
-    section.innerHTML = `
-      <p class="section-label">MENTORSHIP / ACCOUNTABILITY</p>
-      <h2 id="mentorship-entry-title">Build with someone in your corner.</h2>
-      <p class="mentorship-entry-copy">Practical conversation, guidance, and follow-through for new entrepreneurs.</p>
-      <a class="mentorship-entry-action" href="mentorship/">OPEN MENTORSHIP</a>
-    `;
-    return section;
-  };
-
   const buildLink = () => {
     const link = document.createElement("a");
     link.className = "link-card mentorship-link-card";
@@ -24,15 +10,9 @@
   };
 
   const mountSection = () => {
+    document.querySelectorAll('.home-reference-room, .mentorship-entry').forEach((section) => section.remove());
     const list = document.querySelector(".link-list");
     if (list && !list.querySelector('a[href="mentorship/"]')) list.prepend(buildLink());
-    if (document.getElementById(sectionId)) return;
-    const reference = document.querySelector(".home-reference-room");
-    const business = document.querySelector(".talk-business");
-    const footer = document.querySelector(".link-tree-footer");
-    const anchor = business || footer;
-    if (!reference?.parentElement) return;
-    reference.parentElement.insertBefore(buildSection(), anchor || null);
   };
 
   mountSection();
