@@ -14,19 +14,28 @@
       .mentorship-page { overflow:clip; }
       .shell { width:min(100% - 40px,1080px); margin:0 auto; }
       .topline { display:flex; justify-content:space-between; gap:18px; padding:24px 0; color:#777d75; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-      .topline a { text-decoration:none; transition:color 180ms ease; }
-      .topline a:hover { color:var(--ink); }
+      .topline a { text-decoration:none; }
       .hero { min-height:92svh; padding-bottom:12vh; }
       .hero-kicker { padding-top:12vh; margin:0 0 28px; color:#7a8178; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
       .hero-title { max-width:980px; margin:0; font-size:clamp(58px,12vw,164px); line-height:.8; letter-spacing:-.11em; }
-      .word { display:block; color:#b7bbb2; transition:color 260ms cubic-bezier(.23,1,.32,1),transform 260ms cubic-bezier(.23,1,.32,1); }
+      .word { display:block; position:relative; isolation:isolate; color:#b7bbb2; transition:color 360ms cubic-bezier(.77,0,.175,1),transform 360ms cubic-bezier(.77,0,.175,1); }
+      .word::after { content:""; position:absolute; z-index:-1; left:-.02em; right:12%; bottom:.08em; height:.14em; background:var(--accent); opacity:0; transform:scaleX(0); transform-origin:left center; transition:transform 420ms cubic-bezier(.23,1,.32,1),opacity 240ms ease-out; }
       .word.is-current,.word.is-past { color:var(--ink); }
-      .word.is-current { transform:translateX(10px); }
-      @keyframes animationIn { 0% { opacity:0; transform:translateY(30px); filter:blur(8px); } 100% { opacity:1; transform:translateY(0); filter:blur(0); } }
-      .animate-on-scroll { opacity:0; animation:animationIn 620ms cubic-bezier(.23,1,.32,1) var(--reveal-delay,0ms) both; animation-play-state:paused; }
+      .word.is-current { transform:translateX(20px) scale(1.035); }
+      .word.is-current::after { opacity:.72; transform:scaleX(1); }
+      @keyframes animationIn { 0% { opacity:0; transform:translateY(72px) scale(.92); } 100% { opacity:1; transform:translateY(0) scale(1); } }
+      @keyframes panelIn { 0% { opacity:0; transform:translateY(110px) scale(.96); clip-path:inset(0 0 26% 0); } 100% { opacity:1; transform:translateY(0) scale(1); clip-path:inset(0 0 0 0); } }
+      @keyframes cardIn { 0% { opacity:0; transform:translateY(88px) scale(.93) rotateX(4deg); } 100% { opacity:1; transform:translateY(0) scale(1) rotateX(0); } }
+      @keyframes clarityIn { 0% { opacity:0; transform:translateX(-72px) scale(.96); } 100% { opacity:1; transform:translateX(0) scale(1); } }
+      @keyframes closingIn { 0% { opacity:0; transform:translateX(72px) scale(.96); } 100% { opacity:1; transform:translateX(0) scale(1); } }
+      .animate-on-scroll { opacity:0; animation:animationIn 760ms cubic-bezier(.23,1,.32,1) var(--reveal-delay,0ms) both; animation-play-state:paused; will-change:transform,opacity; }
       .animate-on-scroll.animate { animation-play-state:running; }
-      .reveal { opacity:0; transform:translateY(24px); filter:blur(5px); transition:opacity 620ms cubic-bezier(.23,1,.32,1),transform 620ms cubic-bezier(.23,1,.32,1),filter 620ms cubic-bezier(.23,1,.32,1); transition-delay:var(--reveal-delay,0ms); }
-      .reveal.is-visible { opacity:1; transform:translateY(0); filter:blur(0); }
+      .reveal { opacity:0; }
+      .reveal.is-visible { opacity:1; }
+      .panel-heading.animate-on-scroll { animation-name:panelIn; animation-duration:820ms; }
+      .offer-card.animate-on-scroll { animation-name:cardIn; animation-duration:760ms; transform-style:preserve-3d; }
+      .clarity-reveal.animate-on-scroll { animation-name:clarityIn; animation-duration:700ms; }
+      .closing-reveal.animate-on-scroll { animation-name:closingIn; animation-duration:700ms; }
       .hero-lede { max-width:540px; margin:54px 0 0; color:#5f675f; font-size:clamp(17px,2.4vw,22px); line-height:1.5; }
       .hero-lede strong { color:var(--ink); }
       .highlight-band { margin:0 calc((100vw - min(100vw - 40px,1080px)) / -2); padding:17px max(20px,calc((100vw - min(100vw - 40px,1080px)) / 2)); background:var(--accent); color:var(--dark); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
@@ -36,17 +45,16 @@
       .panel-heading h2 { max-width:780px; margin:0; font-size:clamp(42px,7vw,88px); line-height:.86; letter-spacing:-.09em; }
       .panel-index { color:var(--dark-muted); font:700 11px/1 monospace; }
       .offer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-      .offer-card { display:flex; min-height:370px; flex-direction:column; padding:23px; border:1px solid var(--dark-line); background:var(--dark-panel); transition:opacity 620ms cubic-bezier(.23,1,.32,1),transform 620ms cubic-bezier(.23,1,.32,1),filter 620ms cubic-bezier(.23,1,.32,1),border-color 180ms ease,background-color 180ms ease; }
-      .offer-card:hover { border-color:var(--accent); background:#1b211b; transform:translateY(-4px); }
+      .offer-card { display:flex; min-height:370px; flex-direction:column; padding:23px; border:1px solid var(--dark-line); background:var(--dark-panel); transition:border-color 180ms ease,background-color 180ms ease,transform 180ms cubic-bezier(.77,0,.175,1); }
       .offer-number { color:#7f897f; font:700 11px/1 monospace; }
       .offer-card h3 { margin:50px 0 13px; color:#f7f6f0; font-size:28px; line-height:.97; letter-spacing:-.06em; }
       .offer-price { margin:0 0 17px; color:var(--accent); font-size:33px; font-weight:700; letter-spacing:-.06em; }
       .offer-meta,.offer-detail { color:var(--dark-muted); font-size:13px; line-height:1.55; }
       .offer-meta { margin:0 0 18px; }
       .offer-detail { margin:0 0 24px; }
-      .start-link { display:inline-flex; align-items:center; justify-content:center; min-height:45px; margin-top:auto; padding:12px 14px; border:1px solid var(--accent); color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms ease,background-color 180ms ease,color 180ms ease; }
-      .start-link:hover { color:var(--dark); background:var(--accent); }
-      .start-link:active,.footer-link:active { transform:scale(.97); }
+      .start-link { display:inline-flex; align-items:center; justify-content:center; min-height:45px; margin-top:auto; padding:12px 14px; border:1px solid var(--accent); color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms cubic-bezier(.23,1,.32,1),background-color 180ms ease,color 180ms ease; }
+      @media (hover:hover) and (pointer:fine) { .offer-card:hover { border-color:var(--accent); background:#1b211b; transform:translateY(-4px); } .start-link:hover { color:var(--dark); background:var(--accent); } .footer-link:hover { color:var(--paper); background:var(--ink); } .topline a:hover { color:var(--ink); } }
+      .start-link:active,.footer-link:active { transform:scale(.97); transition-duration:120ms; }
       .start-link:active,.footer-link:active,.topline a:active { opacity:.82; }
       .support-note { max-width:620px; margin:34px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.6; }
       .clarity { padding:11vh 0 10vh; }
@@ -58,15 +66,15 @@
       .closing h2 { max-width:650px; margin:0 0 16px; font-size:clamp(38px,6vw,72px); line-height:.88; letter-spacing:-.09em; }
       .closing p { max-width:560px; margin:0; color:#5f675f; line-height:1.6; }
       .closing-actions { display:grid; gap:10px; min-width:230px; }
-      .footer-link { display:inline-flex; justify-content:center; padding:14px 18px; border:1px solid var(--ink); color:var(--ink); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms ease,background-color 180ms ease,color 180ms ease; }
-      .footer-link:hover { color:var(--paper); background:var(--ink); }
+      .footer-link { display:inline-flex; justify-content:center; padding:14px 18px; border:1px solid var(--ink); color:var(--ink); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms cubic-bezier(.23,1,.32,1),background-color 180ms ease,color 180ms ease; }
       .footer-link.secondary { border-color:#a9afa6; color:#5f675f; }
       footer { display:flex; justify-content:space-between; gap:20px; padding:18px 0 38px; color:#7f897f; font-size:10px; letter-spacing:.06em; }
       footer span:first-child { color:var(--ink); font-weight:700; }
       .start-link:focus-visible,.footer-link:focus-visible,.topline a:focus-visible { outline:3px solid #6d8cff; outline-offset:4px; }
       @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .closing{grid-template-columns:1fr} .closing-actions{width:100%} }
       @media (max-width:480px) { .topline{font-size:9px} .panel-heading{display:block} .panel-index{display:block;margin-top:18px} .clarity p,.closing p{font-size:15px} footer{flex-wrap:wrap;font-size:9px} }
-      @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.topline a,.reveal,.animate-on-scroll{transition:none;animation:none!important} .word.is-current{transform:none} .reveal,.animate-on-scroll{opacity:1;transform:none;filter:none} }
+      @keyframes gentleFade { 0% { opacity:.35; } 100% { opacity:1; } }
+      @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.reveal{transition:none} .animate-on-scroll{animation:gentleFade 180ms ease-out both!important;opacity:1;transform:none} .word.is-current{transform:none} .word::after{opacity:.45;transform:none;transition:none} .offer-card:hover{transform:none} .reveal{opacity:1;transform:none} }
     </style>
   </head>
   <body>
@@ -85,7 +93,7 @@
         <article class="offer-card reveal animate-on-scroll" style="--reveal-delay:150ms"><span class="offer-number">02</span><h3>Weekly Accountability</h3><p class="offer-price">$99 / month</p><p class="offer-meta">Four 20-minute calls · one scheduled text check-in between calls</p><p class="offer-detail">Set a goal, track the work, and keep the week from disappearing under everything else.</p><a class="start-link" href="sms:+12674730397">TEXT TO START</a></article>
         <article class="offer-card reveal animate-on-scroll" style="--reveal-delay:220ms"><span class="offer-number">03</span><h3>Personal Support</h3><p class="offer-price">$175 / month</p><p class="offer-meta">Four weekly calls · two scheduled text check-ins each week · replies within one business day</p><p class="offer-detail">A steadier rhythm for decisions, organization, resources, and the work that needs follow-through.</p><a class="start-link" href="sms:+12674730397">TEXT TO START</a></article>
       </div><p class="support-note">This is practical mentorship and accountability. It is not therapy, crisis care, or unlimited availability.</p></div></section>
-      <div class="shell"><section class="clarity reveal animate-on-scroll" aria-labelledby="clarity-title"><div class="clarity-inner"><p class="eyebrow">What this space is for</p><h2 id="clarity-title">Real care. Clear conversation. No judgment.</h2><p>You can talk through the idea, the calendar, the resources you need, and the habits that will help you keep moving. <strong>You stay in charge of the decisions.</strong> The work is to make the next one easier to see and easier to finish.</p></div></section><section class="closing reveal animate-on-scroll" aria-labelledby="closing-title"><div><p class="eyebrow">Start with a conversation</p><h2 id="closing-title">Tell me where you are stuck.</h2><p>Text 267-473-0397 with your name and the kind of support you are looking for. We can decide the right fit from there.</p></div><div class="closing-actions"><a class="footer-link" href="sms:+12674730397">TEXT 267-473-0397</a><a class="footer-link secondary" href="../about/#hire-intake">VIEW CONTACT FORM</a></div></section><footer><span>NM</span><span>Build it. Show it. Keep going.</span></footer></div>
+      <div class="shell"><section class="clarity clarity-reveal reveal animate-on-scroll" aria-labelledby="clarity-title"><div class="clarity-inner"><p class="eyebrow">What this space is for</p><h2 id="clarity-title">Real care. Clear conversation. No judgment.</h2><p>You can talk through the idea, the calendar, the resources you need, and the habits that will help you keep moving. <strong>You stay in charge of the decisions.</strong> The work is to make the next one easier to see and easier to finish.</p></div></section><section class="closing closing-reveal reveal animate-on-scroll" aria-labelledby="closing-title"><div><p class="eyebrow">Start with a conversation</p><h2 id="closing-title">Tell me where you are stuck.</h2><p>Text 267-473-0397 with your name and the kind of support you are looking for. We can decide the right fit from there.</p></div><div class="closing-actions"><a class="footer-link" href="sms:+12674730397">TEXT 267-473-0397</a><a class="footer-link secondary" href="../about/#hire-intake">VIEW CONTACT FORM</a></div></section><footer><span>NM</span><span>Build it. Show it. Keep going.</span></footer></div>
     </main>
     <script>
       (() => {
@@ -93,10 +101,11 @@
         if (!words.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { words.forEach((word) => word.classList.add('is-current', 'is-past')); return; }
         const update = () => { const pivot = window.innerHeight * .46; let active = 0; let distance = Infinity; words.forEach((word,index) => { const nextDistance = Math.abs(word.getBoundingClientRect().top - pivot); if (nextDistance < distance) { active = index; distance = nextDistance; } }); words.forEach((word,index) => { word.classList.toggle('is-current', index === active); word.classList.toggle('is-past', index < active); }); };
         let ticking = false; const onScroll = () => { if (!ticking) { window.requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; } }; update(); window.addEventListener('scroll', onScroll, { passive: true });
-        const reveals = [...document.querySelectorAll('.reveal, .animate-on-scroll')];
+        const reveals = [...document.querySelectorAll('.animate-on-scroll')];
         const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
-          entry.target.classList.toggle('is-visible', entry.isIntersecting);
-          entry.target.classList.toggle('animate', entry.isIntersecting);
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible', 'animate');
+          revealObserver.unobserve(entry.target);
         }), { threshold: .2, rootMargin: '0px 0px -10% 0px' });
         reveals.forEach((element) => revealObserver.observe(element));
         let audioContext;
