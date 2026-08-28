@@ -3,7 +3,7 @@
     const link = document.createElement("a");
     link.className = "link-card account-link-card";
     link.href = "account/";
-    link.innerHTML = '<span class="link-number">A</span><span class="link-copy"><strong>MEMBER ACCESS</strong><small>Create an account or sign in with Google, Microsoft, or GitHub.</small></span>';
+    link.innerHTML = '<span class="link-number">A</span><span class="link-copy"><strong>MEMBER ACCESS</strong><small>Create an account or sign in with Google or email.</small></span>';
     return link;
   };
 

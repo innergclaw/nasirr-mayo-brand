@@ -27,6 +27,14 @@
       .provider-button:active { transform:scale(.98); transition-duration:120ms; }
       .provider-button:focus-visible { outline:3px solid #6d8cff; outline-offset:4px; }
       .provider-arrow { font-size:16px; font-weight:400; }
+      .divider { display:flex; align-items:center; gap:12px; margin:24px 0 18px; color:#8b9189; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+      .divider::before,.divider::after { content:""; height:1px; flex:1; background:var(--line); }
+      .email-form { display:grid; gap:10px; }
+      .email-form label { display:grid; gap:7px; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+      .email-form input { width:100%; min-height:48px; padding:12px 13px; border:1px solid var(--line); border-radius:10px; color:var(--ink); background:#fff; font:16px/1.3 var(--font); }
+      .email-form input:focus-visible { outline:3px solid #6d8cff; outline-offset:2px; }
+      .email-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
+      .email-actions .provider-button { justify-content:center; text-align:center; }
       .status { min-height:22px; margin:18px 0 0; color:var(--muted); font-size:12px; line-height:1.5; }
       .status[data-state="error"] { color:#9e3f2e; }
       .status[data-state="success"] { color:#3f6b2e; }
@@ -48,12 +56,21 @@
         <p class="lede">Use a trusted account to save your place in the ecosystem. Your first sign-in creates your member account automatically.</p>
         <section class="provider-panel" aria-labelledby="provider-title">
           <h2 id="provider-title">Choose how you want to continue.</h2>
-          <p class="provider-note">No new password to remember. You can use Google, Microsoft, or GitHub.</p>
+          <p class="provider-note">Use Google, or create an account with your email and a password.</p>
           <div class="provider-list">
             <button class="provider-button" type="button" data-provider="google">Continue with Google <span class="provider-arrow" aria-hidden="true">↗</span></button>
-            <button class="provider-button" type="button" data-provider="azure">Continue with Microsoft <span class="provider-arrow" aria-hidden="true">↗</span></button>
-            <button class="provider-button" type="button" data-provider="github">Continue with GitHub <span class="provider-arrow" aria-hidden="true">↗</span></button>
           </div>
+          <div class="divider">or use email</div>
+          <form class="email-form" id="email-form">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+            <div class="email-actions">
+              <button class="provider-button" type="submit" data-email-action="signup">Create account</button>
+              <button class="provider-button" type="button" data-email-action="signin">Sign in</button>
+            </div>
+          </form>
           <p class="status" id="auth-status" role="status" aria-live="polite"></p>
         </section>
         <section class="member-card" id="member-card" aria-live="polite">
