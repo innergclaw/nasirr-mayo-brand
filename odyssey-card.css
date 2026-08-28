@@ -1,0 +1,181 @@
+.odyssey-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 34px;
+  border: 1px solid #d6d0c4;
+  background: #11110f;
+  color: #f4f0e7;
+}
+
+.odyssey-card::after {
+  position: absolute;
+  right: -46px;
+  bottom: -80px;
+  width: 210px;
+  height: 210px;
+  border: 1px solid rgb(244 240 231 / 16%);
+  border-radius: 50%;
+  content: "";
+}
+
+.odyssey-card__header,
+.odyssey-card__actions,
+.odyssey-card__footer {
+  position: relative;
+  z-index: 1;
+}
+
+.odyssey-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgb(244 240 231 / 18%);
+}
+
+.odyssey-card__eyebrow,
+.odyssey-card__badge,
+.odyssey-card__disclosure,
+.odyssey-card__code-label {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.odyssey-card__eyebrow {
+  margin: 0 0 10px;
+  color: #aaa395;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.odyssey-card h2 {
+  max-width: 540px;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 6vw, 3.9rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.odyssey-card__badge {
+  flex: 0 0 auto;
+  padding: 9px 11px;
+  border: 1px solid rgb(244 240 231 / 30%);
+  color: #d7d0c3;
+  font-size: 0.58rem;
+  font-weight: 800;
+}
+
+.odyssey-card__disclosure {
+  margin: 18px 0 0;
+  color: #aaa395;
+  font-size: 0.6rem;
+  line-height: 1.6;
+}
+
+.odyssey-card__actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 24px;
+  border-top: 1px solid rgb(244 240 231 / 18%);
+  border-left: 1px solid rgb(244 240 231 / 18%);
+}
+
+.odyssey-card__link {
+  display: flex;
+  min-height: 92px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border-right: 1px solid rgb(244 240 231 / 18%);
+  border-bottom: 1px solid rgb(244 240 231 / 18%);
+  color: #f4f0e7;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.odyssey-card__link span:first-child {
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.odyssey-card__link span:last-child {
+  color: #aaa395;
+  font-size: 1rem;
+}
+
+.odyssey-card__link:hover,
+.odyssey-card__link:focus-visible {
+  background: #f4f0e7;
+  color: #11110f;
+}
+
+.odyssey-card__footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 26px;
+}
+
+.odyssey-card__code-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #aaa395;
+  font-size: 0.58rem;
+  font-weight: 800;
+}
+
+.odyssey-card__code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  letter-spacing: 0.08em;
+}
+
+.odyssey-card__offer {
+  max-width: 290px;
+  margin: 0;
+  color: #d7d0c3;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .odyssey-card {
+    padding: 24px 20px;
+  }
+
+  .odyssey-card__header,
+  .odyssey-card__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .odyssey-card__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .odyssey-card__link {
+    min-height: 72px;
+    align-items: center;
+  }
+
+  .odyssey-card__offer {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .odyssey-card__link {
+    transition: none;
+  }
+}
