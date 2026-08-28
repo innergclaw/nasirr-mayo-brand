@@ -15,7 +15,17 @@
     return section;
   };
 
+  const buildLink = () => {
+    const link = document.createElement("a");
+    link.className = "link-card mentorship-link-card";
+    link.href = "mentorship/";
+    link.innerHTML = '<span class="link-number">00</span><span class="link-copy"><strong>MENTORSHIP / ACCOUNTABILITY</strong><small>Practical conversation, guidance, and follow-through.</small></span>';
+    return link;
+  };
+
   const mountSection = () => {
+    const list = document.querySelector(".link-list");
+    if (list && !list.querySelector('a[href="mentorship/"]')) list.prepend(buildLink());
     if (document.getElementById(sectionId)) return;
     const reference = document.querySelector(".home-reference-room");
     const business = document.querySelector(".talk-business");
