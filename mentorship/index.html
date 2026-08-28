@@ -3,259 +3,91 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Practical one-on-one mentorship and accountability for new entrepreneurs."
-    />
+    <meta name="description" content="Practical one-on-one mentorship and accountability for new entrepreneurs." />
     <title>Mentorship and accountability | NASIRR G. MAYO</title>
     <style>
-      :root {
-        --page: #0a0b0a;
-        --panel: #111411;
-        --panel-soft: #161a15;
-        --ink: #f7f6f0;
-        --muted: #aeb5ae;
-        --line: #3c443c;
-        --accent: #caff37;
-        --accent-soft: #caff3724;
-        --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-      }
-
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        color: var(--ink);
-        background: var(--page);
-        font-family: var(--font);
-      }
-      a { color: inherit; }
-      .mentorship-page { min-height: 100svh; padding: 24px 20px 42px; }
-      .mentorship-shell { width: min(100%, 960px); margin: 0 auto; }
-      .topline {
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-        padding: 8px 0 78px;
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-      }
-      .topline a { text-decoration: none; transition: color .18s ease; }
-      .topline a:hover { color: var(--accent); }
-      .hero { max-width: 800px; padding-bottom: 74px; }
-      .eyebrow {
-        margin: 0 0 18px;
-        color: var(--accent);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: .14em;
-        text-transform: uppercase;
-      }
-      h1, h2, h3, p { margin-top: 0; }
-      h1 {
-        max-width: 780px;
-        margin-bottom: 28px;
-        font-size: clamp(48px, 9vw, 112px);
-        line-height: .88;
-        letter-spacing: -.09em;
-      }
-      .hero-lede {
-        max-width: 560px;
-        margin-bottom: 30px;
-        color: var(--muted);
-        font-size: clamp(17px, 2.5vw, 22px);
-        line-height: 1.5;
-      }
-      .hero-note { color: #7f897f; font-size: 12px; line-height: 1.5; }
-      .section-rule { border-top: 1px solid var(--line); }
-      .offerings { padding: 32px 0 76px; }
-      .section-heading {
-        display: flex;
-        justify-content: space-between;
-        gap: 22px;
-        align-items: flex-start;
-        margin-bottom: 28px;
-      }
-      .section-heading h2 {
-        max-width: 650px;
-        margin-bottom: 0;
-        font-size: clamp(36px, 6vw, 70px);
-        line-height: .9;
-        letter-spacing: -.08em;
-      }
-      .section-index { color: #7f897f; font: 700 11px/1 monospace; }
-      .offer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-      .offer-card {
-        display: flex;
-        min-height: 356px;
-        flex-direction: column;
-        padding: 22px;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        transition: transform .22s cubic-bezier(.23,1,.32,1), border-color .18s ease,
-          background-color .18s ease;
-      }
-      .offer-card:hover { border-color: var(--accent); background: var(--panel-soft); transform: translateY(-4px); }
-      .offer-number { color: #7f897f; font: 700 11px/1 monospace; }
-      .offer-card h3 { margin: 48px 0 12px; font-size: 27px; line-height: .98; letter-spacing: -.06em; }
-      .offer-price { margin-bottom: 18px; color: var(--accent); font-size: 32px; font-weight: 700; letter-spacing: -.06em; }
-      .offer-meta { margin-bottom: 18px; color: var(--muted); font-size: 12px; line-height: 1.55; }
-      .offer-detail { margin-bottom: 24px; color: var(--muted); font-size: 14px; line-height: 1.55; }
-      .offer-card .start-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        margin-top: auto;
-        padding: 12px 14px;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: .08em;
-        text-decoration: none;
-        transition: background-color .18s ease, color .18s ease, transform .18s ease;
-      }
-      .offer-card .start-link:hover { color: var(--page); background: var(--accent); transform: translateY(-2px); }
-      .offer-card .start-link:focus-visible,
-      .topline a:focus-visible,
-      .footer-link:focus-visible { outline: 3px solid #c8d9ff; outline-offset: 4px; }
-      .how-it-works { max-width: 700px; padding: 34px 0 74px; }
-      .how-it-works h2 { margin-bottom: 22px; font-size: clamp(34px, 5vw, 58px); line-height: .92; letter-spacing: -.08em; }
-      .how-it-works p { color: var(--muted); font-size: 16px; line-height: 1.65; }
-      .how-it-works strong { color: var(--ink); }
-      .closing {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 30px;
-        padding: 34px 0 28px;
-        border-top: 1px solid var(--line);
-      }
-      .closing h2 { max-width: 600px; margin-bottom: 16px; font-size: clamp(35px, 5vw, 62px); line-height: .9; letter-spacing: -.08em; }
-      .closing p { max-width: 540px; margin-bottom: 0; color: var(--muted); line-height: 1.6; }
-      .closing-actions { display: grid; gap: 10px; min-width: 220px; }
-      .footer-link { display: inline-flex; justify-content: center; padding: 14px 18px; border: 1px solid var(--accent); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-decoration: none; }
-      .footer-link.secondary { border-color: var(--line); color: var(--ink); }
-      .footer-link:hover { color: var(--page); background: var(--accent); }
-      .footer-link.secondary:hover { color: var(--page); background: var(--ink); }
-      footer { display: flex; justify-content: space-between; gap: 20px; padding-top: 18px; color: #7f897f; font-size: 10px; letter-spacing: .06em; }
-      footer span:first-child { color: var(--accent); font-weight: 700; }
-      @media (max-width: 760px) {
-        .topline { padding-bottom: 58px; }
-        .offer-grid { grid-template-columns: 1fr; }
-        .offer-card { min-height: 0; }
-        .offer-card h3 { margin-top: 34px; }
-        .closing { display: grid; }
-        .closing-actions { width: 100%; }
-      }
-      @media (max-width: 480px) {
-        .mentorship-page { padding: 20px 16px 30px; }
-        .topline { font-size: 9px; }
-        h1 { font-size: 58px; }
-        .hero-lede { font-size: 16px; }
-        .section-heading { display: block; }
-        .section-index { display: block; margin-top: 18px; }
-        .how-it-works p, .closing p { font-size: 15px; }
-        footer { flex-wrap: wrap; font-size: 9px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-        .offer-card, .offer-card .start-link, .topline a { transition: none; }
-      }
+      :root { --paper:#f3f2ec; --ink:#171a16; --dark:#0a0b0a; --dark-panel:#151915; --muted:#687068; --dark-muted:#aeb5ae; --line:#d7d8ce; --dark-line:#3c443c; --accent:#caff37; --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; color:var(--ink); background:var(--paper); font-family:var(--font); }
+      a { color:inherit; }
+      .mentorship-page { overflow:clip; }
+      .shell { width:min(100% - 40px,1080px); margin:0 auto; }
+      .topline { display:flex; justify-content:space-between; gap:18px; padding:24px 0; color:#777d75; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+      .topline a { text-decoration:none; transition:color 180ms ease; }
+      .topline a:hover { color:var(--ink); }
+      .hero { min-height:92svh; padding-bottom:12vh; }
+      .hero-kicker { padding-top:12vh; margin:0 0 28px; color:#7a8178; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+      .hero-title { max-width:980px; margin:0; font-size:clamp(58px,12vw,164px); line-height:.8; letter-spacing:-.11em; }
+      .word { display:block; color:#b7bbb2; transition:color 260ms cubic-bezier(.23,1,.32,1),transform 260ms cubic-bezier(.23,1,.32,1); }
+      .word.is-current,.word.is-past { color:var(--ink); }
+      .word.is-current { transform:translateX(10px); }
+      .hero-lede { max-width:540px; margin:54px 0 0; color:#5f675f; font-size:clamp(17px,2.4vw,22px); line-height:1.5; }
+      .hero-lede strong { color:var(--ink); }
+      .highlight-band { margin:0 calc((100vw - min(100vw - 40px,1080px)) / -2); padding:17px max(20px,calc((100vw - min(100vw - 40px,1080px)) / 2)); background:var(--accent); color:var(--dark); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+      .support-panel { padding:11vh 0 10vh; color:var(--ink); background:var(--dark); }
+      .panel-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:38px; color:#f7f6f0; }
+      .eyebrow { margin:0 0 18px; color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+      .panel-heading h2 { max-width:780px; margin:0; font-size:clamp(42px,7vw,88px); line-height:.86; letter-spacing:-.09em; }
+      .panel-index { color:var(--dark-muted); font:700 11px/1 monospace; }
+      .offer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+      .offer-card { display:flex; min-height:370px; flex-direction:column; padding:23px; border:1px solid var(--dark-line); background:var(--dark-panel); transition:transform 220ms cubic-bezier(.23,1,.32,1),border-color 180ms ease,background-color 180ms ease; }
+      .offer-card:hover { border-color:var(--accent); background:#1b211b; transform:translateY(-4px); }
+      .offer-number { color:#7f897f; font:700 11px/1 monospace; }
+      .offer-card h3 { margin:50px 0 13px; color:#f7f6f0; font-size:28px; line-height:.97; letter-spacing:-.06em; }
+      .offer-price { margin:0 0 17px; color:var(--accent); font-size:33px; font-weight:700; letter-spacing:-.06em; }
+      .offer-meta,.offer-detail { color:var(--dark-muted); font-size:13px; line-height:1.55; }
+      .offer-meta { margin:0 0 18px; }
+      .offer-detail { margin:0 0 24px; }
+      .start-link { display:inline-flex; align-items:center; justify-content:center; min-height:45px; margin-top:auto; padding:12px 14px; border:1px solid var(--accent); color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms ease,background-color 180ms ease,color 180ms ease; }
+      .start-link:hover { color:var(--dark); background:var(--accent); }
+      .start-link:active,.footer-link:active { transform:scale(.97); }
+      .support-note { max-width:620px; margin:34px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.6; }
+      .clarity { padding:11vh 0 10vh; }
+      .clarity-inner { max-width:760px; }
+      .clarity h2 { margin:0 0 24px; font-size:clamp(38px,6vw,72px); line-height:.88; letter-spacing:-.09em; }
+      .clarity p { margin:0; color:#5f675f; font-size:17px; line-height:1.65; }
+      .clarity strong { color:var(--ink); }
+      .closing { display:grid; grid-template-columns:1fr auto; align-items:end; gap:32px; padding:34px 0 30px; border-top:1px solid var(--line); }
+      .closing h2 { max-width:650px; margin:0 0 16px; font-size:clamp(38px,6vw,72px); line-height:.88; letter-spacing:-.09em; }
+      .closing p { max-width:560px; margin:0; color:#5f675f; line-height:1.6; }
+      .closing-actions { display:grid; gap:10px; min-width:230px; }
+      .footer-link { display:inline-flex; justify-content:center; padding:14px 18px; border:1px solid var(--ink); color:var(--ink); font-size:11px; font-weight:700; letter-spacing:.08em; text-decoration:none; transition:transform 150ms ease,background-color 180ms ease,color 180ms ease; }
+      .footer-link:hover { color:var(--paper); background:var(--ink); }
+      .footer-link.secondary { border-color:#a9afa6; color:#5f675f; }
+      footer { display:flex; justify-content:space-between; gap:20px; padding:18px 0 38px; color:#7f897f; font-size:10px; letter-spacing:.06em; }
+      footer span:first-child { color:var(--ink); font-weight:700; }
+      .start-link:focus-visible,.footer-link:focus-visible,.topline a:focus-visible { outline:3px solid #6d8cff; outline-offset:4px; }
+      @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .closing{grid-template-columns:1fr} .closing-actions{width:100%} }
+      @media (max-width:480px) { .topline{font-size:9px} .panel-heading{display:block} .panel-index{display:block;margin-top:18px} .clarity p,.closing p{font-size:15px} footer{flex-wrap:wrap;font-size:9px} }
+      @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.topline a{transition:none} .word.is-current{transform:none} }
     </style>
   </head>
   <body>
     <main class="mentorship-page">
-      <div class="mentorship-shell">
-        <div class="topline">
-          <a href="../">BACK TO NASIRR</a>
-          <span>MENTORSHIP / ACCOUNTABILITY</span>
-        </div>
-
-        <header class="hero">
-          <p class="eyebrow">A practical place to begin</p>
-          <h1>Build with someone in your corner.</h1>
-          <p class="hero-lede">
-            Honest one-on-one conversation, useful organization, and steady
-            accountability for new entrepreneurs. Bring the messy middle. Leave
-            with a next step you can actually take.
-          </p>
-          <p class="hero-note">
-            This is mentorship and practical support. It is not therapy, crisis
-            care, or unlimited availability.
-          </p>
+      <div class="shell">
+        <div class="topline"><a href="../">BACK TO NASIRR</a><span>MENTORSHIP / ACCOUNTABILITY</span></div>
+        <header class="hero" aria-labelledby="hero-title">
+          <p class="hero-kicker">A practical place to begin</p>
+          <h1 class="hero-title" id="hero-title"><span class="word" data-step="0">Get clear.</span><span class="word" data-step="1">Get organized.</span><span class="word" data-step="2">Ask the hard question.</span><span class="word" data-step="3">Keep going.</span></h1>
+          <p class="hero-lede"><strong>Real conversation, practical guidance, and a plan you can carry into the week.</strong> Bring the idea, decision, or roadblock. You do not need a polished pitch.</p>
         </header>
-
-        <section class="offerings section-rule" aria-labelledby="offerings-title">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Choose your starting point</p>
-              <h2 id="offerings-title">Support that fits the season you are in.</h2>
-            </div>
-            <span class="section-index">01 / 03</span>
-          </div>
-          <div class="offer-grid">
-            <article class="offer-card">
-              <span class="offer-number">01</span>
-              <h3>Founder Q&amp;A Call</h3>
-              <p class="offer-price">$25</p>
-              <p class="offer-meta">20 minutes · one focused conversation</p>
-              <p class="offer-detail">Bring one question, decision, or roadblock. We will sort the next steps together.</p>
-              <a class="start-link" href="sms:+12674730397">TEXT TO START</a>
-            </article>
-            <article class="offer-card">
-              <span class="offer-number">02</span>
-              <h3>Weekly Accountability</h3>
-              <p class="offer-price">$99 / month</p>
-              <p class="offer-meta">Four 20-minute calls · one scheduled text check-in between calls</p>
-              <p class="offer-detail">Set a goal, track the work, and keep the week from disappearing under everything else.</p>
-              <a class="start-link" href="sms:+12674730397">TEXT TO START</a>
-            </article>
-            <article class="offer-card">
-              <span class="offer-number">03</span>
-              <h3>Personal Support</h3>
-              <p class="offer-price">$175 / month</p>
-              <p class="offer-meta">Four weekly calls · two scheduled text check-ins each week · replies within one business day</p>
-              <p class="offer-detail">A steadier rhythm for decisions, organization, resources, and the work that needs follow-through.</p>
-              <a class="start-link" href="sms:+12674730397">TEXT TO START</a>
-            </article>
-          </div>
-        </section>
-
-        <section class="how-it-works section-rule" aria-labelledby="how-title">
-          <p class="eyebrow">What this space is for</p>
-          <h2 id="how-title">Real care. Clear conversation. No judgment.</h2>
-          <p>
-            You do not need a polished pitch before you reach out. We can talk
-            through the idea, the calendar, the resources you need, and the
-            habits that will help you keep moving. <strong>You stay in charge of
-            the decisions.</strong> The work is to make the next one easier to see
-            and easier to finish.
-          </p>
-        </section>
-
-        <section class="closing" aria-labelledby="closing-title">
-          <div>
-            <p class="eyebrow">Start with a conversation</p>
-            <h2 id="closing-title">Tell me where you are stuck.</h2>
-            <p>Text 267-473-0397 with your name and the kind of support you are looking for. We can decide the right fit from there.</p>
-          </div>
-          <div class="closing-actions">
-            <a class="footer-link" href="sms:+12674730397">TEXT 267-473-0397</a>
-            <a class="footer-link secondary" href="../about/#hire-intake">VIEW CONTACT FORM</a>
-          </div>
-        </section>
-
-        <footer>
-          <span>NM</span>
-          <span>Build it. Show it. Keep going.</span>
-        </footer>
+        <div class="highlight-band" aria-label="Mentorship focus">Conversation / information / guidance / clarity / organization / accountability</div>
       </div>
+      <section class="support-panel" aria-labelledby="offers-title"><div class="shell"><div class="panel-heading"><div><p class="eyebrow">Choose your starting point</p><h2 id="offers-title">Support that fits the season you are in.</h2></div><span class="panel-index">01 / 03</span></div><div class="offer-grid">
+        <article class="offer-card"><span class="offer-number">01</span><h3>Founder Q&amp;A Call</h3><p class="offer-price">$25</p><p class="offer-meta">20 minutes · one focused conversation</p><p class="offer-detail">Bring one question, decision, or roadblock. We will sort the next steps together.</p><a class="start-link" href="sms:+12674730397">TEXT TO START</a></article>
+        <article class="offer-card"><span class="offer-number">02</span><h3>Weekly Accountability</h3><p class="offer-price">$99 / month</p><p class="offer-meta">Four 20-minute calls · one scheduled text check-in between calls</p><p class="offer-detail">Set a goal, track the work, and keep the week from disappearing under everything else.</p><a class="start-link" href="sms:+12674730397">TEXT TO START</a></article>
+        <article class="offer-card"><span class="offer-number">03</span><h3>Personal Support</h3><p class="offer-price">$175 / month</p><p class="offer-meta">Four weekly calls · two scheduled text check-ins each week · replies within one business day</p><p class="offer-detail">A steadier rhythm for decisions, organization, resources, and the work that needs follow-through.</p><a class="start-link" href="sms:+12674730397">TEXT TO START</a></article>
+      </div><p class="support-note">This is practical mentorship and accountability. It is not therapy, crisis care, or unlimited availability.</p></div></section>
+      <div class="shell"><section class="clarity" aria-labelledby="clarity-title"><div class="clarity-inner"><p class="eyebrow">What this space is for</p><h2 id="clarity-title">Real care. Clear conversation. No judgment.</h2><p>You can talk through the idea, the calendar, the resources you need, and the habits that will help you keep moving. <strong>You stay in charge of the decisions.</strong> The work is to make the next one easier to see and easier to finish.</p></div></section><section class="closing" aria-labelledby="closing-title"><div><p class="eyebrow">Start with a conversation</p><h2 id="closing-title">Tell me where you are stuck.</h2><p>Text 267-473-0397 with your name and the kind of support you are looking for. We can decide the right fit from there.</p></div><div class="closing-actions"><a class="footer-link" href="sms:+12674730397">TEXT 267-473-0397</a><a class="footer-link secondary" href="../about/#hire-intake">VIEW CONTACT FORM</a></div></section><footer><span>NM</span><span>Build it. Show it. Keep going.</span></footer></div>
     </main>
+    <script>
+      (() => {
+        const words = [...document.querySelectorAll('.word')];
+        if (!words.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { words.forEach((word) => word.classList.add('is-current', 'is-past')); return; }
+        const update = () => { const pivot = window.innerHeight * .46; let active = 0; let distance = Infinity; words.forEach((word,index) => { const nextDistance = Math.abs(word.getBoundingClientRect().top - pivot); if (nextDistance < distance) { active = index; distance = nextDistance; } }); words.forEach((word,index) => { word.classList.toggle('is-current', index === active); word.classList.toggle('is-past', index < active); }); };
+        let ticking = false; const onScroll = () => { if (!ticking) { window.requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; } }; update(); window.addEventListener('scroll', onScroll, { passive: true });
+      })();
+    </script>
   </body>
 </html>
