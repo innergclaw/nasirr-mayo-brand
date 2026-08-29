@@ -9,15 +9,16 @@ const script = await readFile(new URL("social-stats.js", root), "utf8");
 const styles = await readFile(new URL("social-stats.css", root), "utf8");
 
 test("both public pages load the shared social statistics files", () => {
-  assert.match(home, /social-stats\.css\?v=1/);
-  assert.match(home, /social-stats\.js\?v=1/);
-  assert.match(mentorship, /social-stats\.css\?v=1/);
-  assert.match(mentorship, /social-stats\.js\?v=1/);
+  assert.match(home, /social-stats\.css\?v=2/);
+  assert.match(home, /social-stats\.js\?v=2/);
+  assert.match(mentorship, /social-stats\.css\?v=2/);
+  assert.match(mentorship, /social-stats\.js\?v=2/);
 });
 
 test("social statistics use the supplied values", () => {
   assert.match(script, /<strong>719<\/strong><small>Subscribers<\/small>/);
   assert.match(script, /<strong>200,000\+<\/strong><small>Views<\/small>/);
+  assert.match(script, /<strong>10K\+<\/strong><small>Followers<\/small>/);
   assert.match(script, /<strong>65<\/strong><small>Subscribers<\/small>/);
 });
 

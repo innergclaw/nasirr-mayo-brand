@@ -19,6 +19,12 @@
             <div class="social-stats__metric"><strong>200,000+</strong><small>Views</small></div>
           </div>
         </article>
+        <article class="social-stats__card social-stats__card--instagram" aria-label="More than 10,000 followers across Instagram">
+          <span class="social-stats__platform">Instagram</span>
+          <div class="social-stats__metrics">
+            <div class="social-stats__metric"><strong>10K+</strong><small>Followers</small></div>
+          </div>
+        </article>
         <article class="social-stats__card social-stats__card--substack" aria-label="Substack has 65 subscribers">
           <span class="social-stats__platform">Substack</span>
           <div class="social-stats__metrics">
