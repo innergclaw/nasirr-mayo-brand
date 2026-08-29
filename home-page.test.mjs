@@ -30,6 +30,8 @@ test("hire links heading sits between mentorship and links 01 through 04", () =>
   assert.ok(mentorshipIndex >= 0);
   assert.ok(headingIndex > mentorshipIndex);
   assert.ok(firstLinkIndex > headingIndex);
+  assert.match(html, /"\$L8","\$L7"/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-2/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
