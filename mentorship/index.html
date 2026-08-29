@@ -69,11 +69,31 @@
       .help-intro { max-width:570px; margin:0; color:#5f675f; font-size:17px; line-height:1.6; text-wrap:pretty; }
       .help-intro strong { color:var(--ink); }
       .help-list { border-top:1px solid var(--line); }
-      .help-item { display:grid; grid-template-columns:52px minmax(220px,.8fr) minmax(0,1.35fr) 130px; gap:24px; align-items:start; padding:25px 0; border-bottom:1px solid var(--line); }
-      .help-number { padding-top:4px; color:#8a9087; font:700 11px/1 monospace; }
-      .help-item h3 { margin:0; font-size:22px; line-height:1.1; letter-spacing:-.04em; text-wrap:balance; }
-      .help-item p { max-width:610px; margin:0; color:#5f675f; font-size:15px; line-height:1.6; text-wrap:pretty; }
-      .help-years { justify-self:end; padding-top:4px; color:var(--ink); font-size:11px; font-weight:800; letter-spacing:.08em; text-align:end; text-transform:uppercase; white-space:nowrap; }
+      .help-item { position:relative; border-bottom:1px solid var(--line); }
+      .help-item summary { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto 52px; gap:24px; align-items:center; min-height:98px; padding:24px 0; cursor:pointer; list-style:none; isolation:isolate; transform-origin:center; transition:transform 150ms cubic-bezier(.23,1,.32,1),color 260ms ease-out; }
+      .help-item summary::-webkit-details-marker { display:none; }
+      .help-item summary::before { content:""; position:absolute; z-index:-1; inset:0 calc((100vw - min(100vw - 40px,1080px)) / -2); background:var(--accent); transform:scaleX(0); transform-origin:right center; transition:transform 420ms cubic-bezier(.77,0,.175,1); }
+      .help-summary-main { display:flex; align-items:baseline; min-width:0; gap:12px; }
+      .help-number,.help-dash { flex:none; color:#8a9087; font:700 11px/1 monospace; transition:color 240ms ease-out,transform 420ms cubic-bezier(.23,1,.32,1); }
+      .help-item h3 { margin:0; font-size:clamp(21px,3vw,34px); line-height:1.05; letter-spacing:-.055em; text-wrap:balance; transition:transform 420ms cubic-bezier(.23,1,.32,1); }
+      .help-years { color:var(--ink); font-size:11px; font-weight:800; letter-spacing:.08em; text-align:end; text-transform:uppercase; white-space:nowrap; transition:transform 420ms cubic-bezier(.23,1,.32,1),opacity 240ms ease-out; }
+      .help-toggle { position:relative; display:grid; width:48px; height:48px; place-items:center; border:1px solid #aeb4aa; border-radius:50%; transition:transform 520ms cubic-bezier(.77,0,.175,1),background-color 260ms ease-out,border-color 260ms ease-out; }
+      .help-toggle::before,.help-toggle::after { content:""; position:absolute; width:18px; height:2px; border-radius:2px; background:var(--ink); transition:transform 520ms cubic-bezier(.77,0,.175,1),background-color 240ms ease-out; }
+      .help-toggle::after { transform:rotate(90deg); }
+      .help-panel { height:0; overflow:hidden; opacity:0; transform:translateY(-24px) scale(.97); transform-origin:top center; filter:blur(8px); }
+      .help-panel-inner { display:grid; grid-template-columns:180px minmax(0,1fr); gap:32px; padding:24px 76px 34px; }
+      .help-panel-label { margin:3px 0 0; color:#6f766e; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+      .help-panel p { max-width:650px; margin:0; color:#4f574f; font-size:17px; line-height:1.65; text-wrap:pretty; }
+      .help-item[open] summary::before { transform:scaleX(1); transform-origin:left center; }
+      .help-item[open] .help-number,.help-item[open] .help-dash { color:var(--ink); transform:translateX(8px); }
+      .help-item[open] h3 { transform:translateX(12px); }
+      .help-item[open] .help-years { transform:translateX(-8px); }
+      .help-item[open] .help-toggle { border-color:var(--ink); background:var(--ink); transform:rotate(225deg) scale(1.08); }
+      .help-item[open] .help-toggle::before,.help-item[open] .help-toggle::after { background:var(--accent); }
+      .help-item[open] .help-panel { height:auto; opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+      .help-item.is-closing summary::before { transform:scaleX(0); transform-origin:right center; }
+      .help-item summary:active { transform:scale(.96); }
+      .help-item summary:focus-visible { outline:3px solid #6d8cff; outline-offset:5px; }
       .clarity { padding:11vh 0 10vh; }
       .clarity-inner { max-width:760px; }
       .clarity h2 { margin:0 0 24px; font-size:clamp(38px,6vw,72px); line-height:.88; letter-spacing:-.09em; }
@@ -88,10 +108,11 @@
       footer { display:flex; justify-content:space-between; gap:20px; padding:18px 0 38px; color:#7f897f; font-size:10px; letter-spacing:.06em; }
       footer span:first-child { color:var(--ink); font-weight:700; }
       .start-link:focus-visible,.footer-link:focus-visible,.topline a:focus-visible { outline:3px solid #6d8cff; outline-offset:4px; }
-      @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .help-heading{grid-template-columns:1fr;gap:24px;margin-bottom:36px} .help-item{grid-template-columns:38px minmax(0,1fr) auto;gap:14px 16px} .help-item p{grid-column:2 / -1} .closing{grid-template-columns:1fr} .closing-actions{width:100%} }
-      @media (max-width:480px) { .topline{font-size:9px} .panel-heading{display:block} .panel-index{display:block;margin-top:18px} .help-intro{font-size:15px} .help-item{grid-template-columns:32px minmax(0,1fr);padding:22px 0} .help-number{grid-column:1;grid-row:1}.help-item h3{grid-column:2;grid-row:1}.help-item p{grid-column:2;grid-row:2}.help-years{grid-column:2;grid-row:3;justify-self:start;text-align:start}.clarity p,.closing p{font-size:15px} footer{flex-wrap:wrap;font-size:9px} }
+      @media (hover:hover) and (pointer:fine) { .help-item summary:hover .help-toggle { transform:rotate(90deg) scale(1.08); border-color:var(--ink); } .help-item[open] summary:hover .help-toggle { transform:rotate(225deg) scale(1.12); } }
+      @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .help-heading{grid-template-columns:1fr;gap:24px;margin-bottom:36px} .help-item summary{grid-template-columns:minmax(0,1fr) 46px;gap:12px;min-height:104px}.help-summary-main{align-items:flex-start}.help-years{grid-column:1;justify-self:start;margin-left:54px;text-align:start}.help-toggle{grid-column:2;grid-row:1 / span 2}.help-panel-inner{grid-template-columns:1fr;gap:12px;padding:24px 58px 30px}.closing{grid-template-columns:1fr}.closing-actions{width:100%} }
+      @media (max-width:480px) { .topline{font-size:9px} .panel-heading{display:block} .panel-index{display:block;margin-top:18px} .help-intro{font-size:15px} .help-item summary::before{inset:0 -16px}.help-summary-main{gap:8px}.help-number,.help-dash{padding-top:5px}.help-item h3{font-size:23px}.help-years{margin-left:44px}.help-panel-inner{padding:24px 44px 28px}.help-panel p{font-size:15px}.clarity p,.closing p{font-size:15px} footer{flex-wrap:wrap;font-size:9px} }
       @keyframes gentleFade { 0% { opacity:.35; } 100% { opacity:1; } }
-      @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.reveal{transition:none} .animate-on-scroll{animation:gentleFade 180ms ease-out both!important;opacity:1;transform:none} .word.is-current{transform:none} .word::after{opacity:.45;transform:none;transition:none} .offer-card:hover{transform:none} .reveal{opacity:1;transform:none} }
+      @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.reveal,.help-item summary,.help-item summary::before,.help-number,.help-dash,.help-item h3,.help-years,.help-toggle,.help-toggle::before,.help-toggle::after{transition:none} .animate-on-scroll{animation:gentleFade 180ms ease-out both!important;opacity:1;transform:none} .word.is-current{transform:none} .word::after{opacity:.45;transform:none;transition:none} .offer-card:hover{transform:none} .reveal{opacity:1;transform:none} .help-item[open] .help-number,.help-item[open] .help-dash,.help-item[open] h3,.help-item[open] .help-years,.help-item[open] .help-toggle{transform:none}.help-panel{filter:none;transform:none} }
     </style>
   </head>
   <body>
@@ -111,12 +132,12 @@
         <article class="offer-card reveal animate-on-scroll" style="--reveal-delay:220ms"><span class="offer-number">03</span><h3>Personal Support</h3><p class="offer-price">$175 / month</p><p class="offer-meta">Four weekly calls · two scheduled text check-ins each week · replies within one business day</p><p class="offer-detail">Get direct help when responsibilities are heavy and you need support to keep moving with intent. After you join, text me to set your personal schedule.</p><div class="offer-actions"><a class="start-link" href="https://buy.stripe.com/9B6aEZfwHdWFfBIeGnao81H">PAY NOW</a><a class="start-link secondary" href="sms:+12674730397" aria-label="Text to start and set your personal schedule">TEXT TO START</a></div></article>
       </div><p class="support-note">This is practical mentorship and accountability. It is not therapy, crisis care, or unlimited availability.</p><p class="free-resource-note">There is no free "pick my brain" session. For free information, read my <a href="https://open.substack.com/pub/innergintelligence">Substack</a> or watch my <a href="https://www.youtube.com/watch?v=l51OeTcUJK4">YouTube channel</a>.</p></div></section>
       <div class="shell"><section class="help" aria-labelledby="help-title"><div class="help-heading reveal animate-on-scroll"><div><p class="eyebrow">Built through real work</p><h2 id="help-title">What I can help with.</h2></div><p class="help-intro"><strong>I have built businesses and served clients since 2015.</strong> I can help you make a clear decision, organize the work, and follow through without rushing.</p></div><div class="help-list">
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:40ms"><span class="help-number">01</span><h3>Entrepreneurship and ownership</h3><p>Shape the idea, define the offer, understand the customer, set the price, and make practical business decisions.</p><span class="help-years">Since 2015</span></article>
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:80ms"><span class="help-number">02</span><h3>Branding and creative direction</h3><p>Build a clear visual identity, improve how the work is presented, and make brand choices that support trust.</p><span class="help-years">Since 2015</span></article>
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:120ms"><span class="help-number">03</span><h3>Websites and digital ownership</h3><p>Plan websites, domains, lead capture, client communication, and simple systems that you can control.</p><span class="help-years">Since 2015</span></article>
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:160ms"><span class="help-number">04</span><h3>Project structure and client work</h3><p>Set the scope, organize files, track timelines, manage feedback, and move a project toward delivery.</p><span class="help-years">10+ years</span></article>
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:200ms"><span class="help-number">05</span><h3>Education and self-development</h3><p>Work on discipline, independent thinking, technology, financial thinking, and the habits that turn an idea into action.</p><span class="help-years">Since 2020</span></article>
-        <article class="help-item reveal animate-on-scroll" style="--reveal-delay:240ms"><span class="help-number">06</span><h3>Accountability and life organization</h3><p>Choose the next priority, build a realistic schedule, and stay responsible for the work while life keeps moving.</p><span class="help-years">Practical guidance</span></article>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:40ms"><summary><span class="help-summary-main"><span class="help-number">01</span><span class="help-dash" aria-hidden="true">-</span><h3>Entrepreneurship &amp; Ownership</h3></span><span class="help-years">Since 2015</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Shape the idea, define the offer, understand the customer, set the price, and make practical business decisions.</p></div></div></details>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:80ms"><summary><span class="help-summary-main"><span class="help-number">02</span><span class="help-dash" aria-hidden="true">-</span><h3>Branding &amp; Creative Direction</h3></span><span class="help-years">Since 2015</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Build a clear visual identity, improve how the work is presented, and make brand choices that support trust.</p></div></div></details>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:120ms"><summary><span class="help-summary-main"><span class="help-number">03</span><span class="help-dash" aria-hidden="true">-</span><h3>Websites &amp; Digital Ownership</h3></span><span class="help-years">Since 2015</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Plan websites, domains, lead capture, client communication, and simple systems that you can control.</p></div></div></details>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:160ms"><summary><span class="help-summary-main"><span class="help-number">04</span><span class="help-dash" aria-hidden="true">-</span><h3>Project Structure &amp; Client Work</h3></span><span class="help-years">10+ years</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Set the scope, organize files, track timelines, manage feedback, and move a project toward delivery.</p></div></div></details>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:200ms"><summary><span class="help-summary-main"><span class="help-number">05</span><span class="help-dash" aria-hidden="true">-</span><h3>Education &amp; Self-Development</h3></span><span class="help-years">Since 2020</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Work on discipline, independent thinking, technology, financial thinking, and the habits that turn an idea into action.</p></div></div></details>
+        <details class="help-item reveal animate-on-scroll" style="--reveal-delay:240ms"><summary><span class="help-summary-main"><span class="help-number">06</span><span class="help-dash" aria-hidden="true">-</span><h3>Accountability &amp; Life Organization</h3></span><span class="help-years">Practical guidance</span><span class="help-toggle" aria-hidden="true"></span></summary><div class="help-panel"><div class="help-panel-inner"><span class="help-panel-label">What we can work on</span><p>Choose the next priority, build a realistic schedule, and stay responsible for the work while life keeps moving.</p></div></div></details>
       </div></section><section class="clarity clarity-reveal reveal animate-on-scroll" aria-labelledby="clarity-title"><div class="clarity-inner"><p class="eyebrow">Know the difference</p><h2 id="clarity-title">Speed has direction. Rushing does not.</h2><p>Rushing reacts to pressure. Intentional speed starts with a clear decision and a set of steps. <strong>We slow down long enough to see the move, then we act.</strong> The goal is not to do everything today. The goal is to stop carrying the idea without giving it form.</p></div></section><section class="closing closing-reveal reveal animate-on-scroll" aria-labelledby="closing-title"><div><p class="eyebrow">Move with intent</p><h2 id="closing-title">You do not need to do everything today.</h2><p>You need to know what matters next and follow through. Bring the idea, schedule, decision, or responsibility that has you stuck. We will make the next move clear.</p></div><div class="closing-actions"><a class="footer-link" href="sms:+12674730397">TEXT 267-473-0397</a></div></section><footer><span>NM</span><span>Move with intent. Build what matters.</span></footer></div>
     </main>
     <script>
@@ -133,6 +154,94 @@
         }), { threshold: .2, rootMargin: '0px 0px -10% 0px' });
         reveals.forEach((element) => revealObserver.observe(element));
         let audioContext;
+        const accordionItems = [...document.querySelectorAll('.help-item')];
+        const accordionAnimations = new WeakMap();
+        const playAccordionSound = (opening) => {
+          try {
+            audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') audioContext.resume();
+            const now = audioContext.currentTime;
+            const master = audioContext.createGain();
+            const notes = opening ? [130, 235, 420] : [360, 220, 120];
+            master.gain.setValueAtTime(.0001, now);
+            master.gain.exponentialRampToValueAtTime(.055, now + .012);
+            master.gain.exponentialRampToValueAtTime(.0001, now + .25);
+            master.connect(audioContext.destination);
+            notes.forEach((frequency,index) => {
+              const oscillator = audioContext.createOscillator();
+              const noteGain = audioContext.createGain();
+              const start = now + (index * .048);
+              oscillator.type = index === 0 ? 'sine' : 'triangle';
+              oscillator.frequency.setValueAtTime(frequency, start);
+              oscillator.frequency.exponentialRampToValueAtTime(frequency * (opening ? 1.16 : .88), start + .13);
+              noteGain.gain.setValueAtTime(.0001, start);
+              noteGain.gain.exponentialRampToValueAtTime(.48, start + .008);
+              noteGain.gain.exponentialRampToValueAtTime(.0001, start + .14);
+              oscillator.connect(noteGain).connect(master);
+              oscillator.start(start);
+              oscillator.stop(start + .15);
+            });
+            const impact = audioContext.createOscillator();
+            const impactGain = audioContext.createGain();
+            impact.type = 'sine';
+            impact.frequency.setValueAtTime(opening ? 78 : 64, now);
+            impact.frequency.exponentialRampToValueAtTime(42, now + .16);
+            impactGain.gain.setValueAtTime(.08, now);
+            impactGain.gain.exponentialRampToValueAtTime(.0001, now + .17);
+            impact.connect(impactGain).connect(audioContext.destination);
+            impact.start(now);
+            impact.stop(now + .18);
+          } catch (error) { /* Sound is optional when the browser blocks it. */ }
+        };
+        const setAccordionState = (details, opening) => {
+          const panel = details.querySelector('.help-panel');
+          const activeAnimation = accordionAnimations.get(details);
+          const currentHeight = panel.offsetHeight;
+          if (activeAnimation) activeAnimation.cancel();
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            details.open = opening;
+            details.classList.remove('is-closing');
+            panel.removeAttribute('style');
+            return;
+          }
+          if (opening) {
+            details.classList.remove('is-closing');
+            details.open = true;
+            const endHeight = panel.scrollHeight;
+            panel.style.height = `${currentHeight}px`;
+            const animation = panel.animate([
+              { height:`${currentHeight}px`, opacity:currentHeight ? 1 : 0, transform:'translateY(-24px) scale(.97)', filter:'blur(8px)' },
+              { height:`${endHeight}px`, opacity:1, transform:'translateY(0) scale(1)', filter:'blur(0)' }
+            ], { duration:520, easing:'cubic-bezier(.23,1,.32,1)' });
+            accordionAnimations.set(details, animation);
+            animation.onfinish = () => { panel.removeAttribute('style'); accordionAnimations.delete(details); };
+          } else if (details.open) {
+            details.classList.add('is-closing');
+            panel.style.height = `${currentHeight}px`;
+            const animation = panel.animate([
+              { height:`${currentHeight}px`, opacity:1, transform:'translateY(0) scale(1)', filter:'blur(0)' },
+              { height:'0px', opacity:0, transform:'translateY(-14px) scale(.985)', filter:'blur(5px)' }
+            ], { duration:300, easing:'cubic-bezier(.77,0,.175,1)' });
+            accordionAnimations.set(details, animation);
+            animation.onfinish = () => { details.open = false; details.classList.remove('is-closing'); panel.removeAttribute('style'); accordionAnimations.delete(details); };
+          }
+        };
+        const toggleAccordion = (details) => {
+          const opening = !details.open || details.classList.contains('is-closing');
+          if (opening) accordionItems.forEach((item) => { if (item !== details && item.open) setAccordionState(item, false); });
+          setAccordionState(details, opening);
+          playAccordionSound(opening);
+          if (typeof navigator.vibrate === 'function') navigator.vibrate(opening ? [28, 22, 48] : [34, 16, 20]);
+        };
+        accordionItems.forEach((details) => {
+          const summary = details.querySelector('summary');
+          summary.addEventListener('click', (event) => { event.preventDefault(); toggleAccordion(details); });
+          summary.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleAccordion(details);
+          });
+        });
         const playClick = () => {
           try {
             audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
@@ -150,7 +259,7 @@
             oscillator.stop(audioContext.currentTime + .065);
           } catch (error) { /* Audio is optional when the browser blocks it. */ }
         };
-        document.addEventListener('pointerdown', (event) => { if (event.isPrimary && typeof navigator.vibrate === 'function') navigator.vibrate(8); }, { passive: true });
+        document.addEventListener('pointerdown', (event) => { if (event.target.closest('.help-item summary')) return; if (event.isPrimary && typeof navigator.vibrate === 'function') navigator.vibrate(8); }, { passive: true });
         document.addEventListener('click', (event) => { if (event.target.closest('a,button')) playClick(); });
       })();
     </script>
