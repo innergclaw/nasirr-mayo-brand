@@ -23,6 +23,9 @@ test("featured mentorship card includes both required actions", () => {
 });
 
 test("hire links heading sits between mentorship and links 01 through 04", () => {
+  assert.match(html, /HIRE MY COMPANY TO HELP YOU/);
+  assert.doesNotMatch(html, /HIRE ME LINKS/);
+  assert.match(mentorshipScript, /HIRE MY COMPANY TO HELP YOU/);
   const mentorshipIndex = html.indexOf("mentorship-main-card is-visible");
   const headingIndex = html.indexOf('id="hire-links-title"');
   const firstLinkIndex = html.indexOf(">01</span");
