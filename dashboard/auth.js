@@ -7,6 +7,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const status = document.querySelector("#dashboard-status");
 const content = document.querySelector("#dashboard-content");
 const email = document.querySelector("#member-email");
+const founderOperationsLink = document.querySelector("#founder-operations-link");
+const FOUNDER_ID = "75677100-97b7-4578-92c5-cf131997b580";
 let redirecting = false;
 
 const setStatus = (message, state = "") => { status.textContent = message; status.dataset.state = state; };
@@ -21,6 +23,7 @@ const render = (session) => {
   content.classList.add("is-visible");
   status.classList.add("is-hidden");
   email.textContent = session.user.email ? `Signed in as ${session.user.email}.` : "Your member access is active.";
+  founderOperationsLink.hidden = session.user.id !== FOUNDER_ID;
 };
 
 supabase.auth.onAuthStateChange((_event, session) => { if (!redirecting) render(session); });
