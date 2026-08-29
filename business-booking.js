@@ -7,9 +7,9 @@
     section.id = sectionId;
     section.setAttribute("aria-labelledby", "talk-business-title");
     section.innerHTML = `
-      <p class="section-label">LET’S TALK BUSINESS</p>
-      <h2 id="talk-business-title">Choose the right next step.</h2>
-      <p class="talk-business-intro">Have a project in mind? Start with a short fit check, or bring the full brief when you are ready to map the work.</p>
+      <p class="section-label">BOOK NASIRR</p>
+      <h2 id="talk-business-title">Get the right help for the work.</h2>
+      <p class="talk-business-intro">Book a short fit call for direction, or use the full briefing to plan a website or digital system.</p>
       <div class="talk-business-actions">
         <a class="talk-business-action" href="https://cal.com/ownyourwebsmm/15min" target="_blank" rel="noopener noreferrer">
           <span class="talk-business-time">15 MIN</span>

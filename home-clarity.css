@@ -1,0 +1,225 @@
+.profile-header > .social-menu,
+.link-tree-footer > .social-menu {
+  display: none;
+}
+
+.profile-statement {
+  max-width: 52ch;
+  margin: 16px auto 0;
+  color: #55554f;
+  font-size: 15px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.profile-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 17px;
+  border-radius: 999px;
+  color: #f8f8f4;
+  background: #171717;
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.08),
+    0 8px 22px rgba(23, 23, 23, 0.1);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition-property: transform, background-color, color, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.profile-action--channels {
+  color: #171717;
+  background: #caff37;
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.08),
+    0 8px 22px rgba(107, 137, 25, 0.14);
+}
+
+.profile-action:hover {
+  transform: translateY(-2px);
+}
+
+.profile-action:active {
+  transform: scale(0.96);
+}
+
+.profile-action:focus-visible,
+.official-channel:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 3px;
+}
+
+.official-channels {
+  width: 100%;
+  margin: 0 0 30px;
+  padding: 22px;
+  border-radius: 18px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.08),
+    0 1px 2px -1px rgba(23, 23, 23, 0.08),
+    0 12px 32px rgba(23, 23, 23, 0.06);
+}
+
+.official-channels__heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.official-channels__heading p,
+.official-channels__heading span,
+.official-channel small {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.official-channels__heading p {
+  margin: 0;
+  color: #6e6e68;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.official-channels__heading h2 {
+  margin: 6px 0 0;
+  font-size: clamp(24px, 5vw, 34px);
+  letter-spacing: -0.045em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.official-channels__heading > span {
+  max-width: 22ch;
+  color: #777771;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: end;
+}
+
+.official-channels__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.official-channel {
+  display: grid;
+  min-width: 0;
+  min-height: 64px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  color: #171717;
+  background: rgba(247, 247, 242, 0.94);
+  box-shadow: 0 0 0 1px rgba(23, 23, 23, 0.07);
+  text-decoration: none;
+  transition-property: transform, background-color, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.official-channel:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.08),
+    0 8px 18px rgba(23, 23, 23, 0.07);
+}
+
+.official-channel:active {
+  transform: scale(0.96);
+}
+
+.official-channel strong,
+.official-channel small {
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.official-channel strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.official-channel small {
+  margin-top: 4px;
+  color: #74746e;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.official-channel > span:last-child {
+  font-size: 16px;
+}
+
+@media (max-width: 560px) {
+  .profile-statement {
+    font-size: 14px;
+  }
+
+  .profile-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .profile-action {
+    padding-inline: 12px;
+  }
+
+  .official-channels {
+    padding: 18px;
+  }
+
+  .official-channels__heading {
+    display: block;
+  }
+
+  .official-channels__heading > span {
+    display: block;
+    max-width: none;
+    margin-top: 9px;
+    text-align: start;
+  }
+
+  .official-channels__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-action,
+  .official-channel {
+    transition: none;
+  }
+
+  .profile-action:hover,
+  .profile-action:active,
+  .official-channel:hover,
+  .official-channel:active {
+    transform: none;
+  }
+}
