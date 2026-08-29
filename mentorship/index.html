@@ -13,8 +13,11 @@
       a { color:inherit; }
       .mentorship-page { overflow:clip; }
       .shell { width:min(100% - 40px,1080px); margin:0 auto; }
-      .topline { display:flex; justify-content:space-between; gap:18px; padding:24px 0; color:#777d75; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+      .topline { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:18px; align-items:center; padding:18px 0; color:#777d75; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
       .topline a { text-decoration:none; }
+      .topline-context { justify-self:end; }
+      .member-access { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:0 18px; border:1px solid var(--ink); background:var(--accent); box-shadow:4px 4px 0 var(--ink); color:var(--ink); font-size:12px; font-weight:800; letter-spacing:.02em; text-align:center; text-transform:none; transition:transform 150ms cubic-bezier(.23,1,.32,1),box-shadow 150ms cubic-bezier(.23,1,.32,1),background-color 180ms ease-out,color 180ms ease-out; }
+      .member-access[data-state="signed-in"] { background:var(--ink); box-shadow:4px 4px 0 var(--accent); color:var(--paper); }
       .hero { min-height:92svh; padding-bottom:12vh; }
       .hero-kicker { padding-top:12vh; margin:0 0 28px; color:#7a8178; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
       .hero-title { max-width:980px; margin:0; font-size:clamp(58px,12vw,164px); line-height:.8; letter-spacing:-.11em; }
@@ -56,9 +59,11 @@
       .offer-actions { display:grid; gap:8px; margin-top:auto; }
       .offer-actions .start-link { margin-top:0; }
       .start-link.secondary { border-color:#596259; color:var(--dark-muted); }
-      @media (hover:hover) and (pointer:fine) { .offer-card:hover { border-color:var(--accent); background:#1b211b; transform:translateY(-4px); } .start-link:hover { color:var(--dark); background:var(--accent); } .start-link.secondary:hover { border-color:var(--dark-muted); color:#f7f6f0; background:transparent; } .footer-link:hover { color:var(--paper); background:var(--ink); } .topline a:hover { color:var(--ink); } }
+      @media (hover:hover) and (pointer:fine) { .offer-card:hover { border-color:var(--accent); background:#1b211b; transform:translateY(-4px); } .start-link:hover { color:var(--dark); background:var(--accent); } .start-link.secondary:hover { border-color:var(--dark-muted); color:#f7f6f0; background:transparent; } .footer-link:hover { color:var(--paper); background:var(--ink); } .topline > a:hover { color:var(--ink); } .member-access:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); } .member-access[data-state="signed-in"]:hover { box-shadow:6px 6px 0 var(--accent); } }
       .start-link:active,.footer-link:active { transform:scale(.97); transition-duration:120ms; }
-      .start-link:active,.footer-link:active,.topline a:active { opacity:.82; }
+      .member-access:active { transform:scale(.96); box-shadow:2px 2px 0 var(--ink); }
+      .member-access[data-state="signed-in"]:active { box-shadow:2px 2px 0 var(--accent); }
+      .start-link:active,.footer-link:active,.topline > a:active { opacity:.82; }
       .support-note { max-width:620px; margin:34px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.6; }
       .free-resource-note { max-width:720px; margin:12px 0 0; color:#8f978f; font-size:11px; line-height:1.55; letter-spacing:.01em; }
       .free-resource-note a { color:var(--dark-muted); text-underline-offset:3px; }
@@ -109,7 +114,7 @@
       footer span:first-child { color:var(--ink); font-weight:700; }
       .start-link:focus-visible,.footer-link:focus-visible,.topline a:focus-visible { outline:3px solid #6d8cff; outline-offset:4px; }
       @media (hover:hover) and (pointer:fine) { .help-item summary:hover .help-toggle { transform:rotate(90deg) scale(1.08); border-color:var(--ink); } .help-item[open] summary:hover .help-toggle { transform:rotate(225deg) scale(1.12); } }
-      @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .help-heading{grid-template-columns:1fr;gap:24px;margin-bottom:36px} .help-item summary{grid-template-columns:minmax(0,1fr) 46px;gap:12px;min-height:104px}.help-summary-main{align-items:flex-start}.help-years{grid-column:1;justify-self:start;margin-left:54px;text-align:start}.help-toggle{grid-column:2;grid-row:1 / span 2}.help-panel-inner{grid-template-columns:1fr;gap:12px;padding:24px 58px 30px}.closing{grid-template-columns:1fr}.closing-actions{width:100%} }
+      @media (max-width:760px) { .shell{width:min(100% - 32px,600px)} .topline{grid-template-columns:auto 1fr}.topline-context{grid-column:1 / -1;grid-row:2;justify-self:end}.member-access{grid-column:2;grid-row:1;justify-self:end;max-width:230px}.hero{min-height:90svh} .hero-kicker{padding-top:8vh} .hero-title{font-size:clamp(58px,16vw,110px)} .hero-lede{margin-top:44px} .highlight-band{margin-right:calc((100vw - min(100vw - 32px,600px)) / -2);margin-left:calc((100vw - min(100vw - 32px,600px)) / -2);padding-right:16px;padding-left:16px;line-height:1.5} .offer-grid{grid-template-columns:1fr} .offer-card{min-height:0} .offer-card h3{margin-top:34px} .help-heading{grid-template-columns:1fr;gap:24px;margin-bottom:36px} .help-item summary{grid-template-columns:minmax(0,1fr) 46px;gap:12px;min-height:104px}.help-summary-main{align-items:flex-start}.help-years{grid-column:1;justify-self:start;margin-left:54px;text-align:start}.help-toggle{grid-column:2;grid-row:1 / span 2}.help-panel-inner{grid-template-columns:1fr;gap:12px;padding:24px 58px 30px}.closing{grid-template-columns:1fr}.closing-actions{width:100%} }
       @media (max-width:480px) { .topline{font-size:9px} .panel-heading{display:block} .panel-index{display:block;margin-top:18px} .help-intro{font-size:15px} .help-item summary::before{inset:0 -16px}.help-summary-main{gap:8px}.help-number,.help-dash{padding-top:5px}.help-item h3{font-size:23px}.help-years{margin-left:44px}.help-panel-inner{padding:24px 44px 28px}.help-panel p{font-size:15px}.clarity p,.closing p{font-size:15px} footer{flex-wrap:wrap;font-size:9px} }
       @keyframes gentleFade { 0% { opacity:.35; } 100% { opacity:1; } }
       @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .word,.offer-card,.start-link,.footer-link,.reveal,.help-item summary,.help-item summary::before,.help-number,.help-dash,.help-item h3,.help-years,.help-toggle,.help-toggle::before,.help-toggle::after{transition:none} .animate-on-scroll{animation:gentleFade 180ms ease-out both!important;opacity:1;transform:none} .word.is-current{transform:none} .word::after{opacity:.45;transform:none;transition:none} .offer-card:hover{transform:none} .reveal{opacity:1;transform:none} .help-item[open] .help-number,.help-item[open] .help-dash,.help-item[open] h3,.help-item[open] .help-years,.help-item[open] .help-toggle{transform:none}.help-panel{filter:none;transform:none} }
@@ -118,7 +123,7 @@
   <body>
     <main class="mentorship-page">
       <div class="shell">
-        <div class="topline"><a href="../">BACK TO NASIRR</a><span><a href="../account/">MEMBER ACCESS</a> · MENTORSHIP / ACCOUNTABILITY</span></div>
+        <div class="topline"><a href="../">BACK TO NASIRR</a><span class="topline-context">MENTORSHIP / ACCOUNTABILITY</span><a class="member-access" id="member-access" href="../account/" data-state="signed-out" aria-label="Log in to member access" aria-live="polite">Log In</a></div>
         <header class="hero" aria-labelledby="hero-title">
           <p class="hero-kicker">Speed is not the same as rushing</p>
           <h1 class="hero-title" id="hero-title"><span class="word" data-step="0">Stop rushing.</span><span class="word" data-step="1">See the move.</span><span class="word" data-step="2">Move with intent.</span><span class="word" data-step="3">Bring it to life.</span></h1>
@@ -263,5 +268,6 @@
         document.addEventListener('click', (event) => { if (event.target.closest('a,button')) playClick(); });
       })();
     </script>
+    <script type="module" src="./member-access.js"></script>
   </body>
 </html>
