@@ -22,6 +22,16 @@ test("featured mentorship card includes both required actions", () => {
   assert.match(html, /href="account\/"[\s\S]*MEMBER ACCESS/);
 });
 
+test("hire links heading sits between mentorship and links 01 through 04", () => {
+  const mentorshipIndex = html.indexOf("mentorship-main-card is-visible");
+  const headingIndex = html.indexOf('id="hire-links-title"');
+  const firstLinkIndex = html.indexOf(">01</span");
+
+  assert.ok(mentorshipIndex >= 0);
+  assert.ok(headingIndex > mentorshipIndex);
+  assert.ok(firstLinkIndex > headingIndex);
+});
+
 test("home page removes hire link and names InnerG education", () => {
   assert.doesNotMatch(html, /HIRE \/ BOOK ME/);
   assert.match(html, /INNERG INTEL EDUCATION/);

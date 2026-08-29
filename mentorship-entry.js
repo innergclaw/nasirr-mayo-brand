@@ -26,6 +26,15 @@
   const getTitle = (card) =>
     card.querySelector(".link-copy strong")?.textContent.trim().toUpperCase();
 
+  const buildHeading = () => {
+    const heading = document.createElement("section");
+    heading.className = "hire-links";
+    heading.setAttribute("aria-labelledby", "hire-links-title");
+    heading.innerHTML =
+      '<p class="section-label" id="hire-links-title">HIRE ME LINKS</p>';
+    return heading;
+  };
+
   const mountCard = () => {
     document
       .querySelectorAll(".home-reference-room, .mentorship-entry, .account-entry")
@@ -49,6 +58,14 @@
 
     if (!list.querySelector(".mentorship-main-card")) {
       list.prepend(buildCard());
+    }
+
+    const mainCard = list.querySelector(".mentorship-main-card");
+    const headings = [...document.querySelectorAll(".hire-links")];
+    const heading = headings.shift() || buildHeading();
+    headings.forEach((duplicate) => duplicate.remove());
+    if (mainCard && mainCard.nextElementSibling !== heading) {
+      mainCard.insertAdjacentElement("afterend", heading);
     }
 
     const numbers = new Map([
