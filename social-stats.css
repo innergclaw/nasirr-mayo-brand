@@ -106,6 +106,14 @@
   gap: 18px;
 }
 
+.social-stats__card--youtube .social-stats__metrics {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+}
+
+.social-stats--home .social-stats__card--youtube .social-stats__metric:last-child strong {
+  font-size: clamp(27px, 5vw, 34px);
+}
+
 .social-stats__card--instagram .social-stats__metrics,
 .social-stats__card--substack .social-stats__metrics {
   grid-template-columns: 1fr;
