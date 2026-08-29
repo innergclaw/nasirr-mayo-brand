@@ -1,4 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
+import { DASHBOARD_PATH, isRecoveryCallback, shouldRedirectToDashboard } from "./auth-flow.mjs";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
@@ -9,6 +10,9 @@ const memberEmail = document.querySelector("#member-email");
 const providerButtons = [...document.querySelectorAll("[data-provider]")];
 const emailForm = document.querySelector("#email-form");
 const emailButton = document.querySelector('[data-email-action="signin"]');
+const recoveryForm = document.querySelector("#recovery-form");
+let recoveryMode = isRecoveryCallback(window.location.hash);
+let redirecting = false;
 
 const setStatus = (message, state = "") => {
   status.textContent = message;
@@ -21,9 +25,21 @@ const showSession = (session) => {
   memberCard.classList.toggle("is-visible", signedIn);
   providerButtons.forEach((button) => { button.hidden = signedIn; });
   emailForm.hidden = signedIn;
+  if (recoveryMode) {
+    recoveryForm.hidden = false;
+    providerButtons.forEach((button) => { button.hidden = true; });
+    emailForm.hidden = true;
+    memberCard.classList.remove("is-visible");
+    setStatus("Choose a new password to finish recovery.");
+    return;
+  }
   if (signedIn) {
     memberEmail.textContent = user.email || "Your account is ready.";
     setStatus("Account access is active.", "success");
+    if (shouldRedirectToDashboard({ session, recovery: recoveryMode, currentPath: window.location.pathname })) {
+      redirecting = true;
+      window.location.replace(DASHBOARD_PATH);
+    }
   }
 };
 
@@ -79,6 +95,27 @@ const submitEmail = async (mode) => {
 emailForm.addEventListener("submit", (event) => { event.preventDefault(); submitEmail("signup"); });
 emailButton.addEventListener("click", () => submitEmail("signin"));
 
+recoveryForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(recoveryForm);
+  const password = String(formData.get("password") || "");
+  const confirmation = String(formData.get("password-confirm") || "");
+  if (password.length < 8 || password !== confirmation) {
+    setStatus("Use at least 8 characters and make both passwords match.", "error");
+    return;
+  }
+  const button = recoveryForm.querySelector("button");
+  button.disabled = true;
+  setStatus("Updating your password...");
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) { button.disabled = false; setStatus("We could not update your password. Please request a new recovery email.", "error"); return; }
+  recoveryMode = false;
+  recoveryForm.hidden = true;
+  setStatus("Password updated. Opening your member dashboard...", "success");
+  redirecting = true;
+  window.location.replace(DASHBOARD_PATH);
+});
+
 document.querySelector("#sign-out").addEventListener("click", async () => {
   await supabase.auth.signOut();
   providerButtons.forEach((button) => { button.hidden = false; button.disabled = false; });
@@ -88,7 +125,10 @@ document.querySelector("#sign-out").addEventListener("click", async () => {
   setStatus("You are signed out.");
 });
 
-supabase.auth.onAuthStateChange((_event, session) => showSession(session));
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === "PASSWORD_RECOVERY") recoveryMode = true;
+  if (!redirecting) showSession(session);
+});
 const { data: { session } } = await supabase.auth.getSession();
-showSession(session);
+if (!redirecting) showSession(session);
 showAuthError();

@@ -44,6 +44,11 @@
       .member-card strong { display:block; margin-bottom:8px; color:#f7f6f0; font-size:20px; letter-spacing:-.04em; }
       .sign-out { margin-top:20px; padding:11px 14px; border:1px solid var(--dark-muted); color:#f7f6f0; background:transparent; cursor:pointer; font:700 10px/1 var(--font); letter-spacing:.1em; text-transform:uppercase; }
       .fine-print { margin:28px 0 0; color:#7f897f; font-size:11px; line-height:1.6; }
+      .recovery-form { display:grid; gap:10px; margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
+      .recovery-form[hidden] { display:none; }
+      .recovery-form label { display:grid; gap:7px; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+      .recovery-form input { width:100%; min-height:48px; padding:12px 13px; border:1px solid var(--line); border-radius:10px; color:var(--ink); background:#fff; font:16px/1.3 var(--font); }
+      .recovery-form input:focus-visible { outline:3px solid #6d8cff; outline-offset:2px; }
       @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .provider-button{transition:none} .provider-button:active{transform:none} }
     </style>
   </head>
@@ -70,6 +75,13 @@
               <button class="provider-button" type="submit" data-email-action="signup">Create account</button>
               <button class="provider-button" type="button" data-email-action="signin">Sign in</button>
             </div>
+          </form>
+          <form class="recovery-form" id="recovery-form" hidden>
+            <label for="recovery-password">New password</label>
+            <input id="recovery-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
+            <label for="recovery-password-confirm">Confirm new password</label>
+            <input id="recovery-password-confirm" name="password-confirm" type="password" autocomplete="new-password" minlength="8" required />
+            <button class="provider-button" type="submit">Update password</button>
           </form>
           <p class="status" id="auth-status" role="status" aria-live="polite"></p>
         </section>
