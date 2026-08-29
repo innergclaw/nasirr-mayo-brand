@@ -210,20 +210,34 @@ document.querySelector("#refresh").addEventListener("click", async () => {
   }
 });
 
-const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-if (sessionError || !session?.user) {
-  window.location.replace("../../account/");
-} else if (session.user.id !== FOUNDER_ID) {
-  accessStatus.querySelector("h1").textContent = "Founder access only.";
-  accessStatus.querySelector(".hero-note").textContent = "Return to the member dashboard to continue.";
-  accessStatus.querySelector(".secure-note").hidden = true;
-} else {
+const visualTest = ["127.0.0.1", "localhost"].includes(window.location.hostname) &&
+  new URLSearchParams(window.location.search).get("visual-test") === "1";
+
+if (visualTest) {
   operations.hidden = false;
-  signedInAs.textContent = session.user.email ? `Signed in as ${session.user.email}.` : "Founder access active.";
-  try {
-    await refresh();
-  } catch (error) {
-    console.error(error);
-    setCommandStatus("Founder access is active, but the cloud queue could not load.", "error");
+  renderAgents([
+    { id: "onboarding-concierge", agent_number: 5, name: "Onboarding Concierge", role: "Organizes approved clients, missing information, invitations, and workspace preparation.", status: "active", capability_tags: ["client intake", "invitation drafts", "workspaces"] },
+    { id: "project-coordinator", agent_number: 6, name: "Project Coordinator", role: "Tracks status, deadlines, files, feedback, blockers, and next actions across client work.", status: "active", capability_tags: ["project status", "deadlines", "next actions"] },
+    { id: "bulletin-editor", agent_number: 7, name: "Bulletin Editor", role: "Organizes InnerG Intel resources and prepares member bulletin drafts for approval.", status: "active", capability_tags: ["InnerG Intel", "resources", "bulletin drafts"] },
+  ]);
+  renderQueues([], [], []);
+  signedInAs.textContent = "Local visual test. No cloud data loaded.";
+} else {
+  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError || !session?.user) {
+    window.location.replace("../../account/");
+  } else if (session.user.id !== FOUNDER_ID) {
+    accessStatus.querySelector("h1").textContent = "Founder access only.";
+    accessStatus.querySelector(".hero-note").textContent = "Return to the member dashboard to continue.";
+    accessStatus.querySelector(".secure-note").hidden = true;
+  } else {
+    operations.hidden = false;
+    signedInAs.textContent = session.user.email ? `Signed in as ${session.user.email}.` : "Founder access active.";
+    try {
+      await refresh();
+    } catch (error) {
+      console.error(error);
+      setCommandStatus("Founder access is active, but the cloud queue could not load.", "error");
+    }
   }
 }
