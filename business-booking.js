@@ -27,16 +27,21 @@
   };
 
   const mountSection = () => {
-    if (document.getElementById(sectionId)) return;
-    const reference = document.querySelector(".home-reference-room");
-    const ambassador = document.querySelector("#odyssey-ambassador");
-    const footer = document.querySelector(".link-tree-footer");
-    const anchor = ambassador || footer;
-    if (!reference?.parentElement) return;
-    reference.parentElement.insertBefore(buildSection(), anchor || null);
+    const section = document.getElementById(sectionId) || buildSection();
+    const video = document.querySelector(".video-card");
+    if (!video?.parentElement) return;
+    if (video.previousElementSibling !== section) {
+      video.parentElement.insertBefore(section, video);
+    }
   };
 
-  mountSection();
-  const observer = new MutationObserver(mountSection);
-  observer.observe(document.body, { childList: true, subtree: true });
+  const start = () => {
+    mountSection();
+    const observer = new MutationObserver(mountSection);
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
+
+  const startAfterPageReady = () => window.setTimeout(start, 150);
+  if (document.readyState === "complete") startAfterPageReady();
+  else window.addEventListener("load", startAfterPageReady, { once: true });
 })();

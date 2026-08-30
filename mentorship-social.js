@@ -14,6 +14,12 @@
   };
 
   const mount = () => document.querySelectorAll('.social-menu__items').forEach(addMentorshipLink);
-  mount();
-  new MutationObserver(mount).observe(document.body, { childList: true, subtree: true });
+  const start = () => {
+    mount();
+    new MutationObserver(mount).observe(document.body, { childList: true, subtree: true });
+  };
+
+  const startAfterPageReady = () => window.setTimeout(start, 150);
+  if (document.readyState === 'complete') startAfterPageReady();
+  else window.addEventListener('load', startAfterPageReady, { once: true });
 })();

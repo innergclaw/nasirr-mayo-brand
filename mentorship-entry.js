@@ -42,6 +42,7 @@
 
     const list = document.querySelector(".link-list");
     if (!list) return;
+    list.classList.add("company-services");
 
     list.querySelectorAll(".link-card").forEach((card) => {
       const title = getTitle(card);
@@ -64,10 +65,6 @@
     const headings = [...document.querySelectorAll(".hire-links")];
     const heading = headings.shift() || buildHeading();
     headings.forEach((duplicate) => duplicate.remove());
-    if (mainCard && mainCard.nextElementSibling !== heading) {
-      mainCard.insertAdjacentElement("afterend", heading);
-    }
-
     const numbers = new Map([
       ["OWNYOURWEB SYSTEMS", "01"],
       ["INNERG INTEL EDUCATION", "02"],
@@ -82,12 +79,43 @@
         numberNode.textContent = number;
       }
     });
+
+    const serviceTitles = [...numbers.keys()];
+    const serviceCards = serviceTitles
+      .map((title) =>
+        [...list.querySelectorAll(".link-card")].find(
+          (card) => getTitle(card) === title,
+        ),
+      )
+      .filter(Boolean);
+
+    if (list.firstElementChild !== heading) {
+      list.prepend(heading);
+    }
+
+    let anchor = heading;
+    serviceCards.forEach((card) => {
+      if (anchor.nextElementSibling !== card) {
+        anchor.insertAdjacentElement("afterend", card);
+      }
+      anchor = card;
+    });
+
+    if (mainCard && anchor.nextElementSibling !== mainCard) {
+      anchor.insertAdjacentElement("afterend", mainCard);
+    }
   };
 
-  mountCard();
-  const observer = new MutationObserver(mountCard);
-  observer.observe(document.body, { childList: true, subtree: true });
-  [250, 750, 1500, 3000].forEach((delay) =>
-    window.setTimeout(mountCard, delay),
-  );
+  const start = () => {
+    mountCard();
+    const observer = new MutationObserver(mountCard);
+    observer.observe(document.body, { childList: true, subtree: true });
+    [250, 750, 1500, 3000].forEach((delay) =>
+      window.setTimeout(mountCard, delay),
+    );
+  };
+
+  const startAfterPageReady = () => window.setTimeout(start, 150);
+  if (document.readyState === "complete") startAfterPageReady();
+  else window.addEventListener("load", startAfterPageReady, { once: true });
 })();

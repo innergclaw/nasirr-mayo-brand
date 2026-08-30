@@ -106,8 +106,12 @@
 
     const header = document.querySelector(".profile-header");
     const role = header?.querySelector(".profile-role");
+    const about = document.querySelector(".about");
+    if (header && role && about && role.nextElementSibling !== about) {
+      role.insertAdjacentElement("afterend", about);
+    }
     if (header && role && !header.querySelector(".profile-statement")) {
-      role.after(buildStatement());
+      (about || role).after(buildStatement());
     }
 
     const stats = document.getElementById("social-audience-stats");
@@ -136,10 +140,43 @@
       bookingIntro.textContent =
         "Book a short fit call for direction, or use the full briefing to plan a website or digital system.";
     }
+
+    const shell = document.querySelector(".link-tree-shell");
+    const video = document.querySelector(".video-card");
+    const linkList = document.querySelector(".link-list");
+    const ambassador = document.getElementById("odyssey-ambassador");
+    const footer = document.querySelector(".link-tree-footer");
+    const orderedSections = [
+      document.getElementById("social-audience-stats"),
+      document.getElementById(sectionId),
+      linkList,
+      booking,
+      video,
+      ambassador,
+      footer,
+    ].filter(Boolean);
+
+    if (shell && header) {
+      let anchor = header;
+      orderedSections.forEach((section) => {
+        if (anchor.nextElementSibling !== section) {
+          anchor.insertAdjacentElement("afterend", section);
+        }
+        anchor = section;
+      });
+    }
   };
 
-  mount();
-  const observer = new MutationObserver(mount);
-  observer.observe(document.body, { childList: true, subtree: true });
-  [250, 750, 1500, 3000].forEach((delay) => window.setTimeout(mount, delay));
+  const start = () => {
+    mount();
+    const observer = new MutationObserver(mount);
+    observer.observe(document.body, { childList: true, subtree: true });
+    [250, 750, 1500, 3000].forEach((delay) =>
+      window.setTimeout(mount, delay),
+    );
+  };
+
+  const startAfterPageReady = () => window.setTimeout(start, 150);
+  if (document.readyState === "complete") startAfterPageReady();
+  else window.addEventListener("load", startAfterPageReady, { once: true });
 })();

@@ -22,19 +22,15 @@ test("featured mentorship card includes both required actions", () => {
   assert.match(html, /href="account\/"[\s\S]*MEMBER ACCESS/);
 });
 
-test("hire links heading sits between mentorship and links 01 through 04", () => {
+test("hire links lead the service list and mentorship follows the services", () => {
   assert.match(html, /HIRE MY COMPANY TO HELP YOU/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
   assert.match(mentorshipScript, /HIRE MY COMPANY TO HELP YOU/);
-  const mentorshipIndex = html.indexOf("mentorship-main-card is-visible");
-  const headingIndex = html.indexOf('id="hire-links-title"');
-  const firstLinkIndex = html.indexOf(">01</span");
-
-  assert.ok(mentorshipIndex >= 0);
-  assert.ok(headingIndex > mentorshipIndex);
-  assert.ok(firstLinkIndex > headingIndex);
-  assert.match(html, /"\$L8","\$L7"/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-2/);
+  assert.match(mentorshipScript, /list\.classList\.add\("company-services"\)/);
+  assert.match(mentorshipScript, /list\.prepend\(heading\)/);
+  assert.match(mentorshipScript, /serviceCards\.forEach/);
+  assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-3/);
 });
 
 test("home page removes hire link and names InnerG education", () => {

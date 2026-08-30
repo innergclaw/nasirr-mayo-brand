@@ -8,8 +8,14 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=1/);
-  assert.match(home, /home-clarity\.js\?v=1/);
+  assert.match(home, /home-clarity\.css\?v=2/);
+  assert.match(home, /home-clarity\.js\?v=2/);
+});
+
+test("scroll order starts with About Me and ends with video before Odyssey", () => {
+  assert.match(script, /role\.insertAdjacentElement\("afterend", about\)/);
+  assert.match(script, /const orderedSections = \[/);
+  assert.match(script, /linkList,[\s\S]*booking,[\s\S]*video,[\s\S]*ambassador,[\s\S]*footer/);
 });
 
 test("top actions lead to booking and official channels", () => {

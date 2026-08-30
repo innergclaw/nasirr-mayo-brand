@@ -9,17 +9,26 @@ const script = await readFile(new URL("social-stats.js", root), "utf8");
 const styles = await readFile(new URL("social-stats.css", root), "utf8");
 
 test("both public pages load the shared social statistics files", () => {
-  assert.match(home, /social-stats\.css\?v=3/);
-  assert.match(home, /social-stats\.js\?v=2/);
+  assert.match(home, /social-stats\.css\?v=4/);
+  assert.match(home, /social-stats\.js\?v=3/);
   assert.match(mentorship, /social-stats\.css\?v=3/);
   assert.match(mentorship, /social-stats\.js\?v=2/);
 });
 
 test("social statistics use the supplied values", () => {
-  assert.match(script, /<strong>719<\/strong><small>Subscribers<\/small>/);
-  assert.match(script, /<strong>200,000\+<\/strong><small>Views<\/small>/);
-  assert.match(script, /<strong>10K\+<\/strong><small>Followers<\/small>/);
-  assert.match(script, /<strong>65<\/strong><small>Subscribers<\/small>/);
+  assert.match(script, /data-count-target="719"/);
+  assert.match(script, /data-count-target="200000"/);
+  assert.match(script, /data-count-target="10" data-count-suffix="K\+"/);
+  assert.match(script, /Founders &amp; Business Owners Helped/);
+  assert.match(script, /data-count-target="500" data-count-suffix="\+"/);
+  assert.doesNotMatch(script, /Substack has 65 subscribers/);
+});
+
+test("social numbers count up once when their cards enter the viewport", () => {
+  assert.match(script, /new IntersectionObserver/);
+  assert.match(script, /observer\.unobserve\(entry\.target\)/);
+  assert.match(script, /prefers-reduced-motion: reduce/);
+  assert.match(script, /window\.requestAnimationFrame\(step\)/);
 });
 
 test("the script mounts one section in the correct page location", () => {

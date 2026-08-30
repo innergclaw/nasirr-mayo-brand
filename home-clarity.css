@@ -3,6 +3,12 @@
   display: none;
 }
 
+.profile-header > .about {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+
 .profile-statement {
   max-width: 52ch;
   margin: 16px auto 0;
@@ -75,6 +81,55 @@
     0 0 0 1px rgba(23, 23, 23, 0.08),
     0 1px 2px -1px rgba(23, 23, 23, 0.08),
     0 12px 32px rgba(23, 23, 23, 0.06);
+}
+
+.company-services {
+  gap: 14px;
+  margin-top: 0;
+}
+
+.company-services > .hire-links {
+  margin-top: 4px;
+  padding: 28px 4px 10px;
+  border-top: 1px solid rgba(23, 23, 23, 0.12);
+}
+
+.company-services > .hire-links .section-label {
+  display: block;
+  max-width: 500px;
+  color: #171717;
+  font-size: clamp(25px, 5.5vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.company-services > .link-card:not(.mentorship-main-card) {
+  min-height: 102px;
+  gap: 20px;
+  padding: 21px 22px;
+}
+
+.company-services > .link-card:not(.mentorship-main-card) .link-number {
+  font-size: 13px;
+}
+
+.company-services > .link-card:not(.mentorship-main-card) .link-copy {
+  gap: 7px;
+}
+
+.company-services > .link-card:not(.mentorship-main-card) .link-copy strong {
+  font-size: 16px;
+  letter-spacing: -0.025em;
+}
+
+.company-services > .link-card:not(.mentorship-main-card) .link-copy small {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.company-services > .mentorship-main-card {
+  margin-top: 18px;
 }
 
 .official-channels__heading {
@@ -207,6 +262,15 @@
 
   .official-channels__grid {
     grid-template-columns: 1fr;
+  }
+
+  .company-services > .hire-links {
+    padding-top: 24px;
+  }
+
+  .company-services > .link-card:not(.mentorship-main-card) {
+    min-height: 96px;
+    padding: 18px 16px;
   }
 }
 

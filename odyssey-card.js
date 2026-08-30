@@ -38,15 +38,25 @@
   };
 
   const mountCard = () => {
-    if (document.getElementById(cardId)) return;
+    const existing = document.getElementById(cardId);
+    const card = existing || buildCard();
+    const video = document.querySelector(".video-card");
     const referenceRoom = document.querySelector(".home-reference-room");
     const footer = document.querySelector(".link-tree-footer");
-    const anchor = referenceRoom || footer;
+    const anchor = video || referenceRoom || footer;
     if (!anchor?.parentElement) return;
-    anchor.insertAdjacentElement("afterend", buildCard());
+    if (anchor.nextElementSibling !== card) {
+      anchor.insertAdjacentElement("afterend", card);
+    }
   };
 
-  mountCard();
-  const observer = new MutationObserver(mountCard);
-  observer.observe(document.body, { childList: true, subtree: true });
+  const start = () => {
+    mountCard();
+    const observer = new MutationObserver(mountCard);
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
+
+  const startAfterPageReady = () => window.setTimeout(start, 150);
+  if (document.readyState === "complete") startAfterPageReady();
+  else window.addEventListener("load", startAfterPageReady, { once: true });
 })();
