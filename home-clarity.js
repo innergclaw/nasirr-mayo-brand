@@ -33,11 +33,6 @@
       handle: "@InnerGNas",
       href: "https://x.com/InnerGNas",
     },
-    {
-      name: "GitHub",
-      handle: "@innergclaw",
-      href: "https://github.com/innergclaw",
-    },
   ];
 
   const buildStatement = () => {
@@ -123,8 +118,8 @@
     const bookingLabel = booking?.querySelector(".section-label");
     const bookingTitle = booking?.querySelector("#talk-business-title");
     const bookingIntro = booking?.querySelector(".talk-business-intro");
-    if (bookingLabel && bookingLabel.textContent !== "BOOK NASIRR") {
-      bookingLabel.textContent = "BOOK NASIRR";
+    if (bookingLabel && bookingLabel.textContent !== "SPEAK WITH ME") {
+      bookingLabel.textContent = "SPEAK WITH ME";
     }
     if (
       bookingTitle &&

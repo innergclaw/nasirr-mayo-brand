@@ -7,7 +7,7 @@
     section.id = sectionId;
     section.setAttribute("aria-labelledby", "talk-business-title");
     section.innerHTML = `
-      <p class="section-label">BOOK NASIRR</p>
+      <p class="section-label">SPEAK WITH ME</p>
       <h2 id="talk-business-title">Get the right help for the work.</h2>
       <p class="talk-business-intro">Book a short fit call for direction, or use the full briefing to plan a website or digital system.</p>
       <div class="talk-business-actions">

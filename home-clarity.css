@@ -96,12 +96,13 @@
 
 .company-services > .hire-links .section-label {
   display: block;
-  max-width: 500px;
+  max-width: none;
   color: #171717;
-  font-size: clamp(25px, 5.5vw, 38px);
+  font-size: clamp(17px, 4.5vw, 30px);
   font-weight: 800;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .company-services > .link-card:not(.mentorship-main-card) {
