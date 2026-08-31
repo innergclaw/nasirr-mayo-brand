@@ -1,29 +1,64 @@
 .odyssey-card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   margin: 0;
   padding: 34px;
-  border: 1px solid #d6d0c4;
+  border: 0;
+  border-radius: 18px;
   background: #11110f;
   color: #f4f0e7;
+  box-shadow:
+    0 0 0 1px rgb(23 23 23 / 10%),
+    0 22px 60px rgb(23 23 23 / 16%),
+    0 0 42px rgb(202 255 55 / 22%);
+  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1), box-shadow 220ms ease;
 }
 
+.odyssey-card::before,
 .odyssey-card::after {
   position: absolute;
-  right: -46px;
-  bottom: -80px;
-  width: 210px;
-  height: 210px;
-  border: 1px solid rgb(244 240 231 / 16%);
-  border-radius: 50%;
   content: "";
 }
 
-.odyssey-card__header,
-.odyssey-card__actions,
-.odyssey-card__footer {
+.odyssey-card::before {
+  z-index: -2;
+  inset: -65%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 31%,
+    #caff37 39%,
+    #f4f0e7 47%,
+    #caff37 55%,
+    transparent 63% 100%
+  );
+  animation: odyssey-border-spin 5.5s linear infinite;
+}
+
+.odyssey-card::after {
+  z-index: -1;
+  inset: 2px;
+  border-radius: 16px;
+  background: #11110f;
+}
+
+.odyssey-card > * {
   position: relative;
   z-index: 1;
+}
+
+.odyssey-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgb(23 23 23 / 10%),
+    0 26px 70px rgb(23 23 23 / 20%),
+    0 0 60px rgb(202 255 55 / 34%);
+}
+
+@keyframes odyssey-border-spin {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .odyssey-card__header {
@@ -175,7 +210,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .odyssey-card,
   .odyssey-card__link {
     transition: none;
+  }
+
+  .odyssey-card::before {
+    animation: none;
+  }
+
+  .odyssey-card:hover {
+    transform: none;
   }
 }

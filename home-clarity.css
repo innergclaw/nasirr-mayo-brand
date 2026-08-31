@@ -9,15 +9,6 @@
   text-align: left;
 }
 
-.profile-statement {
-  max-width: 52ch;
-  margin: 16px auto 0;
-  color: #55554f;
-  font-size: 15px;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
 .profile-actions {
   display: flex;
   flex-wrap: wrap;
@@ -231,11 +222,36 @@
   font-size: 16px;
 }
 
-@media (max-width: 560px) {
-  .profile-statement {
-    font-size: 14px;
-  }
+.founder-footer-quote {
+  width: 100%;
+  margin: 0 0 22px;
+  padding: 0 0 22px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.14);
+  color: #30302c;
+  text-align: left;
+}
 
+.founder-footer-quote p {
+  max-width: 42ch;
+  margin: 0;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.founder-footer-quote cite {
+  display: block;
+  margin-top: 12px;
+  color: #777771;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+@media (max-width: 560px) {
   .profile-actions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -41,9 +41,10 @@
     const existing = document.getElementById(cardId);
     const card = existing || buildCard();
     const video = document.querySelector(".video-card");
+    const booking = document.getElementById("talk-business");
     const referenceRoom = document.querySelector(".home-reference-room");
     const footer = document.querySelector(".link-tree-footer");
-    const anchor = video || referenceRoom || footer;
+    const anchor = booking || video || referenceRoom || footer;
     if (!anchor?.parentElement) return;
     if (anchor.nextElementSibling !== card) {
       anchor.insertAdjacentElement("afterend", card);

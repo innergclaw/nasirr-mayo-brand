@@ -35,23 +35,24 @@
     },
   ];
 
-  const buildStatement = () => {
-    const fragment = document.createDocumentFragment();
-    const statement = document.createElement("p");
+  const buildProfileActions = () => {
     const actions = document.createElement("nav");
-
-    statement.className = "profile-statement";
-    statement.textContent =
-      "I help founders, creatives, and business owners shape ideas, build brands, launch websites, and organize digital systems they can own. This is the main place to find my work, book help, and connect with my official channels.";
 
     actions.className = "profile-actions";
     actions.setAttribute("aria-label", "Start here");
     actions.innerHTML = `
-      <a class="profile-action" href="#talk-business">BOOK ME</a>
+      <a class="profile-action" href="#talk-business">SPEAK WITH ME</a>
       <a class="profile-action profile-action--channels" href="#${sectionId}">FIND MY CHANNELS</a>`;
+    return actions;
+  };
 
-    fragment.append(statement, actions);
-    return fragment;
+  const buildFooterQuote = () => {
+    const quote = document.createElement("blockquote");
+    quote.className = "founder-footer-quote";
+    quote.innerHTML = `
+      <p>"I help founders, creatives, and business owners shape ideas, build brands, launch websites, and organize digital systems they can own."</p>
+      <cite>NASIRR G. MAYO</cite>`;
+    return quote;
   };
 
   const buildChannels = () => {
@@ -105,8 +106,9 @@
     if (header && role && about && role.nextElementSibling !== about) {
       role.insertAdjacentElement("afterend", about);
     }
-    if (header && role && !header.querySelector(".profile-statement")) {
-      (about || role).after(buildStatement());
+    header?.querySelectorAll(".profile-statement").forEach((item) => item.remove());
+    if (header && role && !header.querySelector(".profile-actions")) {
+      (about || role).after(buildProfileActions());
     }
 
     const stats = document.getElementById("social-audience-stats");
@@ -141,12 +143,15 @@
     const linkList = document.querySelector(".link-list");
     const ambassador = document.getElementById("odyssey-ambassador");
     const footer = document.querySelector(".link-tree-footer");
+    if (footer && !footer.querySelector(".founder-footer-quote")) {
+      footer.prepend(buildFooterQuote());
+    }
     const orderedSections = [
       document.getElementById("social-audience-stats"),
       document.getElementById(sectionId),
+      video,
       linkList,
       booking,
-      video,
       ambassador,
       footer,
     ].filter(Boolean);

@@ -8,20 +8,22 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=3/);
-  assert.match(home, /home-clarity\.js\?v=3/);
+  assert.match(home, /home-clarity\.css\?v=4/);
+  assert.match(home, /home-clarity\.js\?v=4/);
 });
 
-test("scroll order starts with About Me and ends with video before Odyssey", () => {
+test("scroll order places the video under official channels", () => {
   assert.match(script, /role\.insertAdjacentElement\("afterend", about\)/);
   assert.match(script, /const orderedSections = \[/);
-  assert.match(script, /linkList,[\s\S]*booking,[\s\S]*video,[\s\S]*ambassador,[\s\S]*footer/);
+  assert.match(script, /document\.getElementById\(sectionId\),[\s\S]*video,[\s\S]*linkList,[\s\S]*booking,[\s\S]*ambassador,[\s\S]*footer/);
 });
 
 test("top actions lead to booking and official channels", () => {
-  assert.match(script, /href="#talk-business">BOOK ME/);
+  assert.match(script, /href="#talk-business">SPEAK WITH ME/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(script, /I help founders, creatives, and business owners/);
+  assert.doesNotMatch(script, /This is the main place to find my work/);
+  assert.match(script, /founder-footer-quote/);
   assert.match(script, /bookingLabel\.textContent = "SPEAK WITH ME"/);
   assert.match(script, /bookingTitle\.textContent = "Get the right help for the work\."/);
   assert.match(script, /bookingLabel\.textContent !== "SPEAK WITH ME"/);
@@ -45,6 +47,16 @@ test("official channel directory uses verified public links", () => {
 test("company services heading stays on one line", () => {
   assert.match(styles, /font-size:\s*clamp\(17px, 4\.5vw, 30px\)/);
   assert.match(styles, /white-space:\s*nowrap/);
+});
+
+test("scheduled calls use phone icons and Odyssey uses the featured glow", async () => {
+  const booking = await readFile(new URL("business-booking.js", root), "utf8");
+  const odyssey = await readFile(new URL("odyssey-card.css", root), "utf8");
+  assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
+  assert.match(odyssey, /border-radius:\s*18px/);
+  assert.match(odyssey, /conic-gradient/);
+  assert.match(odyssey, /animation:\s*odyssey-border-spin/);
+  assert.match(odyssey, /prefers-reduced-motion:\s*reduce/);
 });
 
 test("the page removes duplicate icon menus and keeps touch targets", () => {

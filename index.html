@@ -9,9 +9,9 @@
       href="/_next/static/chunks/0_4aywx-3i3z1.css"
       data-precedence="next"
     />
-    <link rel="stylesheet" href="/odyssey-card.css?v=2" />
+    <link rel="stylesheet" href="/odyssey-card.css?v=3" />
     <link rel="stylesheet" href="/social-stats.css?v=4" />
-    <link rel="stylesheet" href="/home-clarity.css?v=3" />
+    <link rel="stylesheet" href="/home-clarity.css?v=4" />
     <link rel="stylesheet" href="/home-motion.css?v=1" />
     <style>
       .talk-business {
@@ -204,9 +204,9 @@
 
       .talk-business-action {
         display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 2px 14px;
-        align-items: start;
+        grid-template-columns: 42px auto minmax(0, 1fr);
+        gap: 10px 13px;
+        align-items: center;
         padding: 16px 17px;
         border: 1px solid var(--line);
         border-radius: 14px;
@@ -229,11 +229,31 @@
       }
 
       .talk-business-time {
-        grid-row: span 2;
-        padding-top: 2px;
         color: #999;
         font-size: 11px;
         letter-spacing: 0.08em;
+      }
+
+      .talk-business-icon {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #171717;
+        background: #caff37;
+        box-shadow: 0 0 0 1px #17171714, 0 8px 18px #6b891926;
+      }
+
+      .talk-business-icon svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .talk-business-copy {
+        display: grid;
+        gap: 3px;
       }
 
       .talk-business-action strong {
@@ -469,7 +489,7 @@
             </div>
           </article>
           <section class="hire-links" aria-labelledby="hire-links-title">
-            <p class="section-label" id="hire-links-title">HIRE MY COMPANY TO HELP YOU</p>
+            <p class="section-label" id="hire-links-title">HOW CAN I HELP YOU?</p>
           </section>
           <a
             class="link-card"
@@ -538,9 +558,22 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+              <span class="talk-business-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7.2 3.5 9.6 7l-1.8 2.1a15.7 15.7 0 0 0 7.1 7.1l2.1-1.8 3.5 2.4-.9 3.1c-.2.7-.9 1.2-1.7 1.1A17.1 17.1 0 0 1 3 6.1c-.1-.8.4-1.5 1.1-1.7l3.1-.9Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  /></svg
+              ></span>
               <span class="talk-business-time">15 MIN</span>
-              <strong>Project fit call</strong>
-              <small>Decide the best next step for your idea.</small>
+              <span class="talk-business-copy"
+                ><strong>Project fit call</strong
+                ><small>Decide the best next step for your idea.</small></span
+              >
             </a>
             <a
               class="talk-business-action"
@@ -548,13 +581,34 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+              <span class="talk-business-icon" aria-hidden="true"
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7.2 3.5 9.6 7l-1.8 2.1a15.7 15.7 0 0 0 7.1 7.1l2.1-1.8 3.5 2.4-.9 3.1c-.2.7-.9 1.2-1.7 1.1A17.1 17.1 0 0 1 3 6.1c-.1-.8.4-1.5 1.1-1.7l3.1-.9Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  /></svg
+              ></span>
               <span class="talk-business-time">30 MIN</span>
-              <strong>Website &amp; system briefing</strong>
-              <small>Discuss goals, scope, timeline, and setup.</small>
+              <span class="talk-business-copy"
+                ><strong>Website &amp; system briefing</strong
+                ><small>Discuss goals, scope, timeline, and setup.</small></span
+              >
             </a>
           </div>
         </section>
         <footer class="link-tree-footer">
+          <blockquote class="founder-footer-quote">
+            <p>
+              "I help founders, creatives, and business owners shape ideas,
+              build brands, launch websites, and organize digital systems they
+              can own."
+            </p>
+            <cite>NASIRR G. MAYO</cite>
+          </blockquote>
           <span>NM</span
           ><span>Making useful things, one system at a time.</span>
           <div class="social-menu">
@@ -642,7 +696,7 @@
     <script type="application/json">
       self.__next_f.push([
         1,
-        '10:I[72126,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n11:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"OutletBoundary"]\n12:"$Sreact.suspense"\n14:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"ViewportBoundary"]\n16:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"MetadataBoundary"]\n7:["$","section",null,{"className":"hire-links","aria-labelledby":"hire-links-title","children":["$","p",null,{"className":"section-label","id":"hire-links-title","children":"HIRE MY COMPANY TO HELP YOU"}]}]\n8:["$","$L10",null,{"links":[{"number":"01","title":"OWNYOURWEB SYSTEMS","description":"Websites and digital systems you can actually control.","href":"https://ownyourweb.marketing/"},{"number":"02","title":"INNERG INTEL EDUCATION","description":"Education, systems, and the ideas behind the work.","href":"https://www.innergreads.study"},{"number":"03","title":"CREATIVE DESIGN SERVICES","description":"Graphics, branding, and creative services built with purpose.","href":"https://shopnasgfx.com/"},{"number":"04","title":"AGENT ACADEMY / COMING SOON","description":"Hands-on training for directing, building, and evaluating AI agent systems.","href":"","status":"COMING SOON"}]}]\n9:["$","section",null,{"className":"home-reference-room","aria-labelledby":"home-reference-title","children":[["$","div",null,{"className":"home-reference-heading","children":[["$","p",null,{"className":"section-label","children":"REFERENCE ROOM / CREATIVE ASSET RESOURCE"}],["$","span",null,{"children":"06"}]]}],["$","h2",null,{"id":"home-reference-title","children":"Give the next idea a better starting point."}],["$","p",null,{"children":"PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic AI can provide."}],["$","a",null,{"className":"home-reference-link","href":"resources/","children":["ENTER REFERENCE ROOM ",["$","span",null,{"children":"↗"}]]}]]}]\na:["$","footer",null,{"className":"link-tree-footer","children":[["$","span",null,{"children":"NM"}],["$","span",null,{"children":"Making useful things, one system at a time."}],["$","$L6",null,{}]]}]\nb:["$","script","script-0",{"src":"/_next/static/chunks/0qjebp~jsdyqi.js","async":true,"nonce":"$undefined"}]\nc:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]\nd:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]\nf:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]\n',
+        '10:I[72126,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n11:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"OutletBoundary"]\n12:"$Sreact.suspense"\n14:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"ViewportBoundary"]\n16:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"MetadataBoundary"]\n7:["$","section",null,{"className":"hire-links","aria-labelledby":"hire-links-title","children":["$","p",null,{"className":"section-label","id":"hire-links-title","children":"HOW CAN I HELP YOU?"}]}]\n8:["$","$L10",null,{"links":[{"number":"01","title":"OWNYOURWEB SYSTEMS","description":"Websites and digital systems you can actually control.","href":"https://ownyourweb.marketing/"},{"number":"02","title":"INNERG INTEL EDUCATION","description":"Education, systems, and the ideas behind the work.","href":"https://www.innergreads.study"},{"number":"03","title":"CREATIVE DESIGN SERVICES","description":"Graphics, branding, and creative services built with purpose.","href":"https://shopnasgfx.com/"},{"number":"04","title":"AGENT ACADEMY / COMING SOON","description":"Hands-on training for directing, building, and evaluating AI agent systems.","href":"","status":"COMING SOON"}]}]\n9:["$","section",null,{"className":"home-reference-room","aria-labelledby":"home-reference-title","children":[["$","div",null,{"className":"home-reference-heading","children":[["$","p",null,{"className":"section-label","children":"REFERENCE ROOM / CREATIVE ASSET RESOURCE"}],["$","span",null,{"children":"06"}]]}],["$","h2",null,{"id":"home-reference-title","children":"Give the next idea a better starting point."}],["$","p",null,{"children":"PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic AI can provide."}],["$","a",null,{"className":"home-reference-link","href":"resources/","children":["ENTER REFERENCE ROOM ",["$","span",null,{"children":"↗"}]]}]]}]\na:["$","footer",null,{"className":"link-tree-footer","children":[["$","span",null,{"children":"NM"}],["$","span",null,{"children":"Making useful things, one system at a time."}],["$","$L6",null,{}]]}]\nb:["$","script","script-0",{"src":"/_next/static/chunks/0qjebp~jsdyqi.js","async":true,"nonce":"$undefined"}]\nc:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]\nd:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]\nf:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]\n',
       ]);
     </script>
     <script type="application/json">
@@ -657,12 +711,12 @@
         '13:null\n17:[["$","title","0",{"children":"NASIRR \\"G\\" MAYO"}],["$","meta","1",{"name":"description","content":"NASIRR \\"G\\" MAYO — founder, creative digital designer, and developer based in Philadelphia."}],["$","link","2",{"rel":"canonical","href":"https://nasirr.innergintel.org/"}],["$","meta","3",{"property":"og:title","content":"NASIRR \\"G\\" MAYO"}],["$","meta","4",{"property":"og:description","content":"FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER"}],["$","meta","5",{"property":"og:url","content":"https://nasirr.innergintel.org/"}],["$","meta","6",{"property":"og:type","content":"website"}],["$","meta","7",{"name":"twitter:card","content":"summary"}],["$","meta","8",{"name":"twitter:title","content":"NASIRR \\"G\\" MAYO"}],["$","meta","9",{"name":"twitter:description","content":"FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER"}]]\n',
       ]);
     </script>
-    <script src="/odyssey-card.js?v=2"></script>
-    <script src="/business-booking.js?v=3"></script>
+    <script src="/odyssey-card.js?v=3"></script>
+    <script src="/business-booking.js?v=4"></script>
     <script src="/scramble-title.js?v=1"></script>
     <script src="/social-stats.js?v=3"></script>
-    <script src="/home-clarity.js?v=3"></script>
-    <script src="/mentorship-entry.js?v=featured-4"></script>
+    <script src="/home-clarity.js?v=4"></script>
+    <script src="/mentorship-entry.js?v=featured-5"></script>
     <script src="/account-entry.js?v=2"></script>
     <script src="/mentorship-social.js"></script>
     <script src="/home-motion.js?v=1"></script>

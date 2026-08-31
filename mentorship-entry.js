@@ -28,7 +28,7 @@
     heading.className = "hire-links";
     heading.setAttribute("aria-labelledby", "hire-links-title");
     heading.innerHTML =
-      '<p class="section-label" id="hire-links-title">HIRE MY COMPANY TO HELP YOU</p>';
+      '<p class="section-label" id="hire-links-title">HOW CAN I HELP YOU?</p>';
     return heading;
   };
 

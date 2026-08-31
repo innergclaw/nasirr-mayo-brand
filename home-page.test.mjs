@@ -34,14 +34,15 @@ test("mentorship member access uses the Home Base pill style", () => {
 });
 
 test("hire links lead the service list and mentorship follows the services", () => {
-  assert.match(html, /HIRE MY COMPANY TO HELP YOU/);
+  assert.match(html, /HOW CAN I HELP YOU\?/);
+  assert.doesNotMatch(html, /HIRE MY COMPANY TO HELP YOU/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
-  assert.match(mentorshipScript, /HIRE MY COMPANY TO HELP YOU/);
+  assert.match(mentorshipScript, /HOW CAN I HELP YOU\?/);
   assert.match(mentorshipScript, /list\.classList\.add\("company-services"\)/);
   assert.match(mentorshipScript, /list\.prepend\(heading\)/);
   assert.match(mentorshipScript, /serviceCards\.forEach/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-4/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-5/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
