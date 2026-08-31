@@ -19,9 +19,11 @@ test("Founder Q&A is a 30-minute call for $25", () => {
   );
 });
 
-test("Weekly Accountability keeps its separate 20-minute call length", () => {
-  assert.match(
-    html,
-    /<h3>Weekly Accountability<\/h3>[\s\S]*?Four 20-minute calls/,
-  );
+test("monthly mentorship uses the flexible $75 to $175 support range", () => {
+  assert.match(html, /type="range" min="75" max="175" step="5" value="125"/);
+  assert.match(html, /Choose the support that fits\./);
+  assert.match(html, /TEXT TO START AT \$125/);
+  assert.doesNotMatch(html, /Weekly Accountability/);
+  assert.doesNotMatch(html, /Personal Support/);
+  assert.doesNotMatch(html, /buy\.stripe\.com/);
 });
