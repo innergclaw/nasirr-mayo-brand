@@ -16,9 +16,6 @@
         <a class="mentorship-main-action mentorship-main-action-primary" href="mentorship/">
           <span>EXPLORE MENTORSHIP</span><span aria-hidden="true">↗</span>
         </a>
-        <a class="mentorship-main-action mentorship-main-action-secondary" href="account/">
-          <span>MEMBER ACCESS</span><span aria-hidden="true">↗</span>
-        </a>
       </div>`;
     return card;
   };

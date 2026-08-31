@@ -8,6 +8,10 @@ const mentorshipScript = await readFile(
   new URL("mentorship-entry.js", root),
   "utf8",
 );
+const mentorshipPage = await readFile(
+  new URL("mentorship/index.html", root),
+  "utf8",
+);
 
 test("home page has one featured mentorship card", () => {
   assert.equal(
@@ -17,9 +21,16 @@ test("home page has one featured mentorship card", () => {
   );
 });
 
-test("featured mentorship card includes both required actions", () => {
+test("featured mentorship card keeps one action", () => {
   assert.match(html, /href="mentorship\/"[\s\S]*EXPLORE MENTORSHIP/);
-  assert.match(html, /href="account\/"[\s\S]*MEMBER ACCESS/);
+  assert.doesNotMatch(html, /mentorship-main-action-secondary/);
+  assert.doesNotMatch(mentorshipScript, /MEMBER ACCESS/);
+});
+
+test("mentorship member access uses the Home Base pill style", () => {
+  assert.match(mentorshipPage, /class="member-access"/);
+  assert.match(mentorshipPage, /\.member-access \{[^}]*border-radius:999px/);
+  assert.match(mentorshipPage, /\.member-access:active \{ transform:scale\(\.96\)/);
 });
 
 test("hire links lead the service list and mentorship follows the services", () => {
@@ -30,7 +41,7 @@ test("hire links lead the service list and mentorship follows the services", () 
   assert.match(mentorshipScript, /list\.prepend\(heading\)/);
   assert.match(mentorshipScript, /serviceCards\.forEach/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-3/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-4/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
