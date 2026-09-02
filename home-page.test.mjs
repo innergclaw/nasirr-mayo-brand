@@ -47,8 +47,11 @@ test("hire links lead the service list and the featured card follows", () => {
   assert.match(mentorshipScript, /list\.classList\.add\("company-services"\)/);
   assert.match(mentorshipScript, /list\.prepend\(heading\)/);
   assert.match(mentorshipScript, /serviceCards\.forEach/);
+  assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", booking\)/);
+  assert.match(mentorshipScript, /if \(booking\) anchor = booking/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-6/);
+  assert.match(html, /business-booking\.js\?v=5/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-7/);
 });
 
 test("home page removes hire link and names InnerG education", () => {

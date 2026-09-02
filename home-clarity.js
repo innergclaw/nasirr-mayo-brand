@@ -152,7 +152,6 @@
       document.getElementById(sectionId),
       video,
       linkList,
-      booking,
       ambassador,
       footer,
     ].filter(Boolean);

@@ -9,13 +9,13 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=6/);
-  assert.match(home, /home-clarity\.js\?v=5/);
+  assert.match(home, /home-clarity\.js\?v=6/);
 });
 
 test("scroll order places the video under official channels", () => {
   assert.match(script, /role\.insertAdjacentElement\("afterend", about\)/);
   assert.match(script, /const orderedSections = \[/);
-  assert.match(script, /document\.getElementById\(sectionId\),[\s\S]*video,[\s\S]*linkList,[\s\S]*booking,[\s\S]*ambassador,[\s\S]*footer/);
+  assert.match(script, /document\.getElementById\(sectionId\),[\s\S]*video,[\s\S]*linkList,[\s\S]*ambassador,[\s\S]*footer/);
 });
 
 test("top actions lead to booking, services, and official channels", () => {
@@ -56,6 +56,7 @@ test("scheduled calls use phone icons and Odyssey uses the featured glow", async
   const booking = await readFile(new URL("business-booking.js", root), "utf8");
   const odyssey = await readFile(new URL("odyssey-card.css", root), "utf8");
   assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
+  assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
   assert.match(odyssey, /border-radius:\s*18px/);
   assert.match(odyssey, /conic-gradient/);
   assert.match(odyssey, /animation:\s*odyssey-border-spin/);

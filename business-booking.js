@@ -30,8 +30,11 @@
     const section = document.getElementById(sectionId) || buildSection();
     const linkList = document.querySelector(".link-list");
     if (!linkList?.parentElement) return;
-    if (linkList.nextElementSibling !== section) {
-      linkList.insertAdjacentElement("afterend", section);
+    const featuredCard = linkList.querySelector(".mentorship-main-card");
+    if (featuredCard && featuredCard.previousElementSibling !== section) {
+      featuredCard.insertAdjacentElement("beforebegin", section);
+    } else if (!featuredCard && section.parentElement !== linkList) {
+      linkList.append(section);
     }
   };
 

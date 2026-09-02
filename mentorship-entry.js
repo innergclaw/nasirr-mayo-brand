@@ -100,6 +100,12 @@
       anchor = card;
     });
 
+    const booking = document.getElementById("talk-business");
+    if (booking && anchor.nextElementSibling !== booking) {
+      anchor.insertAdjacentElement("afterend", booking);
+    }
+    if (booking) anchor = booking;
+
     if (mainCard && anchor.nextElementSibling !== mainCard) {
       anchor.insertAdjacentElement("afterend", mainCard);
     }
