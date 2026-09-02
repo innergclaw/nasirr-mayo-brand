@@ -54,9 +54,12 @@ test("company services heading stays on one line", () => {
 
 test("scheduled calls use phone icons and Odyssey uses the featured glow", async () => {
   const booking = await readFile(new URL("business-booking.js", root), "utf8");
+  const odysseyScript = await readFile(new URL("odyssey-card.js", root), "utf8");
   const odyssey = await readFile(new URL("odyssey-card.css", root), "utf8");
   assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
   assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
+  assert.match(odysseyScript, /const anchor = linkList \|\| booking \|\| video/);
+  assert.match(home, /odyssey-card\.js\?v=4/);
   assert.match(odyssey, /border-radius:\s*18px/);
   assert.match(odyssey, /conic-gradient/);
   assert.match(odyssey, /animation:\s*odyssey-border-spin/);

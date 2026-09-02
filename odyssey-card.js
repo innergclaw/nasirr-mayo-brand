@@ -40,11 +40,12 @@
   const mountCard = () => {
     const existing = document.getElementById(cardId);
     const card = existing || buildCard();
+    const linkList = document.querySelector(".link-list");
     const video = document.querySelector(".video-card");
     const booking = document.getElementById("talk-business");
     const referenceRoom = document.querySelector(".home-reference-room");
     const footer = document.querySelector(".link-tree-footer");
-    const anchor = booking || video || referenceRoom || footer;
+    const anchor = linkList || booking || video || referenceRoom || footer;
     if (!anchor?.parentElement) return;
     if (anchor.nextElementSibling !== card) {
       anchor.insertAdjacentElement("afterend", card);
