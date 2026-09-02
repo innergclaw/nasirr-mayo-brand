@@ -258,6 +258,10 @@
     width: 100%;
   }
 
+  .profile-action--channels {
+    grid-column: 1 / -1;
+  }
+
   .profile-action {
     padding-inline: 12px;
   }

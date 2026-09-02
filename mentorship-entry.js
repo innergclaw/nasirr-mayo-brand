@@ -27,6 +27,7 @@
   const buildHeading = () => {
     const heading = document.createElement("section");
     heading.className = "hire-links";
+    heading.id = "how-can-i-help";
     heading.setAttribute("aria-labelledby", "hire-links-title");
     heading.innerHTML =
       '<p class="section-label" id="hire-links-title">HOW CAN I HELP YOU?</p>';
