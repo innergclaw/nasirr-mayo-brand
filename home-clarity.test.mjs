@@ -58,6 +58,7 @@ test("scheduled calls use phone icons and Odyssey uses the featured glow", async
   const odyssey = await readFile(new URL("odyssey-card.css", root), "utf8");
   assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
   assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
+  assert.doesNotMatch(booking, /new MutationObserver/);
   assert.match(odysseyScript, /const anchor = linkList \|\| booking \|\| video/);
   assert.match(home, /odyssey-card\.js\?v=4/);
   assert.match(odyssey, /border-radius:\s*18px/);
