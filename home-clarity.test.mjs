@@ -8,7 +8,7 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=5/);
+  assert.match(home, /home-clarity\.css\?v=6/);
   assert.match(home, /home-clarity\.js\?v=5/);
 });
 
@@ -23,6 +23,7 @@ test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(home, /id="how-can-i-help"/);
+  assert.match(styles, /#how-can-i-help\s*{[\s\S]*scroll-margin-top:\s*96px/);
   assert.match(script, /I help founders, creatives, and business owners/);
   assert.doesNotMatch(script, /This is the main place to find my work/);
   assert.match(script, /founder-footer-quote/);
