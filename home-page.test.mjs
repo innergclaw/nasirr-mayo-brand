@@ -13,7 +13,7 @@ const mentorshipPage = await readFile(
   "utf8",
 );
 
-test("home page has one featured mentorship card", () => {
+test("home page has one featured investing card", () => {
   assert.equal(
     (html.match(/class="link-card mentorship-link-card mentorship-main-card is-visible"/g) ?? [])
       .length,
@@ -21,8 +21,14 @@ test("home page has one featured mentorship card", () => {
   );
 });
 
-test("featured mentorship card keeps one action", () => {
-  assert.match(html, /href="mentorship\/"[\s\S]*EXPLORE MENTORSHIP/);
+test("featured investing card keeps one disclosed referral action", () => {
+  assert.match(
+    html,
+    /href="https:\/\/join\.robinhood\.com\/nasirrm"[\s\S]*VIEW THE STARTING POINT/,
+  );
+  assert.match(html, /Referral link\. We may both receive a reward\./);
+  assert.match(html, /Investing involves\s+risk\./);
+  assert.match(mentorshipScript, /join\.robinhood\.com\/nasirrm/);
   assert.doesNotMatch(html, /mentorship-main-action-secondary/);
   assert.doesNotMatch(mentorshipScript, /MEMBER ACCESS/);
 });
@@ -33,7 +39,7 @@ test("mentorship member access uses the Home Base pill style", () => {
   assert.match(mentorshipPage, /\.member-access:active \{ transform:scale\(\.96\)/);
 });
 
-test("hire links lead the service list and mentorship follows the services", () => {
+test("hire links lead the service list and the featured card follows", () => {
   assert.match(html, /HOW CAN I HELP YOU\?/);
   assert.doesNotMatch(html, /HIRE MY COMPANY TO HELP YOU/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
@@ -42,7 +48,7 @@ test("hire links lead the service list and mentorship follows the services", () 
   assert.match(mentorshipScript, /list\.prepend\(heading\)/);
   assert.match(mentorshipScript, /serviceCards\.forEach/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-5/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-6/);
 });
 
 test("home page removes hire link and names InnerG education", () => {

@@ -3,20 +3,21 @@
     const card = document.createElement("article");
     card.className =
       "link-card mentorship-link-card mentorship-main-card is-visible";
-    card.setAttribute("aria-labelledby", "mentorship-main-title");
+    card.setAttribute("aria-labelledby", "featured-investing-title");
     card.innerHTML = `
       <div class="mentorship-main-meta">
-        <span>00 / FEATURED</span><span>GUIDANCE WITH FOLLOW-THROUGH</span>
+        <span>00 / FEATURED</span><span>INVESTING STARTING POINT</span>
       </div>
       <span class="link-copy">
-        <strong id="mentorship-main-title">MENTORSHIP / ACCOUNTABILITY</strong>
-        <small>Practical guidance, steady accountability, and direct support for your next move.</small>
+        <strong id="featured-investing-title">NEW TO INVESTING?</strong>
+        <small>For adults who are curious about investing and want a simple place to begin. Learn first, then move at your own pace.</small>
       </span>
       <div class="mentorship-main-actions">
-        <a class="mentorship-main-action mentorship-main-action-primary" href="mentorship/">
-          <span>EXPLORE MENTORSHIP</span><span aria-hidden="true">↗</span>
+        <a class="mentorship-main-action mentorship-main-action-primary" href="https://join.robinhood.com/nasirrm" target="_blank" rel="noreferrer sponsored">
+          <span>VIEW THE STARTING POINT</span><span aria-hidden="true">↗</span>
         </a>
-      </div>`;
+      </div>
+      <small class="mentorship-main-disclosure">Referral link. We may both receive a reward. Investing involves risk.</small>`;
     return card;
   };
 
