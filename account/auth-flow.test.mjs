@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isRecoveryCallback, shouldRedirectToAccount, shouldRedirectToDashboard } from "./auth-flow.mjs";
+import { getSafeDestination, isRecoveryCallback, shouldRedirectToAccount, shouldRedirectToDashboard } from "./auth-flow.mjs";
 
 test("authenticated account redirects to the dashboard", () => {
   assert.equal(shouldRedirectToDashboard({ session: { user: { id: "member" } } }), true);
@@ -25,4 +25,13 @@ test("authenticated dashboard does not redirect away", () => {
 
 test("dashboard guard only runs on the account path", () => {
   assert.equal(shouldRedirectToDashboard({ session: { user: {} }, currentPath: "/dashboard/" }), false);
+});
+
+test("membership is an allowed post-auth destination", () => {
+  assert.equal(getSafeDestination("?next=%2Fmembership%2F"), "/membership/");
+});
+
+test("untrusted post-auth destinations fall back to the dashboard", () => {
+  assert.equal(getSafeDestination("?next=https%3A%2F%2Fevil.example"), "/dashboard/");
+  assert.equal(getSafeDestination("?next=%2F%2Fevil.example"), "/dashboard/");
 });

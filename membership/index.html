@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Get your INNERG ID, join the community, or purchase The End-of-Year Frequency for $10." />
+    <title>INNERG member access | NASIRR G. MAYO</title>
+    <link rel="stylesheet" href="./membership.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#choices">Skip to membership choices</a>
+    <main>
+      <header class="site-header">
+        <a class="brand" href="../" aria-label="Return to Home Base">
+          <img src="../nasirr-g-mark-v2.png" alt="" width="42" height="42" />
+          <span>INNERG INTEL</span>
+        </a>
+        <a class="account-link" href="../account/?next=%2Fmembership%2F">Member sign in</a>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">INNERG MEMBER ACCESS</p>
+        <h1 id="page-title">Get your number.<br /><span>Enter the ecosystem.</span></h1>
+        <p class="hero-copy">Your INNERG ID confirms your place in the community. It connects your account to the spaces, resources, and releases built for members.</p>
+        <a class="primary-action" href="#choices">Choose your access</a>
+      </section>
+
+      <section class="preview-section" aria-labelledby="preview-title">
+        <div class="preview-copy">
+          <p class="eyebrow">NEW FROM INNERG INTEL</p>
+          <h2 id="preview-title">The End-of-Year Frequency.</h2>
+          <p>A 27-minute breakdown of the 2026 market cycle for people who want a clearer place to start.</p>
+        </div>
+        <div class="video-frame">
+          <video controls playsinline preload="metadata" poster="./assets/bull-cycle-poster.jpg">
+            <source src="./assets/bull-cycle-preview.mp4" type="video/mp4" />
+            Your browser does not support this video.
+          </video>
+          <span class="preview-label">Preview</span>
+        </div>
+      </section>
+
+      <section class="choices" id="choices" aria-labelledby="choices-title">
+        <p class="eyebrow">TWO WAYS IN</p>
+        <h2 id="choices-title">Start where you are.</h2>
+        <div class="choice-grid">
+          <article class="choice-card free-card">
+            <p class="choice-number">01</p>
+            <div>
+              <p class="choice-type">FREE MEMBERSHIP</p>
+              <h3>Become an INNERG member.</h3>
+              <p class="choice-description">Get your INNERG ID and enter the Discord community. The full video is not included.</p>
+              <ul>
+                <li>Personal INNERG ID</li>
+                <li>Discord community access</li>
+                <li>Member updates</li>
+              </ul>
+            </div>
+            <a class="card-action" href="../account/?next=%2Fmembership%2F">Get my free INNERG ID</a>
+          </article>
+
+          <article class="choice-card video-card" id="video-access">
+            <p class="choice-number">02</p>
+            <div>
+              <p class="choice-type">THE END-OF-YEAR FREQUENCY</p>
+              <h3>27 minutes.<br /><span class="price">$10</span></h3>
+              <p class="price-note">One-time purchase</p>
+              <p class="choice-description">Nasirr breaks down the 2026 market cycle, tokenization, stablecoins, AI, and practical ways beginners can start.</p>
+              <ul class="topic-list">
+                <li>Dollar-cost averaging and diversification</li>
+                <li>Common beginner mistakes to avoid</li>
+                <li>Nasirr's personal stock and ETF watchlist</li>
+                <li>Personal INNERG ID and Discord access</li>
+              </ul>
+              <p class="education-note">Educational information only. This is not financial advice.</p>
+            </div>
+            <button class="card-action purchase-action" type="button">Get the full video for $10</button>
+            <p class="purchase-status" id="purchase-status" role="status" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="full-video" id="full-video" hidden aria-labelledby="full-video-title">
+        <p class="eyebrow">YOUR VIDEO ACCESS</p>
+        <h2 id="full-video-title">The End-of-Year Frequency</h2>
+        <p>Your purchase is active. Press play when you are ready.</p>
+        <div class="video-frame">
+          <video id="member-video" controls playsinline preload="metadata" poster="./assets/bull-cycle-poster.jpg">
+            Your browser does not support this video.
+          </video>
+        </div>
+      </section>
+
+      <section class="member-panel" id="member-panel" hidden aria-live="polite">
+        <p class="eyebrow">YOUR MEMBER RECORD</p>
+        <h2>You are in.</h2>
+        <p class="member-number" id="member-number">Loading your INNERG ID...</p>
+        <p class="member-status" id="member-status"></p>
+        <div class="member-actions">
+          <a class="primary-action" id="discord-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Enter the Discord</a>
+          <a class="secondary-action" href="../dashboard/">Open member dashboard</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>INNERG INTEL</span>
+      <a href="../">Home Base</a>
+    </footer>
+    <script type="module" src="./membership.js"></script>
+  </body>
+</html>

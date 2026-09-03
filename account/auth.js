@@ -1,5 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
-import { DASHBOARD_PATH, isRecoveryCallback, shouldRedirectToDashboard } from "./auth-flow.mjs";
+import { DASHBOARD_PATH, getSafeDestination, isRecoveryCallback, shouldRedirectToDashboard } from "./auth-flow.mjs";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
@@ -13,6 +13,8 @@ const emailButton = document.querySelector('[data-email-action="signin"]');
 const recoveryForm = document.querySelector("#recovery-form");
 let recoveryMode = isRecoveryCallback(window.location.hash);
 let redirecting = false;
+const destination = getSafeDestination(window.location.search);
+const accountReturnUrl = `${window.location.origin}/account/?next=${encodeURIComponent(destination)}`;
 
 const setStatus = (message, state = "") => {
   status.textContent = message;
@@ -38,7 +40,7 @@ const showSession = (session) => {
     setStatus("Account access is active.", "success");
     if (shouldRedirectToDashboard({ session, recovery: recoveryMode, currentPath: window.location.pathname })) {
       redirecting = true;
-      window.location.replace(DASHBOARD_PATH);
+      window.location.replace(destination);
     }
   }
 };
@@ -56,7 +58,7 @@ providerButtons.forEach((button) => {
     setStatus("Opening secure sign-in...");
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: `${window.location.origin}/account/` },
+      options: { redirectTo: accountReturnUrl },
     });
     if (error) {
       providerButtons.forEach((item) => { item.disabled = false; });
@@ -77,7 +79,7 @@ const submitEmail = async (mode) => {
   emailButton.disabled = true;
   setStatus(mode === "signup" ? "Creating your account..." : "Signing you in...");
   const result = mode === "signup"
-    ? await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/account/` } })
+    ? await supabase.auth.signUp({ email, password, options: { emailRedirectTo: accountReturnUrl } })
     : await supabase.auth.signInWithPassword({ email, password });
   if (result.error) {
     providerButtons.forEach((button) => { button.disabled = false; });
@@ -113,7 +115,7 @@ recoveryForm.addEventListener("submit", async (event) => {
   recoveryForm.hidden = true;
   setStatus("Password updated. Opening your member dashboard...", "success");
   redirecting = true;
-  window.location.replace(DASHBOARD_PATH);
+  window.location.replace(destination || DASHBOARD_PATH);
 });
 
 document.querySelector("#sign-out").addEventListener("click", async () => {

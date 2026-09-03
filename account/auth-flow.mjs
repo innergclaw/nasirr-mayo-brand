@@ -1,5 +1,11 @@
 export const ACCOUNT_PATH = "/account/";
 export const DASHBOARD_PATH = "/dashboard/";
+export const ALLOWED_DESTINATIONS = new Set([DASHBOARD_PATH, "/membership/"]);
+
+export const getSafeDestination = (search = "") => {
+  const requested = new URLSearchParams(String(search).replace(/^\?/, "")).get("next");
+  return ALLOWED_DESTINATIONS.has(requested) ? requested : DASHBOARD_PATH;
+};
 
 export const isRecoveryCallback = (hash = "") => {
   const params = new URLSearchParams(String(hash).replace(/^#/, ""));
