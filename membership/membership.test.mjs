@@ -28,7 +28,8 @@ test("video preview uses a local MP4 and poster", () => {
 test("paid offer explains the 27-minute video and fixed price", () => {
   assert.match(html, /The End-of-Year Frequency/);
   assert.match(html, /27-minute breakdown/);
-  assert.match(html, /2026 market cycle/);
+  assert.match(html, /2026-2027 BULL SUPER CYCLE/);
+  assert.doesNotMatch(html, /2026 market cycle/i);
   assert.match(html, /tokenization/);
   assert.match(html, /stablecoins/);
   assert.match(html, /Dollar-cost averaging/);
