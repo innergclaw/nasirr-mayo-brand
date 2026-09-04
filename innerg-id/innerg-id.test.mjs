@@ -27,3 +27,21 @@ test("card motion respects reduced motion", () => {
   assert.match(html, /prefers-reduced-motion:reduce/);
   assert.match(js, /prefers-reduced-motion: reduce/);
 });
+
+test("member can save or share a completed INNERG ID", () => {
+  assert.match(html, /id="download-card"/);
+  assert.match(html, /id="share-card"/);
+  assert.match(js, /canvas\.toBlob/);
+  assert.match(js, /navigator\.share/);
+  assert.match(js, /new File\(\[blob\]/);
+  assert.match(js, /image\/png/);
+});
+
+test("member Media Hub uses verified release access", () => {
+  assert.match(html, /id="media-hub"/);
+  assert.match(html, /The End-of-Year Frequency/);
+  assert.match(html, /2026-2027 BULL SUPER CYCLE/);
+  assert.match(js, /member\.videoAccess && member\.videoUrl/);
+  assert.match(js, /mediaVideo\.src = member\.videoUrl/);
+  assert.match(html, /membership\/#video-access/);
+});

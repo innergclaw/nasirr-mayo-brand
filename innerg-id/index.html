@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="View and complete your private INNERG member ID." />
+    <meta name="description" content="View, save, and share your private INNERG member ID. Access member media and releases." />
     <title>Your INNERG ID | NASIRR G. MAYO</title>
     <style>
       :root { --paper:#f3f2ec; --ink:#171a16; --muted:#687068; --line:#d7d8ce; --acid:#caff37; --dark:#090b09; --dark-muted:#aeb5ae; --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; --ease-out:cubic-bezier(.23,1,.32,1); }
@@ -44,6 +44,13 @@
       .id-back h3 { position:relative; z-index:1; margin:0; max-width:82%; font-size:clamp(32px,4.8vw,52px); line-height:.88; letter-spacing:-.075em; text-align:left; }
       .id-back p { position:relative; z-index:1; margin:0; color:var(--dark-muted); font-size:12px; line-height:1.5; text-align:left; }
       .flip-note { margin:13px 0 0; color:#858d84; font-size:10px; letter-spacing:.1em; text-align:center; text-transform:uppercase; }
+      .card-tools { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
+      .card-tool { min-height:44px; padding:11px 14px; border:1px solid #4a514a; border-radius:10px; color:#f7f6f0; background:#171b17; cursor:pointer; font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease; }
+      .card-tool:first-child { border-color:var(--acid); color:#111; background:var(--acid); }
+      .card-tool:disabled { cursor:not-allowed; opacity:.42; }
+      .card-tool:active:not(:disabled) { transform:scale(.97); }
+      .share-note,.share-status { grid-column:1/-1; margin:3px 0 0; color:#858d84; font-size:10px; line-height:1.45; text-align:center; }
+      .share-status { min-height:15px; color:var(--acid); }
       .name-form { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px; }
       .name-form[hidden] { display:none; }
       .name-form label { display:grid; gap:7px; color:var(--dark-muted); font-size:10px; font-weight:750; letter-spacing:.1em; text-transform:uppercase; }
@@ -55,13 +62,29 @@
       .action { display:flex; align-items:flex-end; justify-content:space-between; min-height:104px; padding:18px; border:1px solid var(--line); background:#ffffff9c; text-decoration:none; transition:transform 180ms var(--ease-out),background-color 180ms ease; }
       .action strong { font-size:17px; letter-spacing:-.04em; }
       .action span { color:var(--muted); font-size:10px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+      .media-hub { margin-top:clamp(74px,10vw,120px); padding:clamp(28px,6vw,64px); color:#f7f6f0; background:var(--dark); border-radius:30px; scroll-margin-top:24px; }
+      .media-head { display:flex; align-items:flex-end; justify-content:space-between; gap:28px; margin-bottom:38px; }
+      .media-head .eyebrow { margin:0 0 12px; color:var(--acid); }
+      .media-head h2 { max-width:640px; margin:0; font-size:clamp(44px,7vw,86px); line-height:.87; letter-spacing:-.08em; text-wrap:balance; }
+      .media-count { color:#777f77; font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em; }
+      .media-release { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:clamp(24px,5vw,56px); align-items:center; padding-top:30px; border-top:1px solid #303630; }
+      .media-visual { position:relative; min-height:300px; overflow:hidden; border:1px solid #343a34; border-radius:18px; background:#101310; }
+      .media-visual img,.media-visual video { display:block; width:100%; height:100%; min-height:300px; object-fit:cover; }
+      .media-visual video[hidden],.media-visual img[hidden] { display:none; }
+      .media-stamp { position:absolute; top:14px; left:14px; padding:8px 10px; border:1px solid rgba(255,255,255,.24); border-radius:999px; color:#f7f6f0; background:rgba(9,11,9,.74); backdrop-filter:blur(10px); font-size:9px; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
+      .release-meta { margin:0 0 18px; color:var(--acid); font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+      .release-copy h3 { margin:0; font-size:clamp(36px,5vw,62px); line-height:.9; letter-spacing:-.07em; text-wrap:balance; }
+      .release-copy > p:not(.release-meta) { max-width:440px; margin:20px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.55; }
+      .media-action { display:inline-flex; min-height:46px; align-items:center; justify-content:center; margin-top:26px; padding:12px 17px; border:1px solid #f7f6f0; border-radius:999px; color:#f7f6f0; text-decoration:none; font-size:10px; font-weight:850; letter-spacing:.1em; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
+      .media-action:active { transform:scale(.97); }
+      .media-note { margin:22px 0 0; color:#747c74; font-size:10px; line-height:1.5; }
       .sign-out { margin-top:22px; min-height:44px; padding:12px 16px; border:1px solid var(--ink); color:var(--ink); background:transparent; cursor:pointer; font:750 11px/1 var(--font); letter-spacing:.1em; text-transform:uppercase; transition:transform 120ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
       .loading.is-hidden { display:none; }
       @keyframes reveal { from { opacity:0; transform:translateY(26px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
-      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } }
-      @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } }
-      @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .name-form { grid-template-columns:1fr; } }
-      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
+      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } }
+      @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } .media-release { grid-template-columns:1fr; } }
+      @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
+      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
     </style>
   </head>
   <body>
@@ -100,14 +123,44 @@
                 </span>
               </button>
               <p class="flip-note">Press the card to view both sides</p>
+              <div class="card-tools" aria-label="Save or share your INNERG ID">
+                <button class="card-tool" id="download-card" type="button" disabled>Save card</button>
+                <button class="card-tool" id="share-card" type="button" disabled>Share card</button>
+                <p class="share-note" id="share-note">Complete your name to save or share your card.</p>
+                <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
+              </div>
             </div>
           </div>
 
           <nav class="actions" aria-label="INNERG member destinations">
             <a class="action" href="https://discord.gg/3ryNWTvsX" target="_blank" rel="noopener noreferrer"><strong>INNERG Discord</strong><span>Enter</span></a>
-            <a class="action" href="../membership/"><strong>Member access</strong><span>Open</span></a>
+            <a class="action" href="#media-hub"><strong>Media Hub</strong><span>Watch</span></a>
             <a class="action" href="../"><strong>Home Base</strong><span>Return</span></a>
           </nav>
+
+          <section class="media-hub" id="media-hub" aria-labelledby="media-hub-title">
+            <header class="media-head">
+              <div>
+                <p class="eyebrow">Member Media Hub</p>
+                <h2 id="media-hub-title">Watch what is inside.</h2>
+              </div>
+              <span class="media-count">01 / RELEASE</span>
+            </header>
+            <article class="media-release">
+              <div class="media-visual">
+                <img id="media-poster" src="../membership/assets/bull-cycle-poster.jpg" alt="The End-of-Year Frequency video cover" />
+                <video id="media-video" controls playsinline preload="metadata" hidden aria-label="The End-of-Year Frequency full video"></video>
+                <span class="media-stamp" id="media-stamp">Member release</span>
+              </div>
+              <div class="release-copy">
+                <p class="release-meta">27 minutes / Finance and technology</p>
+                <h3>The End-of-Year Frequency</h3>
+                <p>A grounded breakdown of the 2026-2027 BULL SUPER CYCLE, tokenization, stablecoins, AI, DCA, diversification, and the mistakes beginners should avoid.</p>
+                <a class="media-action" id="media-action" href="../membership/#video-access">View release</a>
+                <p class="media-note" id="media-note">Your Media Hub will grow as new INNERG videos and member content are released.</p>
+              </div>
+            </article>
+          </section>
           <button class="sign-out" id="sign-out" type="button">Sign out</button>
         </section>
       </div>
