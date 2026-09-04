@@ -8,8 +8,8 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=6/);
-  assert.match(home, /home-clarity\.js\?v=7/);
+  assert.match(home, /home-clarity\.css\?v=7/);
+  assert.match(home, /home-clarity\.js\?v=8/);
 });
 
 test("scroll order places the video under official channels", () => {
@@ -21,7 +21,7 @@ test("scroll order places the video under official channels", () => {
 test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#talk-business">SPEAK WITH ME/);
   assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
-  assert.match(script, /href="\/account\/\?next=%2Finnerg-id%2F">BECOME A MEMBER/);
+  assert.match(script, /class="profile-action profile-action--member" href="\/innergid\/">GET YOUR INNERG ID/);
   assert.doesNotMatch(script, />MARKET WATCHLIST<\/a>/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(home, /id="how-can-i-help"/);
@@ -75,4 +75,9 @@ test("the page removes duplicate icon menus and keeps touch targets", () => {
   assert.match(styles, /min-height:\s*44px/);
   assert.match(styles, /transform:\s*scale\(0\.96\)/);
   assert.doesNotMatch(styles, /transition:\s*all/);
+});
+
+test("INNERG ID matches the full-width channel action on mobile", () => {
+  assert.match(styles, /\.profile-action--member,\s*\.profile-action--channels\s*{\s*grid-column:\s*1\s*\/\s*-1/);
+  assert.match(styles, /\.profile-action\s*{[\s\S]*background:\s*#171717/);
 });

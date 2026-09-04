@@ -262,6 +262,7 @@
     width: 100%;
   }
 
+  .profile-action--member,
   .profile-action--channels {
     grid-column: 1 / -1;
   }

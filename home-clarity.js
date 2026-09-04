@@ -43,7 +43,7 @@
     actions.innerHTML = `
       <a class="profile-action" href="#talk-business">SPEAK WITH ME</a>
       <a class="profile-action" href="#how-can-i-help">WORK WITH ME</a>
-      <a class="profile-action" href="/innergid/">GET YOUR INNERG ID</a>
+      <a class="profile-action profile-action--member" href="/innergid/">GET YOUR INNERG ID</a>
       <a class="profile-action profile-action--channels" href="#${sectionId}">FIND MY CHANNELS</a>`;
     return actions;
   };
