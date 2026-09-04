@@ -1,0 +1,25 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
+const js = await readFile(new URL("./auth.js", import.meta.url), "utf8");
+
+test("email access uses a six-digit one-time code", () => {
+  assert.match(html, /Email me a code/);
+  assert.match(html, /autocomplete="one-time-code"/);
+  assert.match(js, /signInWithOtp/);
+  assert.match(js, /verifyOtp\(\{ email: pendingEmail, token, type: "email" \}\)/);
+});
+
+test("normal member access no longer asks for a password", () => {
+  const emailForm = html.match(/<form class="email-form"[\s\S]*?<\/form>/)?.[0] || "";
+  assert.doesNotMatch(emailForm, /type="password"/);
+  assert.doesNotMatch(js, /signInWithPassword/);
+});
+
+test("Google and email verification open the safe member destination", () => {
+  assert.match(js, /signInWithOAuth/);
+  assert.match(js, /redirectTo: accountReturnUrl/);
+  assert.match(js, /window\.location\.replace\(destination\)/);
+});

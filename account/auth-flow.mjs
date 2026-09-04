@@ -1,10 +1,11 @@
 export const ACCOUNT_PATH = "/account/";
 export const DASHBOARD_PATH = "/dashboard/";
-export const ALLOWED_DESTINATIONS = new Set([DASHBOARD_PATH, "/membership/"]);
+export const INNERG_ID_PATH = "/innerg-id/";
+export const ALLOWED_DESTINATIONS = new Set([INNERG_ID_PATH, DASHBOARD_PATH, "/membership/"]);
 
 export const getSafeDestination = (search = "") => {
   const requested = new URLSearchParams(String(search).replace(/^\?/, "")).get("next");
-  return ALLOWED_DESTINATIONS.has(requested) ? requested : DASHBOARD_PATH;
+  return ALLOWED_DESTINATIONS.has(requested) ? requested : INNERG_ID_PATH;
 };
 
 export const isRecoveryCallback = (hash = "") => {
@@ -12,18 +13,18 @@ export const isRecoveryCallback = (hash = "") => {
   return params.get("type") === "recovery";
 };
 
-export const shouldRedirectToDashboard = ({
+export const shouldRedirectToDestination = ({
   session,
   recovery = false,
   currentPath = ACCOUNT_PATH,
   accountPath = ACCOUNT_PATH,
-  dashboardPath = DASHBOARD_PATH,
+  destination = INNERG_ID_PATH,
 } = {}) => Boolean(
-  session && !recovery && currentPath === accountPath && dashboardPath && dashboardPath !== accountPath,
+  session && !recovery && currentPath === accountPath && destination && destination !== accountPath,
 );
 
 export const shouldRedirectToAccount = ({
   session,
-  currentPath = DASHBOARD_PATH,
-  dashboardPath = DASHBOARD_PATH,
-} = {}) => Boolean(!session && currentPath === dashboardPath);
+  currentPath = INNERG_ID_PATH,
+  protectedPath = currentPath,
+} = {}) => Boolean(!session && currentPath === protectedPath);

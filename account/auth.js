@@ -1,5 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
-import { DASHBOARD_PATH, getSafeDestination, isRecoveryCallback, shouldRedirectToDashboard } from "./auth-flow.mjs";
+import { INNERG_ID_PATH, getSafeDestination, isRecoveryCallback, shouldRedirectToDestination } from "./auth-flow.mjs";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
@@ -9,8 +9,11 @@ const memberCard = document.querySelector("#member-card");
 const memberEmail = document.querySelector("#member-email");
 const providerButtons = [...document.querySelectorAll("[data-provider]")];
 const emailForm = document.querySelector("#email-form");
-const emailButton = document.querySelector('[data-email-action="signin"]');
+const codeForm = document.querySelector("#code-form");
+const codeEmail = document.querySelector("#code-email");
+const changeEmail = document.querySelector("#change-email");
 const recoveryForm = document.querySelector("#recovery-form");
+let pendingEmail = "";
 let recoveryMode = isRecoveryCallback(window.location.hash);
 let redirecting = false;
 const destination = getSafeDestination(window.location.search);
@@ -21,24 +24,43 @@ const setStatus = (message, state = "") => {
   status.dataset.state = state;
 };
 
+const setBusy = (busy) => {
+  providerButtons.forEach((button) => { button.disabled = busy; });
+  emailForm.querySelector("button").disabled = busy;
+  codeForm.querySelector("button[type=submit]").disabled = busy;
+};
+
+const showEmailEntry = () => {
+  codeForm.hidden = true;
+  emailForm.hidden = false;
+  emailForm.querySelector("input").focus();
+};
+
+const showCodeEntry = (email) => {
+  pendingEmail = email;
+  codeEmail.textContent = email;
+  emailForm.hidden = true;
+  codeForm.hidden = false;
+  codeForm.querySelector("input").focus();
+};
+
 const showSession = (session) => {
   const user = session?.user;
   const signedIn = Boolean(user);
-  memberCard.classList.toggle("is-visible", signedIn);
-  providerButtons.forEach((button) => { button.hidden = signedIn; });
-  emailForm.hidden = signedIn;
+  memberCard.classList.toggle("is-visible", signedIn && !recoveryMode);
+  providerButtons.forEach((button) => { button.hidden = signedIn || recoveryMode; });
+  emailForm.hidden = signedIn || recoveryMode || Boolean(pendingEmail);
+  codeForm.hidden = signedIn || recoveryMode || !pendingEmail;
   if (recoveryMode) {
     recoveryForm.hidden = false;
-    providerButtons.forEach((button) => { button.hidden = true; });
-    emailForm.hidden = true;
     memberCard.classList.remove("is-visible");
     setStatus("Choose a new password to finish recovery.");
     return;
   }
   if (signedIn) {
     memberEmail.textContent = user.email || "Your account is ready.";
-    setStatus("Account access is active.", "success");
-    if (shouldRedirectToDashboard({ session, recovery: recoveryMode, currentPath: window.location.pathname })) {
+    setStatus("Your INNERG member account is active.", "success");
+    if (shouldRedirectToDestination({ session, recovery: recoveryMode, currentPath: window.location.pathname, destination })) {
       redirecting = true;
       window.location.replace(destination);
     }
@@ -53,49 +75,67 @@ const showAuthError = () => {
 
 providerButtons.forEach((button) => {
   button.addEventListener("click", async () => {
-    const provider = button.dataset.provider;
-    providerButtons.forEach((item) => { item.disabled = true; });
-    setStatus("Opening secure sign-in...");
+    setBusy(true);
+    setStatus("Opening secure Google sign-in...");
     const { error } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider: button.dataset.provider,
       options: { redirectTo: accountReturnUrl },
     });
     if (error) {
-      providerButtons.forEach((item) => { item.disabled = false; });
-      setStatus("This sign-in option is still being connected. Please try another option or check back soon.", "error");
+      setBusy(false);
+      setStatus("Google sign-in could not open. Please try again or use an email code.", "error");
     }
   });
 });
 
-const submitEmail = async (mode) => {
-  const formData = new FormData(emailForm);
-  const email = String(formData.get("email") || "").trim();
-  const password = String(formData.get("password") || "");
-  if (!email || password.length < 8) {
-    setStatus("Enter a valid email and a password with at least 8 characters.", "error");
+emailForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const email = String(new FormData(emailForm).get("email") || "").trim();
+  if (!email) {
+    setStatus("Enter a valid email address.", "error");
     return;
   }
-  providerButtons.forEach((button) => { button.disabled = true; });
-  emailButton.disabled = true;
-  setStatus(mode === "signup" ? "Creating your account..." : "Signing you in...");
-  const result = mode === "signup"
-    ? await supabase.auth.signUp({ email, password, options: { emailRedirectTo: accountReturnUrl } })
-    : await supabase.auth.signInWithPassword({ email, password });
-  if (result.error) {
-    providerButtons.forEach((button) => { button.disabled = false; });
-    emailButton.disabled = false;
-    setStatus("We could not complete that request. Check your details and try again.", "error");
+  setBusy(true);
+  setStatus("Sending your secure sign-in code...");
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { shouldCreateUser: true, emailRedirectTo: accountReturnUrl },
+  });
+  setBusy(false);
+  if (error) {
+    setStatus("We could not send the code. Check the email and try again.", "error");
     return;
   }
-  if (mode === "signup" && !result.data.session) {
-    setStatus("Check your email to confirm your account, then return here to sign in.", "success");
-  } else {
-    setStatus("Account access is active.", "success");
-  }
-};
+  showCodeEntry(email);
+  setStatus("Check your email. Enter the six-digit code below.", "success");
+});
 
-emailForm.addEventListener("submit", (event) => { event.preventDefault(); submitEmail("signup"); });
-emailButton.addEventListener("click", () => submitEmail("signin"));
+codeForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const token = String(new FormData(codeForm).get("token") || "").replace(/\D/g, "");
+  if (!pendingEmail || token.length !== 6) {
+    setStatus("Enter the six-digit code from your email.", "error");
+    return;
+  }
+  setBusy(true);
+  setStatus("Confirming your code...");
+  const { data, error } = await supabase.auth.verifyOtp({ email: pendingEmail, token, type: "email" });
+  if (error || !data.session) {
+    setBusy(false);
+    setStatus("That code is not valid or has expired. Request a new code and try again.", "error");
+    return;
+  }
+  setStatus("Verified. Opening your INNERG ID...", "success");
+  redirecting = true;
+  window.location.replace(destination);
+});
+
+changeEmail.addEventListener("click", () => {
+  pendingEmail = "";
+  codeForm.reset();
+  showEmailEntry();
+  setStatus("Enter the email you want to use for your INNERG ID.");
+});
 
 recoveryForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -110,19 +150,25 @@ recoveryForm.addEventListener("submit", async (event) => {
   button.disabled = true;
   setStatus("Updating your password...");
   const { error } = await supabase.auth.updateUser({ password });
-  if (error) { button.disabled = false; setStatus("We could not update your password. Please request a new recovery email.", "error"); return; }
+  if (error) {
+    button.disabled = false;
+    setStatus("We could not update your password. Please request a new recovery email.", "error");
+    return;
+  }
   recoveryMode = false;
   recoveryForm.hidden = true;
-  setStatus("Password updated. Opening your member dashboard...", "success");
+  setStatus("Password updated. Opening your INNERG ID...", "success");
   redirecting = true;
-  window.location.replace(destination || DASHBOARD_PATH);
+  window.location.replace(destination || INNERG_ID_PATH);
 });
 
 document.querySelector("#sign-out").addEventListener("click", async () => {
   await supabase.auth.signOut();
+  pendingEmail = "";
   providerButtons.forEach((button) => { button.hidden = false; button.disabled = false; });
-  emailForm.hidden = false;
   emailForm.reset();
+  codeForm.reset();
+  showEmailEntry();
   memberCard.classList.remove("is-visible");
   setStatus("You are signed out.");
 });
