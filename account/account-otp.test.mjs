@@ -30,11 +30,19 @@ test("Google and email verification open the safe member destination", () => {
 });
 
 test("member signup screen keeps the verified auth controls", () => {
-  assert.match(html, /Become an INNERG member\./);
+  assert.match(html, /Create or access your INNERG ID\./);
   assert.match(html, /Get your number\./);
   for (const id of ["auth-status", "member-card", "member-email", "email-form", "code-form", "code-email", "change-email", "recovery-form", "sign-out"]) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /data-provider="google"/);
   assert.match(html, /@media \(prefers-reduced-motion:reduce\)/);
+});
+
+test("member signup explains the INNERG ID ecosystem utility", () => {
+  assert.match(html, /more than a member number\. It unlocks the ecosystem/);
+  for (const resource of ["Market Watchlist", "Research Desk", "Morning Transmissions", "Rabbit Holes", "Member Resources", "Discord Community", "Future Drops and Tools"]) {
+    assert.match(html, new RegExp(resource));
+  }
+  assert.match(html, /Your access grows as the INNERG ecosystem grows\./);
 });

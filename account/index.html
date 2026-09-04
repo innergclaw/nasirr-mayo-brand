@@ -21,12 +21,17 @@
       .back-link::before { content:""; width:18px; height:1px; background:currentColor; transition:width 160ms cubic-bezier(.23,1,.32,1); }
       .back-link:hover { color:#fff; }
       .back-link:hover::before { width:26px; }
-      .identity-copy { position:relative; z-index:1; margin:64px 0; }
+      .identity-copy { position:relative; z-index:1; margin:52px 0 42px; }
       .eyebrow { margin:0 0 22px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
       h1 { max-width:650px; margin:0; font-size:clamp(58px,7.3vw,112px); line-height:.82; letter-spacing:-.09em; }
-      .lede { max-width:520px; margin:32px 0 0; color:#b7beb5; font-size:clamp(17px,1.7vw,21px); line-height:1.48; }
-      .member-promise { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0; list-style:none; }
-      .member-promise li { padding:10px 13px; border:1px solid #343a34; border-radius:999px; color:#dce0d8; font-size:10px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+      .lede { max-width:530px; margin:30px 0 0; color:#c1c7bf; font-size:clamp(17px,1.7vw,21px); line-height:1.48; }
+      .access-panel { position:relative; z-index:1; padding-top:24px; border-top:1px solid #30362f; }
+      .access-title { display:flex; align-items:center; gap:10px; margin:0 0 15px; color:var(--accent); font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+      .access-title::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(202,255,55,.12); }
+      .access-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:0; padding:0; list-style:none; }
+      .access-grid li { display:flex; min-height:42px; align-items:center; gap:10px; padding:9px 11px; border:1px solid #30362f; border-radius:11px; color:#e4e7e0; background:rgba(255,255,255,.018); font-size:11px; font-weight:650; line-height:1.25; }
+      .access-grid span { color:#6f786e; font-size:9px; font-weight:800; letter-spacing:.08em; }
+      .access-note { margin:13px 0 0; color:#7f897f; font-size:10px; line-height:1.5; }
       .auth-column { display:flex; flex-direction:column; justify-content:center; padding:clamp(32px,5vw,72px); }
       .auth-kicker { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:28px; color:#757c73; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
       .auth-kicker span:last-child { display:inline-flex; align-items:center; gap:8px; }
@@ -71,14 +76,14 @@
         .account-page { padding:0; }
         .account-shell { min-height:100vh; grid-template-columns:1fr; border:0; border-radius:0; }
         .identity-panel { min-height:440px; padding:30px 24px 38px; }
-        .identity-copy { margin:72px 0 52px; }
+        .identity-copy { margin:72px 0 42px; }
         h1 { font-size:clamp(58px,18vw,92px); }
         .auth-column { padding:42px 20px 56px; }
       }
       @media (max-width:420px) {
-        .identity-panel { min-height:410px; }
-        .member-promise { gap:7px; }
-        .member-promise li { padding:8px 10px; font-size:9px; }
+        .identity-panel { min-height:690px; }
+        .access-grid { grid-template-columns:1fr; }
+        .access-grid li { min-height:38px; }
         .provider-panel { padding:22px 18px; }
       }
       @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} .account-shell,.email-form,.code-form{animation:none} .provider-button,.back-link::before{transition:none} .provider-button:active{transform:none} }
@@ -92,19 +97,27 @@
           <div class="identity-copy">
             <p class="eyebrow">INNERG member access</p>
             <h1 id="account-title">Get your number.</h1>
-            <p class="lede">Your INNERG ID connects you to the community, member resources, and the next part of the ecosystem.</p>
+            <p class="lede">Your INNERG ID is more than a member number. It unlocks the ecosystem and gives you one identity across what we build.</p>
           </div>
-          <ul class="member-promise" aria-label="Membership includes">
-            <li>One verified identity</li>
-            <li>Your member number</li>
-            <li>One connected ecosystem</li>
-          </ul>
+          <div class="access-panel">
+            <p class="access-title">What your ID begins to unlock</p>
+            <ul class="access-grid" aria-label="INNERG ID access">
+              <li><span>01</span> Market Watchlist</li>
+              <li><span>02</span> Research Desk</li>
+              <li><span>03</span> Morning Transmissions</li>
+              <li><span>04</span> Rabbit Holes</li>
+              <li><span>05</span> Member Resources</li>
+              <li><span>06</span> Discord Community</li>
+              <li><span>07</span> Future Drops and Tools</li>
+            </ul>
+            <p class="access-note">Your access grows as the INNERG ecosystem grows.</p>
+          </div>
         </section>
         <div class="auth-column">
-          <div class="auth-kicker"><span>Member sign up</span><span>Secure access</span></div>
+          <div class="auth-kicker"><span>Member access</span><span>Secure access</span></div>
         <section class="provider-panel" aria-labelledby="provider-title">
-          <h2 id="provider-title">Become an INNERG member.</h2>
-          <p class="provider-note">Continue with Google or use a secure code sent to your email. Your first verified sign-in creates your member record and opens your INNERG ID.</p>
+          <h2 id="provider-title">Create or access your INNERG ID.</h2>
+          <p class="provider-note">Continue with Google or use a secure code sent to your email. New members receive an ID. Returning members open the ID they already have.</p>
           <div class="provider-list">
             <button class="provider-button" type="button" data-provider="google">Continue with Google <span class="provider-mark" aria-hidden="true">G</span></button>
           </div>
