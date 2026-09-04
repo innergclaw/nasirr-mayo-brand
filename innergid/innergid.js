@@ -13,6 +13,24 @@ const purchaseStatus = document.querySelector("#purchase-status");
 
 let activeSession = null;
 
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => document.documentElement.classList.add("motion-live"));
+});
+
+const revealItems = document.querySelectorAll(".reveal");
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+  revealItems.forEach((item) => item.classList.add("is-visible"));
+} else {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+  revealItems.forEach((item) => revealObserver.observe(item));
+}
+
 const showMember = async (session, { force = false } = {}) => {
   activeSession = session ?? null;
   if (!session?.user || (panel.dataset.loaded === "true" && !force)) return null;

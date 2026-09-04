@@ -6,6 +6,7 @@
     <meta name="description" content="Activate your INNERG ID for $10 per month and unlock the INNERG ecosystem." />
     <title>INNERG ID | NASIRR G. MAYO</title>
     <link rel="stylesheet" href="./innergid.css" />
+    <script>document.documentElement.classList.add("motion-ready");</script>
   </head>
   <body>
     <a class="skip-link" href="#access">Skip to INNERG ID access</a>
@@ -20,12 +21,12 @@
 
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy-block">
-          <p class="eyebrow">YOUR KEY TO INNERG</p>
-          <h1 id="page-title">One ID.<br /><span>Every door.</span></h1>
-          <p class="hero-copy">Your INNERG ID is your paid access pass to the full ecosystem. It connects your identity, member access, community, content, and direct support in one place.</p>
-          <a class="primary-action" href="#access">Get my INNERG ID</a>
+          <p class="eyebrow hero-reveal" style="--hero-delay: 80ms">YOUR KEY TO INNERG</p>
+          <h1 class="hero-reveal" style="--hero-delay: 160ms" id="page-title">One ID.<br /><span>Every door.</span></h1>
+          <p class="hero-copy hero-reveal" style="--hero-delay: 260ms">Your INNERG ID is your paid access pass to the full ecosystem. It connects your identity, member access, community, content, and direct support in one place.</p>
+          <a class="primary-action hero-reveal" style="--hero-delay: 350ms" href="#access">Get my INNERG ID</a>
         </div>
-        <figure class="member-mark">
+        <figure class="member-mark hero-reveal hero-reveal-mark" style="--hero-delay: 240ms">
           <div class="member-mark-halo" aria-hidden="true"></div>
           <img src="./assets/innerg-member-badge.png" alt="INNERG Member badge with a community gathered inside a globe" width="1254" height="1254" />
           <figcaption>Your number. Your access. Your place inside.</figcaption>
@@ -33,12 +34,12 @@
       </section>
 
       <section class="preview-section" aria-labelledby="preview-title">
-        <div class="preview-copy">
+        <div class="preview-copy reveal reveal-left">
           <p class="eyebrow">INCLUDED WITH YOUR INNERG ID</p>
           <h2 id="preview-title">The End-of-Year Frequency.</h2>
           <p>A 27-minute breakdown of the 2026-2027 BULL SUPER CYCLE, plus the INNERG Media Hub, Research Desk, and future member releases.</p>
         </div>
-        <div class="video-frame">
+        <div class="video-frame reveal reveal-right">
           <video controls playsinline preload="metadata" poster="./assets/bull-cycle-poster.jpg">
             <source src="./assets/bull-cycle-preview.mp4" type="video/mp4" />
             Your browser does not support this video.
@@ -48,10 +49,10 @@
       </section>
 
       <section class="choices" id="access" aria-labelledby="choices-title">
-        <p class="eyebrow">INNERG ID ACCESS</p>
-        <h2 id="choices-title">Your ID has utility.</h2>
-        <article class="choice-card id-card-offer">
-          <div class="offer-heading">
+        <p class="eyebrow reveal reveal-up">INNERG ID ACCESS</p>
+        <h2 class="reveal reveal-up" style="--reveal-delay: 70ms" id="choices-title">Your ID has utility.</h2>
+        <article class="choice-card id-card-offer reveal reveal-section">
+          <div class="offer-heading reveal reveal-left">
             <p class="choice-number">01</p>
             <div>
               <p class="choice-type">ACTIVE INNERG ID</p>
@@ -60,15 +61,21 @@
             </div>
           </div>
           <div class="utility-grid" aria-label="INNERG ID benefits">
-            <div><span>01</span><strong>Personal INNERG ID card and member number</strong></div>
-            <div><span>02</span><strong>Direct member text access to Nasirr</strong></div>
-            <div><span>03</span><strong>Member discounts on selected services</strong></div>
-            <div><span>04</span><strong>Research Desk and Market Watchlist</strong></div>
-            <div><span>05</span><strong>Media Hub and member-only releases</strong></div>
-            <div><span>06</span><strong>Discord, resources, and future events</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 0ms"><span>01</span><strong>Personal INNERG ID card and member number</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 60ms"><span>02</span><strong>Direct member text access to Nasirr</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 120ms"><span>03</span><strong>Member discounts on selected services</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 180ms"><span>04</span><strong>Research Desk and Market Watchlist</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 240ms"><span>05</span><strong>Media Hub and member-only releases</strong></div>
+            <div class="reveal reveal-tile" style="--reveal-delay: 300ms"><span>06</span><strong>Discord, resources, and future events</strong></div>
+            <div class="reveal reveal-tile utility-featured" style="--reveal-delay: 360ms"><span>07</span><strong>Members-only Watchlist and daily financial investing insights</strong></div>
           </div>
-          <p class="access-note">Your access remains active while your monthly subscription is current.</p>
-          <button class="card-action purchase-action" type="button">Activate my INNERG ID</button>
+          <section class="who-block reveal reveal-right" aria-labelledby="who-title">
+            <p class="eyebrow">WHO IS THIS FOR?</p>
+            <h4 id="who-title">People ready to move with more information and better access.</h4>
+            <p>For builders, creatives, entrepreneurs, new investors, and curious minds who want useful insight, a stronger circle, and a direct place inside the INNERG ecosystem.</p>
+          </section>
+          <p class="access-note reveal reveal-left">Your access remains active while your monthly subscription is current.</p>
+          <button class="card-action purchase-action reveal reveal-up" type="button">Activate my INNERG ID</button>
           <p class="purchase-status" id="purchase-status" role="status" aria-live="polite"></p>
         </article>
       </section>
