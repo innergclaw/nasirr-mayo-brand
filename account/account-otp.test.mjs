@@ -41,8 +41,9 @@ test("member signup screen keeps the verified auth controls", () => {
 
 test("member signup explains the INNERG ID ecosystem utility", () => {
   assert.match(html, /more than a member number\. It unlocks the ecosystem/);
-  for (const resource of ["Market Watchlist", "Research Desk", "Morning Transmissions", "Rabbit Holes", "Member Resources", "Discord Community", "Future Drops and Tools"]) {
+  for (const resource of ["Market Watchlist", "Research Desk", "Morning Transmissions", "Member Resources", "Discord Community", "Future Drops and Tools"]) {
     assert.match(html, new RegExp(resource));
   }
+  assert.doesNotMatch(html, /Rabbit Holes/);
   assert.match(html, /Your access grows as the INNERG ecosystem grows\./);
 });
