@@ -10,74 +10,62 @@ const status = document.querySelector("#member-status");
 const discord = document.querySelector("#discord-link");
 const purchase = document.querySelector(".purchase-action");
 const purchaseStatus = document.querySelector("#purchase-status");
-const fullVideo = document.querySelector("#full-video");
-const memberVideo = document.querySelector("#member-video");
 
 let activeSession = null;
-
-const showVideoAccess = (data) => {
-  if (!data?.videoAccess || !data?.videoUrl || !fullVideo || !memberVideo) return false;
-  memberVideo.src = data.videoUrl;
-  fullVideo.hidden = false;
-  purchase.textContent = "Open my full video";
-  purchaseStatus.textContent = "Your $10 video purchase is active.";
-  purchase.dataset.owned = "true";
-  return true;
-};
 
 const showMember = async (session, { force = false } = {}) => {
   activeSession = session ?? null;
   if (!session?.user || (panel.dataset.loaded === "true" && !force)) return null;
-  panel.hidden = false;
   panel.dataset.loaded = "true";
   try {
     const { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
     if (error || !data?.membershipNumber) throw error || new Error("Member record unavailable");
+    panel.hidden = false;
     number.textContent = data.membershipNumber;
-    status.textContent = "Your INNERG ID is active. Your Discord access is ready.";
+    status.textContent = "Your INNERG ID is active. The ecosystem is open.";
     discord.href = data.discordUrl;
     discord.hidden = false;
-    showVideoAccess(data);
+    purchase.textContent = "Open my INNERG ID";
+    purchase.dataset.active = "true";
+    purchaseStatus.textContent = "Your INNERG ID is active.";
     return data;
   } catch {
-    number.textContent = "INNERG ID pending";
-    status.textContent = "We could not load your member number. Refresh the page or sign in again.";
+    panel.hidden = true;
     return null;
   }
 };
 
-const checkCompletedPurchase = async () => {
-  if (new URLSearchParams(location.search).get("purchase") !== "success" || !activeSession) return;
-  purchaseStatus.textContent = "Confirming your purchase...";
-  for (let attempt = 0; attempt < 6; attempt += 1) {
+const checkCompletedMembership = async () => {
+  if (new URLSearchParams(location.search).get("membership") !== "success" || !activeSession) return;
+  purchaseStatus.textContent = "Activating your INNERG ID...";
+  for (let attempt = 0; attempt < 8; attempt += 1) {
     const data = await showMember(activeSession, { force: true });
-    if (showVideoAccess(data)) {
-      history.replaceState({}, "", `${location.pathname}#full-video`);
-      fullVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (data?.membershipNumber) {
+      history.replaceState({}, "", `${location.pathname}#member-panel`);
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
     await new Promise((resolve) => setTimeout(resolve, 1500));
   }
-  purchaseStatus.textContent = "Payment received. Your access is still being prepared. Refresh this page in a moment.";
+  purchaseStatus.textContent = "Payment received. Your INNERG ID is still being prepared. Refresh this page in a moment.";
 };
 
 purchase?.addEventListener("click", async () => {
-  if (purchase.dataset.owned === "true" && !fullVideo.hidden) {
-    fullVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (purchase.dataset.active === "true") {
+    location.assign("../innerg-id/");
     return;
   }
   if (!activeSession) {
-    location.assign("../account/?next=%2Fmembership%2F");
+    location.assign("../account/?next=%2Finnergid%2F");
     return;
   }
   purchase.disabled = true;
   purchaseStatus.textContent = "Opening secure checkout...";
   try {
-    const { data, error } = await supabase.functions.invoke("innerg-video-checkout", { method: "POST" });
+    const { data, error } = await supabase.functions.invoke("innerg-membership-checkout", { method: "POST" });
     if (error) throw error;
-    if (data?.alreadyOwned) {
-      await showMember(activeSession, { force: true });
-      fullVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (data?.alreadyActive) {
+      location.assign("../innerg-id/");
       return;
     }
     if (!data?.url) throw new Error("Checkout is unavailable");
@@ -89,9 +77,9 @@ purchase?.addEventListener("click", async () => {
 });
 
 supabase.auth.onAuthStateChange((_event, session) => {
-  showMember(session).then(checkCompletedPurchase);
+  showMember(session).then(checkCompletedMembership);
 });
 const { data } = await supabase.auth.getSession();
 activeSession = data.session;
 await showMember(data.session);
-await checkCompletedPurchase();
+await checkCompletedMembership();

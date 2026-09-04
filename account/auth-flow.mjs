@@ -1,7 +1,7 @@
 export const ACCOUNT_PATH = "/account/";
 export const DASHBOARD_PATH = "/dashboard/";
 export const INNERG_ID_PATH = "/innerg-id/";
-export const ALLOWED_DESTINATIONS = new Set([INNERG_ID_PATH, DASHBOARD_PATH, "/membership/"]);
+export const ALLOWED_DESTINATIONS = new Set([INNERG_ID_PATH, DASHBOARD_PATH, "/innergid/", "/membership/"]);
 
 export const getSafeDestination = (search = "") => {
   const requested = new URLSearchParams(String(search).replace(/^\?/, "")).get("next");
