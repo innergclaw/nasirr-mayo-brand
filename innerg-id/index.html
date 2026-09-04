@@ -21,6 +21,15 @@
       .lede { max-width:600px; margin:28px 0 0; color:var(--muted); font-size:clamp(17px,2vw,21px); line-height:1.48; }
       .status { margin:34px 0 0; min-height:24px; color:var(--muted); font-size:13px; }
       .status[data-state="error"] { color:#9e3f2e; }
+      .activation-panel { max-width:760px; margin:38px 0 0; padding:clamp(24px,5vw,48px); border:1px solid var(--line); background:#fff9; }
+      .activation-panel[hidden] { display:none; }
+      .activation-panel .eyebrow { margin:0 0 16px; color:#6d756c; }
+      .activation-panel h2 { max-width:680px; margin:0; font-size:clamp(34px,6vw,64px); line-height:.92; letter-spacing:-.07em; }
+      .activation-panel p:not(.eyebrow) { max-width:590px; margin:20px 0 0; color:var(--muted); font-size:15px; line-height:1.55; }
+      .activation-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+      .activation-action { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:13px 18px; border:1px solid var(--ink); border-radius:999px; color:var(--paper); background:var(--ink); cursor:pointer; font-size:10px; font-weight:850; letter-spacing:.1em; text-decoration:none; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
+      .activation-action.secondary { color:var(--ink); background:transparent; }
+      .activation-action:active { transform:scale(.97); }
       .content { display:none; margin-top:52px; }
       .content.is-visible { display:block; animation:reveal 700ms var(--ease-out) both; }
       .id-stage { display:grid; grid-template-columns:minmax(0,.8fr) minmax(340px,1.2fr); align-items:center; gap:clamp(30px,6vw,74px); padding:clamp(24px,5vw,56px); color:#f7f6f0; background:var(--dark); border-radius:30px; }
@@ -87,10 +96,10 @@
       .sign-out { margin-top:22px; min-height:44px; padding:12px 16px; border:1px solid var(--ink); color:var(--ink); background:transparent; cursor:pointer; font:750 11px/1 var(--font); letter-spacing:.1em; text-transform:uppercase; transition:transform 120ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
       .loading.is-hidden { display:none; }
       @keyframes reveal { from { opacity:0; transform:translateY(26px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
-      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } .chapter-button:hover:not([aria-current="true"]) { border-color:#f7f6f0; color:#f7f6f0; } }
+      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } .chapter-button:hover:not([aria-current="true"]) { border-color:#f7f6f0; color:#f7f6f0; } .activation-action:hover { color:var(--ink); background:var(--acid); } }
       @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } .media-release { grid-template-columns:1fr; } .media-visual,.media-chapters,.release-copy { grid-column:1; grid-row:auto; } }
       @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
-      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action,.chapter-button{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
+      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action,.chapter-button,.activation-action{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
     </style>
   </head>
   <body>
@@ -101,6 +110,15 @@
         <h1>Your place has a number.</h1>
         <p class="lede">This is your personal INNERG ID. It connects your verified account to the community and future member access.</p>
         <p class="status loading" id="id-status" role="status" aria-live="polite">Checking your secure session...</p>
+        <section class="activation-panel" id="activation-panel" aria-labelledby="activation-title" hidden>
+          <p class="eyebrow" id="activation-eyebrow">INNERG ID activation</p>
+          <h2 id="activation-title">Your account is ready.</h2>
+          <p id="activation-copy">Activate your $10 monthly INNERG ID to enter the member ecosystem and open the full Media Hub.</p>
+          <div class="activation-actions">
+            <a class="activation-action" id="activation-link" href="../innergid/#access">Activate my INNERG ID</a>
+            <button class="activation-action secondary" id="activation-retry" type="button" hidden>Check access again</button>
+          </div>
+        </section>
 
         <section class="content" id="id-content" aria-labelledby="member-id-title">
           <div class="id-stage">

@@ -19,6 +19,21 @@ test("INNERG ID is guarded and loads the secured member record", () => {
   assert.match(js, /functions\.invoke\("innerg-member-access"/);
 });
 
+test("paid members wait for activation and open the Media Hub", () => {
+  assert.match(js, /isCheckoutReturn/);
+  assert.match(js, /ACTIVATION_DELAYS_MS/);
+  assert.match(js, /Payment received\. Activating your INNERG ID/);
+  assert.match(js, /history\.replaceState\(\{\}, "", `\$\{window\.location\.pathname\}#media-hub`\)/);
+  assert.match(js, /scrollIntoView/);
+});
+
+test("signed-in unpaid accounts receive a clear activation path", () => {
+  assert.match(html, /id="activation-panel"/);
+  assert.match(html, /Activate your \$10 monthly INNERG ID/);
+  assert.match(html, /href="\.\.\/innergid\/#access"/);
+  assert.match(js, /showActivationPanel/);
+});
+
 test("member card contains no OwnYourWeb client portal destination", () => {
   assert.doesNotMatch(html + js, /ownyourweb\.marketing\/portal/i);
 });

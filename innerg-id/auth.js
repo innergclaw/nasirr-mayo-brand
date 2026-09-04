@@ -1,5 +1,6 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
 import { INNERG_ID_PATH, shouldRedirectToAccount } from "../account/auth-flow.mjs";
+import { ACTIVATION_DELAYS_MS, classifyMemberAccess, isCheckoutReturn } from "./access-flow.mjs";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
@@ -24,9 +25,18 @@ const mediaChapters = document.querySelector("#media-chapters");
 const mediaStamp = document.querySelector("#media-stamp");
 const mediaAction = document.querySelector("#media-action");
 const mediaNote = document.querySelector("#media-note");
+const activationPanel = document.querySelector("#activation-panel");
+const activationEyebrow = document.querySelector("#activation-eyebrow");
+const activationTitle = document.querySelector("#activation-title");
+const activationCopy = document.querySelector("#activation-copy");
+const activationLink = document.querySelector("#activation-link");
+const activationRetry = document.querySelector("#activation-retry");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const checkoutReturn = isCheckoutReturn(window.location.search);
 let redirecting = false;
 let loadedUserId = null;
+let currentSession = null;
+let accessRequest = null;
 let currentMember = null;
 let chapterUrls = [];
 let activeChapterIndex = 0;
@@ -34,6 +44,35 @@ let activeChapterIndex = 0;
 const setStatus = (message, state = "") => {
   status.textContent = message;
   status.dataset.state = state;
+  status.classList.remove("is-hidden");
+};
+
+const wait = (duration) => new Promise((resolve) => setTimeout(resolve, duration));
+
+const functionStatus = (error) => Number(error?.context?.status || error?.status || 0);
+
+const showActivationPanel = ({ processing = false } = {}) => {
+  content.classList.remove("is-visible");
+  activationPanel.hidden = false;
+  activationEyebrow.textContent = processing ? "Payment received" : "INNERG ID activation";
+  activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
+  activationCopy.textContent = processing
+    ? "Stripe is finishing your member access. Check again in a moment. You will not be charged twice."
+    : "Activate your $10 monthly INNERG ID to enter the member ecosystem and open the full Media Hub.";
+  activationLink.hidden = processing;
+  activationRetry.hidden = !processing;
+  status.classList.add("is-hidden");
+};
+
+const openMediaHub = () => {
+  if (checkoutReturn) history.replaceState({}, "", `${window.location.pathname}#media-hub`);
+  if (window.location.hash !== "#media-hub") return;
+  requestAnimationFrame(() => {
+    document.querySelector("#media-hub")?.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "start",
+    });
+  });
 };
 
 const selectChapter = (index, { autoplay = false } = {}) => {
@@ -261,29 +300,87 @@ mediaAction.addEventListener("click", async (event) => {
 
 const loadMemberRecord = async (session) => {
   const { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
-  if (error || !data?.membershipNumber) throw error || new Error("Member record unavailable");
+  if (error || !data?.membershipNumber) return { data: null, statusCode: functionStatus(error) };
   setMemberCard(data);
   email.textContent = session.user.email
     ? `Verified as ${session.user.email}.`
     : "Your verified member record is active.";
+  return { data, statusCode: 200 };
 };
 
-const render = async (session) => {
+const resolveMemberAccess = async (session, { force = false } = {}) => {
+  currentSession = session;
   if (shouldRedirectToAccount({ session, currentPath: window.location.pathname, protectedPath: INNERG_ID_PATH })) {
     redirecting = true;
     window.location.replace("../account/?next=%2Finnerg-id%2F");
     return;
   }
-  if (!session?.user || loadedUserId === session.user.id) return;
-  loadedUserId = session.user.id;
-  content.classList.add("is-visible");
-  setStatus("Creating your INNERG ID...");
+  if (!session?.user || (!force && loadedUserId === session.user.id) || accessRequest) return accessRequest;
+
+  accessRequest = (async () => {
+    activationPanel.hidden = true;
+    setStatus(checkoutReturn ? "Payment received. Activating your INNERG ID..." : "Checking your INNERG ID...");
+    const delays = checkoutReturn ? ACTIVATION_DELAYS_MS : [0];
+
+    for (let attempt = 0; attempt < delays.length; attempt += 1) {
+      if (delays[attempt]) await wait(delays[attempt]);
+      const result = await loadMemberRecord(session);
+      const accessState = classifyMemberAccess({
+        hasSession: true,
+        membershipNumber: result.data?.membershipNumber,
+        statusCode: result.statusCode,
+        checkoutReturn,
+        attempt,
+        maxAttempts: delays.length,
+      });
+
+      if (accessState === "active") {
+        loadedUserId = session.user.id;
+        activationPanel.hidden = true;
+        content.classList.add("is-visible");
+        status.classList.add("is-hidden");
+        openMediaHub();
+        return result.data;
+      }
+      if (accessState === "retry") {
+        setStatus(`Payment confirmed. Activating your INNERG ID ${attempt + 1} of ${delays.length}...`);
+        continue;
+      }
+      if (accessState === "activate") {
+        loadedUserId = session.user.id;
+        showActivationPanel();
+        return null;
+      }
+      if (accessState === "processing") {
+        showActivationPanel({ processing: true });
+        return null;
+      }
+      loadedUserId = null;
+      setStatus("We could not verify your INNERG ID. Refresh this page or sign in again.", "error");
+      return null;
+    }
+    return null;
+  })().finally(() => {
+    accessRequest = null;
+  });
+
+  return accessRequest;
+};
+
+activationRetry.addEventListener("click", () => {
+  if (!currentSession) return;
+  activationRetry.disabled = true;
+  void resolveMemberAccess(currentSession, { force: true }).finally(() => {
+    activationRetry.disabled = false;
+  });
+});
+
+const render = async (session) => {
   try {
-    await loadMemberRecord(session);
-    status.classList.add("is-hidden");
+    await resolveMemberAccess(session);
   } catch {
     loadedUserId = null;
-    setStatus("We could not load your INNERG ID. Refresh this page or sign in again.", "error");
+    setStatus("We could not verify your INNERG ID. Refresh this page or sign in again.", "error");
   }
 };
 
