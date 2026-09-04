@@ -12,7 +12,7 @@ test("landing page presents only the free member and paid video paths", () => {
 });
 
 test("free path returns through the account allowlisted destination", () => {
-  assert.match(html, /account\/\?next=%2Fmembership%2F/);
+  assert.match(html, /account\/\?next=%2Fdashboard%2F/);
 });
 
 test("member record comes from the authenticated server function", () => {
@@ -44,5 +44,5 @@ test("purchase uses authenticated checkout and protected video access", () => {
   assert.match(js, /innerg-video-checkout/);
   assert.match(js, /videoAccess/);
   assert.match(js, /videoUrl/);
-  assert.match(js, /account\/\?next=%2Fmembership%2F/);
+  assert.match(js, /account\/\?next=%2Fdashboard%2F/);
 });

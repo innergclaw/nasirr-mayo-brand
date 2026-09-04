@@ -67,7 +67,7 @@ purchase?.addEventListener("click", async () => {
     return;
   }
   if (!activeSession) {
-    location.assign("../account/?next=%2Fmembership%2F");
+    location.assign("../account/?next=%2Fdashboard%2F");
     return;
   }
   purchase.disabled = true;
