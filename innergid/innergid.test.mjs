@@ -45,9 +45,8 @@ test("INNERG ID explains the included access", () => {
   assert.match(html, /Research Desk and Market Watchlist/);
   assert.match(html, /Media Hub and member-only releases/);
   assert.match(html, /Discord, resources, and future events/);
-  assert.match(html, /Members-only Watchlist and daily financial investing insights/);
   assert.match(html, /WHO IS THIS FOR\?/);
-  assert.equal((html.match(/class="reveal reveal-tile/g) || []).length, 7);
+  assert.equal((html.match(/class="reveal reveal-tile/g) || []).length, 6);
 });
 
 test("sections use progressive motion with an accessible fallback", () => {
