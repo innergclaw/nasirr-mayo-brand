@@ -114,14 +114,14 @@ emailForm.addEventListener("submit", async (event) => {
     return;
   }
   showCodeEntry(email);
-  setStatus("Check your email. Enter the six-digit code below.", "success");
+  setStatus("Check your email. Enter the full verification code below.", "success");
 });
 
 codeForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const token = String(new FormData(codeForm).get("token") || "").replace(/\D/g, "");
-  if (!pendingEmail || token.length !== 6) {
-    setStatus("Enter the six-digit code from your email.", "error");
+  if (!pendingEmail || token.length < 6 || token.length > 10) {
+    setStatus("Enter the full numeric code from your email.", "error");
     return;
   }
   setBusy(true);

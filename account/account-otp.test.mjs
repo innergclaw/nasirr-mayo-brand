@@ -5,11 +5,14 @@ import { readFile } from "node:fs/promises";
 const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const js = await readFile(new URL("./auth.js", import.meta.url), "utf8");
 
-test("email access uses a six-digit one-time code", () => {
+test("email access accepts the complete Supabase one-time code", () => {
   assert.match(html, /Email me a code/);
   assert.match(html, /autocomplete="one-time-code"/);
+  assert.match(html, /minlength="6" maxlength="10" pattern="\[0-9\]\{6,10\}"/);
   assert.match(js, /signInWithOtp/);
   assert.match(js, /verifyOtp\(\{ email: pendingEmail, token, type: "email" \}\)/);
+  assert.match(js, /token\.length < 6 \|\| token\.length > 10/);
+  assert.doesNotMatch(js, /six-digit code/);
 });
 
 test("normal member access no longer asks for a password", () => {
