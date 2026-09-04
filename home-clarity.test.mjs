@@ -8,7 +8,7 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=7/);
+  assert.match(home, /home-clarity\.css\?v=8/);
   assert.match(home, /home-clarity\.js\?v=8/);
 });
 
@@ -79,5 +79,6 @@ test("the page removes duplicate icon menus and keeps touch targets", () => {
 
 test("INNERG ID matches the full-width channel action on mobile", () => {
   assert.match(styles, /\.profile-action--member,\s*\.profile-action--channels\s*{\s*grid-column:\s*1\s*\/\s*-1/);
+  assert.match(styles, /max-width:\s*calc\(100vw\s*-\s*32px\)/);
   assert.match(styles, /\.profile-action\s*{[\s\S]*background:\s*#171717/);
 });
