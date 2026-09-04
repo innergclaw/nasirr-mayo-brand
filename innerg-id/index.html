@@ -68,11 +68,17 @@
       .media-head h2 { max-width:640px; margin:0; font-size:clamp(44px,7vw,86px); line-height:.87; letter-spacing:-.08em; text-wrap:balance; }
       .media-count { color:#777f77; font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em; }
       .media-release { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:clamp(24px,5vw,56px); align-items:center; padding-top:30px; border-top:1px solid #303630; }
-      .media-visual { position:relative; min-height:300px; overflow:hidden; border:1px solid #343a34; border-radius:18px; background:#101310; }
+      .media-visual { position:relative; grid-column:1; grid-row:1; min-height:300px; overflow:hidden; border:1px solid #343a34; border-radius:18px; background:#101310; }
       .media-visual img,.media-visual video { display:block; width:100%; height:100%; min-height:300px; object-fit:cover; }
       .media-visual video[hidden],.media-visual img[hidden] { display:none; }
+      .media-chapters { display:flex; grid-column:1; grid-row:2; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+      .media-chapters[hidden] { display:none; }
+      .chapter-button { min-height:38px; padding:9px 13px; border:1px solid #3f463f; border-radius:999px; color:var(--dark-muted); background:#111411; cursor:pointer; font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease; }
+      .chapter-button[aria-current="true"] { border-color:var(--acid); color:#111; background:var(--acid); }
+      .chapter-button:active { transform:scale(.97); }
       .media-stamp { position:absolute; top:14px; left:14px; padding:8px 10px; border:1px solid rgba(255,255,255,.24); border-radius:999px; color:#f7f6f0; background:rgba(9,11,9,.74); backdrop-filter:blur(10px); font-size:9px; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
       .release-meta { margin:0 0 18px; color:var(--acid); font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+      .release-copy { grid-column:2; grid-row:1 / span 2; }
       .release-copy h3 { margin:0; font-size:clamp(36px,5vw,62px); line-height:.9; letter-spacing:-.07em; text-wrap:balance; }
       .release-copy > p:not(.release-meta) { max-width:440px; margin:20px 0 0; color:var(--dark-muted); font-size:14px; line-height:1.55; }
       .media-action { display:inline-flex; min-height:46px; align-items:center; justify-content:center; margin-top:26px; padding:12px 17px; border:1px solid #f7f6f0; border-radius:999px; color:#f7f6f0; text-decoration:none; font-size:10px; font-weight:850; letter-spacing:.1em; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
@@ -81,10 +87,10 @@
       .sign-out { margin-top:22px; min-height:44px; padding:12px 16px; border:1px solid var(--ink); color:var(--ink); background:transparent; cursor:pointer; font:750 11px/1 var(--font); letter-spacing:.1em; text-transform:uppercase; transition:transform 120ms var(--ease-out),background-color 180ms ease,color 180ms ease; }
       .loading.is-hidden { display:none; }
       @keyframes reveal { from { opacity:0; transform:translateY(26px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
-      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } }
-      @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } .media-release { grid-template-columns:1fr; } }
+      @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } .chapter-button:hover:not([aria-current="true"]) { border-color:#f7f6f0; color:#f7f6f0; } }
+      @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } .media-release { grid-template-columns:1fr; } .media-visual,.media-chapters,.release-copy { grid-column:1; grid-row:auto; } }
       @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
-      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
+      @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action,.chapter-button{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
     </style>
   </head>
   <body>
@@ -152,6 +158,7 @@
                 <video id="media-video" controls playsinline preload="metadata" hidden aria-label="The End-of-Year Frequency full video"></video>
                 <span class="media-stamp" id="media-stamp">Member release</span>
               </div>
+              <nav class="media-chapters" id="media-chapters" aria-label="Video chapters" hidden></nav>
               <div class="release-copy">
                 <p class="release-meta">27 minutes / Finance and technology</p>
                 <h3>The End-of-Year Frequency</h3>

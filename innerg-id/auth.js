@@ -20,6 +20,7 @@ const shareNote = document.querySelector("#share-note");
 const shareStatus = document.querySelector("#share-status");
 const mediaPoster = document.querySelector("#media-poster");
 const mediaVideo = document.querySelector("#media-video");
+const mediaChapters = document.querySelector("#media-chapters");
 const mediaStamp = document.querySelector("#media-stamp");
 const mediaAction = document.querySelector("#media-action");
 const mediaNote = document.querySelector("#media-note");
@@ -27,10 +28,43 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let redirecting = false;
 let loadedUserId = null;
 let currentMember = null;
+let chapterUrls = [];
+let activeChapterIndex = 0;
 
 const setStatus = (message, state = "") => {
   status.textContent = message;
   status.dataset.state = state;
+};
+
+const selectChapter = (index, { autoplay = false } = {}) => {
+  const chapter = chapterUrls[index];
+  if (!chapter) return;
+  activeChapterIndex = index;
+  mediaVideo.src = chapter.url;
+  mediaVideo.setAttribute("aria-label", `The End-of-Year Frequency, chapter ${index + 1} of ${chapterUrls.length}`);
+  mediaChapters.querySelectorAll("button").forEach((button, buttonIndex) => {
+    button.setAttribute("aria-current", String(buttonIndex === index));
+  });
+  mediaStamp.textContent = `Chapter ${index + 1} of ${chapterUrls.length}`;
+  if (autoplay) void mediaVideo.play().catch(() => {
+    mediaNote.textContent = `Chapter ${index + 1} is ready. Press play to continue.`;
+  });
+};
+
+const setVideoChapters = (chapters) => {
+  chapterUrls = chapters.filter((chapter) => chapter?.url);
+  mediaChapters.replaceChildren();
+  chapterUrls.forEach((_chapter, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chapter-button";
+    button.textContent = `Chapter ${index + 1}`;
+    button.setAttribute("aria-current", String(index === 0));
+    button.addEventListener("click", () => selectChapter(index, { autoplay: true }));
+    mediaChapters.append(button);
+  });
+  mediaChapters.hidden = chapterUrls.length < 2;
+  selectChapter(0);
 };
 
 const setMemberCard = (member) => {
@@ -52,16 +86,19 @@ const setMemberCard = (member) => {
     ? "Save the PNG or use your device share menu for X, Instagram, Discord, and other apps."
     : "Complete your name to save or share your card.";
 
-  if (member.videoAccess && member.videoUrl) {
-    mediaVideo.src = member.videoUrl;
+  if (member.videoAccess && (member.videoChapters?.length || member.videoUrl)) {
+    setVideoChapters(member.videoChapters?.length ? member.videoChapters : [{ chapter: 1, url: member.videoUrl }]);
     mediaVideo.hidden = false;
     mediaPoster.hidden = true;
-    mediaStamp.textContent = "Your access is active";
+    if (chapterUrls.length === 1) mediaStamp.textContent = "Your access is active";
     mediaAction.textContent = "Watch now";
     mediaAction.href = "#media-video";
     mediaNote.textContent = "This full release is active on your member account.";
   } else {
     mediaVideo.removeAttribute("src");
+    chapterUrls = [];
+    mediaChapters.replaceChildren();
+    mediaChapters.hidden = true;
     mediaVideo.hidden = true;
     mediaPoster.hidden = false;
     mediaStamp.textContent = "Member access";
@@ -70,6 +107,11 @@ const setMemberCard = (member) => {
     mediaNote.textContent = "This release is included with active INNERG membership.";
   }
 };
+
+mediaVideo.addEventListener("ended", () => {
+  const nextChapter = activeChapterIndex + 1;
+  if (nextChapter < chapterUrls.length) selectChapter(nextChapter, { autoplay: true });
+});
 
 const roundedRect = (context, x, y, width, height, radius) => {
   const r = Math.min(radius, width / 2, height / 2);
