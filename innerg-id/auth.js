@@ -64,10 +64,10 @@ const setMemberCard = (member) => {
     mediaVideo.removeAttribute("src");
     mediaVideo.hidden = true;
     mediaPoster.hidden = false;
-    mediaStamp.textContent = "Available for $10";
-    mediaAction.textContent = "View release";
-    mediaAction.href = "../membership/#video-access";
-    mediaNote.textContent = "Purchase this release once. It will then play here whenever you sign in.";
+    mediaStamp.textContent = "Member access";
+    mediaAction.textContent = "Refresh access";
+    mediaAction.href = "./";
+    mediaNote.textContent = "This release is included with active INNERG membership.";
   }
 };
 

@@ -43,5 +43,7 @@ test("member Media Hub uses verified release access", () => {
   assert.match(html, /2026-2027 BULL SUPER CYCLE/);
   assert.match(js, /member\.videoAccess && member\.videoUrl/);
   assert.match(js, /mediaVideo\.src = member\.videoUrl/);
-  assert.match(html, /membership\/#video-access/);
+  assert.match(html, /This release is included with active INNERG membership\./);
+  assert.doesNotMatch(html, /membership\/#video-access/);
+  assert.doesNotMatch(js, /Purchase this release once/);
 });
