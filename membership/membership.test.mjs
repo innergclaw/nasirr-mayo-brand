@@ -25,6 +25,12 @@ test("video preview uses a local MP4 and poster", () => {
   assert.match(html, /bull-cycle-poster\.jpg/);
 });
 
+test("member home uses the INNERG community badge", () => {
+  assert.match(html, /innerg-member-badge\.png/);
+  assert.match(html, /THE INNERG MEMBER HOME/);
+  assert.match(html, /A place to learn, build, and stay connected\./);
+});
+
 test("paid offer explains the 27-minute video and fixed price", () => {
   assert.match(html, /The End-of-Year Frequency/);
   assert.match(html, /27-minute breakdown/);
