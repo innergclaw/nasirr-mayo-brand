@@ -16,8 +16,14 @@ const recoveryForm = document.querySelector("#recovery-form");
 let pendingEmail = "";
 let recoveryMode = isRecoveryCallback(window.location.hash);
 let redirecting = false;
-const destination = getSafeDestination(window.location.search);
-const accountReturnUrl = `${window.location.origin}/account/?next=${encodeURIComponent(destination)}`;
+const DESTINATION_KEY = "innerg_post_auth_destination";
+const queryHasDestination = new URLSearchParams(window.location.search).has("next");
+const savedDestination = window.sessionStorage.getItem(DESTINATION_KEY) || "";
+const destination = queryHasDestination
+  ? getSafeDestination(window.location.search)
+  : getSafeDestination(`?next=${encodeURIComponent(savedDestination)}`);
+window.sessionStorage.setItem(DESTINATION_KEY, destination);
+const accountReturnUrl = `${window.location.origin}/account/`;
 
 const setStatus = (message, state = "") => {
   status.textContent = message;
@@ -62,6 +68,7 @@ const showSession = (session) => {
     setStatus("Your INNERG member account is active.", "success");
     if (shouldRedirectToDestination({ session, recovery: recoveryMode, currentPath: window.location.pathname, destination })) {
       redirecting = true;
+      window.sessionStorage.removeItem(DESTINATION_KEY);
       window.location.replace(destination);
     }
   }
@@ -127,6 +134,7 @@ codeForm.addEventListener("submit", async (event) => {
   }
   setStatus("Verified. Opening your INNERG ID...", "success");
   redirecting = true;
+  window.sessionStorage.removeItem(DESTINATION_KEY);
   window.location.replace(destination);
 });
 
@@ -159,12 +167,14 @@ recoveryForm.addEventListener("submit", async (event) => {
   recoveryForm.hidden = true;
   setStatus("Password updated. Opening your INNERG ID...", "success");
   redirecting = true;
+  window.sessionStorage.removeItem(DESTINATION_KEY);
   window.location.replace(destination || INNERG_ID_PATH);
 });
 
 document.querySelector("#sign-out").addEventListener("click", async () => {
   await supabase.auth.signOut();
   pendingEmail = "";
+  window.sessionStorage.removeItem(DESTINATION_KEY);
   providerButtons.forEach((button) => { button.hidden = false; button.disabled = false; });
   emailForm.reset();
   codeForm.reset();

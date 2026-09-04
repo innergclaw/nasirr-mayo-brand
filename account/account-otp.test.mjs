@@ -21,5 +21,7 @@ test("normal member access no longer asks for a password", () => {
 test("Google and email verification open the safe member destination", () => {
   assert.match(js, /signInWithOAuth/);
   assert.match(js, /redirectTo: accountReturnUrl/);
+  assert.match(js, /accountReturnUrl = `\$\{window\.location\.origin\}\/account\/`/);
+  assert.match(js, /innerg_post_auth_destination/);
   assert.match(js, /window\.location\.replace\(destination\)/);
 });
