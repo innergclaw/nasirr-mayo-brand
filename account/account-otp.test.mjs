@@ -25,3 +25,13 @@ test("Google and email verification open the safe member destination", () => {
   assert.match(js, /innerg_post_auth_destination/);
   assert.match(js, /window\.location\.replace\(destination\)/);
 });
+
+test("member signup screen keeps the verified auth controls", () => {
+  assert.match(html, /Become an INNERG member\./);
+  assert.match(html, /Get your number\./);
+  for (const id of ["auth-status", "member-card", "member-email", "email-form", "code-form", "code-email", "change-email", "recovery-form", "sign-out"]) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  assert.match(html, /data-provider="google"/);
+  assert.match(html, /@media \(prefers-reduced-motion:reduce\)/);
+});

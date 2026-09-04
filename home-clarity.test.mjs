@@ -9,7 +9,7 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=6/);
-  assert.match(home, /home-clarity\.js\?v=6/);
+  assert.match(home, /home-clarity\.js\?v=7/);
 });
 
 test("scroll order places the video under official channels", () => {
@@ -21,6 +21,8 @@ test("scroll order places the video under official channels", () => {
 test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#talk-business">SPEAK WITH ME/);
   assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
+  assert.match(script, /href="\/account\/\?next=%2Finnerg-id%2F">BECOME A MEMBER/);
+  assert.doesNotMatch(script, />MARKET WATCHLIST<\/a>/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(home, /id="how-can-i-help"/);
   assert.match(styles, /#how-can-i-help\s*{[\s\S]*scroll-margin-top:\s*96px/);
