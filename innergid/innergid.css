@@ -57,8 +57,7 @@ main, footer { width: min(100% - 36px, 1180px); margin-inline: auto; }
 .preview-label { position: absolute; top: 16px; left: 16px; padding: 7px 10px; color: var(--paper); background: rgba(9,11,9,.76); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; pointer-events: none; }
 .choices { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); scroll-margin-top: 20px; }
 .choice-card { margin-top: 46px; padding: clamp(28px, 6vw, 72px); border: 1px solid rgba(243, 238, 227, .2); color: var(--member-ivory); background: var(--dark); }
-.offer-heading { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start; }
-.choice-number { margin: 5px 0 0; color: var(--member-gold); font-size: 12px; font-weight: 800; }
+.offer-heading { display: block; }
 .choice-type { margin: 0 0 14px; color: var(--dark-muted); font-size: 10px; font-weight: 850; letter-spacing: .13em; }
 .choice-card h3 { margin: 0; font-size: clamp(62px, 11vw, 150px); line-height: .78; letter-spacing: -.08em; }
 .choice-card h3 .price { color: var(--member-ivory); }
@@ -106,7 +105,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .hero-copy { margin-top: 28px; }
   .member-mark { width: min(100%, 430px); margin-inline: auto; }
   .preview-section { grid-template-columns: 1fr; }
-  .offer-heading { grid-template-columns: 1fr; gap: 22px; }
   .utility-grid { grid-template-columns: 1fr; }
   .utility-grid div { min-height: 104px; }
   .utility-grid .utility-featured { grid-column: auto; }
