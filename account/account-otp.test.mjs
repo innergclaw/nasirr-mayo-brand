@@ -47,3 +47,16 @@ test("member signup explains the INNERG ID ecosystem utility", () => {
   assert.doesNotMatch(html, /Rabbit Holes/);
   assert.match(html, /Your access grows as the INNERG ecosystem grows\./);
 });
+
+test("member signup returns to the INNERG ID offer and links the public channels", () => {
+  assert.match(html, /href="\.\.\/innergid\/">Back to INNERG ID/);
+  assert.doesNotMatch(html, />Back to Home Base</);
+  for (const href of [
+    "https://www.youtube.com/@innergintel",
+    "https://open.substack.com/pub/innergintelligence",
+    "https://www.tiktok.com/@innergintel",
+  ]) {
+    assert.match(html, new RegExp(href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  assert.equal((html.match(/rel="noopener noreferrer"/g) || []).length, 3);
+});
