@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const js = await readFile(new URL("./innergid.js", import.meta.url), "utf8");
+const css = await readFile(new URL("./innergid.css", import.meta.url), "utf8");
 
 test("landing page presents one paid INNERG ID path", () => {
   assert.match(html, /ACTIVE INNERG ID/);
@@ -25,9 +26,12 @@ test("member record comes from the authenticated server function", () => {
   assert.match(js, /getSession/);
 });
 
-test("video preview uses a local MP4 and poster", () => {
-  assert.match(html, /bull-cycle-preview\.mp4/);
-  assert.match(html, /bull-cycle-poster\.jpg/);
+test("video preview uses the Sunday montage and its poster", () => {
+  assert.match(html, /innerg-id-sunday-montage\.mp4/);
+  assert.match(html, /innerg-id-sunday-montage-poster\.jpg/);
+  assert.doesNotMatch(html, /bull-cycle-preview\.mp4/);
+  assert.match(css, /aspect-ratio:\s*9\s*\/\s*16/);
+  assert.match(css, /object-fit:\s*contain/);
 });
 
 test("member home uses the INNERG community badge", () => {

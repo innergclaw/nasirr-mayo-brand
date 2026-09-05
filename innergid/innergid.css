@@ -52,8 +52,8 @@ main, footer { width: min(100% - 36px, 1180px); margin-inline: auto; }
 .preview-section { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(30px, 7vw, 100px); align-items: center; padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); }
 .preview-copy h2, .choices > h2, .member-panel h2 { margin: 18px 0 0; font-size: clamp(40px, 6vw, 78px); line-height: .95; letter-spacing: -.075em; }
 .preview-copy > p:last-child { max-width: 430px; margin: 24px 0 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
-.video-frame { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.22); background: var(--dark); box-shadow: 0 28px 80px rgba(17,19,15,.18); }
-.video-frame video { display: block; width: 100%; aspect-ratio: 13 / 10; object-fit: cover; }
+.video-frame { position: relative; width: min(100%, 440px); justify-self: center; overflow: hidden; border: 1px solid rgba(255,255,255,.22); background: var(--dark); box-shadow: 0 28px 80px rgba(17,19,15,.18); }
+.video-frame video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: contain; }
 .preview-label { position: absolute; top: 16px; left: 16px; padding: 7px 10px; color: var(--paper); background: rgba(9,11,9,.76); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; pointer-events: none; }
 .choices { padding: clamp(80px, 10vw, 140px) 0; border-top: 1px solid var(--line); scroll-margin-top: 20px; }
 .choice-card { margin-top: 46px; padding: clamp(28px, 6vw, 72px); border: 1px solid rgba(243, 238, 227, .2); color: var(--member-ivory); background: var(--dark); }
