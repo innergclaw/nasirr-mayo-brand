@@ -69,6 +69,7 @@
       .form-status { grid-column:1/-1; min-height:18px; margin:0; color:var(--dark-muted); font-size:11px; }
       .actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; }
       .action { display:flex; align-items:flex-end; justify-content:space-between; min-height:104px; padding:18px; border:1px solid var(--line); background:#ffffff9c; text-decoration:none; transition:transform 180ms var(--ease-out),background-color 180ms ease; }
+      .action[hidden] { display:none; }
       .action strong { font-size:17px; letter-spacing:-.04em; }
       .action span { color:var(--muted); font-size:10px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
       .media-hub { margin-top:clamp(74px,10vw,120px); padding:clamp(28px,6vw,64px); color:#f7f6f0; background:var(--dark); border-radius:30px; scroll-margin-top:24px; }
@@ -157,7 +158,8 @@
           </div>
 
           <nav class="actions" aria-label="INNERG member destinations">
-            <a class="action" href="https://discord.gg/3ryNWTvsX" target="_blank" rel="noopener noreferrer"><strong>INNERG Discord</strong><span>Enter</span></a>
+            <a class="action" id="member-discord" hidden target="_blank" rel="noopener noreferrer"><strong>INNERG Discord</strong><span>Enter</span></a>
+            <a class="action" href="https://innergclaw.github.io/innerg-watchlist/" target="_blank" rel="noopener noreferrer"><strong>Research Desk / Market Watchlist</strong><span>Explore</span></a>
             <a class="action" href="#media-hub"><strong>Media Hub</strong><span>Watch</span></a>
             <a class="action" href="../"><strong>Home Base</strong><span>Return</span></a>
           </nav>

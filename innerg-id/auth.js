@@ -54,10 +54,10 @@ const functionStatus = (error) => Number(error?.context?.status || error?.status
 const showActivationPanel = ({ processing = false } = {}) => {
   content.classList.remove("is-visible");
   activationPanel.hidden = false;
-  activationEyebrow.textContent = processing ? "Payment received" : "INNERG ID activation";
+  activationEyebrow.textContent = processing ? "Checking payment status" : "INNERG ID activation";
   activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
   activationCopy.textContent = processing
-    ? "Stripe is finishing your member access. Check again in a moment. You will not be charged twice."
+    ? "We are waiting for confirmed member access. Check again in a moment. If you already paid, do not start another checkout."
     : "Activate your $10 monthly INNERG ID to enter the member ecosystem and open the full Media Hub.";
   activationLink.hidden = processing;
   activationRetry.hidden = !processing;
@@ -108,6 +108,10 @@ const setVideoChapters = (chapters) => {
 
 const setMemberCard = (member) => {
   currentMember = member;
+  const discordLink = document.querySelector("#member-discord");
+  const validDiscord = typeof member.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(member.discordUrl);
+  discordLink.hidden = !validDiscord;
+  if (validDiscord) discordLink.href = member.discordUrl;
   const fullName = [member.firstName, member.lastName].filter(Boolean).join(" ");
   idName.textContent = fullName || "INNERG MEMBER";
   idNumber.textContent = member.membershipNumber;
@@ -319,7 +323,7 @@ const resolveMemberAccess = async (session, { force = false } = {}) => {
 
   accessRequest = (async () => {
     activationPanel.hidden = true;
-    setStatus(checkoutReturn ? "Payment received. Activating your INNERG ID..." : "Checking your INNERG ID...");
+    setStatus(checkoutReturn ? "Checking payment and activating your INNERG ID..." : "Checking your INNERG ID...");
     const delays = checkoutReturn ? ACTIVATION_DELAYS_MS : [0];
 
     for (let attempt = 0; attempt < delays.length; attempt += 1) {
@@ -343,7 +347,7 @@ const resolveMemberAccess = async (session, { force = false } = {}) => {
         return result.data;
       }
       if (accessState === "retry") {
-        setStatus(`Payment confirmed. Activating your INNERG ID ${attempt + 1} of ${delays.length}...`);
+        setStatus(`Checking member activation ${attempt + 1} of ${delays.length}...`);
         continue;
       }
       if (accessState === "activate") {

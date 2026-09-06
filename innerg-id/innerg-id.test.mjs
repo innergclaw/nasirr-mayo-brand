@@ -22,9 +22,16 @@ test("INNERG ID is guarded and loads the secured member record", () => {
 test("paid members wait for activation and open the Media Hub", () => {
   assert.match(js, /isCheckoutReturn/);
   assert.match(js, /ACTIVATION_DELAYS_MS/);
-  assert.match(js, /Payment received\. Activating your INNERG ID/);
+  assert.match(js, /Checking payment and activating your INNERG ID/);
   assert.match(js, /history\.replaceState\(\{\}, "", `\$\{window\.location\.pathname\}#media-hub`\)/);
   assert.match(js, /scrollIntoView/);
+});
+
+test("payment return does not claim confirmation from a URL parameter", () => {
+  assert.doesNotMatch(js, /Payment received|Payment confirmed|You will not be charged twice/);
+  assert.doesNotMatch(html, /https:\/\/discord\.gg\//);
+  assert.match(js, /member\.discordUrl/);
+  assert.match(html, /https:\/\/innergclaw\.github\.io\/innerg-watchlist\//);
 });
 
 test("signed-in unpaid accounts receive a clear activation path", () => {

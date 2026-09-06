@@ -65,7 +65,7 @@ const showSession = (session) => {
   }
   if (signedIn) {
     memberEmail.textContent = user.email || "Your account is ready.";
-    setStatus("Your INNERG member account is active.", "success");
+    setStatus("Your email is verified. Checking your INNERG access...", "success");
     if (shouldRedirectToDestination({ session, recovery: recoveryMode, currentPath: window.location.pathname, destination })) {
       redirecting = true;
       window.sessionStorage.removeItem(DESTINATION_KEY);
