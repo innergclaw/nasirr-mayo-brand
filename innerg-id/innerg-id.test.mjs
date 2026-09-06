@@ -11,6 +11,9 @@ test("INNERG ID route presents the named member credential", () => {
   assert.match(html, /id="id-number"/);
   assert.match(html, /firstName/);
   assert.match(html, /lastName/);
+  assert.match(html, /innerg-member-badge\.png/);
+  assert.match(html, /Verified/);
+  assert.match(html, /Identity \/ access \/ community/i);
 });
 
 test("INNERG ID is guarded and loads the secured member record", () => {
@@ -57,6 +60,7 @@ test("member can save or share a completed INNERG ID", () => {
   assert.match(js, /navigator\.share/);
   assert.match(js, /new File\(\[blob\]/);
   assert.match(js, /image\/png/);
+  assert.match(js, /loadCardLogo/);
 });
 
 test("member Media Hub uses verified release access", () => {

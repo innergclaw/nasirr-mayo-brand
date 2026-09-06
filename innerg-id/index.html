@@ -40,19 +40,29 @@
       .id-wrap { perspective:1200px; transform-style:preserve-3d; transition:transform 220ms var(--ease-out); }
       .id-card { position:relative; width:100%; aspect-ratio:1.586/1; min-height:250px; border:0; border-radius:24px; background:transparent; cursor:pointer; transform-style:preserve-3d; transition:transform 650ms var(--ease-out); }
       .id-card.is-flipped { transform:rotateY(180deg); }
-      .id-face { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(22px,3.6vw,36px); overflow:hidden; border:1px solid rgba(255,255,255,.42); border-radius:24px; backface-visibility:hidden; box-shadow:0 30px 80px rgba(0,0,0,.42); }
-      .id-front { color:#111; background:linear-gradient(135deg,#fafaf6 0%,#e0e4da 100%); }
-      .id-front::before { content:""; position:absolute; width:58%; aspect-ratio:1; right:-19%; top:-37%; border:42px solid var(--acid); border-radius:50%; opacity:.78; }
-      .id-back { color:#f7f6f0; background:#141814; transform:rotateY(180deg); }
-      .id-back::after { content:""; position:absolute; width:70%; aspect-ratio:1; right:-12%; bottom:-52%; border:1px solid #66705f; border-radius:50%; }
+      .id-face { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(22px,3.6vw,36px); overflow:hidden; border:1px solid rgba(255,255,255,.5); border-radius:24px; backface-visibility:hidden; box-shadow:0 30px 80px rgba(0,0,0,.42),inset 0 0 0 1px rgba(17,20,17,.08); }
+      .id-front { color:#111; background:linear-gradient(132deg,#fbfaf4 0%,#e6e3d9 58%,#c8c9bf 100%); }
+      .id-front::before { content:""; position:absolute; inset:10px; border:1px solid rgba(17,20,17,.16); border-radius:17px; pointer-events:none; }
+      .id-front::after { content:""; position:absolute; width:46%; height:200%; right:5%; top:-50%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.62),transparent); transform:rotate(18deg); opacity:.5; pointer-events:none; }
+      .id-back { color:#f7f6f0; background:radial-gradient(circle at 82% 22%,#252b24 0,#111411 36%,#080a08 100%); transform:rotateY(180deg); }
+      .id-back::after { content:""; position:absolute; inset:10px; border:1px solid rgba(247,246,240,.2); border-radius:17px; pointer-events:none; }
       .id-top,.id-bottom { position:relative; z-index:1; display:flex; align-items:flex-start; justify-content:space-between; gap:18px; text-align:left; }
-      .id-mark { display:grid; place-items:center; width:52px; aspect-ratio:1; border:2px solid currentColor; border-radius:50%; font-weight:850; letter-spacing:-.08em; }
+      .id-identity { display:flex; align-items:center; gap:12px; }
+      .id-logo { display:block; width:clamp(48px,7vw,66px); aspect-ratio:1; border:1px solid rgba(17,20,17,.28); border-radius:50%; object-fit:cover; box-shadow:0 8px 22px rgba(0,0,0,.18); }
+      .id-back .id-logo { border-color:rgba(247,246,240,.32); }
       .id-brand { font-size:11px; font-weight:800; letter-spacing:.14em; line-height:1.35; text-align:right; text-transform:uppercase; }
+      .id-identity .id-brand { text-align:left; }
+      .id-verified { display:inline-flex; align-items:center; gap:7px; padding:7px 9px; border:1px solid rgba(17,20,17,.22); border-radius:999px; font-size:8px; font-weight:850; letter-spacing:.13em; text-transform:uppercase; white-space:nowrap; }
+      .id-verified::before { content:""; width:7px; aspect-ratio:1; border-radius:50%; background:var(--acid); box-shadow:0 0 0 3px rgba(202,255,55,.24); }
+      .id-crest { position:absolute; z-index:0; width:48%; aspect-ratio:1; right:-5%; top:13%; border-radius:50%; object-fit:cover; opacity:.14; filter:grayscale(1) contrast(1.2); }
+      .id-back .id-crest { width:58%; right:-7%; top:7%; opacity:.22; filter:none; }
+      .id-micro { position:relative; z-index:1; margin:auto 0 15px; color:#596059; font:750 8px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.14em; text-align:left; text-transform:uppercase; }
       .id-name { display:block; max-width:78%; font-size:clamp(28px,4.4vw,46px); font-weight:800; line-height:.88; letter-spacing:-.065em; text-transform:uppercase; }
       .id-number { display:block; margin-top:11px; font:700 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.12em; }
-      .id-label { align-self:flex-end; font-size:10px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+      .id-label { align-self:flex-end; padding-bottom:2px; font-size:9px; font-weight:850; letter-spacing:.13em; text-transform:uppercase; }
       .id-back h3 { position:relative; z-index:1; margin:0; max-width:82%; font-size:clamp(32px,4.8vw,52px); line-height:.88; letter-spacing:-.075em; text-align:left; }
-      .id-back p { position:relative; z-index:1; margin:0; color:var(--dark-muted); font-size:12px; line-height:1.5; text-align:left; }
+      .id-member-since { position:relative; z-index:1; display:block; margin:0; color:var(--dark-muted); font-size:12px; line-height:1.5; text-align:left; }
+      .id-access-line { position:relative; z-index:1; display:block; margin-top:5px; color:var(--acid); font-size:8px; font-weight:800; letter-spacing:.12em; text-align:left; text-transform:uppercase; }
       .flip-note { margin:13px 0 0; color:#858d84; font-size:10px; letter-spacing:.1em; text-align:center; text-transform:uppercase; }
       .card-tools { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
       .card-tool { min-height:44px; padding:11px 14px; border:1px solid #4a514a; border-radius:10px; color:#f7f6f0; background:#171b17; cursor:pointer; font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; transition:transform 140ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease; }
@@ -100,7 +110,7 @@
       @keyframes reveal { from { opacity:0; transform:translateY(26px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
       @media (hover:hover) and (pointer:fine) { .topline a:hover { color:var(--ink); } .action:hover { transform:translateY(-3px); background:#fff; } .sign-out:hover { color:var(--paper); background:var(--ink); } .name-form button:hover { filter:brightness(1.08); } .card-tool:hover:not(:disabled) { border-color:var(--acid); } .media-action:hover { color:#111; background:var(--acid); } .chapter-button:hover:not([aria-current="true"]) { border-color:#f7f6f0; color:#f7f6f0; } .activation-action:hover { color:var(--ink); background:var(--acid); } }
       @media (max-width:760px) { .id-stage { grid-template-columns:1fr; } .id-copy { text-align:center; } .id-wrap { width:min(100%,500px); margin:0 auto; } .actions { grid-template-columns:1fr; } .media-release { grid-template-columns:1fr; } .media-visual,.media-chapters,.release-copy { grid-column:1; grid-row:auto; } }
-      @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
+      @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .id-face { padding:20px; } .id-logo { width:46px; } .id-brand { font-size:9px; } .id-verified { padding:6px 7px; font-size:7px; } .id-micro { margin-bottom:10px; font-size:6px; } .id-name { font-size:clamp(24px,8.4vw,36px); } .id-label { font-size:7px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
       @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action,.chapter-button,.activation-action{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
     </style>
   </head>
@@ -143,13 +153,16 @@
             <div class="id-wrap">
               <button class="id-card" id="id-card" type="button" aria-label="Flip INNERG ID card" aria-pressed="false">
                 <span class="id-face id-front">
-                  <span class="id-top"><span class="id-mark">IG</span><span class="id-brand">INNERG<br />INTEL</span></span>
-                  <span class="id-bottom"><span><strong class="id-name" id="id-name">INNERG MEMBER</strong><span class="id-number" id="id-number">INNERG-000000</span></span><span class="id-label">Member</span></span>
+                  <img class="id-crest" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" />
+                  <span class="id-top"><span class="id-identity"><img class="id-logo" src="../innergid/assets/innerg-member-badge.png" alt="INNERG member badge" /><span class="id-brand">INNERG INTEL<br />Member credential</span></span><span class="id-verified">Verified</span></span>
+                  <span class="id-micro">Identity / access / community<br />Learn the system. Recode the mind. Build the future.</span>
+                  <span class="id-bottom"><span><strong class="id-name" id="id-name">INNERG MEMBER</strong><span class="id-number" id="id-number">INNERG-000000</span></span><span class="id-label">Active member</span></span>
                 </span>
                 <span class="id-face id-back">
-                  <span class="id-top"><span class="id-mark">IG</span><span class="id-brand">MEMBER<br />ACCESS</span></span>
+                  <img class="id-crest" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" />
+                  <span class="id-top"><span class="id-identity"><img class="id-logo" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" /><span class="id-brand">INNERG<br />Ecosystem</span></span><span class="id-verified">Access active</span></span>
                   <h3>Build from the inside out.</h3>
-                  <p id="member-since">INNERG member</p>
+                  <span><span class="id-member-since" id="member-since">INNERG member</span><span class="id-access-line">Research / media / community / direct access</span></span>
                 </span>
               </button>
               <p class="flip-note">Press the card to view both sides</p>

@@ -177,6 +177,13 @@ const fitText = (context, text, maxWidth, startSize, minSize = 44) => {
   return size;
 };
 
+const loadCardLogo = () => new Promise((resolve, reject) => {
+  const image = new Image();
+  image.onload = () => resolve(image);
+  image.onerror = () => reject(new Error("The INNERG badge could not be loaded."));
+  image.src = new URL("../innergid/assets/innerg-member-badge.png", window.location.href).href;
+});
+
 const createCardBlob = async () => {
   if (!currentMember?.firstName || !currentMember?.lastName || !currentMember?.membershipNumber) {
     throw new Error("Complete your name before saving your card.");
@@ -186,6 +193,7 @@ const createCardBlob = async () => {
   canvas.height = 1008;
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Your browser could not create the card image.");
+  const logo = await loadCardLogo();
 
   const surface = context.createLinearGradient(0, 0, 1600, 1008);
   surface.addColorStop(0, "#fafaf6");
@@ -197,27 +205,40 @@ const createCardBlob = async () => {
   context.lineWidth = 3;
   context.stroke();
 
+  context.save();
+  context.globalAlpha = 0.13;
   context.beginPath();
-  context.arc(1430, 14, 420, 0, Math.PI * 2);
-  context.strokeStyle = "#caff37";
-  context.lineWidth = 112;
-  context.stroke();
+  context.arc(1290, 430, 350, 0, Math.PI * 2);
+  context.clip();
+  context.drawImage(logo, 940, 80, 700, 700);
+  context.restore();
 
+  context.save();
   context.beginPath();
-  context.arc(150, 152, 62, 0, Math.PI * 2);
-  context.strokeStyle = "#111411";
-  context.lineWidth = 7;
-  context.stroke();
-  context.fillStyle = "#111411";
-  context.font = "800 42px Inter, Arial, sans-serif";
-  context.textAlign = "center";
-  context.fillText("IG", 150, 168);
+  context.arc(156, 156, 70, 0, Math.PI * 2);
+  context.clip();
+  context.drawImage(logo, 86, 86, 140, 140);
+  context.restore();
 
   context.textAlign = "right";
   context.font = "800 30px Inter, Arial, sans-serif";
   context.letterSpacing = "5px";
-  context.fillText("INNERG", 1438, 136);
-  context.fillText("INTEL", 1438, 178);
+  context.fillText("INNERG INTEL", 1438, 136);
+  context.font = "800 19px Inter, Arial, sans-serif";
+  context.fillStyle = "#596159";
+  context.fillText("VERIFIED MEMBER CREDENTIAL", 1438, 174);
+
+  roundedRect(context, 1160, 214, 278, 58, 29);
+  context.fillStyle = "rgba(17,20,17,.08)";
+  context.fill();
+  context.beginPath();
+  context.arc(1200, 243, 8, 0, Math.PI * 2);
+  context.fillStyle = "#caff37";
+  context.fill();
+  context.textAlign = "left";
+  context.fillStyle = "#111411";
+  context.font = "800 17px Inter, Arial, sans-serif";
+  context.fillText("ACCESS ACTIVE", 1225, 250);
 
   const fullName = `${currentMember.firstName} ${currentMember.lastName}`.toUpperCase();
   context.textAlign = "left";
@@ -229,9 +250,9 @@ const createCardBlob = async () => {
   context.fillText(currentMember.membershipNumber, 116, 798);
   context.font = "800 24px Inter, Arial, sans-serif";
   context.fillStyle = "#596159";
-  context.fillText("VERIFIED MEMBER", 116, 866);
+  context.fillText("IDENTITY / ACCESS / COMMUNITY", 116, 866);
   context.textAlign = "right";
-  context.fillText("BUILD FROM THE INSIDE OUT.", 1450, 866);
+  context.fillText("LEARN THE SYSTEM. RECODE THE MIND. BUILD THE FUTURE.", 1450, 866);
 
   return await new Promise((resolve, reject) => {
     canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Your card image could not be created.")), "image/png", 1);
