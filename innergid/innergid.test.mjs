@@ -28,6 +28,14 @@ test("member record comes from the authenticated server function", () => {
   assert.match(js, /getSession/);
 });
 
+test("active members can sign out and return to the INNERG sign-in page", () => {
+  assert.match(html, /id="member-sign-out"/);
+  assert.match(html, />Sign out<\/button>/);
+  assert.match(js, /supabase\.auth\.signOut\(\)/);
+  assert.match(js, /location\.replace\("\.\.\/account\/\?next=%2Finnergid%2F"\)/);
+  assert.match(js, /We could not sign you out\. Please try again\./);
+});
+
 test("video preview uses the Sunday montage and its poster", () => {
   assert.match(html, /innerg-id-sunday-montage\.mp4/);
   assert.match(html, /innerg-id-sunday-montage-poster\.jpg/);

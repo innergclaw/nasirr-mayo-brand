@@ -10,6 +10,7 @@ const panel = document.querySelector("#member-panel");
 const number = document.querySelector("#member-number");
 const status = document.querySelector("#member-status");
 const discord = document.querySelector("#discord-link");
+const signOut = document.querySelector("#member-sign-out");
 const purchase = document.querySelector(".purchase-action");
 const purchaseStatus = document.querySelector("#purchase-status");
 
@@ -41,6 +42,7 @@ const showMember = async (session) => {
   delete purchase.dataset.active;
   panel.hidden = true;
   number.textContent = "";
+  status.textContent = "";
   discord.hidden = true;
   discord.removeAttribute("href");
   if (!session?.user) {
@@ -75,6 +77,21 @@ const showMember = async (session) => {
   }
 };
 document.querySelector("#access-retry").addEventListener("click", () => showMember(activeSession));
+
+signOut?.addEventListener("click", async () => {
+  signOut.disabled = true;
+  signOut.textContent = "Signing out...";
+  status.textContent = "Ending your INNERG session...";
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    location.replace("../account/?next=%2Finnergid%2F");
+  } catch {
+    signOut.disabled = false;
+    signOut.textContent = "Sign out";
+    status.textContent = "We could not sign you out. Please try again.";
+  }
+});
 
 const checkCompletedMembership = async () => {
   if (new URLSearchParams(location.search).get("membership") !== "success" || !activeSession) return;
