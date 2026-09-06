@@ -59,9 +59,9 @@ main, footer { width: min(100% - 36px, 1180px); margin-inline: auto; }
 .choice-card { margin-top: 46px; padding: clamp(28px, 6vw, 72px); border: 1px solid rgba(243, 238, 227, .2); color: var(--member-ivory); background: var(--dark); }
 .offer-heading { display: grid; grid-template-columns: minmax(0, .86fr) minmax(340px, 1.14fr); gap: clamp(42px, 7vw, 104px); align-items: center; }
 .choice-type { margin: 0 0 14px; color: var(--dark-muted); font-size: 10px; font-weight: 850; letter-spacing: .13em; }
-.choice-card h3 { margin: 0; font-size: clamp(62px, 11vw, 150px); line-height: .78; letter-spacing: -.08em; }
+.choice-card h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 10px; margin: 0; font-size: clamp(62px, 11vw, 150px); line-height: .78; letter-spacing: -.08em; }
 .choice-card h3 .price { color: var(--member-ivory); }
-.choice-card h3 small { color: var(--dark-muted); font-size: clamp(16px, 2vw, 26px); font-weight: 600; letter-spacing: -.03em; }
+.choice-card h3 small { white-space: nowrap; line-height: 1.2; color: var(--dark-muted); font-size: clamp(16px, 2vw, 26px); font-weight: 600; letter-spacing: -.03em; }
 .price-note { margin: 24px 0 0; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .utility-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: clamp(46px, 7vw, 86px); background: rgba(243, 238, 227, .16); }
 .utility-grid div { min-height: 124px; display: grid; grid-template-columns: 32px 1fr; gap: 16px; align-items: start; padding: 24px; background: var(--dark); }
