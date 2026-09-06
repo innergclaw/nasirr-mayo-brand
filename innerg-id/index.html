@@ -114,10 +114,11 @@
         <section class="activation-panel" id="activation-panel" aria-labelledby="activation-title" hidden>
           <p class="eyebrow" id="activation-eyebrow">INNERG ID activation</p>
           <h2 id="activation-title">Your account is ready.</h2>
-          <p id="activation-copy">Activate your $10 monthly INNERG ID to enter the member ecosystem and open the full Media Hub.</p>
+          <p id="activation-copy">Choose $10 monthly or $100 for 12 months to activate your INNERG ID and open the full Media Hub.</p>
           <div class="activation-actions">
             <a class="activation-action" id="activation-link" href="../innergid/#access">Activate my INNERG ID</a>
             <button class="activation-action secondary" id="activation-retry" type="button" hidden>Check access again</button>
+            <button class="activation-action secondary" data-manage-billing type="button">Manage existing billing</button>
           </div>
         </section>
 
@@ -188,6 +189,8 @@
               </div>
             </article>
           </section>
+          <button class="sign-out" id="manage-billing" data-manage-billing type="button">Manage billing</button>
+          <p id="billing-status" role="status" aria-live="polite"></p>
           <button class="sign-out" id="sign-out" type="button">Sign out</button>
         </section>
       </div>

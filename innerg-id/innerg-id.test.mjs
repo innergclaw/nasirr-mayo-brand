@@ -36,7 +36,7 @@ test("payment return does not claim confirmation from a URL parameter", () => {
 
 test("signed-in unpaid accounts receive a clear activation path", () => {
   assert.match(html, /id="activation-panel"/);
-  assert.match(html, /Activate your \$10 monthly INNERG ID/);
+  assert.match(html, /Choose \$10 monthly or \$100 for 12 months/);
   assert.match(html, /href="\.\.\/innergid\/#access"/);
   assert.match(js, /showActivationPanel/);
 });

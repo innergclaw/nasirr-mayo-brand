@@ -10,7 +10,9 @@ test("landing page presents one paid INNERG ID path", () => {
   assert.match(html, /ACTIVE INNERG ID/);
   assert.match(html, /\$10/);
   assert.match(html, /\/ month/);
-  assert.match(html, /One subscription\. Full ecosystem access\./);
+  assert.match(html, /Your ID\. Full ecosystem access\./);
+  assert.match(html, /\$100 for 12 months/);
+  assert.match(html, /No automatic renewal/);
   assert.doesNotMatch(html, /FREE MEMBERSHIP/);
   assert.doesNotMatch(html, /One-time purchase/);
   assert.equal((html.match(/class="choice-card/g) || []).length, 1);

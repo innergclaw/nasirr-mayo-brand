@@ -33,6 +33,16 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("Intersec
 
 const showMember = async (session, { force = false } = {}) => {
   activeSession = session ?? null;
+  if (!session?.user) {
+    panel.hidden = true;
+    delete panel.dataset.loaded;
+    delete purchase.dataset.active;
+    purchase.textContent = "Activate my INNERG ID";
+    number.textContent = "";
+    discord.hidden = true;
+    discord.removeAttribute("href");
+    return null;
+  }
   if (!session?.user || (panel.dataset.loaded === "true" && !force)) return null;
   panel.dataset.loaded = "true";
   try {
@@ -65,8 +75,24 @@ const checkCompletedMembership = async () => {
     }
     await new Promise((resolve) => setTimeout(resolve, 1500));
   }
-  purchaseStatus.textContent = "Payment received. Your INNERG ID is still being prepared. Refresh this page in a moment.";
+  purchaseStatus.textContent = "We have not confirmed your access yet. If you already paid, do not start another purchase. Contact ownyourwebsmm@gmail.com.";
 };
+
+const planInputs = document.querySelectorAll('input[name="billing-plan"]');
+const updatePlan = () => {
+  const selected = document.querySelector('input[name="billing-plan"]:checked').value;
+  try { sessionStorage.setItem("innerg-billing-plan", selected); } catch {}
+  document.querySelector("#plan-price").textContent = selected === "yearly" ? "$100" : "$10";
+  document.querySelector("#plan-period").textContent = selected === "yearly" ? " / 12 months" : " / month";
+  document.querySelector("#plan-note").textContent = selected === "yearly"
+    ? "One $100 payment gives you 12 months of access from payment confirmation. No automatic renewal."
+    : "Monthly access renews at $10 until canceled. Both options include the same member access.";
+};
+try {
+  if (sessionStorage.getItem("innerg-billing-plan") === "yearly") document.querySelector('input[value="yearly"]').checked = true;
+} catch {}
+planInputs.forEach(input => input.addEventListener("change", updatePlan));
+updatePlan();
 
 purchase?.addEventListener("click", async () => {
   if (purchase.dataset.active === "true") {
@@ -80,17 +106,21 @@ purchase?.addEventListener("click", async () => {
   purchase.disabled = true;
   purchaseStatus.textContent = "Opening secure checkout...";
   try {
-    const { data, error } = await supabase.functions.invoke("innerg-membership-checkout", { method: "POST" });
-    if (error) throw error;
+    const plan = document.querySelector('input[name="billing-plan"]:checked')?.value ?? "monthly";
+    const { data, error } = await supabase.functions.invoke("innerg-membership-checkout", { method: "POST", body: { plan } });
+    if (error) {
+      const detail = await error.context?.json().catch(() => null);
+      throw new Error(detail?.error || "Checkout could not open. If you already paid, do not start another purchase.");
+    }
     if (data?.alreadyActive) {
       location.assign("../innerg-id/");
       return;
     }
     if (!data?.url) throw new Error("Checkout is unavailable");
     location.assign(data.url);
-  } catch {
+  } catch (error) {
     purchase.disabled = false;
-    purchaseStatus.textContent = "Checkout could not open. Please try again.";
+    purchaseStatus.textContent = error.message || "Checkout could not open. Please try again.";
   }
 });
 

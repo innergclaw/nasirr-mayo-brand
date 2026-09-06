@@ -58,7 +58,7 @@ const showActivationPanel = ({ processing = false } = {}) => {
   activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
   activationCopy.textContent = processing
     ? "We are waiting for confirmed member access. Check again in a moment. If you already paid, do not start another checkout."
-    : "Activate your $10 monthly INNERG ID to enter the member ecosystem and open the full Media Hub.";
+    : "Choose $10 monthly or $100 for 12 months to activate your INNERG ID and open the full Media Hub.";
   activationLink.hidden = processing;
   activationRetry.hidden = !processing;
   status.classList.add("is-hidden");
@@ -456,3 +456,20 @@ document.querySelector("#sign-out").addEventListener("click", async () => {
   }
   window.location.replace("../account/");
 });
+document.querySelectorAll("[data-manage-billing]").forEach(control => control.addEventListener("click", async (event) => {
+  const button = event.currentTarget;
+  const message = document.querySelector("#billing-status");
+  button.disabled = true;
+  message.textContent = "Opening secure billing...";
+  try {
+    const { data, error } = await supabase.functions.invoke("innerg-billing-portal", { method: "POST" });
+    if (error || !data?.url) throw new Error("Billing could not open.");
+    const url = new URL(data.url);
+    if (url.origin !== "https://billing.stripe.com") throw new Error("Invalid billing destination.");
+    location.assign(url.href);
+  } catch {
+    message.textContent = "Billing could not open. Please contact ownyourwebsmm@gmail.com.";
+    setStatus(message.textContent, "error");
+    button.disabled = false;
+  }
+}));

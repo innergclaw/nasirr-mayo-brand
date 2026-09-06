@@ -55,8 +55,13 @@
           <div class="offer-heading reveal reveal-left">
             <div class="price-block">
               <p class="choice-type">ACTIVE INNERG ID</p>
-              <h3><span class="price">$10</span><small> / month</small></h3>
-              <p class="price-note">One subscription. Full ecosystem access.</p>
+              <h3><span class="price" id="plan-price">$10</span><small id="plan-period"> / month</small></h3>
+              <p class="price-note">Your ID. Full ecosystem access.</p>
+              <fieldset class="plan-picker">
+                <legend>Choose your access</legend>
+                <label><input type="radio" name="billing-plan" value="monthly" checked> <span><strong>$10 monthly</strong><small>Renews each month until canceled.</small></span></label>
+                <label><input type="radio" name="billing-plan" value="yearly"> <span><strong>$100 for 12 months</strong><small>One payment. No automatic renewal.</small></span></label>
+              </fieldset>
             </div>
             <section class="who-block reveal reveal-right" aria-labelledby="who-title">
               <p class="eyebrow">WHO IS THIS FOR?</p>
@@ -72,7 +77,8 @@
             <div class="reveal reveal-tile" style="--reveal-delay: 240ms"><span>05</span><strong>Media Hub and member-only releases</strong></div>
             <div class="reveal reveal-tile" style="--reveal-delay: 300ms"><span>06</span><strong>Discord, resources, and future events</strong></div>
           </div>
-          <p class="access-note reveal reveal-left">Your access remains active while your monthly subscription is current.</p>
+          <p class="access-note reveal reveal-left" id="plan-note">Monthly access renews at $10 until canceled. Both options include the same member access.</p>
+          <p class="access-note">Billing questions? <a href="mailto:ownyourwebsmm@gmail.com">Contact OwnYourWeb</a>.</p>
           <button class="card-action purchase-action reveal reveal-up" type="button">Activate my INNERG ID</button>
           <p class="purchase-status" id="purchase-status" role="status" aria-live="polite"></p>
         </article>

@@ -121,3 +121,12 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
   .motion-ready.motion-live .hero-reveal { animation: none; }
   .motion-ready .hero-reveal, .motion-ready .reveal { opacity: 1; transform: none; clip-path: none; }
 }
+/* Fixed-price choices retain native radio keyboard behavior. */
+.plan-picker { border: 0; padding: 0; margin: 1.5rem 0 0; display: grid; gap: .7rem; }
+.plan-picker legend { font-size: .85rem; margin-bottom: .7rem; }
+.plan-picker label { display: flex; align-items: center; gap: .8rem; padding: 1rem; border: 1px solid #64695f; border-radius: .75rem; cursor: pointer; }
+.plan-picker label:has(input:checked) { border-color: #c5ff27; background: #c5ff2710; }
+.plan-picker input { accent-color: #c5ff27; width: 1.2rem; height: 1.2rem; flex-shrink: 0; }
+.plan-picker strong, .plan-picker small { display: block; }
+.plan-picker small { font-size: .8rem; margin-top: .3rem; color: #b8bcb1; }
+.plan-picker label:focus-within { outline: 2px solid #f3efe4; outline-offset: 3px; }
