@@ -1,10 +1,12 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
 import { INNERG_ID_PATH, shouldRedirectToAccount } from "../account/auth-flow.mjs";
 import { ACTIVATION_DELAYS_MS, classifyMemberAccess, isCheckoutReturn } from "./access-flow.mjs";
+import { setupDiscord } from "./discord.js";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const refreshDiscord = setupDiscord(supabase);
 const status = document.querySelector("#id-status");
 const content = document.querySelector("#id-content");
 const email = document.querySelector("#member-email");
@@ -108,6 +110,7 @@ const setVideoChapters = (chapters) => {
 
 const setMemberCard = (member) => {
   currentMember = member;
+  void refreshDiscord?.();
   const discordLink = document.querySelector("#member-discord");
   const validDiscord = typeof member.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(member.discordUrl);
   discordLink.hidden = !validDiscord;
