@@ -1,0 +1,29 @@
+/* Indeterminate progress: verification has no measurable completion percentage. */
+.innerg-progress {
+  width: min(100%, 420px);
+  height: 8px;
+  margin: 22px 0 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #282c26;
+  box-shadow: inset 0 0 0 1px #ffffff14;
+}
+.innerg-progress-fill {
+  display: block;
+  width: 36%;
+  height: 100%;
+  border-radius: inherit;
+  background: #c5ff27;
+  transform: translateX(-110%);
+  animation: innerg-progress-sweep 1.65s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes innerg-progress-sweep {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(390%); }
+}
+html[data-access-view="error"] #access-loading .innerg-progress,
+.status.is-hidden + .innerg-progress,
+.status[data-state="error"] + .innerg-progress { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .innerg-progress-fill { animation: none; transform: translateX(88%); }
+}

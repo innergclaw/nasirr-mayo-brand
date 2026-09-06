@@ -6,6 +6,7 @@
     <meta name="description" content="Activate your INNERG ID for $10 per month and unlock the INNERG ecosystem." />
     <title>INNERG ID | NASIRR G. MAYO</title>
     <link rel="stylesheet" href="./innergid.css?v=20260906-member-view" />
+    <link rel="stylesheet" href="../innerg-progress.css?v=20260906" />
     <script>document.documentElement.classList.add("motion-ready");document.documentElement.dataset.accessView="loading";</script>
   </head>
   <body>
@@ -20,7 +21,11 @@
       </header>
 
       <section id="access-loading" role="status" aria-live="polite" hidden>
+        <p class="eyebrow">OPENING YOUR INNERG ID</p>
         <p id="access-loading-message">Checking your INNERG access...</p>
+        <div class="innerg-progress" role="progressbar" aria-label="Checking your INNERG access">
+          <span class="innerg-progress-fill" aria-hidden="true"></span>
+        </div>
         <button class="secondary-action" id="access-retry" type="button" hidden>Check access again</button>
       </section>
       <section class="hero" data-public-offer aria-labelledby="page-title">
