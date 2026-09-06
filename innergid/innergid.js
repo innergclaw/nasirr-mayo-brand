@@ -1,5 +1,7 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
 
+import { renderAccessView } from "./access-view.mjs";
+
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
@@ -12,6 +14,8 @@ const purchase = document.querySelector(".purchase-action");
 const purchaseStatus = document.querySelector("#purchase-status");
 
 let activeSession = null;
+let accessRequest = 0;
+let displayedMember = null;
 
 requestAnimationFrame(() => {
   requestAnimationFrame(() => document.documentElement.classList.add("motion-live"));
@@ -31,37 +35,46 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("Intersec
   revealItems.forEach((item) => revealObserver.observe(item));
 }
 
-const showMember = async (session, { force = false } = {}) => {
+const showMember = async (session) => {
+  const request = ++accessRequest;
   activeSession = session ?? null;
+  delete purchase.dataset.active;
+  panel.hidden = true;
+  number.textContent = "";
+  discord.hidden = true;
+  discord.removeAttribute("href");
   if (!session?.user) {
-    panel.hidden = true;
-    delete panel.dataset.loaded;
-    delete purchase.dataset.active;
-    purchase.textContent = "Activate my INNERG ID";
-    number.textContent = "";
-    discord.hidden = true;
-    discord.removeAttribute("href");
+    displayedMember = null;
+    renderAccessView(document, "public");
     return null;
   }
-  if (!session?.user || (panel.dataset.loaded === "true" && !force)) return null;
-  panel.dataset.loaded = "true";
+  renderAccessView(document, "loading");
   try {
     const { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
-    if (error || !data?.membershipNumber) throw error || new Error("Member record unavailable");
-    panel.hidden = false;
+    if (request !== accessRequest) return null;
+    if (error || !data?.membershipNumber) {
+      renderAccessView(document, Number(error?.context?.status || error?.status) === 403 ? "public" : "error");
+      return null;
+    }
     number.textContent = data.membershipNumber;
-    status.textContent = "Your INNERG ID is active. The ecosystem is open.";
-    discord.href = data.discordUrl;
-    discord.hidden = false;
-    purchase.textContent = "Open my INNERG ID";
+    status.textContent = "Your INNERG ID is active. Open your ID for the video, watchlist, and member resources.";
+    if (typeof data.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(data.discordUrl)) {
+      discord.href = data.discordUrl;
+      discord.hidden = false;
+    }
     purchase.dataset.active = "true";
-    purchaseStatus.textContent = "Your INNERG ID is active.";
+    renderAccessView(document, "active");
+    // Remove a stale pricing anchor after returning from sign-in.
+    history.replaceState({}, "", location.pathname + "#member-panel");
+    if (displayedMember !== session.user.id) panel.scrollIntoView({ behavior: "instant", block: "start" });
+    displayedMember = session.user.id;
     return data;
   } catch {
-    panel.hidden = true;
+    if (request === accessRequest) renderAccessView(document, "error");
     return null;
   }
 };
+document.querySelector("#access-retry").addEventListener("click", () => showMember(activeSession));
 
 const checkCompletedMembership = async () => {
   if (new URLSearchParams(location.search).get("membership") !== "success" || !activeSession) return;
@@ -124,10 +137,14 @@ purchase?.addEventListener("click", async () => {
   }
 });
 
-supabase.auth.onAuthStateChange((_event, session) => {
-  showMember(session).then(checkCompletedMembership);
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === "INITIAL_SESSION") return;
+  // Defer network work until the auth callback releases its session lock.
+  setTimeout(() => showMember(session).then(checkCompletedMembership), 0);
 });
-const { data } = await supabase.auth.getSession();
-activeSession = data.session;
-await showMember(data.session);
-await checkCompletedMembership();
+try {
+  const { data, error } = await supabase.auth.getSession();
+  if (error) throw error;
+  await showMember(data.session);
+  await checkCompletedMembership();
+} catch { renderAccessView(document, "error"); }

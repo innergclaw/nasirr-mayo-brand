@@ -130,3 +130,8 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid 
 .plan-picker strong, .plan-picker small { display: block; }
 .plan-picker small { font-size: .8rem; margin-top: .3rem; color: #b8bcb1; }
 .plan-picker label:focus-within { outline: 2px solid #f3efe4; outline-offset: 3px; }
+[hidden] { display: none !important; }
+html[data-access-view="loading"] [data-public-offer] { display: none !important; }
+html[data-access-view="loading"] #access-loading { display: block !important; }
+#access-loading { min-height: 45vh; padding: clamp(36px,8vw,96px) 0; }
+html[data-access-view="active"] .member-panel { min-height: 60vh; margin-top: clamp(32px,6vw,72px); }

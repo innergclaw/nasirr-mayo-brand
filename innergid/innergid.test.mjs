@@ -65,6 +65,6 @@ test("sections use progressive motion with an accessible fallback", () => {
 test("purchase uses the monthly membership checkout", () => {
   assert.match(js, /innerg-membership-checkout/);
   assert.match(js, /membership.*success/);
-  assert.match(js, /Open my INNERG ID/);
+  assert.match(html, /Open my INNERG ID/);
   assert.doesNotMatch(js, /innerg-video-checkout/);
 });
