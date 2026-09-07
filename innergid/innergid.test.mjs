@@ -47,7 +47,7 @@ test("video preview uses the Sunday montage and its poster", () => {
 test("member home uses the INNERG community badge", () => {
   assert.match(html, /innerg-member-badge\.png/);
   assert.match(html, /YOUR KEY TO INNERG/);
-  assert.match(html, /Your number\. Your access\. Your place inside\./);
+  assert.match(html, /alt="INNERG Member badge"/);
 });
 
 test("INNERG ID explains the included access", () => {
@@ -59,15 +59,23 @@ test("INNERG ID explains the included access", () => {
   assert.match(html, /Research Desk and Market Watchlist/);
   assert.match(html, /Media Hub and member-only releases/);
   assert.match(html, /Discord, resources, and future events/);
-  assert.match(html, /WHO IS THIS FOR\?/);
-  assert.equal((html.match(/class="reveal reveal-tile/g) || []).length, 6);
+  assert.match(html, /Who is this for\?/);
+  assert.equal((html.match(/<li>/g) || []).length, 6);
 });
 
-test("sections use progressive motion with an accessible fallback", () => {
-  assert.match(js, /IntersectionObserver/);
-  assert.match(js, /prefers-reduced-motion/);
-  assert.match(html, /hero-reveal/);
-  assert.match(html, /reveal-section/);
+test("join action is not delayed by scroll animations", () => {
+  assert.doesNotMatch(js, /IntersectionObserver/);
+  assert.doesNotMatch(html, /hero-reveal|reveal-section|motion-ready/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /min-height: 50px/);
+});
+
+test("preview and purchase come before optional details", () => {
+  assert.ok(html.indexOf('<video') < html.indexOf('class="card-action purchase-action"'));
+  assert.ok(html.indexOf('class="card-action purchase-action"') < html.indexOf('<details>'));
+  assert.equal((html.match(/<details>/g) || []).length, 3);
+  assert.equal((html.match(/purchase-action/g) || []).length, 1);
+  assert.match(html, /Sign in or create your account, then pay securely/);
 });
 
 test("purchase uses the monthly membership checkout", () => {
