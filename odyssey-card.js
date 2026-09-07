@@ -17,13 +17,13 @@
       <p class="odyssey-card__disclosure">Ambassador links. I may earn a commission from qualifying purchases.</p>
       <div class="odyssey-card__actions">
         <a class="odyssey-card__link" href="https://OdysseyFunctionalEnergy.com/nasirrmayo" target="_blank" rel="sponsored noreferrer">
-          <span>Shop my Odyssey page</span><span aria-hidden="true">↗</span>
+          <span>Shop my Odyssey page</span><svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </a>
         <a class="odyssey-card__link" href="https://OdysseyFunctionalEnergy.com/products/222-variety-pack?bg_ref=XOoB0hKjMs" target="_blank" rel="sponsored noreferrer">
-          <span>222MG variety pack</span><span aria-hidden="true">↗</span>
+          <span>222MG variety pack</span><svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </a>
         <a class="odyssey-card__link" href="https://OdysseyFunctionalEnergy.com/products/variety-pack?bg_ref=XOoB0hKjMs" target="_blank" rel="sponsored noreferrer">
-          <span>Functional energy pack</span><span aria-hidden="true">↗</span>
+          <span>Functional energy pack</span><svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </a>
       </div>
       <div class="odyssey-card__footer">

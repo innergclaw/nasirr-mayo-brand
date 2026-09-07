@@ -14,7 +14,7 @@
       </span>
       <div class="mentorship-main-actions">
         <a class="mentorship-main-action mentorship-main-action-primary" href="https://join.robinhood.com/nasirrm" target="_blank" rel="noreferrer sponsored">
-          <span>VIEW THE STARTING POINT</span><span aria-hidden="true">↗</span>
+          <span>VIEW THE STARTING POINT</span><svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </a>
       </div>
       <small class="mentorship-main-disclosure">Referral link. We may both receive a reward. Investing involves risk.</small>`;

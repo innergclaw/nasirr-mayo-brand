@@ -222,8 +222,11 @@
   line-height: 1.35;
 }
 
-.official-channel > span:last-child {
-  font-size: 16px;
+.home-link-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.7;
 }
 
 .founder-footer-quote {
