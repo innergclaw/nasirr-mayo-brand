@@ -36,11 +36,13 @@ test("active members can sign out and return to the INNERG sign-in page", () => 
   assert.match(js, /We could not sign you out\. Please try again\./);
 });
 
-test("video preview uses the Sunday montage and its poster", () => {
-  assert.match(html, /innerg-id-sunday-montage\.mp4/);
-  assert.match(html, /innerg-id-sunday-montage-poster\.jpg/);
-  assert.doesNotMatch(html, /bull-cycle-preview\.mp4/);
-  assert.match(css, /aspect-ratio:\s*9\s*\/\s*16/);
+test("video preview uses the widescreen Market Pulse export and its poster", () => {
+  assert.match(html, /innerg-market-pulse-preview\.mp4/);
+  assert.match(html, /innerg-market-pulse-preview-poster\.jpg/);
+  assert.doesNotMatch(html, /bull-cycle-preview\.mp4|innerg-id-sunday-montage\.mp4/);
+  assert.match(html, /width="1920" height="1080"/);
+  assert.match(html, /controls playsinline preload="metadata"/);
+  assert.match(css, /aspect-ratio:\s*16\s*\/\s*9/);
   assert.match(css, /object-fit:\s*contain/);
 });
 
