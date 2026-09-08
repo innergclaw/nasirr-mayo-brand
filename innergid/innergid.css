@@ -17,7 +17,15 @@ body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(
 a { color: inherit; text-underline-offset: .2em; }
 button { font: inherit; cursor: pointer; }
 main, footer { width: min(100% - 40px, 1120px); margin-inline: auto; }
-.site-header { display: flex; align-items: center; justify-content: space-between; min-height: 74px; gap: 12px; border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: 74px; gap: 0 12px; padding-top: 12px; background: var(--paper); border-bottom: 1px solid var(--line); }
+.section-nav { display: flex; flex-basis: 100%; gap: 4px; padding: 8px 0; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--muted) transparent; }
+.section-nav a { display: inline-flex; flex-shrink: 0; min-height: 44px; align-items: center; padding: 10px 14px; border-radius: 999px; font-size: 13px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.section-nav a[aria-current="location"] { color: var(--ink); background: var(--accent); }
+.section-nav a:focus-visible { outline-offset: -3px; }
+.member-nav { display: none; }
+html[data-access-view="active"] .member-nav { display: flex; }
+#preview, #access, #benefits, #full-video, #who-its-for, #channels, #member-panel { scroll-margin-top: 144px; }
+html[data-access-view="loading"] .site-header, html[data-access-view="error"] .site-header { padding-bottom: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-decoration: none; }
 .brand img { border-radius: 50%; }
 .account-link { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 750; text-decoration: none; }
@@ -100,6 +108,8 @@ html[data-access-view="active"] .member-panel { min-height: 60vh; }
 @media (hover:hover) and (pointer:fine) {
   .card-action:hover:not(:disabled), .primary-action:hover { background: #b8ef27; }
   .account-link:hover { background: var(--surface); }
+  .section-nav a:hover { background: var(--surface); }
+  .section-nav a[aria-current="location"]:hover { background: var(--accent); }
   summary:hover { color: var(--muted); }
 }
 @media (prefers-reduced-motion: reduce) {

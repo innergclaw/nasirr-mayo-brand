@@ -74,8 +74,8 @@ test("join action is not delayed by scroll animations", () => {
 
 test("preview and purchase come before optional details", () => {
   assert.ok(html.indexOf('<video') < html.indexOf('class="card-action purchase-action"'));
-  assert.ok(html.indexOf('class="card-action purchase-action"') < html.indexOf('<details>'));
-  assert.equal((html.match(/<details>/g) || []).length, 3);
+  assert.ok(html.indexOf('class="card-action purchase-action"') < html.indexOf('<details '));
+  assert.equal((html.match(/<details\b/g) || []).length, 3);
   assert.equal((html.match(/purchase-action/g) || []).length, 1);
   assert.match(html, /Sign in or create your account, then pay securely/);
 });

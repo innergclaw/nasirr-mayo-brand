@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Activate your INNERG ID for $10 per month and unlock the INNERG ecosystem." />
     <title>INNERG ID | NASIRR G. MAYO</title>
-    <link rel="stylesheet" href="./innergid.css?v=20260908-preview" />
+    <link rel="stylesheet" href="./innergid.css?v=20260908-nav" />
     <link rel="stylesheet" href="../innerg-progress.css?v=20260906" />
     <link rel="stylesheet" href="../member-footer.css?v=20260906" />
     <script>document.documentElement.dataset.accessView="loading";</script>
@@ -19,6 +19,20 @@
           <span>INNERG INTEL</span>
         </a>
         <a class="account-link" href="../account/?next=%2Finnergid%2F">INNERG ID sign in</a>
+        <nav class="section-nav" aria-label="Explore INNERG ID" data-public-offer>
+          <a href="#preview">Preview</a>
+          <a href="#access">Access</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#full-video">Full video</a>
+          <a href="#who-its-for">Who it's for</a>
+          <a href="#channels">Channels</a>
+        </nav>
+        <nav class="section-nav member-nav" aria-label="Member navigation">
+          <a href="#member-panel">My access</a>
+          <a href="../innerg-id/">My ID</a>
+          <a href="../innerg-id/#media-hub">Media Hub</a>
+          <a href="https://innergclaw.github.io/innerg-watchlist/">Market Pulse</a>
+        </nav>
       </header>
 
       <section id="access-loading" role="status" aria-live="polite" hidden>
@@ -35,7 +49,7 @@
           <h1 id="page-title">Get the context.<br />Make your next move.</h1>
           <p class="intro-copy">Watch the preview. Join for the full video, research, and community.</p>
         </header>
-        <figure class="preview-panel" aria-labelledby="preview-title">
+        <figure class="preview-panel" id="preview" tabindex="-1" aria-labelledby="preview-title">
           <div class="video-frame">
           <video controls playsinline preload="metadata" width="1920" height="1080" aria-label="Watch the INNERG Market Pulse and member ID preview" poster="./assets/innerg-market-pulse-preview-poster.jpg">
             <source src="./assets/innerg-market-pulse-preview.mp4?v=final-cf845ca0-20260908" type="video/mp4" />
@@ -61,7 +75,7 @@
         </article>
       </section>
       <section class="offer-details" data-public-offer aria-label="Membership details">
-        <details>
+        <details id="benefits">
           <summary>What's included with my INNERG ID?</summary>
           <ul class="utility-list" aria-label="INNERG ID benefits">
             <li>Personal INNERG ID card and member number</li>
@@ -72,12 +86,12 @@
             <li>Discord, resources, and future events</li>
           </ul>
         </details>
-        <details>
+        <details id="full-video">
           <summary>What's in the full video?</summary>
           <p>A 27-minute breakdown of the 2026-2027 BULL SUPER CYCLE, tokenization, stablecoins, AI, DCA, diversification, mistakes to avoid, and Nasirr's personal stocks and ETF watchlist.</p>
           <p>Educational content, not personalized financial advice.</p>
         </details>
-        <details>
+        <details id="who-its-for">
           <summary>Who is this for?</summary>
           <p>Builders, creatives, entrepreneurs, new investors, and curious minds who want context, practical resources, and a community to learn with.</p>
         </details>
@@ -97,7 +111,7 @@
       </section>
     </main>
 
-    <footer class="member-social-footer">
+    <footer class="member-social-footer" id="channels">
       <span>INNERG INTEL</span>
       <nav aria-label="INNERG public channels">
         <a href="../">Home Base</a>
@@ -107,5 +121,6 @@
       </nav>
     </footer>
     <script type="module" src="./innergid.js?v=20260907-compact"></script>
+    <script type="module" src="./section-nav.mjs?v=20260908"></script>
   </body>
 </html>
