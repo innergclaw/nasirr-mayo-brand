@@ -8,8 +8,8 @@ const script = await readFile(new URL("home-clarity.js", root), "utf8");
 const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
-  assert.match(home, /home-clarity\.css\?v=8/);
-  assert.match(home, /home-clarity\.js\?v=8/);
+  assert.match(home, /home-clarity\.css\?v=\d+/);
+  assert.match(home, /home-clarity\.js\?v=10/);
 });
 
 test("scroll order places the video under official channels", () => {
@@ -23,6 +23,7 @@ test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
   assert.match(script, /class="profile-action profile-action--member" href="\/innergid\/">GET YOUR INNERG ID/);
   assert.doesNotMatch(script, />MARKET WATCHLIST<\/a>/);
+  assert.match(script, /href="\/watchlist\/">watch list/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(home, /id="how-can-i-help"/);
   assert.match(styles, /#how-can-i-help\s*{[\s\S]*scroll-margin-top:\s*96px/);
@@ -62,7 +63,7 @@ test("scheduled calls use phone icons and Odyssey uses the featured glow", async
   assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
   assert.doesNotMatch(booking, /new MutationObserver/);
   assert.match(odysseyScript, /const anchor = linkList \|\| booking \|\| video/);
-  assert.match(home, /odyssey-card\.js\?v=4/);
+  assert.match(home, /odyssey-card\.js\?v=\d+/);
   assert.match(odyssey, /border-radius:\s*18px/);
   assert.match(odyssey, /conic-gradient/);
   assert.match(odyssey, /animation:\s*odyssey-border-spin/);

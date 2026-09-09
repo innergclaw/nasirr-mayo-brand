@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#151513" />
+  <meta name="description" content="INNERG Market Pulse. What moved. What matters. What I'm watching. Stocks, funds, and crypto, with context you can understand. Free public watchlist and charts." />
+  <title>INNERG Market Pulse | INNERG INTEL</title>
+  <meta property="og:title" content="INNERG Market Pulse" />
+  <meta property="og:description" content="What moved. What matters. What I'm watching. Stocks, funds, and crypto, with context you can understand." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nasirr.innergintel.org/watchlist/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=weekly-top-three-1" />
+  <script type="module" src="section-nav.mjs?v=1"></script>
+  <script type="module" src="member-access.mjs?v=weekly-top-three-1"></script>
+  <script type="module" src="app.js?v=weekly-top-three-1"></script>
+  <script type="module" src="brief.mjs?v=sunday-1"></script>
+<link rel="canonical" href="https://nasirr.innergintel.org/watchlist/" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#sectors">Skip to watchlist</a>
+  <header class="site-header">
+    <a href="https://nasirr.innergintel.org/innerg-id/">INNERG INTEL / MEMBER HUB</a><a href="#member-access" class="member-signin">Sign in with INNERG ID</a>
+    <nav class="section-nav" aria-label="Market Pulse sections">
+      <a href="#overview">Overview</a>
+      <a href="#weekly-mover">Weekly movers</a>
+      <a href="#sunday-brief">Sunday Brief</a>
+      <a href="#asset-news">Asset news</a>
+      <a href="#sectors">Watchlist</a>
+      <a href="#referral">Referral</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="overview" aria-labelledby="page-title">
+      <div><p class="eyebrow">INNERG INTEL / Research desk</p><h1 id="page-title">INNERG Market Pulse</h1><p class="hero-copy">What moved. What matters. What I'm watching.</p><p class="intro">Explore every chart for free. Sign in with your INNERG ID for member news, insights, and research briefs.</p></div>
+      <div class="snapshot-clock"><span id="market-state">Loading snapshot</span><strong id="snapshot-time">Please wait</strong><small>Scheduled data, not a live trading feed.</small><button id="refresh" type="button">Refresh data</button></div>
+    </section>
+    <section class="member-panel" id="member-access" aria-labelledby="member-heading">
+      <div><p class="eyebrow">One account. Your INNERG ID.</p><h2 id="member-heading">Your research desk is inside.</h2><p id="member-status" role="status">Sign in for member news and insights. Charts are always free.</p></div>
+      <div id="signin-controls">
+        <button type="button" id="google-signin">Continue with Google</button>
+        <form id="research-email-form"><label for="research-email">Or use your INNERG email</label><div class="email-row"><input id="research-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"><button type="submit">Send code</button></div></form>
+        <form id="research-code-form" hidden><label for="research-code">Full email verification code</label><div class="email-row"><input id="research-code" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" minlength="6" maxlength="10" required><button type="submit">Verify</button></div></form>
+        <p class="section-note">New here? <a href="https://nasirr.innergintel.org/innergid/">Become an INNERG member</a>.</p>
+      </div>
+      <div class="member-actions"><button id="research-signout" hidden>Sign out</button><button id="research-retry" hidden>Retry access</button></div>
+      <div id="research-preferences" hidden><label><input id="daily-email" type="checkbox"> Email me each new daily research edition</label><p class="section-note">News, what to watch, the daily brief, and a short founder update. Optional. Turn off anytime.</p></div>
+      <button id="email-unsubscribe" hidden>Turn off research emails</button>
+    </section>
+    <section class="pulse" id="weekly-mover" aria-labelledby="pulse-title">
+      <div class="section-heading"><div><p class="eyebrow">Weekly movers</p><h2 id="pulse-title">What moved this week.</h2></div><a href="#sectors">Explore all assets</a></div>
+      <p class="section-note">The top three assets by weekly percentage change, highest first. Everyone can see the leading mover. Sign in with an active INNERG ID for all three and member research. Rankings refresh with collected price data. A move is not a buy signal.</p>
+      <div class="leader-grid" id="leader-grid"><p role="status">Loading weekly charts.</p></div>
+    </section>
+    <section class="sunday-brief" id="sunday-brief" aria-labelledby="brief-title">
+      <div class="section-heading"><div><p class="eyebrow">The Sunday brief</p><h2 id="brief-title">What to watch for.</h2></div></div>
+      <p class="section-note">Bullish developments. Questions worth asking. Risks worth knowing. Research, not trade instructions.</p>
+      <p id="brief-date" class="section-note" role="status">Loading the latest edition.</p>
+      <div id="brief-items"></div>
+      <noscript>Sign-in requires JavaScript. Public charts remain available below.</noscript>
+    </section>
+    <section class="asset-news" id="asset-news" aria-labelledby="news-title">
+      <div class="section-heading"><div><p class="eyebrow">Asset news</p><h2 id="news-title">Keep up with what changed.</h2></div><a href="#sectors">View charts</a></div>
+      <p class="section-note">Your assets, one at a time. Up to two newest reports per asset from the last seven days. Checked every two hours. News and analysis are not buy signals.</p>
+      <p id="news-status" class="section-note" role="status">Checking the latest news snapshot.</p>
+      <label class="news-filter">Choose an asset<select id="news-filter"><option value="all">All tracked assets</option></select></label>
+      <div id="news-items"></div>
+      <details class="news-coverage"><summary>Coverage and sources</summary><p>Each stock and fund has a separate news check. Crypto uses topic feeds and selected financial reporting. Headlines link to the original publisher. Company releases and opinion pieces are not independent findings. No Reddit. Sources have limited coverage, so some assets may have fewer than two recent reports.</p><div id="news-coverage"></div></details>
+      <noscript>Member news requires sign-in.</noscript>
+    </section>
+    <section class="sectors" id="sectors" aria-labelledby="sectors-title">
+      <div class="section-heading"><div><p class="eyebrow" id="asset-count">Full public watchlist</p><h2 id="sectors-title">Find what interests you.</h2></div></div>
+      <div class="filters">
+        <label>Search assets<input id="search" type="search" placeholder="Ticker or name, e.g. ZEC" autocomplete="off" /></label>
+        <label>Sector<select id="sector-filter" aria-label="Sector"><option value="all">All sectors</option></select></label>
+        <label>Sort within sector<select id="sort" aria-label="Sort within sector"><option value="default">Watchlist order</option><option value="week">Weekly gain</option><option value="loss">Weekly decline</option><option value="name">Ticker A to Z</option></select></label>
+      </div>
+      <details class="guide"><summary>How to read the numbers</summary><p><strong>1 day</strong> compares the latest price with the prior session close. <strong>1 week</strong> and <strong>30 days</strong> compare it with the available close on or before that date. These are price changes, not returns including dividends.</p><p>Choose <strong>1D, 1W, or 30D</strong> on any chart. Drag across the line or move the slider to see recorded prices. Arrow keys move one sample; Home and End jump to the first and last. 1D shows five-minute samples from the latest regular stock session, or the latest 24 hours for crypto. Mutual funds may not have intraday data. 1W and 30D show daily samples within the last 7 or 30 calendar days.</p><p>Daily dates use UTC, matching the provider's crypto day boundaries. Intraday times use Eastern time and identify the start of each five-minute bar; its price is that bar's recorded closing value. The latest bar may still be forming. Lines connect samples; they do not supply prices between them. Each chart uses its own scale. Chart windows and return comparisons can start on different dates. Open an asset's ranges for daily and 52-week highs and lows.</p><p>Prices can be delayed. Snapshot time is when this page's data was collected, not the time of each trade. Unavailable data is marked, never filled with an estimate.</p></details>
+      <p id="results-status" class="section-note" role="status"></p>
+      <div id="sector-list"></div>
+      <noscript><p>Enable JavaScript to explore charts, or <a href="https://innergclaw.github.io/innerg-watchlist/data/watchlist.json">download the full public data</a>.</p></noscript>
+    </section>
+    <aside class="referral" id="referral" aria-labelledby="referral-title"><div><p class="eyebrow">New to investing?</p><h2 id="referral-title">Learn first. Start at your own pace.</h2><p>Explore Robinhood through my referral link. We may both receive a reward. Investing involves risk.</p></div><a href="https://join.robinhood.com/nasirrm" target="_blank" rel="noopener noreferrer sponsored">View my Robinhood invite</a></aside>
+  </main>
+  <footer><p>Research and education. Not financial advice.<br />Data: Yahoo Finance and Hyperliquid.</p><a href="https://nasirr.innergintel.org/innerg-id/">Return to member hub</a></footer>
+  <a class="back-to-top" href="#top" aria-label="Scroll to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 12 6-6 6 6M12 6v13"/></svg></a>
+</body>
+</html>
