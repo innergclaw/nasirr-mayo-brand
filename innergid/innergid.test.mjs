@@ -62,7 +62,18 @@ test("INNERG ID explains the included access", () => {
   assert.match(html, /Media Hub and member-only releases/);
   assert.match(html, /Discord, resources, and future events/);
   assert.match(html, /Who is this for\?/);
-  assert.equal((html.match(/<li>/g) || []).length, 6);
+  assert.equal((html.match(/<li>/g) || []).length, 10);
+});
+
+test("value paywall keeps comparisons honest and both plans clear", () => {
+  assert.match(html, /Same \$10\./);
+  assert.match(html, /Coffee is an illustrative \$5 example, not a quoted price/);
+  assert.match(html, /Save \$20 vs\. 12 monthly payments/);
+  assert.match(html, /Included with both plans/);
+  assert.match(html, /top three weekly movers/);
+  assert.match(html, /<table aria-describedby="comparison-note">/);
+  assert.equal((html.match(/scope="col"/g) || []).length, 3);
+  assert.doesNotMatch(html, /free trial|guaranteed return|guaranteed profit/i);
 });
 
 test("join action is not delayed by scroll animations", () => {
