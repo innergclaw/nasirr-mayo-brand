@@ -15,9 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=portfolio-1" />
   <script type="module" src="section-nav.mjs?v=1"></script>
-  <script type="module" src="member-access.mjs?v=portfolio-1"></script>
-  <script type="module" src="app.js?v=weekly-top-three-1"></script>
-  <script type="module" src="brief.mjs?v=sunday-1"></script>
+  <script type="module" src="member-access.mjs?v=member-copy-2"></script>
+  <script type="module" src="app.js?v=member-copy-2"></script>
+  <script type="module" src="brief.mjs?v=member-copy-2"></script>
 <link rel="canonical" href="https://nasirr.innergintel.org/watchlist/" />
 </head>
 <body id="top">
@@ -37,7 +37,7 @@
   <main>
     <section class="hero" id="overview" aria-labelledby="page-title">
       <div><p class="eyebrow">INNERG INTEL / Research desk</p><h1 id="page-title">INNERG Market Pulse</h1><p class="hero-copy">What moved. What matters. What I'm watching.</p><p class="intro">Explore every chart for free. Sign in with your INNERG ID for member news, insights, and research briefs.</p></div>
-      <div class="snapshot-clock"><span id="market-state">Loading snapshot</span><strong id="snapshot-time">Please wait</strong><small>Scheduled data, not a live trading feed.</small><button id="refresh" type="button">Refresh data</button></div>
+      <div class="snapshot-clock"><span id="market-state">loading prices</span><strong id="snapshot-time">Please wait</strong><small>prices update regularly and may be delayed.</small><button id="refresh" type="button">Refresh data</button></div>
     </section>
     <section class="member-panel" id="member-access" aria-labelledby="member-heading">
       <div><p class="eyebrow">One account. Your INNERG ID.</p><h2 id="member-heading">Your research desk is inside.</h2><p id="member-status" role="status">Sign in for member news and insights. Charts are always free.</p></div>
@@ -53,12 +53,12 @@
     </section>
     <section class="pulse" id="weekly-mover" aria-labelledby="pulse-title">
       <div class="section-heading"><div><p class="eyebrow">Weekly movers</p><h2 id="pulse-title">What moved this week.</h2></div><a href="#sectors">Explore all assets</a></div>
-      <p class="section-note">The top three assets by weekly percentage change, highest first. Everyone can see the leading mover. Sign in with an active INNERG ID for all three and member research. Rankings refresh with collected price data. A move is not a buy signal.</p>
+      <p class="section-note">The top three assets by weekly percentage change, highest first. Everyone can see the leading mover. Sign in with an active INNERG ID for all three and member research. rankings change as prices update. A move is not a buy signal.</p>
       <div class="leader-grid" id="leader-grid"><p role="status">Loading weekly charts.</p></div>
     </section>
     <section class="founder-portfolio" id="my-holdings" aria-labelledby="holdings-title">
       <div class="section-heading"><div><p class="eyebrow">inside my portfolio</p><h2 id="holdings-title">what i hold. what i'm considering.</h2></div></div>
-      <p class="section-note">my personal holdings and planned additions, shared with members. a dated snapshot, not a live brokerage feed or an instruction to buy.</p>
+      <p class="section-note">a closer look at what i own and what i’m considering next. shared with members.</p>
       <div id="portfolio-items"></div>
     </section>
     <section class="sunday-brief" id="sunday-brief" aria-labelledby="brief-title">
@@ -72,7 +72,7 @@
     <section class="asset-news" id="asset-news" aria-labelledby="news-title">
       <div class="section-heading"><div><p class="eyebrow">Asset news</p><h2 id="news-title">Keep up with what changed.</h2></div><a href="#sectors">View charts</a></div>
       <p class="section-note">Your assets, one at a time. Up to two newest reports per asset from the last seven days. Checked every two hours. News and analysis are not buy signals.</p>
-      <p id="news-status" class="section-note" role="status">Checking the latest news snapshot.</p>
+      <p id="news-status" class="section-note" role="status">checking the latest news.</p>
       <label class="news-filter">Choose an asset<select id="news-filter"><option value="all">All tracked assets</option></select></label>
       <div id="news-items"></div>
       <details class="news-coverage"><summary>Coverage and sources</summary><p>Each stock and fund has a separate news check. Crypto uses topic feeds and selected financial reporting. Headlines link to the original publisher. Company releases and opinion pieces are not independent findings. No Reddit. Sources have limited coverage, so some assets may have fewer than two recent reports.</p><div id="news-coverage"></div></details>
@@ -85,7 +85,7 @@
         <label>Sector<select id="sector-filter" aria-label="Sector"><option value="all">All sectors</option></select></label>
         <label>Sort within sector<select id="sort" aria-label="Sort within sector"><option value="default">Watchlist order</option><option value="week">Weekly gain</option><option value="loss">Weekly decline</option><option value="name">Ticker A to Z</option></select></label>
       </div>
-      <details class="guide"><summary>How to read the numbers</summary><p><strong>1 day</strong> compares the latest price with the prior session close. <strong>1 week</strong> and <strong>30 days</strong> compare it with the available close on or before that date. These are price changes, not returns including dividends.</p><p>Choose <strong>1D, 1W, or 30D</strong> on any chart. Drag across the line or move the slider to see recorded prices. Arrow keys move one sample; Home and End jump to the first and last. 1D shows five-minute samples from the latest regular stock session, or the latest 24 hours for crypto. Mutual funds may not have intraday data. 1W and 30D show daily samples within the last 7 or 30 calendar days.</p><p>Daily dates use UTC, matching the provider's crypto day boundaries. Intraday times use Eastern time and identify the start of each five-minute bar; its price is that bar's recorded closing value. The latest bar may still be forming. Lines connect samples; they do not supply prices between them. Each chart uses its own scale. Chart windows and return comparisons can start on different dates. Open an asset's ranges for daily and 52-week highs and lows.</p><p>Prices can be delayed. Snapshot time is when this page's data was collected, not the time of each trade. Unavailable data is marked, never filled with an estimate.</p></details>
+      <details class="guide"><summary>How to read the numbers</summary><p><strong>1 day</strong> compares the latest price with the prior session close. <strong>1 week</strong> and <strong>30 days</strong> compare it with the available close on or before that date. These are price changes, not returns including dividends.</p><p>Choose <strong>1D, 1W, or 30D</strong> on any chart. Drag across the line or move the slider to see recorded prices. Arrow keys move one sample; Home and End jump to the first and last. 1D shows five-minute samples from the latest regular stock session, or the latest 24 hours for crypto. Mutual funds may not have intraday data. 1W and 30D show daily samples within the last 7 or 30 calendar days.</p><p>Daily dates use UTC. Intraday times use Eastern time and identify the start of each five-minute bar; its price is that bar's recorded closing value. The latest bar may still be forming. Lines connect samples; they do not supply prices between them. Each chart uses its own scale. Chart windows and return comparisons can start on different dates. Open an asset's ranges for daily and 52-week highs and lows.</p><p>Prices can be delayed. The update time shows when prices were last refreshed, not when each trade took place.</p></details>
       <p id="results-status" class="section-note" role="status"></p>
       <div id="sector-list"></div>
       <noscript><p>Enable JavaScript to explore charts, or <a href="https://innergclaw.github.io/innerg-watchlist/data/watchlist.json">download the full public data</a>.</p></noscript>

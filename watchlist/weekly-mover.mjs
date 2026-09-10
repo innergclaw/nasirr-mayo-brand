@@ -35,7 +35,7 @@ export function moverExplanation(symbol, now = Date.now()) {
   if(!moverContext)return '<div class="mover-context"><h4>What is behind the move?</h4><p>Members can read the news, context, and risks behind the numbers.</p><a href="#member-access">Sign in with INNERG ID</a> · <a href="https://nasirr.innergintel.org/innergid/">Become a member</a></div>';
   const age = now - Date.parse(moverContext.reviewedAt);
   if (symbol !== moverContext.symbol || !Number.isFinite(age) || age > 7 * 86400000 || age < 0) {
-    return '<div class="mover-context"><h4>What is behind the move?</h4><p>A fresh news review for this weekly leader is not available yet. The chart and ranking use the latest collected price data.</p></div>';
+    return '<div class="mover-context"><h4>What is behind the move?</h4><p>there is no recent analysis for this mover yet. explore asset news for the latest reports.</p></div>';
   }
   const esc = escapeHTML;
   const reviewed=new Date(moverContext.reviewedAt).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});

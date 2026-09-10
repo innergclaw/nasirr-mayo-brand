@@ -44,7 +44,7 @@ function renderSnapshot(data) {
   snapshot = data;
   const generated = new Date(data.generatedAt);
   const old = Date.now() - generated.getTime() > 48 * 60 * 60 * 1000;
-  document.querySelector('#market-state').textContent = old ? 'Older snapshot · check the date' : 'Latest collected snapshot';
+  document.querySelector('#market-state').textContent = old ? 'prices may be out of date' : 'latest price update';
   document.querySelector('#snapshot-time').textContent = generated.toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short',timeZone:'America/New_York'})+' ET';
   if(!changed) return;
   const selected = sectorFilter.value;
@@ -67,7 +67,7 @@ async function loadData() {
     if(!Array.isArray(data.assets) || !data.assets.length || !Array.isArray(data.sectors) || !Number.isFinite(Date.parse(data.generatedAt))) throw new Error('Invalid snapshot');
     renderSnapshot(data);
   } catch {
-    document.querySelector('#market-state').textContent = snapshot ? 'Refresh failed · showing saved snapshot' : 'Snapshot unavailable';
+    document.querySelector('#market-state').textContent = snapshot ? 'could not refresh · showing previous prices' : 'prices unavailable';
     if(!snapshot){document.querySelector('#snapshot-time').textContent='Please retry';document.querySelector('#leader-grid').textContent='Could not load market data.';document.querySelector('#results-status').textContent='Use Refresh data to try again.';}
   } finally { loading=false;refresh.disabled=false;refresh.textContent='Refresh data'; }
 }

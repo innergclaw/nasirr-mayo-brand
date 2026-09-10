@@ -6,9 +6,9 @@ export function safeNewsURL(value) {
 }
 export function newsStatus(data, now = Date.now()) {
   const age = now - Date.parse(data.checkedAt);
-  if (!Number.isFinite(age)) return 'News snapshot date is unavailable.';
+  if (!Number.isFinite(age)) return 'the last update time is unavailable.';
   const failed = [...data.sources,...(data.assetChecks || [])].filter(s => s.status !== 'ok').length;
-  return `${age > 6 * 3600000 ? 'Updates delayed. Last check' : 'Last checked'}: ${new Date(data.checkedAt).toLocaleString('en-US', {timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})}. ${data.coverage.length} assets checked.${failed ? ` ${failed} source feeds unavailable; coverage is partial.` : ''}`;
+  return `${age > 6 * 3600000 ? 'Updates delayed. Last check' : 'Last checked'}: ${new Date(data.checkedAt).toLocaleString('en-US', {timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})}. ${data.coverage.length} assets checked.${failed ? ` some news is unavailable; coverage is partial.` : ''}`;
 }
 export function renderNews(items) {
   const valid = items.filter(i => safeNewsURL(i.url) && Number.isFinite(Date.parse(i.publishedAt)));
@@ -45,7 +45,7 @@ export async function loadNews(root = document, fetcher = fetch) {
       root.querySelector('#news-items').innerHTML = renderAssetNews(data,filter.value);
     }
     filter.onchange = render;
-    root.querySelector('#news-coverage').innerHTML = data.coverage.map(a => `<p>${esc(a.symbol)}: ${assetHeadlines(data.items,a.symbol).length} recent reports</p>`).join('') + [...data.sources,...(data.assetChecks || [])].map(s=>`<p>${esc(s.name)}: ${esc(s.status)}</p>`).join('');
+    root.querySelector('#news-coverage').innerHTML = data.coverage.map(a => `<p>${esc(a.symbol)}: ${assetHeadlines(data.items,a.symbol).length} recent reports</p>`).join('');
     render();
   } catch { status.textContent = 'News updates are unavailable right now. The charts remain open.'; }
 }
