@@ -14,7 +14,8 @@ export function validateBrief(data) {
 }
 export function briefDate(data, now = Date.now()) {
   const date = new Date(data.publishedAt).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
-  return `${now - Date.parse(data.publishedAt) > 8 * 86400000 ? 'Previous edition · ' : ''}${data.edition} · ${date}`;
+  const freshnessDays = /^daily\b/i.test(data.edition) ? 2 : 8;
+  return `${now - Date.parse(data.publishedAt) > freshnessDays * 86400000 ? 'Previous edition · ' : ''}${data.edition} · ${date}`;
 }
 export function renderBrief(data) {
   validateBrief(data);
@@ -67,8 +68,8 @@ export function renderPortfolio(data) {
   }).join('');
   return `<p class="section-note">updated ${escapeHTML(date)}</p><div class="portfolio-grid"><div class="portfolio-group portfolio-map"><div class="heatmap-heading"><h3>what i hold</h3><span>daily change</span></div><p class="heatmap-key">green = up · red = down · brighter = a larger move</p>${tiles?`<ul class="holdings-heatmap" aria-label="holdings daily percentage changes">${tiles}</ul>`:'<p>no holdings to display.</p>'}</div>${group('planned long-term additions',data.planned,'on my list to add. i do not hold these yet.')}</div><p class="section-note">these are my personal positions, and they can change. i have a financial interest in the assets i hold. investing involves risk.</p>`;
 }
-export function renderFounderWatch(data) {
+export function renderFounderWatch(data, coveredSymbols=[]) {
   if(!data)return '';
   validatePortfolio(data);
-  return data.watch.map(item=>`<article class="founder-watch"><p class="eyebrow">my personal watch notes</p><h3>${escapeHTML(item.symbol)} · what i'm watching</h3><p><strong>my thesis</strong>${escapeHTML(item.thesis)}</p><p><strong>what to watch</strong>${escapeHTML(item.watchFor)}</p><p><strong>what could weaken the case</strong>${escapeHTML(item.risk)}</p><p class="section-note">updated ${escapeHTML(data.updatedAt.slice(0,10))}.</p></article>`).join('');
+  return data.watch.filter(item=>!coveredSymbols.includes(item.symbol)).map(item=>`<article class="founder-watch"><p class="eyebrow">my personal watch notes</p><h3>${escapeHTML(item.symbol)} · what i'm watching</h3><p><strong>my thesis</strong>${escapeHTML(item.thesis)}</p><p><strong>what to watch</strong>${escapeHTML(item.watchFor)}</p><p><strong>what could weaken the case</strong>${escapeHTML(item.risk)}</p><p class="section-note">updated ${escapeHTML(data.updatedAt.slice(0,10))}.</p></article>`).join('');
 }

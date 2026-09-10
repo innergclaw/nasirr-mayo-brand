@@ -1,5 +1,5 @@
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
-import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=holdings-heatmap-1';
+import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=daily-watch-1';
 import {loadNews} from './news.mjs?v=member-copy-2';
 import {setMoverContext,setWeeklyMoverAccess} from './weekly-mover.mjs?v=weekly-top-three-1';
 const client=createClient('https://zkyhhoxcrjkhywblzehr.supabase.co','sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_');
@@ -21,7 +21,7 @@ function lock(){
   document.querySelector('#email-unsubscribe').hidden=true;
   document.querySelector('#research-retry').hidden=true;
 }
-for(const id of ['sunday-brief','asset-news','my-holdings']){
+for(const id of ['what-to-watch','asset-news','my-holdings']){
   const section=document.getElementById(id);
   const content=document.createElement('div');content.className='research-content';content.hidden=true;
   [...section.children].slice(2).forEach(el=>content.append(el));section.append(content);
@@ -44,7 +44,7 @@ async function check(session){
     }
     if(!data?.membershipNumber)throw Error('Missing membership');
     const portfolioMarkup=renderPortfolio(data.portfolio);
-    const watchMarkup=renderFounderWatch(data.portfolio);
+    const watchMarkup=renderFounderWatch(data.portfolio,data.brief?.items?.map(item=>item.symbol)||[]);
     document.querySelectorAll('.research-gate').forEach(el=>el.hidden=true);
     document.querySelectorAll('.research-content').forEach(el=>el.hidden=false);
     const provided=value=>async()=>({ok:true,json:async()=>value});
