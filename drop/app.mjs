@@ -7,7 +7,7 @@ const status=(message,error=false)=>{$('#status').textContent=message;$('#status
 const text=(tag,value,cls)=>{const el=document.createElement(tag);el.textContent=value;if(cls)el.className=cls;return el;};
 const checked=r=>{if(r.error)throw r.error;return r.data;};
 const date=value=>new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(new Date(value));
-function clearPrivate(){drops=[];current=null;editing=null;authorized=false;$('#items').replaceChildren();$('#reader-body').textContent='';$('#reader-title').textContent='';$('#reader-meta').textContent='';$('#draft-form').reset();$('#reader').close();$('#editor').close();$('#inbox').hidden=true;$('#signout').hidden=true;}
+function clearPrivate(){drops=[];current=null;editing=null;authorized=false;pendingEmail='';$('#ready-count').textContent='0';$('#items').replaceChildren();$('#reader-body').textContent='';$('#reader-title').textContent='';$('#reader-meta').textContent='';$('#draft-form').reset();$('#code-form').reset();$('#code-form').hidden=true;$('#email-form').hidden=false;$('#reader').close();$('#editor').close();$('#inbox').hidden=true;$('#signout').hidden=true;}
 function screen(name){for(const id of ['loading','login','access-error','inbox'])$('#'+id).hidden=id!==name;}
 async function authenticate(){
  const version=++epoch;clearPrivate();screen('loading');
@@ -16,7 +16,7 @@ async function authenticate(){
   if(!session){screen('login');return;}
   const {user}=checked(await sb.auth.getUser());if(version!==epoch)return;
   if(user?.id!==OWNER){screen('access-error');$('#signout').hidden=false;return;}
-  authorized=true;screen('inbox');$('#signout').hidden=false;status('');await load();await notificationState();
+  authorized=true;screen('inbox');$('#signout').hidden=false;status('');await load();await notificationState().catch(()=>status('your inbox is ready. notification setup is unavailable in this browser.'));
  }catch{if(version!==epoch)return;screen('access-error');$('#signout').hidden=false;$('#access-message').textContent='we could not verify your session. try again, or sign out and enter a fresh email code.';}
 }
 async function load(){
