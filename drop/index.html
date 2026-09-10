@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#11130f">
+  <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="drop">
+  <title>drop / your private publishing desk</title>
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="drop.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">skip to inbox</a>
+  <header><a class="wordmark" href="./" aria-label="drop home">drop<span class="dot"></span></a><span class="private-label">nasirr's private desk</span><button id="signout" class="quiet" hidden>sign out</button></header>
+  <main id="main">
+    <section id="loading" class="entry" role="status"><span class="kicker">one moment</span><h1>opening your desk.</h1><div class="loading-line"></div></section>
+    <section id="login" class="entry" hidden>
+      <span class="kicker">your words. ready to go.</span><h1>from thought<br>to your phone<span class="accent">.</span></h1>
+      <p class="intro">captions, scripts, research, and the next thing you want to say. all in one private inbox.</p>
+      <form id="email-form"><label for="email">founder email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="your founder email"><button class="primary" type="submit">send sign-in code <span aria-hidden="true">↗</span></button></form>
+      <form id="code-form" hidden><label for="code">code from your email</label><input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" minlength="6" maxlength="10" required><button class="primary" type="submit">open my desk <span aria-hidden="true">↗</span></button><button id="change-email" class="quiet" type="button">use another email</button></form>
+      <p class="hint">use your existing founder account. your code stays valid only for the time shown in your email.</p>
+    </section>
+    <section id="access-error" class="entry" hidden><span class="kicker">private access</span><h1>this desk is reserved.</h1><p id="access-message">sign in with the founder account to open your drafts.</p><button id="retry" class="primary">try again</button></section>
+    <section id="inbox" hidden>
+      <div class="desk-heading"><div><span class="kicker">your publishing desk</span><h1>ready to go<span class="accent">.</span></h1><p class="intro">your next post is right here.</p></div><button class="primary" id="new-draft">+ new draft</button></div>
+      <details class="phone-note"><summary>add to your phone + set up alerts</summary><div class="phone-controls"><div><strong>keep this on your phone.</strong><p>iphone: share → add to home screen. then open drop from its icon to enable alerts.</p></div><button id="notifications" class="secondary">enable notifications</button><button id="test-notification" class="quiet" hidden>send test alert</button><button id="disable-notifications" class="quiet" hidden>turn alerts off</button></div></details>
+      <nav class="filters" aria-label="inbox status"><button data-filter="ready" aria-pressed="true">ready <span id="ready-count">0</span></button><button data-filter="posted" aria-pressed="false">posted</button><button data-filter="archived" aria-pressed="false">archive</button></nav>
+      <div class="search-row"><label class="sr-only" for="search">search your drafts</label><input type="search" id="search" placeholder="find a caption, script, or idea…"><button id="refresh" class="quiet">refresh</button></div>
+      <p id="sync-state" class="hint" role="status"></p><div id="items" class="items"></div>
+      <div id="empty" class="empty" hidden><h2>some room for your next idea.</h2><p>new finished copy will appear here. you can also add a draft from your phone.</p></div>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </main>
+  <dialog id="reader" aria-labelledby="reader-title"><div class="dialog-top"><span id="reader-kind" class="kicker"></span><button class="close quiet" aria-label="close draft">close</button></div><h2 id="reader-title"></h2><p id="reader-meta" class="hint"></p><div id="reader-body" tabindex="0"></div><div class="main-actions"><button id="copy" class="primary">copy text</button><button id="share" class="secondary">share</button></div><div class="other-actions"><a id="share-x" class="quiet" target="_blank" rel="noopener noreferrer">open in x</a><a id="share-sms" class="quiet">messages</a><button id="copy-instagram" class="quiet">copy for instagram</button><button id="edit" class="quiet">edit text</button></div><p class="hint">share opens your phone's available apps. instagram captions can be pasted after copying.</p><div class="workflow-actions"><button id="mark-posted" class="secondary">mark as posted</button><button id="archive" class="quiet">archive</button></div><p id="reader-status" role="status"></p></dialog>
+  <dialog id="editor" aria-labelledby="editor-title"><form id="draft-form"><div class="dialog-top"><span class="kicker">put it into words</span><button type="button" class="close quiet" aria-label="close editor">close</button></div><h2 id="editor-title">new draft</h2><label for="draft-title">title</label><input id="draft-title" maxlength="160" required><label for="draft-kind">format</label><select id="draft-kind"><option value="post">post</option><option value="script">script</option><option value="email">email</option><option value="research">research</option><option value="note">note</option></select><label for="draft-body">your words</label><textarea id="draft-body" rows="12" maxlength="50000" required></textarea><button class="primary" type="submit">save to inbox</button><p id="editor-status" role="status"></p></form></dialog>
+  <footer><span>drop / private by design</span><a href="https://innergclaw.github.io/founder-dashboard/">founder dashboard ↗</a></footer>
+  <noscript><p>please enable javascript to sign in and open your private inbox.</p></noscript>
+</body>
+</html>
