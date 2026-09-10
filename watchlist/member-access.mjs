@@ -1,5 +1,5 @@
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
-import {loadBrief} from './brief.mjs';
+import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=portfolio-1';
 import {loadNews} from './news.mjs';
 import {setMoverContext,setWeeklyMoverAccess} from './weekly-mover.mjs?v=weekly-top-three-1';
 const client=createClient('https://zkyhhoxcrjkhywblzehr.supabase.co','sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_');
@@ -14,13 +14,14 @@ function lock(){
   document.querySelectorAll('.research-gate').forEach(el=>{el.hidden=false;});
   document.querySelectorAll('.research-content').forEach(el=>{el.hidden=true;});
   document.querySelector('#brief-items').innerHTML='';document.querySelector('#news-items').innerHTML='';
+  document.querySelector('#portfolio-items').replaceChildren();document.querySelector('#founder-watch-points').replaceChildren();
   document.querySelector('#news-coverage').innerHTML='';document.querySelector('#news-filter').onchange=null;
   setWeeklyMoverAccess(false);setMoverContext(null);document.dispatchEvent(new Event('research-change'));
   prefs.hidden=true;
   document.querySelector('#email-unsubscribe').hidden=true;
   document.querySelector('#research-retry').hidden=true;
 }
-for(const id of ['sunday-brief','asset-news']){
+for(const id of ['sunday-brief','asset-news','my-holdings']){
   const section=document.getElementById(id);
   const content=document.createElement('div');content.className='research-content';content.hidden=true;
   [...section.children].slice(2).forEach(el=>content.append(el));section.append(content);
@@ -42,11 +43,15 @@ async function check(session){
       document.querySelector('#email-unsubscribe').hidden=false;return;
     }
     if(!data?.membershipNumber)throw Error('Missing membership');
+    const portfolioMarkup=renderPortfolio(data.portfolio);
+    const watchMarkup=renderFounderWatch(data.portfolio);
     document.querySelectorAll('.research-gate').forEach(el=>el.hidden=true);
     document.querySelectorAll('.research-content').forEach(el=>el.hidden=false);
     const provided=value=>async()=>({ok:true,json:async()=>value});
     await Promise.all([loadBrief(document,provided(data.brief)),loadNews(document,provided(data.news))]);
     if(current!==revision){lock();return;}
+    document.querySelector('#portfolio-items').innerHTML=portfolioMarkup;
+    document.querySelector('#founder-watch-points').innerHTML=watchMarkup;
     setWeeklyMoverAccess(true);setMoverContext(data.mover);document.dispatchEvent(new Event('research-change'));
     message.textContent=`${data.membershipNumber} · Research access active.`;
     document.querySelector('#daily-email').checked=data.dailyEmail===true;prefs.hidden=false;

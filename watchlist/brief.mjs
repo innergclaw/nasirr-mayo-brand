@@ -36,3 +36,28 @@ export async function loadBrief(root = document, fetcher = fetch) {
   }
 }
 // Member research is supplied by the authenticated controller, never fetched at page load.
+
+export function validatePortfolio(data) {
+  if (!data || !Number.isFinite(Date.parse(data.updatedAt)) || !Array.isArray(data.holdings) || !Array.isArray(data.planned) || !Array.isArray(data.watch)) throw Error('Invalid portfolio');
+  const seen=new Set();
+  for(const item of [...data.holdings,...data.planned]) {
+    if(!/^[A-Z0-9.-]{1,12}$/.test(item.symbol) || seen.has(item.symbol)) throw Error('Invalid holding');
+    seen.add(item.symbol);
+  }
+  for(const item of data.watch) {
+    if(!/^[A-Z0-9.-]{1,12}$/.test(item.symbol) || !['thesis','watchFor','risk'].every(key=>typeof item[key]==='string' && item[key].trim())) throw Error('Invalid watch point');
+  }
+  return data;
+}
+export function renderPortfolio(data) {
+  if(!data)return '<p class="section-note">my holdings update is unavailable. please check back.</p>';
+  validatePortfolio(data);
+  const date=new Date(data.updatedAt).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
+  const group=(label,items,note)=>`<div class="portfolio-group"><h3>${label}</h3><p>${note}</p><ul class="portfolio-tickers">${items.map(item=>`<li><span>${escapeHTML(item.symbol)}</span></li>`).join('')}</ul></div>`;
+  return `<p class="section-note">shared by nasirr · updated ${escapeHTML(date)} · holdings are self-reported</p><div class="portfolio-grid">${group('what i hold',data.holdings,'positions i currently hold.')}${group('planned long-term additions',data.planned,'on my list to add. not confirmed purchases.')}</div><p class="section-note">i have not shared position sizes, purchase prices, or portfolio returns here. holdings can change. my positions create a personal financial interest in the assets discussed. research and education, not financial advice.</p>`;
+}
+export function renderFounderWatch(data) {
+  if(!data)return '';
+  validatePortfolio(data);
+  return data.watch.map(item=>`<article class="founder-watch"><p class="eyebrow">my personal watch notes · separate from the sunday news brief</p><h3>${escapeHTML(item.symbol)} · what i'm watching</h3><p><strong>my thesis</strong>${escapeHTML(item.thesis)}</p><p><strong>what to watch</strong>${escapeHTML(item.watchFor)}</p><p><strong>what could weaken the case</strong>${escapeHTML(item.risk)}</p><p class="section-note">user-supplied price levels, not a verified live quote or a guaranteed outcome. updated ${escapeHTML(data.updatedAt.slice(0,10))}.</p></article>`).join('');
+}

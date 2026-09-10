@@ -13,9 +13,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=weekly-top-three-1" />
+  <link rel="stylesheet" href="styles.css?v=portfolio-1" />
   <script type="module" src="section-nav.mjs?v=1"></script>
-  <script type="module" src="member-access.mjs?v=weekly-top-three-1"></script>
+  <script type="module" src="member-access.mjs?v=portfolio-1"></script>
   <script type="module" src="app.js?v=weekly-top-three-1"></script>
   <script type="module" src="brief.mjs?v=sunday-1"></script>
 <link rel="canonical" href="https://nasirr.innergintel.org/watchlist/" />
@@ -27,6 +27,7 @@
     <nav class="section-nav" aria-label="Market Pulse sections">
       <a href="#overview">Overview</a>
       <a href="#weekly-mover">Weekly Movers</a>
+      <a href="#my-holdings">My Holdings</a>
       <a href="#sunday-brief">Sunday Brief</a>
       <a href="#asset-news">Asset News</a>
       <a href="#sectors">Watchlist</a>
@@ -55,11 +56,17 @@
       <p class="section-note">The top three assets by weekly percentage change, highest first. Everyone can see the leading mover. Sign in with an active INNERG ID for all three and member research. Rankings refresh with collected price data. A move is not a buy signal.</p>
       <div class="leader-grid" id="leader-grid"><p role="status">Loading weekly charts.</p></div>
     </section>
+    <section class="founder-portfolio" id="my-holdings" aria-labelledby="holdings-title">
+      <div class="section-heading"><div><p class="eyebrow">inside my portfolio</p><h2 id="holdings-title">what i hold. what i'm considering.</h2></div></div>
+      <p class="section-note">my personal holdings and planned additions, shared with members. a dated snapshot, not a live brokerage feed or an instruction to buy.</p>
+      <div id="portfolio-items"></div>
+    </section>
     <section class="sunday-brief" id="sunday-brief" aria-labelledby="brief-title">
       <div class="section-heading"><div><p class="eyebrow">The Sunday brief</p><h2 id="brief-title">What to watch for.</h2></div></div>
       <p class="section-note">Bullish developments. Questions worth asking. Risks worth knowing. Research, not trade instructions.</p>
       <p id="brief-date" class="section-note" role="status">Loading the latest edition.</p>
       <div id="brief-items"></div>
+      <div id="founder-watch-points"></div>
       <noscript>Sign-in requires JavaScript. Public charts remain available below.</noscript>
     </section>
     <section class="asset-news" id="asset-news" aria-labelledby="news-title">
