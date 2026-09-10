@@ -44,6 +44,9 @@ export function validatePortfolio(data) {
     if(!/^[A-Z0-9.-]{1,12}$/.test(item.symbol) || seen.has(item.symbol)) throw Error('Invalid holding');
     seen.add(item.symbol);
   }
+  for(const item of data.holdings) {
+    if(item.dailyChangePercent != null && (!Number.isFinite(item.dailyChangePercent) || item.dailyChangePercent < -100)) throw Error('Invalid daily change');
+  }
   for(const item of data.watch) {
     if(!/^[A-Z0-9.-]{1,12}$/.test(item.symbol) || !['thesis','watchFor','risk'].every(key=>typeof item[key]==='string' && item[key].trim())) throw Error('Invalid watch point');
   }
@@ -54,7 +57,15 @@ export function renderPortfolio(data) {
   validatePortfolio(data);
   const date=new Date(data.updatedAt).toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
   const group=(label,items,note)=>`<div class="portfolio-group"><h3>${label}</h3><p>${note}</p><ul class="portfolio-tickers">${items.map(item=>`<li><span>${escapeHTML(item.symbol)}</span></li>`).join('')}</ul></div>`;
-  return `<p class="section-note">updated ${escapeHTML(date)}</p><div class="portfolio-grid">${group('what i hold',data.holdings,'positions i currently hold.')}${group('planned long-term additions',data.planned,'on my list to add. i do not hold these yet.')}</div><p class="section-note">these are my personal positions, and they can change. i have a financial interest in the assets i hold. investing involves risk.</p>`;
+  const tiles=data.holdings.map(item=>{
+    const change=item.dailyChangePercent;
+    const available=Number.isFinite(change);
+    const direction=!available || change===0?'flat':change>0?'up':'down';
+    const strength=!available?'quiet':Math.abs(change)>=3?'strong':Math.abs(change)>=1?'medium':'quiet';
+    const value=available?`${change>0?'+':''}${change.toFixed(2)}%`:'no update';
+    return `<li class="holding-tile holding-${direction} holding-${strength}"><span class="holding-symbol">${escapeHTML(item.symbol)}</span><strong class="holding-change">${value}</strong><span class="holding-direction">${available?(direction==='flat'?'unchanged':direction==='up'?'daily gain':'daily loss'):'daily change unavailable'}</span></li>`;
+  }).join('');
+  return `<p class="section-note">updated ${escapeHTML(date)}</p><div class="portfolio-grid"><div class="portfolio-group portfolio-map"><div class="heatmap-heading"><h3>what i hold</h3><span>daily change</span></div><p class="heatmap-key">green = up · red = down · brighter = a larger move</p>${tiles?`<ul class="holdings-heatmap" aria-label="holdings daily percentage changes">${tiles}</ul>`:'<p>no holdings to display.</p>'}</div>${group('planned long-term additions',data.planned,'on my list to add. i do not hold these yet.')}</div><p class="section-note">these are my personal positions, and they can change. i have a financial interest in the assets i hold. investing involves risk.</p>`;
 }
 export function renderFounderWatch(data) {
   if(!data)return '';

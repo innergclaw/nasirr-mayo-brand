@@ -1,5 +1,5 @@
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
-import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=member-copy-2';
+import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=holdings-heatmap-1';
 import {loadNews} from './news.mjs?v=member-copy-2';
 import {setMoverContext,setWeeklyMoverAccess} from './weekly-mover.mjs?v=weekly-top-three-1';
 const client=createClient('https://zkyhhoxcrjkhywblzehr.supabase.co','sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_');
