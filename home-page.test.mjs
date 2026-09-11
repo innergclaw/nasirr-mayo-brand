@@ -4,6 +4,7 @@ import test from "node:test";
 
 const root = new URL("./", import.meta.url);
 const html = await readFile(new URL("index.html", root), "utf8");
+const aboutHtml = html.match(/<div class="about-copy">[\s\S]*?<\/div>/)?.[0] ?? "";
 const mentorshipScript = await readFile(
   new URL("mentorship-entry.js", root),
   "utf8",
@@ -51,12 +52,20 @@ test("hire links lead the service list and the featured card follows", () => {
   assert.match(mentorshipScript, /if \(booking\) anchor = booking/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
   assert.match(html, /business-booking\.js\?v=6/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-7/);
+  assert.match(html, /mentorship-entry\.js\?v=featured-8/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
   assert.doesNotMatch(html, /HIRE \/ BOOK ME/);
   assert.match(html, /INNERG INTEL EDUCATION/);
+});
+
+test("about section uses the approved Philadelphia founder biography", () => {
+  assert.match(aboutHtml, /Philadelphia-based creative entrepreneur and educator/);
+  assert.match(aboutHtml, /owner and lead\s+designer of NGVISIONS/);
+  assert.match(aboutHtml, /Through InnerG Intel and\s+InnerG Reads/);
+  assert.match(aboutHtml, /help Philadelphia youth move from ideas to practical\s+business skills/);
+  assert.doesNotMatch(aboutHtml, /I started building in 2015 because I saw problems/);
 });
 
 test("restore script prevents duplicate cards and repeated number writes", () => {
