@@ -73,6 +73,12 @@
       anchor = card;
     });
 
+    const intake = document.getElementById("project-intake");
+    if (intake && anchor.nextElementSibling !== intake) {
+      anchor.insertAdjacentElement("afterend", intake);
+    }
+    if (intake) anchor = intake;
+
     const booking = document.getElementById("talk-business");
     if (booking && anchor.nextElementSibling !== booking) {
       anchor.insertAdjacentElement("afterend", booking);

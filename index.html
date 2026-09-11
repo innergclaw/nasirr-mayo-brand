@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/social-stats.css?v=4" />
     <link rel="stylesheet" href="/home-clarity.css?v=9" />
     <link rel="stylesheet" href="/home-motion.css?v=1" />
+    <link rel="stylesheet" href="/project-intake.css?v=1" />
     <style>
       .talk-business {
         margin-top: 34px;
@@ -514,6 +515,63 @@
               ></span
             ><span class="link-status">COMING SOON</span>
           </div>
+          <section class="project-intake" id="project-intake" aria-labelledby="project-intake-title">
+            <p class="project-intake__eyebrow">Let's work together</p>
+            <h2 id="project-intake-title">Tell me what you need.</h2>
+            <p class="project-intake__intro" id="project-intake-help">Share a few details, then text them directly to me. All fields are required.</p>
+            <form id="project-intake-form" action="sms:+12674730397" aria-describedby="project-intake-help project-intake-note">
+              <div class="project-intake__row">
+                <div class="project-intake__field">
+                  <label for="project-first-name">First Name</label>
+                  <input id="project-first-name" name="firstName" autocomplete="given-name" maxlength="60" required />
+                </div>
+                <div class="project-intake__field">
+                  <label for="project-last-name">Last Name</label>
+                  <input id="project-last-name" name="lastName" autocomplete="family-name" maxlength="60" required />
+                </div>
+              </div>
+              <div class="project-intake__field">
+                <label for="project-service">Service Needed</label>
+                <textarea id="project-service" name="service" rows="4" maxlength="500" placeholder="What are you creating, updating, or trying to solve?" aria-describedby="project-service-help" required></textarea>
+                <div class="project-intake__field-help">
+                  <span id="project-service-help">Up to 500 characters.</span>
+                  <span id="project-service-count" aria-hidden="true">0 / 500</span>
+                </div>
+              </div>
+              <div class="project-intake__field">
+                <label for="project-budget">Budget</label>
+                <select id="project-budget" name="budget" required>
+                  <option value="" disabled selected>Select your budget</option>
+                  <option value="$100-$250">$100-$250</option>
+                  <option value="$250 - $500">$250 - $500</option>
+                  <option value="$750 - $1000">$750 - $1000</option>
+                </select>
+              </div>
+              <div class="project-intake__field">
+                <label for="project-delivery">Expected delivery of project</label>
+                <select id="project-delivery" name="delivery" required>
+                  <option value="" disabled selected>Select a timeframe</option>
+                  <option value="ASAP">ASAP</option>
+                  <option value="A Few Days">A Few Days</option>
+                  <option value="A Few Weeks">A Few Weeks</option>
+                  <option value="Not Sure">Not Sure</option>
+                </select>
+              </div>
+              <p class="project-intake__note" id="project-intake-note">This opens your text app with the details filled in. Tap send to finish. I'll confirm availability and timing with you.</p>
+              <button class="project-intake__send" id="project-intake-send" type="submit" disabled>Send details by text</button>
+              <div class="project-intake__fallback">
+                <button class="project-intake__copy" id="project-intake-copy" type="button" disabled>Copy details instead</button>
+                <a href="sms:+12674730397">267 473 0397</a>
+              </div>
+              <p class="project-intake__status" id="project-intake-status" role="status" aria-live="polite"></p>
+              <div id="project-intake-manual" hidden>
+                <label for="project-intake-message">Copy this message and text it to 267 473 0397</label>
+                <textarea id="project-intake-message" rows="7" readonly></textarea>
+              </div>
+              <a id="project-intake-sms" href="sms:+12674730397" hidden>Open prepared text</a>
+              <noscript><p>Enable JavaScript to prepare your message, or text your name, service, budget, and timeframe to <a href="sms:+12674730397">267 473 0397</a>.</p></noscript>
+            </form>
+          </section>
         </nav>
         <section
           class="talk-business"
@@ -691,7 +749,8 @@
     <script src="/scramble-title.js?v=1"></script>
     <script src="/social-stats.js?v=3"></script>
     <script src="/home-clarity.js?v=10"></script>
-    <script src="/mentorship-entry.js?v=services-9"></script>
+    <script src="/mentorship-entry.js?v=services-10"></script>
+    <script type="module" src="/project-intake.mjs?v=1"></script>
     <script src="/account-entry.js?v=2"></script>
     <script src="/mentorship-social.js"></script>
     <script src="/home-motion.js?v=1"></script>

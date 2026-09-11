@@ -33,7 +33,7 @@ test("mentorship member access uses the Home Base pill style", () => {
   assert.match(mentorshipPage, /\.member-access:active \{ transform:scale\(\.96\)/);
 });
 
-test("hire links lead the service list and booking follows", () => {
+test("hire links lead the service list, then intake and booking follow", () => {
   assert.match(html, /HOW CAN I HELP YOU\?/);
   assert.doesNotMatch(html, /HIRE MY COMPANY TO HELP YOU/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
@@ -43,7 +43,9 @@ test("hire links lead the service list and booking follows", () => {
   assert.match(mentorshipScript, /serviceCards\.forEach/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", booking\)/);
   assert.match(html, /business-booking\.js\?v=6/);
-  assert.match(html, /mentorship-entry\.js\?v=services-9/);
+  assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", intake\)/);
+  assert.match(mentorshipScript, /if \(intake\) anchor = intake/);
+  assert.match(html, /mentorship-entry\.js\?v=services-10/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
