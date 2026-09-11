@@ -105,13 +105,17 @@
 
     const header = document.querySelector(".profile-header");
     const role = header?.querySelector(".profile-role");
-    const about = document.querySelector(".about");
+    const about = document.querySelector(".about:not(.skills)");
+    const skills = document.getElementById("skills");
     if (header && role && about && role.nextElementSibling !== about) {
       role.insertAdjacentElement("afterend", about);
     }
+    if (header && about && skills && about.nextElementSibling !== skills) {
+      about.insertAdjacentElement("afterend", skills);
+    }
     header?.querySelectorAll(".profile-statement").forEach((item) => item.remove());
     if (header && role && !header.querySelector(".profile-actions")) {
-      (about || role).after(buildProfileActions());
+      (skills || about || role).after(buildProfileActions());
     }
 
     const stats = document.getElementById("social-audience-stats");

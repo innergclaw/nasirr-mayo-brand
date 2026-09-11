@@ -9,7 +9,25 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=\d+/);
-  assert.match(home, /home-clarity\.js\?v=10/);
+  assert.match(home, /home-clarity\.js\?v=11/);
+});
+
+test("skills follows about me with native disclosures and press me labels", () => {
+  const disclosures = home.match(/<details class="about[\s\S]*?<\/details>/g) ?? [];
+  assert.equal(disclosures.length, 2);
+  assert.match(disclosures[0], /About me/);
+  assert.match(disclosures[1], /id="skills"/);
+  assert.match(disclosures[1], /class="section-label">skills<\/span>/);
+  for (const disclosure of disclosures) {
+    assert.match(disclosure, /class="about-toggle" aria-hidden="true">press me<\/span>/);
+    assert.doesNotMatch(disclosure, /<details[^>]*\sopen(?:\s|>|=)/);
+    assert.doesNotMatch(disclosure, />\+<\/span>/);
+  }
+  assert.equal((disclosures[1].match(/<li>/g) ?? []).length, 6);
+  assert.match(script, /about\.insertAdjacentElement\("afterend", skills\)/);
+  assert.match(script, /\(skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
+  assert.match(styles, /\.about summary\s*\{\s*min-height:\s*44px/);
+  assert.match(styles, /\.about\[open\] \.about-toggle\s*\{[^}]*font-size:\s*12px;[^}]*transform:\s*none;/);
 });
 
 test("scroll order places the video under official channels", () => {
