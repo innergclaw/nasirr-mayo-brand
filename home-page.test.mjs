@@ -14,24 +14,17 @@ const mentorshipPage = await readFile(
   "utf8",
 );
 
-test("home page has one featured investing card", () => {
-  assert.equal(
-    (html.match(/class="link-card mentorship-link-card mentorship-main-card is-visible"/g) ?? [])
-      .length,
-    1,
-  );
+test("home page removes the investing card and cannot restore it after loading", () => {
+  for (const source of [html, mentorshipScript]) {
+    assert.doesNotMatch(source, /NEW TO INVESTING\?|featured-investing-title/);
+    assert.doesNotMatch(source, /join\.robinhood\.com\/nasirrm/);
+  }
+  assert.doesNotMatch(mentorshipScript, /buildCard|mentorship-main-card/);
 });
 
-test("featured investing card keeps one disclosed referral action", () => {
-  assert.match(
-    html,
-    /href="https:\/\/join\.robinhood\.com\/nasirrm"[\s\S]*VIEW THE STARTING POINT/,
-  );
-  assert.match(html, /Referral link\. We may both receive a reward\./);
-  assert.match(html, /Investing involves\s+risk\./);
-  assert.match(mentorshipScript, /join\.robinhood\.com\/nasirrm/);
-  assert.doesNotMatch(html, /mentorship-main-action-secondary/);
-  assert.doesNotMatch(mentorshipScript, /MEMBER ACCESS/);
+test("the separate watchlist referral remains unchanged", async () => {
+  const watchlist = await readFile(new URL("watchlist/index.html", root), "utf8");
+  assert.match(watchlist, /join\.robinhood\.com\/nasirrm/);
 });
 
 test("mentorship member access uses the Home Base pill style", () => {
@@ -40,7 +33,7 @@ test("mentorship member access uses the Home Base pill style", () => {
   assert.match(mentorshipPage, /\.member-access:active \{ transform:scale\(\.96\)/);
 });
 
-test("hire links lead the service list and the featured card follows", () => {
+test("hire links lead the service list and booking follows", () => {
   assert.match(html, /HOW CAN I HELP YOU\?/);
   assert.doesNotMatch(html, /HIRE MY COMPANY TO HELP YOU/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
@@ -49,10 +42,8 @@ test("hire links lead the service list and the featured card follows", () => {
   assert.match(mentorshipScript, /list\.prepend\(heading\)/);
   assert.match(mentorshipScript, /serviceCards\.forEach/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", booking\)/);
-  assert.match(mentorshipScript, /if \(booking\) anchor = booking/);
-  assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", mainCard\)/);
   assert.match(html, /business-booking\.js\?v=6/);
-  assert.match(html, /mentorship-entry\.js\?v=featured-8/);
+  assert.match(html, /mentorship-entry\.js\?v=services-9/);
 });
 
 test("home page removes hire link and names InnerG education", () => {
@@ -68,7 +59,7 @@ test("about section uses the approved Philadelphia founder biography", () => {
   assert.doesNotMatch(aboutHtml, /I started building in 2015 because I saw problems/);
 });
 
-test("restore script prevents duplicate cards and repeated number writes", () => {
-  assert.match(mentorshipScript, /if \(!list\.querySelector\("\.mentorship-main-card"\)\)/);
+test("service restore script prevents duplicate headings and repeated number writes", () => {
+  assert.match(mentorshipScript, /headings\.forEach\(\(duplicate\) => duplicate\.remove\(\)\)/);
   assert.match(mentorshipScript, /numberNode\.textContent !== number/);
 });

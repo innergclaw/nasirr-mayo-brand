@@ -1,26 +1,4 @@
 (() => {
-  const buildCard = () => {
-    const card = document.createElement("article");
-    card.className =
-      "link-card mentorship-link-card mentorship-main-card is-visible";
-    card.setAttribute("aria-labelledby", "featured-investing-title");
-    card.innerHTML = `
-      <div class="mentorship-main-meta">
-        <span>00 / FEATURED</span><span>INVESTING STARTING POINT</span>
-      </div>
-      <span class="link-copy">
-        <strong id="featured-investing-title">NEW TO INVESTING?</strong>
-        <small>For adults who are curious about investing and want a simple place to begin. Learn first, then move at your own pace.</small>
-      </span>
-      <div class="mentorship-main-actions">
-        <a class="mentorship-main-action mentorship-main-action-primary" href="https://join.robinhood.com/nasirrm" target="_blank" rel="noreferrer sponsored">
-          <span>VIEW THE STARTING POINT</span><svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
-        </a>
-      </div>
-      <small class="mentorship-main-disclosure">Referral link. We may both receive a reward. Investing involves risk.</small>`;
-    return card;
-  };
-
   const getTitle = (card) =>
     card.querySelector(".link-copy strong")?.textContent.trim().toUpperCase();
 
@@ -56,11 +34,6 @@
       .querySelectorAll("a.mentorship-link-card, a.account-link-card")
       .forEach((card) => card.remove());
 
-    if (!list.querySelector(".mentorship-main-card")) {
-      list.prepend(buildCard());
-    }
-
-    const mainCard = list.querySelector(".mentorship-main-card");
     const headings = [...document.querySelectorAll(".hire-links")];
     const heading = headings.shift() || buildHeading();
     headings.forEach((duplicate) => duplicate.remove());
@@ -103,11 +76,6 @@
     const booking = document.getElementById("talk-business");
     if (booking && anchor.nextElementSibling !== booking) {
       anchor.insertAdjacentElement("afterend", booking);
-    }
-    if (booking) anchor = booking;
-
-    if (mainCard && anchor.nextElementSibling !== mainCard) {
-      anchor.insertAdjacentElement("afterend", mainCard);
     }
   };
 
