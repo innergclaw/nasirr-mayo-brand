@@ -44,8 +44,7 @@
       <a class="profile-action" href="#talk-business">SPEAK WITH ME</a>
       <a class="profile-action" href="#how-can-i-help">WORK WITH ME</a>
       <a class="profile-action profile-action--member profile-action--channels" href="/innergid/">GET YOUR INNERG ID</a>
-      <a class="profile-action profile-action--member" href="https://www.innergreads.study/reads/">READ WITH ME</a>
-      <a class="profile-action" href="#${sectionId}">FIND MY CHANNELS</a>`;
+      <a class="profile-action profile-action--member" href="https://www.innergreads.study/reads/">READ WITH ME</a>`;
     return actions;
   };
 
