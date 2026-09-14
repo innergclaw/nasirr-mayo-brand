@@ -9,7 +9,7 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=\d+/);
-  assert.match(home, /home-clarity\.js\?v=11/);
+  assert.match(home, /home-clarity\.js\?v=12/);
 });
 
 test("skills follows about me with native disclosures and press me labels", () => {
@@ -41,7 +41,7 @@ test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
   assert.match(script, /class="profile-action profile-action--member" href="\/innergid\/">GET YOUR INNERG ID/);
   assert.doesNotMatch(script, />MARKET WATCHLIST<\/a>/);
-  assert.match(script, /href="\/watchlist\/">watch list/);
+  assert.match(script, /href="https:\/\/www\.innergreads\.study\/reads\/">READ WITH ME/);
   assert.match(script, /href="#\$\{sectionId\}">FIND MY CHANNELS/);
   assert.match(home, /id="how-can-i-help"/);
   assert.match(styles, /#how-can-i-help\s*{[\s\S]*scroll-margin-top:\s*96px/);
