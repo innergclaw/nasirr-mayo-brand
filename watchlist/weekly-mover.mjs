@@ -1,4 +1,4 @@
-import { escapeHTML, percent, tone } from './display.mjs';
+import { escapeHTML, percent, tone, assetTags } from './display.mjs';
 import { safeSource } from './brief.mjs';
 import { chartMarkup } from './interactive-charts.mjs';
 
@@ -22,7 +22,7 @@ export function weeklyMoversMarkup(assets) {
     if (rank > 1 && !memberMoversUnlocked) {
       return `<article class="leader-card leader-locked" aria-label="Weekly mover ${rank}, members only"><p class="eyebrow">Weekly rank 0${rank} · INNERG ID access</p><div class="mover-placeholder" aria-hidden="true"><span></span><span></span><span></span></div><h3>See the next mover.</h3><p>Sign in with an active INNERG ID to see all three weekly movers and member research.</p><div class="member-actions"><a class="member-cta" href="#member-access">Sign in with INNERG ID</a><a href="https://nasirr.innergintel.org/innergid/">Become a member</a></div></article>`;
     }
-    return `<article class="leader-card" data-weekly-rank="${rank}"><p class="eyebrow">Weekly rank 0${rank}</p><div class="leader-top"><div><h3>${escapeHTML(asset.symbol)}</h3><p>${escapeHTML(asset.name)}</p></div><strong class="${tone(asset.returns.week)}">${percent(asset.returns.week)}<small>1 week</small></strong></div>${chartMarkup(asset, 'leader')}${moverExplanation(asset.symbol)}</article>`;
+    return `<article class="leader-card" data-weekly-rank="${rank}"><p class="eyebrow">Weekly rank 0${rank}</p><div class="leader-top"><div><h3>${escapeHTML(asset.symbol)}</h3><p>${escapeHTML(asset.name)}</p><div class="asset-tags asset-tags-dark" aria-label="Asset classification">${assetTags(asset)}</div></div><strong class="${tone(asset.returns.week)}">${percent(asset.returns.week)}<small>1 week</small></strong></div>${chartMarkup(asset, 'leader')}${moverExplanation(asset.symbol)}</article>`;
   }).join('');
 }
 

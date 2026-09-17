@@ -2,6 +2,10 @@ export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c=>({
 export const money = (value, currency='USD') => Number.isFinite(value) ? new Intl.NumberFormat('en-US',{style:'currency',currency,minimumFractionDigits:Math.abs(value)<1?4:2,maximumFractionDigits:Math.abs(value)<1?4:2}).format(value) : 'Unavailable';
 export const percent = value => Number.isFinite(value) ? `${value>0?'+':''}${value.toFixed(2)}%` : 'Unavailable';
 export const tone = value => !Number.isFinite(value) ? 'unavailable' : value>0?'positive':value<0?'negative':'neutral';
+export function assetTags(asset) {
+  const tags=[asset?.category,asset?.assetType].filter(value=>typeof value==='string'&&value.trim());
+  return [...new Set(tags)].map(value=>`<span class="asset-tag">${escapeHTML(value)}</span>`).join('');
+}
 export function filterAssets(assets,query='',sector='all',sort='default') {
   const term=query.trim().toLowerCase();
   const rows=assets.filter(a=>(sector==='all'||a.sector===sector)&&`${a.symbol} ${a.name}`.toLowerCase().includes(term));

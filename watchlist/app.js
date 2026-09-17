@@ -1,4 +1,4 @@
-import { escapeHTML, money, percent, tone, filterAssets, chartPath } from './display.mjs';
+import { escapeHTML, money, percent, tone, filterAssets, chartPath, assetTags } from './display.mjs';
 import { chartMarkup, bindCharts } from './interactive-charts.mjs';
 import { weeklyMoversMarkup } from './weekly-mover.mjs?v=weekly-top-three-1';
 
@@ -14,7 +14,7 @@ const esc = escapeHTML;
 function chart(asset, context='asset') { return chartMarkup(asset,context); }
 
 function assetCard(asset) {
-  return `<article class="asset-card" id="asset-${esc(asset.symbol)}"><div class="asset-heading"><div><h4>${esc(asset.symbol)}</h4><p>${esc(asset.name)}</p></div><strong class="price">${money(asset.price, asset.currency)}</strong></div>${chart(asset)}<dl class="returns">${[['1 day','day'],['1 week','week'],['30 days','month']].map(([label,key])=>`<div><dt>${label}</dt><dd class="${tone(asset.returns?.[key])}">${percent(asset.returns?.[key])}</dd></div>`).join('')}</dl><details class="ranges" data-symbol="${esc(asset.symbol)}"><summary>Daily &amp; 52-week ranges</summary><dl>${[['Day low','dayLow'],['Day high','dayHigh'],['52-week low','yearLow'],['52-week high','yearHigh']].map(([label,key])=>`<div><dt>${label}</dt><dd>${money(asset[key],asset.currency)}</dd></div>`).join('')}</dl><p>${Number(asset.historySessions) || 0} daily data points available.</p></details></article>`;
+  return `<article class="asset-card" id="asset-${esc(asset.symbol)}"><div class="asset-heading"><div><h4>${esc(asset.symbol)}</h4><p>${esc(asset.name)}</p><div class="asset-tags" aria-label="Asset classification">${assetTags(asset)}</div></div><strong class="price">${money(asset.price, asset.currency)}</strong></div>${chart(asset)}<dl class="returns">${[['1 day','day'],['1 week','week'],['30 days','month']].map(([label,key])=>`<div><dt>${label}</dt><dd class="${tone(asset.returns?.[key])}">${percent(asset.returns?.[key])}</dd></div>`).join('')}</dl><details class="ranges" data-symbol="${esc(asset.symbol)}"><summary>Daily &amp; 52-week ranges</summary><dl>${[['Day low','dayLow'],['Day high','dayHigh'],['52-week low','yearLow'],['52-week high','yearHigh']].map(([label,key])=>`<div><dt>${label}</dt><dd>${money(asset[key],asset.currency)}</dd></div>`).join('')}</dl><p>${Number(asset.historySessions) || 0} daily data points available.</p></details></article>`;
 }
 
 function renderAssets() {
