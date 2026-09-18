@@ -9,7 +9,7 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=\d+/);
-  assert.match(home, /home-clarity\.js\?v=14/);
+  assert.match(home, /home-clarity\.js\?v=15/);
 });
 
 test("skills follows about me with native disclosures and press me labels", () => {

@@ -158,6 +158,7 @@
       video,
       linkList,
       ambassador,
+      document.getElementById("support-movement"),
       footer,
     ].filter(Boolean);
 
@@ -173,6 +174,12 @@
   };
 
   const start = () => {
+    if (!document.getElementById("home-support-script")) {
+      const supportScript = document.createElement("script");
+      supportScript.id = "home-support-script";
+      supportScript.src = "/home-support.js?v=1";
+      document.head.append(supportScript);
+    }
     mount();
     const observer = new MutationObserver(mount);
     observer.observe(document.body, { childList: true, subtree: true });
