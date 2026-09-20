@@ -81,11 +81,11 @@ begin
     v_drop_date::timestamp at time zone 'America/New_York',
     (v_drop_date + 7)::timestamp at time zone 'America/New_York'
   )
-  on conflict (drop_date) do nothing;
+  on conflict on constraint innerg_sunday_drops_drop_date_key do nothing;
 
-  select * into v_drop
-  from public.innerg_sunday_drops
-  where innerg_sunday_drops.drop_date = v_drop_date;
+  select d.* into v_drop
+  from public.innerg_sunday_drops as d
+  where d.drop_date = v_drop_date;
 
   select count(*)::integer into v_claimed
   from public.innerg_sunday_claims
@@ -167,11 +167,11 @@ begin
     v_drop_date::timestamp at time zone 'America/New_York',
     (v_drop_date + 7)::timestamp at time zone 'America/New_York'
   )
-  on conflict (drop_date) do nothing;
+  on conflict on constraint innerg_sunday_drops_drop_date_key do nothing;
 
-  select * into v_drop
-  from public.innerg_sunday_drops
-  where innerg_sunday_drops.drop_date = v_drop_date
+  select d.* into v_drop
+  from public.innerg_sunday_drops as d
+  where d.drop_date = v_drop_date
   for update;
 
   select count(*)::integer into v_claimed

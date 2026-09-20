@@ -30,6 +30,9 @@ test("the claim is atomic, verified, and capped at five", () => {
   assert.match(migration, /user_id uuid not null unique/);
   assert.match(migration, /security definer/);
   assert.match(migration, /set search_path = ''/);
+  assert.equal((migration.match(/from public\.innerg_sunday_drops as d/g) || []).length, 2);
+  assert.equal((migration.match(/where d\.drop_date = v_drop_date/g) || []).length, 2);
+  assert.equal((migration.match(/on conflict on constraint innerg_sunday_drops_drop_date_key do nothing/g) || []).length, 2);
   assert.match(migration, /revoke all on public\.innerg_sunday_drops/);
   assert.doesNotMatch(migration, /raw_token|verification_token/);
 });
