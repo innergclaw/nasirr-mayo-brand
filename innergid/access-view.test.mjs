@@ -34,7 +34,7 @@ function flow(invoke){
   const document=page();
   const context={document,renderAccessView,supabase:{functions:{invoke},rpc:async()=>({data:[],error:null})},panel:document.querySelector("#member-panel"),
     number:document.querySelector("#member-number"),status:document.querySelector("#member-status"),
-    discord:document.querySelector("#discord-link"),purchase:document.querySelector(".purchase-action"),
+    discord:document.querySelector("#discord-link"),purchase:document.querySelector(".purchase-action"),purchaseStatus:document.querySelector("#purchase-status"),
     history:{replaceState(){}},location:{pathname:"/innergid/"}};
   vm.createContext(context);
   vm.runInContext("let activeSession=null;let accessRequest=0;let displayedMember=null;"+source.slice(start,end)+";this.showMember=showMember;",context);
@@ -61,10 +61,12 @@ test("signed-in unpaid account still requires payment",async()=>{
  assert.equal(f.document.documentElement.dataset.accessView,"public");
  assert.equal(f.panel.hidden,true);
 });
-test("server failure does not send an existing member to checkout",async()=>{
+test("server failure keeps pricing visible without sending an existing member to checkout",async()=>{
  const f=flow(async()=>{throw Error("network")});
  await f.showMember({user:{id:"test"}});
- assert.equal(f.document.documentElement.dataset.accessView,"error");
+ assert.equal(f.document.documentElement.dataset.accessView,"public");
+ assert.equal(f.purchase.disabled,true);
+ assert.match(f.purchaseStatus.textContent,/could not verify existing access/i);
 });
 test("sign-out discards a late member response and clears member details",async()=>{
  let resolve;

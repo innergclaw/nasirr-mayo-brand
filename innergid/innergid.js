@@ -22,6 +22,8 @@ const showMember = async (session) => {
   const request = ++accessRequest;
   activeSession = session ?? null;
   delete purchase.dataset.active;
+  purchase.disabled = false;
+  purchaseStatus.textContent = "";
   panel.hidden = true;
   number.textContent = "";
   status.textContent = "";
@@ -45,7 +47,12 @@ const showMember = async (session) => {
     }
     if (request !== accessRequest) return null;
     if (error || !data?.membershipNumber) {
-      renderAccessView(document, Number(error?.context?.status || error?.status) === 403 ? "public" : "error");
+      const statusCode = Number(error?.context?.status || error?.status);
+      renderAccessView(document, "public");
+      if (error && statusCode !== 403) {
+        purchase.disabled = true;
+        purchaseStatus.textContent = "We could not verify existing access. If you already paid, do not start another purchase. Check access again or sign in again.";
+      }
       return null;
     }
     number.textContent = data.membershipNumber;
@@ -72,7 +79,11 @@ const showMember = async (session) => {
     displayedMember = session.user.id;
     return data;
   } catch {
-    if (request === accessRequest) renderAccessView(document, "error");
+    if (request === accessRequest) {
+      renderAccessView(document, "public");
+      purchase.disabled = true;
+      purchaseStatus.textContent = "We could not verify existing access. If you already paid, do not start another purchase. Check access again or sign in again.";
+    }
     return null;
   }
 };
@@ -164,4 +175,8 @@ try {
   if (error) throw error;
   await showMember(data.session);
   await checkCompletedMembership();
-} catch { renderAccessView(document, "error"); }
+} catch {
+  renderAccessView(document, "public");
+  purchase.disabled = true;
+  purchaseStatus.textContent = "We could not verify existing access. If you already paid, do not start another purchase. Sign in again before you continue.";
+}
