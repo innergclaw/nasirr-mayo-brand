@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.112.4";
+import { CAPTIONS } from "./captions.ts";
 
 const allowedOrigins = new Set([
   "https://nasirr.innergintel.org",
@@ -17,16 +18,6 @@ const VIDEO_OBJECTS = [
   "end-of-year-frequency-2026-hq-chapter-4.mp4",
   "end-of-year-frequency-2026-hq-chapter-5.mp4",
 ];
-const CAPTION_FILES = [
-  "./captions/chapter-0.vtt",
-  "./captions/chapter-1.vtt",
-  "./captions/chapter-2.vtt",
-  "./captions/chapter-3.vtt",
-  "./captions/chapter-4.vtt",
-  "./captions/chapter-5.vtt",
-];
-const CAPTIONS = await Promise.all(CAPTION_FILES.map((path) => Deno.readTextFile(new URL(path, import.meta.url))));
-
 Deno.serve(async (req: Request) => {
   const origin = req.headers.get("Origin") ?? "";
   const corsHeaders = {
@@ -60,15 +51,19 @@ Deno.serve(async (req: Request) => {
   if (membershipError || purchaseError) {
     return Response.json({ error: "Briefing access could not be verified." }, { status: 503, headers: corsHeaders });
   }
-  const memberAccess = membership?.status === "active" && (
+  const trialAccess = membership?.status === "active" &&
+    membership.access_source === "sunday_free" &&
+    Date.parse(membership.access_expires_at) > Date.now();
+  const paidMember = membership?.status === "active" && (
     membership.access_source === "grandfathered" ||
-    (membership.access_source === "sunday_free" && Date.parse(membership.access_expires_at) > Date.now()) ||
     (membership.access_source === "stripe" && membership.payment_verified === true &&
       (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
   );
+  const memberAccess = paidMember || trialAccess;
+  const memberState = paidMember ? "paid" : "free";
   const purchaseAccess = purchase?.status === "active" && [1000, 1900].includes(purchase.amount_paid_cents);
   if (!memberAccess && !purchaseAccess) {
-    return Response.json({ error: "Purchase this briefing or join INNERG to watch it.", purchaseRequired: true }, { status: 403, headers: corsHeaders });
+    return Response.json({ access: false, memberState, purchaseRequired: true }, { headers: corsHeaders });
   }
 
   const signed = await Promise.all(VIDEO_OBJECTS.map((path) =>
@@ -83,6 +78,7 @@ Deno.serve(async (req: Request) => {
   return Response.json({
     access: true,
     accessType: memberAccess ? "membership" : "purchase",
+    memberState,
     chapters,
     expiresInSeconds: 3600,
   }, { headers: corsHeaders });

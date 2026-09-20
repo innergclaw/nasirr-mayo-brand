@@ -6,7 +6,7 @@
     <meta name="description" content="Buy The End-of-Year Frequency INNERG briefing once for $19. No membership is required. Active INNERG members already have access." />
     <title>The End-of-Year Frequency | INNERG INTEL</title>
     <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./briefing.css?v=20260920" />
+    <link rel="stylesheet" href="./briefing.css?v=20260920-access" />
   </head>
   <body>
     <a class="skip-link" href="#access">Skip to briefing access</a>
@@ -40,11 +40,11 @@
 
       <section class="briefing-access" id="access" aria-labelledby="access-title">
         <div class="access-copy">
-          <p class="eyebrow">YOUR ACCESS</p>
-          <h2 id="access-title">Sign in once.<br />Keep your briefing.</h2>
+          <p class="access-state" id="member-state" data-state="pending">PENDING</p>
+          <h2 id="access-title">Your INNERG access.</h2>
           <p id="access-message" role="status" aria-live="polite">Checking your INNERG account...</p>
           <div class="access-actions">
-            <a class="primary-action" id="sign-in-action" href="../../account/?next=%2Finnergid%2Fbriefing%2F" hidden>Sign in to buy</a>
+            <a class="primary-action" id="sign-in-action" href="../../account/?next=%2Finnergid%2Fbriefing%2F" hidden>Verify access</a>
             <button class="primary-action" id="purchase-action" type="button" hidden>Buy this briefing for $19</button>
             <button class="secondary-action" id="retry-action" type="button" hidden>Check access again</button>
             <button class="secondary-action" id="sign-out-action" type="button" hidden>Sign out</button>
@@ -83,6 +83,6 @@
     </main>
 
     <footer><span>INNERG INTEL</span><a href="mailto:ownyourwebsmm@gmail.com">Purchase support</a></footer>
-    <script type="module" src="./briefing.js?v=20260920"></script>
+    <script type="module" src="./briefing.js?v=20260920-access"></script>
   </body>
 </html>

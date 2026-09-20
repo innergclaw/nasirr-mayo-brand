@@ -16,12 +16,37 @@ const captionTrack = document.querySelector("#briefing-captions");
 const chapters = document.querySelector("#chapters");
 const stamp = document.querySelector("#access-stamp");
 const watchNote = document.querySelector("#watch-note");
+const memberState = document.querySelector("#member-state");
 let session = null;
 let chapterUrls = [];
 let captionBlobUrl = "";
 
 const functionStatus = (error) => Number(error?.context?.status || error?.status || 0);
 const hideActions = () => [signIn, purchase, retry, signOut].forEach((node) => { node.hidden = true; });
+const setMemberState = (state) => {
+  const normalized = ["free", "paid"].includes(state) ? state : "pending";
+  memberState.dataset.state = normalized;
+  memberState.textContent = normalized === "paid" ? "PAID MEMBER" : normalized === "free" ? "FREE MEMBER" : "PENDING";
+};
+
+const verifySession = async () => {
+  const { data, error } = await supabase.auth.getSession();
+  if (error) throw error;
+  if (!data.session) return null;
+  const verified = await supabase.auth.getUser();
+  if (!verified.error && verified.data.user) return data.session;
+  const refreshed = await supabase.auth.refreshSession();
+  if (refreshed.error || !refreshed.data.session) {
+    await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    return null;
+  }
+  const confirmed = await supabase.auth.getUser();
+  if (confirmed.error || !confirmed.data.user) {
+    await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    return null;
+  }
+  return refreshed.data.session;
+};
 
 const selectChapter = (index, autoplay = false) => {
   const selected = chapterUrls[index];
@@ -59,36 +84,47 @@ const renderVideo = (data) => {
 
 const loadAccess = async ({ retryingPurchase = false } = {}) => {
   hideActions();
+  setMemberState("pending");
   watch.hidden = true;
   accessPanel.classList.remove("has-video");
   message.textContent = retryingPurchase ? "Confirming your purchase..." : "Checking your INNERG account...";
-  const { data: authData, error: authError } = await supabase.auth.getSession();
-  if (authError) throw authError;
-  session = authData.session;
+  session = await verifySession();
   if (!session) {
-    message.textContent = "Sign in or create your free INNERG account before you buy. Your account keeps the briefing connected to you.";
+    message.textContent = "Sign in with Google or use an email code to verify your INNERG access.";
     signIn.hidden = false;
     return null;
   }
   signOut.hidden = false;
   const { data, error } = await supabase.functions.invoke("innerg-video-access", { method: "GET" });
   if (!error && data?.access) {
+    setMemberState(data.memberState);
     renderVideo(data);
-    message.textContent = data.accessType === "membership"
-      ? "This briefing is included with your active INNERG access."
-      : "Your one-time purchase is active on this account.";
+    message.textContent = data.memberState === "paid"
+      ? "Your paid membership is active. This briefing is included."
+      : data.accessType === "purchase"
+        ? "Your free member account is verified. Your one-time briefing purchase is active."
+        : "Your free member access is verified. This briefing is available during your trial.";
     history.replaceState({}, "", `${location.pathname}#watch`);
     return data;
   }
-  if (functionStatus(error) === 403 || data?.purchaseRequired) {
+  if (!error && data?.purchaseRequired) {
+    setMemberState(retryingPurchase ? "pending" : data.memberState);
     message.textContent = retryingPurchase
-      ? "We have not confirmed your purchase yet. Do not start another checkout. Use Check access again or contact support."
-      : "Your account is ready. Buy the briefing once for $19, or join INNERG for full library access.";
+      ? "Your payment is still pending. Do not start another checkout. Check access again in a moment."
+      : "Your free member account is verified. Buy this briefing for $19, or join INNERG for full member access.";
     purchase.hidden = retryingPurchase;
     retry.hidden = !retryingPurchase;
     return null;
   }
-  throw new Error("We could not verify access. Please try again.");
+  if (functionStatus(error) === 401) {
+    await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+    session = null;
+    message.textContent = "Your sign-in expired. Sign in with Google or use an email code to verify access again.";
+    signIn.hidden = false;
+    signOut.hidden = true;
+    return null;
+  }
+  throw new Error("Your access check is pending. Please check again in a moment.");
 };
 
 purchase.addEventListener("click", async () => {
@@ -113,7 +149,8 @@ purchase.addEventListener("click", async () => {
 });
 
 retry.addEventListener("click", () => loadAccess({ retryingPurchase: true }).catch(() => {
-  message.textContent = "We could not verify access. Please try again or contact ownyourwebsmm@gmail.com.";
+  setMemberState("pending");
+  message.textContent = "Your access check is pending. Check again in a moment. If you already paid, do not start another checkout.";
   retry.hidden = false;
 }));
 
@@ -141,6 +178,8 @@ try {
   }
 } catch (error) {
   hideActions();
-  message.textContent = error.message || "We could not verify access. Please try again.";
+  setMemberState("pending");
+  message.textContent = error.message || "Your access check is pending. Please check again in a moment.";
   retry.hidden = false;
+  if (session) signOut.hidden = false;
 }

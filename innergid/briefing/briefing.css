@@ -38,7 +38,10 @@ h1 { max-width: 650px; margin: 16px 0 24px; font-size: clamp(55px, 8.4vw, 106px)
 .briefing-access { display: grid; grid-template-columns: minmax(0, 620px); gap: clamp(28px, 6vw, 74px); padding: clamp(54px, 8vw, 100px); color: #f7f5ec; background: var(--dark); border-radius: 30px; scroll-margin-top: 24px; }
 .briefing-access.has-video { grid-template-columns: minmax(280px, .68fr) minmax(0, 1.32fr); }
 .access-copy h2, .outline h2, .membership-path h2 { margin: 12px 0 18px; font-size: clamp(37px, 5vw, 66px); line-height: .92; letter-spacing: -.045em; text-wrap: balance; }
-.access-copy .eyebrow { color: var(--acid); }
+.access-state { display: inline-flex; align-items: center; min-height: 32px; margin: 0; padding: 7px 11px; border: 1px solid #5d655d; border-radius: 999px; color: var(--dark-muted); font-size: 11px; font-weight: 850; letter-spacing: .1em; line-height: 1; }
+.access-state[data-state="paid"] { color: var(--ink); background: var(--acid); border-color: var(--acid); }
+.access-state[data-state="free"] { color: #f7f5ec; border-color: #f7f5ec; }
+.access-state[data-state="pending"] { color: #f6ca62; border-color: #826f42; }
 #access-message { max-width: 44ch; min-height: 48px; color: var(--dark-muted); font-size: 14px; line-height: 1.55; }
 .access-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .briefing-access .secondary-action { border-color: #f7f5ec; }

@@ -26,8 +26,20 @@ test("briefing checkout and access require verified server functions", () => {
   assert.match(js, /innerg-video-access/);
   assert.match(js, /innerg-video-checkout/);
   assert.match(js, /getSession/);
+  assert.match(js, /auth\.getUser/);
+  assert.match(js, /auth\.refreshSession/);
   assert.match(js, /Do not start another checkout/);
   assert.doesNotMatch(js, /Payment received|Payment confirmed/);
+});
+
+test("briefing shows one verified member state", () => {
+  assert.match(html, /id="member-state" data-state="pending">PENDING/);
+  assert.match(js, /PAID MEMBER/);
+  assert.match(js, /FREE MEMBER/);
+  assert.match(js, /PENDING/);
+  assert.match(js, /Sign in with Google or use an email code/);
+  assert.match(accessFunction, /const memberState = paidMember \? "paid" : "free"/);
+  assert.match(accessFunction, /access: false, memberState, purchaseRequired: true/);
 });
 
 test("buyer player uses expiring signed chapter links", () => {
@@ -36,7 +48,8 @@ test("buyer player uses expiring signed chapter links", () => {
   assert.match(js, /data\.chapters/);
   assert.match(js, /new Blob\(\[selected\.captions\], \{ type: "text\/vtt" \}\)/);
   assert.match(accessFunction, /createSignedUrl\(path, 3600\)/);
-  assert.match(accessFunction, /Deno\.readTextFile/);
+  assert.match(accessFunction, /import \{ CAPTIONS \} from "\.\/captions\.ts"/);
+  assert.doesNotMatch(accessFunction, /Deno\.readTextFile/);
   assert.match(accessFunction, /accessType: memberAccess \? "membership" : "purchase"/);
   assert.equal((accessFunction.match(/end-of-year-frequency-2026-hq-chapter-/g) || []).length, 6);
 });
