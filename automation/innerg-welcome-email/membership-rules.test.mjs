@@ -5,12 +5,14 @@ import { stripTypeScriptTypes } from "node:module";
 import vm from "node:vm";
 const scope = {};
 vm.runInNewContext(stripTypeScriptTypes((await readFile(new URL("./membership-rules.ts",import.meta.url),"utf8")).replace(/export /g,"")),scope);
-const monthly = {payment_status:"paid",currency:"usd",mode:"subscription",amount_total:1000,subscription:"sub_local"};
-const yearly = {payment_status:"paid",currency:"usd",mode:"payment",amount_total:10000,metadata:{billing_plan:"yearly"}};
+const monthly = {payment_status:"paid",currency:"usd",mode:"subscription",amount_total:1500,subscription:"sub_local"};
+const yearly = {payment_status:"paid",currency:"usd",mode:"payment",amount_total:15000,metadata:{billing_plan:"yearly"}};
 test("accepts only the fixed paid monthly and yearly plans",()=>{
  assert.equal(scope.paidPlan(monthly),"monthly");
  assert.equal(scope.paidPlan(yearly),"yearly");
- for(const invalid of [{...yearly,amount_total:1000},{...monthly,amount_total:700},{...yearly,currency:"eur"},{...yearly,payment_status:"unpaid"},{...yearly,mode:"subscription"},{...monthly,subscription:null},{...yearly,metadata:{billing_plan:"unknown"}}]) assert.equal(scope.paidPlan(invalid),null);
+ assert.equal(scope.paidPlan({...monthly,amount_total:1000}),"monthly");
+ assert.equal(scope.paidPlan({...yearly,amount_total:10000}),"yearly");
+ for(const invalid of [{...yearly,amount_total:1200},{...monthly,amount_total:700},{...yearly,currency:"eur"},{...yearly,payment_status:"unpaid"},{...yearly,mode:"subscription"},{...monthly,subscription:null},{...yearly,metadata:{billing_plan:"unknown"}}]) assert.equal(scope.paidPlan(invalid),null);
 });
 test("one-time pass grants one calendar year, including leap-day handling",()=>{
  assert.equal(scope.yearAfter(Date.parse("2026-09-06T10:00:00Z")/1000),"2027-09-06T10:00:00.000Z");
@@ -29,5 +31,7 @@ test("checkout reuses a durable idempotency reservation and fixed amounts",async
  assert.match(source,/idempotencyKey:"innerg-checkout:"\+attempt.attempt_id/);
  assert.match(source,/ignoreDuplicates:true/);
  assert.match(source,/stripe.checkout.sessions.retrieve/);
- assert.match(source,/unit_amount:yearly\?10000:MONTHLY_AMOUNT/);
+ assert.match(source,/const MONTHLY_AMOUNT = 1500/);
+ assert.match(source,/const YEARLY_AMOUNT = 15000/);
+ assert.match(source,/session\.amount_total===expectedAmount/);
 });

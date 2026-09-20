@@ -112,11 +112,11 @@ const planInputs = document.querySelectorAll('input[name="billing-plan"]');
 const updatePlan = () => {
   const selected = document.querySelector('input[name="billing-plan"]:checked').value;
   try { sessionStorage.setItem("innerg-billing-plan", selected); } catch {}
-  document.querySelector("#plan-price").textContent = selected === "yearly" ? "$100" : "$10";
+  document.querySelector("#plan-price").textContent = selected === "yearly" ? "$150" : "$15";
   document.querySelector("#plan-period").textContent = selected === "yearly" ? " / 12 months" : " / month";
   document.querySelector("#plan-note").textContent = selected === "yearly"
-    ? "One $100 payment gives you 12 months of access from payment confirmation. No automatic renewal."
-    : "Monthly access renews at $10 until canceled. Both options include the same member access.";
+    ? "One $150 payment gives you 12 months of access from payment confirmation. No automatic renewal."
+    : "Monthly access renews at $15 until canceled. Both options include the same member access.";
 };
 try {
   if (sessionStorage.getItem("innerg-billing-plan") === "yearly") document.querySelector('input[value="yearly"]').checked = true;

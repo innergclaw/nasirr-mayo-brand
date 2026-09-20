@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { sendGmail } from "./gmail.ts";
+import { fulfillRead } from "./reads-fulfillment.ts";
 import { paidPlan, yearAfter } from "./membership-rules.ts";
 import Stripe from "npm:stripe@22.6.1";
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2.112.4";
@@ -39,20 +40,26 @@ Deno.serve(async (req: Request) => {
 
   if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
+    if (session.metadata?.product_key === "innerg_read") {
+      try { await fulfillRead(stripe, service, session.id); }
+      catch { return new Response("Read fulfillment failed", { status: 500 }); }
+      return Response.json({ received: true });
+    }
     const userId = session.client_reference_id ?? "";
-    const isFounding = session.metadata?.membership_type === "innerg_founding";
+    const isInnergMembership = ["innerg_founding", "innerg_member"].includes(session.metadata?.membership_type ?? "");
     const isVideo = session.metadata?.product_key === VIDEO_PRODUCT;
     if (!uuidPattern.test(userId) || session.payment_status === "unpaid") return Response.json({ received: true });
 
     if (isVideo) {
-      if (Number(session.metadata?.amount_paid_cents ?? 0) !== 1000 || session.amount_total !== 1000) {
+      const videoAmount = Number(session.amount_total ?? 0);
+      if (![1000, 1900].includes(videoAmount) || Number(session.metadata?.amount_paid_cents ?? 0) !== videoAmount) {
         return Response.json({ received: true });
       }
       const { error } = await service.from("innerg_video_access").upsert({
         user_id: userId,
         product_key: VIDEO_PRODUCT,
         status: "active",
-        amount_paid_cents: 1000,
+        amount_paid_cents: videoAmount,
         stripe_checkout_session_id: session.id,
         stripe_customer_id: text(session.customer),
         stripe_payment_intent_id: text(session.payment_intent),
@@ -66,7 +73,7 @@ Deno.serve(async (req: Request) => {
       return Response.json({ received: true });
     }
 
-    if (isFounding) {
+    if (isInnergMembership) {
       const plan = paidPlan(session);
       if (!plan) return Response.json({ received: true });
       let periodEnd = yearAfter(event.created);
@@ -81,7 +88,7 @@ Deno.serve(async (req: Request) => {
       }
       const { error } = await service.rpc("fulfill_innerg_checkout", {
         p_user_id:userId,p_session:session.id,p_customer:text(session.customer),p_subscription:text(session.subscription),
-        p_plan:plan,p_paid_at:new Date(event.created * 1000).toISOString(),p_period_end:periodEnd,
+        p_plan:plan,p_amount_cents:session.amount_total,p_paid_at:new Date(event.created * 1000).toISOString(),p_period_end:periodEnd,
       });
       if (error) return new Response("Membership update failed", { status: 500 });
 

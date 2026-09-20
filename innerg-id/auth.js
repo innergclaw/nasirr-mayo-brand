@@ -28,6 +28,7 @@ const shareNote = document.querySelector("#share-note");
 const shareStatus = document.querySelector("#share-status");
 const mediaPoster = document.querySelector("#media-poster");
 const mediaVideo = document.querySelector("#media-video");
+const mediaCaptions = document.querySelector("#media-captions");
 const mediaChapters = document.querySelector("#media-chapters");
 const mediaStamp = document.querySelector("#media-stamp");
 const mediaAction = document.querySelector("#media-action");
@@ -47,6 +48,7 @@ let accessRequest = null;
 let currentMember = null;
 let chapterUrls = [];
 let activeChapterIndex = 0;
+let captionBlobUrl = "";
 
 const setStatus = (message, state = "") => {
   status.textContent = message;
@@ -65,7 +67,7 @@ const showActivationPanel = ({ processing = false } = {}) => {
   activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
   activationCopy.textContent = processing
     ? "We are waiting for confirmed member access. Check again in a moment. If you already paid, do not start another checkout."
-    : "Choose $10 monthly or $100 for 12 months to activate your INNERG ID and open the full Media Hub.";
+    : "Choose $15 monthly or $150 for 12 months to activate your INNERG ID and open the full Media Hub.";
   activationLink.hidden = processing;
   activationRetry.hidden = !processing;
   status.classList.add("is-hidden");
@@ -87,6 +89,12 @@ const selectChapter = (index, { autoplay = false } = {}) => {
   if (!chapter) return;
   activeChapterIndex = index;
   mediaVideo.src = chapter.url;
+  if (captionBlobUrl) URL.revokeObjectURL(captionBlobUrl);
+  captionBlobUrl = chapter.captions
+    ? URL.createObjectURL(new Blob([chapter.captions], { type: "text/vtt" }))
+    : "";
+  if (captionBlobUrl) mediaCaptions.src = captionBlobUrl;
+  else mediaCaptions.removeAttribute("src");
   mediaVideo.setAttribute("aria-label", `The End-of-Year Frequency, chapter ${index + 1} of ${chapterUrls.length}`);
   mediaChapters.querySelectorAll("button").forEach((button, buttonIndex) => {
     button.setAttribute("aria-current", String(buttonIndex === index));
@@ -132,7 +140,7 @@ const setMemberCard = (member) => {
   idAccessLabel.textContent = fullAccess ? "Active member" : "Free ID";
   idAccessBadge.textContent = fullAccess ? "Access active" : "Identity active";
   idAccessLine.textContent = fullAccess
-    ? "Research / media / community / direct access"
+    ? "Research / media / community / founder sessions"
     : "Identity / public lessons / selected resources";
   if (member.joinedAt) {
     const joined = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(new Date(member.joinedAt));

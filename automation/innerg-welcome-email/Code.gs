@@ -12,46 +12,32 @@ function doPost(event) {
     }
 
     const email = cleanEmail_(payload.email);
-    const memberId = cleanText_(payload.memberId, 40);
+    const memberId = cleanMemberId_(payload.memberId);
     const firstName = cleanText_(payload.firstName, 60) || 'member';
+    const messageType = cleanText_(payload.messageType, 24) || 'member_welcome';
+    const accessExpiresAt = cleanText_(payload.accessExpiresAt, 40);
+    const allowedTypes = ['member_welcome', 'trial_day_0', 'trial_day_3', 'trial_day_6', 'trial_day_7'];
 
-    if (!email || !memberId) {
+    if (!email || !memberId || allowedTypes.indexOf(messageType) === -1) {
       throw new Error('A valid email and member ID are required.');
     }
 
     if (Session.getEffectiveUser().getEmail() !== 'ownyourwebsmm@gmail.com') throw new Error('Wrong sender account.');
     locked = lock.tryLock(10000);
     if (!locked) throw new Error('Delivery busy. Retry later.');
-    const key = 'welcome:' + memberId;
+    const key = messageType + ':' + memberId;
     const properties = PropertiesService.getScriptProperties();
     const prior = properties.getProperty(key);
     if (prior === 'sent') return json_({ ok: true, duplicate: true });
     if (prior === 'sending') throw new Error('Delivery uncertain. Review before retrying.');
     if (MailApp.getRemainingDailyQuota() < 1) throw new Error('Daily sending quota reached.');
 
-    const subject = 'Your INNERG ID is active: ' + memberId;
-    const plainText = [
-      'Welcome home, ' + firstName + '.',
-      '',
-      'Your INNERG ID is active.',
-      'Member ID: ' + memberId,
-      '',
-      'Your ID opens the INNERG member hub, Research Desk, market watchlist, Media Hub, and Discord community.',
-      '',
-      'Open your INNERG ID: ' + HOME_URL,
-      '',
-      'Your access stays active while your membership is active.',
-      'If you need help, reply to this email.',
-      '',
-      'Nasirr G. Mayo',
-      'Founder, INNERG INTEL',
-      'Sent by OwnYourWeb'
-    ].join('\n');
+    const content = buildMessage_(messageType, firstName, memberId, accessExpiresAt);
 
     properties.setProperty(key, 'sending');
-    MailApp.sendEmail(email, subject, plainText, {
+    MailApp.sendEmail(email, content.subject, content.plainText, {
       name: 'OwnYourWeb for INNERG INTEL',
-      htmlBody: buildHtml_(firstName, memberId),
+      htmlBody: buildHtml_(firstName, memberId, content),
       replyTo: Session.getEffectiveUser().getEmail()
     });
     properties.setProperty(key, 'sent');
@@ -76,22 +62,84 @@ function sendLiveTest() {
   console.log('Live test accepted by Google for nasgfx215@gmail.com');
 }
 
-function buildHtml_(firstName, memberId) {
+function buildMessage_(messageType, firstName, memberId, accessExpiresAt) {
+  const expiry = accessExpiresAt ? new Date(accessExpiresAt) : null;
+  const expiryText = expiry && !isNaN(expiry.getTime())
+    ? Utilities.formatDate(expiry, 'America/New_York', 'EEEE, MMMM d \'at\' h:mm a z')
+    : 'seven days after your trial started';
+  const messages = {
+    member_welcome: {
+      subject: 'Your INNERG ID is active: ' + memberId,
+      eyebrow: 'WELCOME HOME, ' + firstName.toUpperCase() + '.',
+      title: 'Your INNERG ID is active.',
+      body: 'Your ID opens the INNERG member hub, Research Desk, market watchlist, Media Hub, and Discord community.',
+      note: 'Your access stays active while your membership is active.',
+      action: 'OPEN YOUR INNERG ID'
+    },
+    trial_day_0: {
+      subject: 'Your seven-day INNERG trial starts now',
+      eyebrow: 'YOUR SUNDAY TRIAL IS ACTIVE',
+      title: 'Seven days. Use them with purpose.',
+      body: 'Your INNERG ID, Market Pulse research, Media Hub, and community access are open now. Start with one lesson or one briefing today.',
+      note: 'Your trial ends ' + expiryText + '. One free trial is available per verified email.',
+      action: 'OPEN YOUR INNERG ID'
+    },
+    trial_day_3: {
+      subject: 'Three days into your INNERG trial',
+      eyebrow: 'YOUR MIDPOINT CHECK-IN',
+      title: 'Turn access into one clear move.',
+      body: 'Choose one resource, take notes, and use it. Market Pulse gives you research context. The Media Hub gives you the full briefings.',
+      note: 'Your trial ends ' + expiryText + '. Membership is $15 monthly or $150 for 12 months.',
+      action: 'CONTINUE YOUR TRIAL'
+    },
+    trial_day_6: {
+      subject: 'Your INNERG trial ends tomorrow',
+      eyebrow: 'ABOUT 24 HOURS REMAIN',
+      title: 'Finish what you came to study.',
+      body: 'Open the resources you still want to review. If INNERG fits your next season, you can keep full access with membership.',
+      note: 'Choose $15 monthly for flexibility or $150 for 12 months and save $30.',
+      action: 'RETURN TO INNERG'
+    },
+    trial_day_7: {
+      subject: 'Your seven-day INNERG trial has ended',
+      eyebrow: 'YOUR TRIAL WINDOW IS COMPLETE',
+      title: 'Your INNERG ID still has a next step.',
+      body: 'Your trial access has ended. Join when you are ready to reopen the member library, Market Pulse research, Media Hub, and community access.',
+      note: 'Membership is $15 monthly or $150 for 12 months. Your one-time trial cannot be claimed again with the same verified email.',
+      action: 'SEE MEMBERSHIP OPTIONS'
+    }
+  };
+  const content = messages[messageType];
+  content.plainText = [
+    content.eyebrow,
+    '', content.title, '', content.body, '', 'INNERG ID: ' + memberId, '',
+    content.note, '', 'Open INNERG: ' + HOME_URL, '',
+    'Nasirr G. Mayo', 'Founder, INNERG INTEL', 'Sent by OwnYourWeb'
+  ].join('\n');
+  return content;
+}
+
+function buildHtml_(firstName, memberId, content) {
   const safeName = escapeHtml_(firstName);
   const safeId = escapeHtml_(memberId);
+  const safeEyebrow = escapeHtml_(content && content.eyebrow || ('WELCOME HOME, ' + safeName.toUpperCase() + '.'));
+  const safeTitle = escapeHtml_(content && content.title || 'Your INNERG ID is active.');
+  const safeBody = escapeHtml_(content && content.body || 'Your INNERG access is active.');
+  const safeNote = escapeHtml_(content && content.note || 'If you need help, reply to this email.');
+  const safeAction = escapeHtml_(content && content.action || 'OPEN YOUR INNERG ID');
   return '<div style="margin:0;background:#090a08;padding:32px 16px;color:#f7f2e8;font-family:Arial,sans-serif">' +
     '<div style="max-width:600px;margin:0 auto;border:1px solid #34372f;border-radius:24px;overflow:hidden;background:#11130f">' +
       '<div style="padding:20px 28px;border-bottom:1px solid #34372f;font-size:12px;font-weight:700;letter-spacing:.18em;color:#c7ff27">INNERG INTEL</div>' +
       '<div style="padding:36px 28px">' +
-        '<p style="margin:0 0 12px;color:#a7aa9f;font-size:14px">WELCOME HOME, ' + safeName.toUpperCase() + '.</p>' +
-        '<h1 style="margin:0 0 20px;font-size:36px;line-height:1.05;color:#f7f2e8">Your INNERG ID is active.</h1>' +
+        '<p style="margin:0 0 12px;color:#a7aa9f;font-size:14px">' + safeEyebrow + '</p>' +
+        '<h1 style="margin:0 0 20px;font-size:36px;line-height:1.05;color:#f7f2e8">' + safeTitle + '</h1>' +
         '<div style="margin:24px 0;padding:22px;border-radius:16px;background:#f7f2e8;color:#090a08">' +
           '<div style="font-size:11px;font-weight:700;letter-spacing:.16em;color:#66695f">MEMBER ID</div>' +
           '<div style="margin-top:8px;font-size:25px;font-weight:800;letter-spacing:.04em">' + safeId + '</div>' +
         '</div>' +
-        '<p style="margin:0 0 24px;color:#d4d6ce;font-size:16px;line-height:1.6">Your ID opens the INNERG member hub, Research Desk, market watchlist, Media Hub, and Discord community.</p>' +
-        '<a href="' + HOME_URL + '" style="display:inline-block;padding:15px 22px;border-radius:999px;background:#c7ff27;color:#090a08;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.1em">OPEN YOUR INNERG ID</a>' +
-        '<p style="margin:26px 0 0;color:#8f9387;font-size:13px;line-height:1.55">Your access stays active while your membership is active. If you need help, reply to this email.</p>' +
+        '<p style="margin:0 0 24px;color:#d4d6ce;font-size:16px;line-height:1.6">' + safeBody + '</p>' +
+        '<a href="' + HOME_URL + '" style="display:inline-block;padding:15px 22px;border-radius:999px;background:#c7ff27;color:#090a08;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.1em">' + safeAction + '</a>' +
+        '<p style="margin:26px 0 0;color:#8f9387;font-size:13px;line-height:1.55">' + safeNote + ' If you need help, reply to this email.</p>' +
       '</div>' +
       '<div style="padding:20px 28px;border-top:1px solid #34372f;color:#8f9387;font-size:12px;line-height:1.5">Nasirr G. Mayo<br>Founder, INNERG INTEL<br>Sent by OwnYourWeb</div>' +
     '</div>' +
@@ -105,6 +153,11 @@ function cleanEmail_(value) {
 
 function cleanText_(value, maxLength) {
   return String(value || '').normalize('NFKC').trim().replace(/\s+/g, ' ').slice(0, maxLength);
+}
+
+function cleanMemberId_(value) {
+  const memberId = cleanText_(value, 40);
+  return /^[A-Za-z0-9-]{3,40}$/.test(memberId) ? memberId : '';
 }
 
 function escapeHtml_(value) {

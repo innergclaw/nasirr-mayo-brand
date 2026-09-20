@@ -24,7 +24,7 @@ main, footer { width: min(100% - 40px, 1120px); margin-inline: auto; }
 .section-nav a:focus-visible { outline-offset: -3px; }
 .member-nav { display: none; }
 html[data-access-view="active"] .member-nav { display: flex; }
-#preview, #access, #benefits, #full-video, #who-its-for, #channels, #member-panel { scroll-margin-top: 144px; }
+#preview, #access, #single-briefing, #benefits, #full-video, #who-its-for, #channels, #member-panel { scroll-margin-top: 144px; }
 html[data-access-view="loading"] .site-header, html[data-access-view="error"] .site-header { padding-bottom: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-decoration: none; }
 .brand img { border-radius: 50%; }
@@ -36,7 +36,7 @@ html[data-access-view="loading"] .site-header, html[data-access-view="error"] .s
 .eyebrow { margin: 0; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .conversion { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; gap: 24px 40px; padding: 32px 0; align-items: start; }
 .offer-intro { grid-column: 1; grid-row: 1; }
-.offer-intro h1 { margin: 12px 0; font-size: clamp(34px, 3.6vw, 49px); line-height: 1.04; letter-spacing: -.055em; text-wrap: balance; }
+.offer-intro h1 { margin: 12px 0; font-size: clamp(34px, 3.6vw, 49px); line-height: 1.04; letter-spacing: -.045em; text-wrap: balance; }
 .intro-copy { max-width: 42ch; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; text-wrap: pretty; }
 .preview-panel { grid-column: 1; grid-row: 2; margin: 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: 12px; border-radius: 22px; color: var(--member-ivory); background: var(--dark); }
 .video-frame { position: relative; width: 100%; margin-inline: auto; overflow: hidden; border-radius: 10px; outline: 1px solid oklch(1 0 0 / .1); outline-offset: -1px; }
@@ -72,6 +72,10 @@ html[data-access-view="loading"] .site-header, html[data-access-view="error"] .s
 .value-comparison tbody tr:last-child td:last-child { border-radius: 0 0 12px 12px; }
 .value-comparison tbody tr:last-child > * { border-bottom: 0; }
 #comparison-note { margin: 12px 0 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.briefing-offer { grid-column: 1 / -1; grid-row: 4; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; margin-top: 12px; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.briefing-offer h2 { margin: 8px 0; font-size: clamp(28px, 3vw, 42px); line-height: 1; letter-spacing: -.04em; }
+.briefing-offer p:not(.eyebrow) { max-width: 62ch; margin: 0; color: var(--muted); line-height: 1.55; }
+.briefing-action { width: auto; min-width: 220px; margin: 0; color: var(--paper); background: var(--ink); border-color: var(--ink); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .price-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin: 10px 0; line-height: 1; }
 .price { font-size: 54px; font-weight: 800; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
@@ -103,8 +107,8 @@ html[data-access-view="loading"] .site-header, html[data-access-view="error"] .s
 .billing-help { color: var(--muted); margin: 16px 0 0; font-size: 13px; }
 .member-panel { margin: 32px 0 60px; padding: clamp(28px,6vw,70px); border-radius: 20px; color: var(--member-ivory); background: var(--dark); }
 .member-panel .eyebrow { color: var(--dark-muted); }
-.member-panel h2 { margin: 18px 0 0; font-size: clamp(38px,6vw,72px); line-height: 1; letter-spacing: -.06em; }
-.member-number { margin: 32px 0 0; color: var(--accent); font-size: clamp(30px,6vw,72px); font-weight: 800; letter-spacing: -.055em; overflow-wrap: anywhere; }
+.member-panel h2 { margin: 18px 0 0; font-size: clamp(38px,6vw,72px); line-height: 1; letter-spacing: -.045em; }
+.member-number { margin: 32px 0 0; color: var(--accent); font-size: clamp(30px,6vw,72px); font-weight: 800; letter-spacing: -.04em; overflow-wrap: anywhere; }
 .member-status { color: var(--dark-muted); line-height: 1.6; }
 .member-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .member-actions .secondary-action { border-color: var(--member-ivory); }
@@ -123,9 +127,11 @@ html[data-access-view="active"] .member-panel { min-height: 60vh; }
   .brand img { width: 36px; height: 36px; }
   .account-link { font-size: 11px; padding-inline: 10px; }
   .conversion { grid-template-columns: 1fr; gap: 18px; padding: 22px 0; }
-  .offer-intro, .preview-panel, .choice-card, .value-comparison { grid-column: 1; grid-row: auto; }
+  .offer-intro, .preview-panel, .choice-card, .value-comparison, .briefing-offer { grid-column: 1; grid-row: auto; }
   .choice-card { grid-row: 3; padding: 20px; }
   .value-comparison { grid-row: 4; padding: 8px 4px; }
+  .briefing-offer { grid-row: 5; grid-template-columns: 1fr; gap: 18px; margin-top: 2px; padding: 24px 4px; }
+  .briefing-action { width: 100%; }
   .offer-intro h1 { font-size: clamp(32px,8.8vw,43px); }
   .intro-copy { font-size: 15px; }
   .preview-panel { padding: 12px; }
@@ -137,8 +143,12 @@ html[data-access-view="active"] .member-panel { min-height: 60vh; }
   .plan-picker strong { font-size: 13px; }
   .utility-list { grid-template-columns: 1fr; }
 }
+@media (max-width: 520px) {
+  .plan-picker { grid-template-columns: 1fr; }
+}
 @media (hover:hover) and (pointer:fine) {
   .card-action:hover:not(:disabled), .primary-action:hover { background: #b8ef27; }
+  .briefing-action:hover { color: var(--ink); background: var(--accent); border-color: var(--accent); }
   .account-link:hover { background: var(--surface); }
   .section-nav a:hover { background: var(--surface); }
   .section-nav a[aria-current="location"]:hover { background: var(--accent); }

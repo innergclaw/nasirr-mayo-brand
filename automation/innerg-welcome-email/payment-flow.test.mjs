@@ -7,7 +7,7 @@ const rules = stripTypeScriptTypes((await readFile(new URL('./membership-rules.t
 async function run({ paid=true, signed=true, sent=false, emailFails=false, receiptFails=false }={}) {
   let handler, sends=0;
   const writes=[];
-  const event={type:'checkout.session.completed',created:1788696000,data:{object:{id:'cs_test_local',currency:'usd',mode:'subscription',amount_total:1000,client_reference_id:'00000000-0000-4000-8000-000000000001',payment_status:paid?'paid':'unpaid',metadata:{membership_type:'innerg_founding',monthly_amount_cents:'1000'},subscription:'sub_test_local'}}};
+  const event={type:'checkout.session.completed',created:1788696000,data:{object:{id:'cs_test_local',currency:'usd',mode:'subscription',amount_total:1500,client_reference_id:'00000000-0000-4000-8000-000000000001',payment_status:paid?'paid':'unpaid',metadata:{membership_type:'innerg_member',billing_plan:'monthly',amount_paid_cents:'1500'},subscription:'sub_test_local'}}};
   const service={rpc:async(name,value)=>{if(name==="get_innerg_member_record")return {data:[{membership_number:"LOCAL-CARD",first_name:"Local"}],error:null};writes.push({table:name,value});return {error:null};},auth:{admin:{getUserById:async()=>({data:{user:{email:'local@example.com'}},error:null})}},from(table){
     return {upsert:async(value)=>{writes.push({table,value});return {error:null};},select(){return {eq(){return {single:async()=>({data:{membership_number:'LOCAL-TEST',welcome_email_sent_at:sent?'already-sent':null},error:null})};}};},update(value){writes.push({table,value});return {eq:async()=>({error:receiptFails&&value.welcome_email_sent_at?new Error('local receipt failure'):null})};}};
   }};
@@ -17,6 +17,7 @@ async function run({ paid=true, signed=true, sent=false, emailFails=false, recei
   return {status:response.status,sends,writes};
 }
 let r=await run();assert.equal(r.status,200);assert.equal(r.sends,1);assert.ok(r.writes.some(w=>w.value.welcome_email_sent_at));
+assert.ok(r.writes.some(w=>w.table==='fulfill_innerg_checkout'&&w.value.p_amount_cents===1500));
 r=await run({paid:false});assert.equal(r.sends,0);assert.equal(r.writes.length,0);
 r=await run({signed:false});assert.equal(r.status,400);assert.equal(r.writes.length,0);
 r=await run({sent:true});assert.equal(r.sends,0);assert.equal(r.status,200);

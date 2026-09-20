@@ -17,6 +17,15 @@ const VIDEO_OBJECTS = [
   "end-of-year-frequency-2026-hq-chapter-4.mp4",
   "end-of-year-frequency-2026-hq-chapter-5.mp4",
 ];
+const CAPTION_FILES = [
+  "./captions/chapter-0.vtt",
+  "./captions/chapter-1.vtt",
+  "./captions/chapter-2.vtt",
+  "./captions/chapter-3.vtt",
+  "./captions/chapter-4.vtt",
+  "./captions/chapter-5.vtt",
+];
+const CAPTIONS = await Promise.all(CAPTION_FILES.map((path) => Deno.readTextFile(new URL(path, import.meta.url))));
 
 const cleanName = (value: unknown) => {
   if (typeof value !== "string") return null;
@@ -122,9 +131,9 @@ Deno.serve(async (req: Request) => {
         console.error("INNERG video chapter URL failed", index, error);
         return null;
       }
-      return data?.signedUrl ? { chapter: index + 1, url: data.signedUrl } : null;
+      return data?.signedUrl ? { chapter: index + 1, url: data.signedUrl, captions: CAPTIONS[index] } : null;
     })
-    .filter((chapter): chapter is { chapter: number; url: string } => Boolean(chapter));
+    .filter((chapter): chapter is { chapter: number; url: string; captions: string } => Boolean(chapter));
   const videoUrl = videoChapters[0]?.url ?? null;
 
   return Response.json({

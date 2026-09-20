@@ -39,6 +39,10 @@ test("INNERG ID offer is an allowed post-auth destination", () => {
   assert.equal(getSafeDestination("?next=%2Finnergid%2F"), "/innergid/");
 });
 
+test("single briefing is an allowed post-auth destination", () => {
+  assert.equal(getSafeDestination("?next=%2Finnergid%2Fbriefing%2F"), "/innergid/briefing/");
+});
+
 test("untrusted post-auth destinations fall back to the INNERG ID", () => {
   assert.equal(getSafeDestination("?next=https%3A%2F%2Fevil.example"), "/innerg-id/");
   assert.equal(getSafeDestination("?next=%2F%2Fevil.example"), "/innerg-id/");

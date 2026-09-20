@@ -2,11 +2,11 @@
 
 This Google Apps Script sends the paid-member welcome email from the OwnYourWeb Gmail account.
 
-Current status: deployed and connected on September 6, 2026. Supabase `watchlist-stripe-webhook` version 12 sends paid-member welcome emails through OwnYourWeb Gmail. Its Stripe signature verification and existing membership/payment branches remain intact.
+Current status: deployed and connected. On September 20, 2026, Google Apps Script version 2 added the verified Sunday-trial sequence for days 0, 3, 6, and 7. Supabase `watchlist-stripe-webhook` version 18 sends paid-member welcome emails through OwnYourWeb Gmail. Supabase `innerg-trial-email-worker` version 1 leases due trial messages once per hour at minute 10. Stripe signature verification and the existing membership, video, and reading-support branches remain intact.
 
 On September 5, 2026, a separate Gmail connector test was sent from `ownyourwebsmm@gmail.com` to `nasgfx215@gmail.com`. Receipt was verified in the recipient inbox at 6:40 PM. Subject: `[TEST] INNERG welcome email preview`. Gmail message ID: `1a073bb44ea4cdd2`. This proves sender delivery, not the automated Stripe workflow.
 
-Apps Script project under OwnYourWeb: `1qwqHu0d13FNN5WZ2YH6K4Yjr-78UtwnTcHxNPggSMqV13rxgyFkIOXPz`, deployed version 1. The deployed editor uses a compact equivalent template and stricter member-ID validation. `Code.gs` is a reference implementation, not an exact deployment backup. Do not overwrite the editor without reconciling it first.
+Apps Script project under OwnYourWeb: `1qwqHu0d13FNN5WZ2YH6K4Yjr-78UtwnTcHxNPggSMqV13rxgyFkIOXPz`, deployed version 2. `Code.gs` matches the deployed trial-aware implementation and preserves the sender lock, shared-secret check, strict member-ID validation, quota guard, and per-message idempotency.
 
 ## Verification on September 6
 
@@ -25,13 +25,23 @@ Google MailApp sending quotas apply. A `sending` property without `sent` means t
 
 The existing user-selected shared password was retained as requested. It remains a security weakness compared with a random secret. No credentials are stored here.
 
+The Sunday trial scheduler creates four delivery records only after a verified claim: start, midpoint, final-day reminder, and expiry. Leasing excludes members who upgraded before a message became due. The database and Apps Script each enforce a unique delivery key. Do not manually replay a delivery without reviewing both the Supabase delivery row and Gmail Sent mail.
+
 ## Event flow
 
-1. Stripe confirms the $10 monthly INNERG membership.
+1. Stripe confirms a new $15 monthly or $150 annual INNERG membership. Existing $10 monthly founding memberships keep their original rate.
 2. The Supabase Stripe webhook activates the membership and issues the INNERG ID.
 3. The webhook calls the publicly reachable, shared-secret-protected Google Apps Script endpoint.
 4. Gmail sends one welcome email from `ownyourwebsmm@gmail.com`.
 5. Google records each sent member ID under a script lock; Supabase records `welcome_email_sent_at`. Replays return success without another send.
+
+## Sunday trial flow
+
+1. A verified user claims one of five Sunday trial places.
+2. Supabase starts one seven-day access window and creates four private delivery records.
+3. The hourly worker leases only due messages for active Sunday-trial access.
+4. Apps Script sends the day 0, 3, 6, or 7 email from `ownyourwebsmm@gmail.com`.
+5. Supabase records success or retry state. Apps Script also blocks a repeated message type for the same INNERG ID.
 
 ## Google Apps Script setup
 

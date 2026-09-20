@@ -10,7 +10,8 @@ const allowedOrigins = new Set([
   "http://localhost:4173",
   "http://127.0.0.1:4173",
 ]);
-const MONTHLY_AMOUNT = 1000;
+const MONTHLY_AMOUNT = 1500;
+const YEARLY_AMOUNT = 15000;
 const returnUrl = "https://nasirr.innergintel.org/innerg-id/?membership=success#media-hub";
 
 Deno.serve(async (req: Request) => {
@@ -36,14 +37,14 @@ Deno.serve(async (req: Request) => {
   const service = createClient(supabaseUrl, serviceKey);
   const { data: membership, error: membershipError } = await service
     .from("innerg_memberships")
-    .select("status,access_source,access_expires_at,stripe_subscription_id,stripe_checkout_session_id")
+    .select("status,access_source,payment_verified,access_expires_at,stripe_subscription_id,stripe_checkout_session_id")
     .eq("user_id", user.id)
     .maybeSingle();
   if (membershipError) return Response.json({error:"Membership could not be verified."},{status:503,headers:corsHeaders});
   const currentAccess = membership?.status === "active" && (
     membership.access_source === "grandfathered" ||
-    (membership.access_source === "sunday_free" && Number.isFinite(Date.parse(membership.access_expires_at)) && Date.parse(membership.access_expires_at) > Date.now()) ||
-    (membership.access_source === "stripe" && (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
+    (membership.access_source === "stripe" && membership.payment_verified === true &&
+      (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
   );
   if (currentAccess) {
     return Response.json({ alreadyActive: true, returnUrl: "https://nasirr.innergintel.org/innerg-id/" }, { headers: corsHeaders });
@@ -56,6 +57,7 @@ Deno.serve(async (req: Request) => {
     const body = await req.json().catch(()=>({}));
     const plan = body.plan ?? "monthly";
     if (!["monthly","yearly"].includes(plan)) return Response.json({error:"Choose monthly or yearly access."},{status:400,headers:corsHeaders});
+    const expectedAmount = plan === "yearly" ? YEARLY_AMOUNT : MONTHLY_AMOUNT;
     if (membership?.stripe_subscription_id && membership.status !== "canceled") return Response.json({error:"You already have a subscription. Use Manage billing on your member page or contact ownyourwebsmm@gmail.com."},{status:409,headers:corsHeaders});
     for (let turn=0;turn<3;turn++) {
       const {error: reserveError}=await service.from("innerg_checkout_attempts").upsert({user_id:user.id,plan},{onConflict:"user_id",ignoreDuplicates:true});
@@ -65,7 +67,7 @@ Deno.serve(async (req: Request) => {
       let session=attempt.stripe_session_id ? await stripe.checkout.sessions.retrieve(attempt.stripe_session_id) : null;
       if(session?.status==="complete" && membership?.stripe_checkout_session_id!==session.id)
         return Response.json({url:returnUrl},{headers:corsHeaders});
-      if(session?.status==="open" && attempt.plan===plan)
+      if(session?.status==="open" && attempt.plan===plan && session.amount_total===expectedAmount)
         return Response.json({url:session.url},{headers:corsHeaders});
       if(session) {
         if(session.status==="open") await stripe.checkout.sessions.expire(session.id);
@@ -77,13 +79,14 @@ Deno.serve(async (req: Request) => {
       if(Date.now()-Date.parse(attempt.created_at)>23*3600000)
         return Response.json({error:"Contact ownyourwebsmm@gmail.com so we can check your earlier checkout before another purchase."},{status:409,headers:corsHeaders});
       const yearly=attempt.plan==="yearly";
-      const metadata={membership_type:"innerg_founding",billing_plan:attempt.plan,user_id:user.id,monthly_amount_cents:yearly?"0":"1000"};
+      const metadata={membership_type:"innerg_member",billing_plan:attempt.plan,user_id:user.id,
+        amount_paid_cents:String(yearly?YEARLY_AMOUNT:MONTHLY_AMOUNT),pricing_version:"2026-09-20"};
       session=await stripe.checkout.sessions.create({
         mode:yearly?"payment":"subscription",
-        line_items:[{price_data:{currency:"usd",unit_amount:yearly?10000:MONTHLY_AMOUNT,
+        line_items:[{price_data:{currency:"usd",unit_amount:yearly?YEARLY_AMOUNT:MONTHLY_AMOUNT,
           ...(yearly?{}:{recurring:{interval:"month" as const}}),
           product_data:{name:yearly?"INNERG ID · 12 months":"INNERG ID · Monthly",
-          description:yearly?"12 months of INNERG ecosystem access. One payment. No automatic renewal.":"INNERG ecosystem access. $10 each month until canceled."}},quantity:1}],
+          description:yearly?"12 months of INNERG ecosystem access. One $150 payment. No automatic renewal.":"INNERG ecosystem access. $15 each month until canceled."}},quantity:1}],
         customer_email:user.email,client_reference_id:user.id,
         success_url:returnUrl,cancel_url:"https://nasirr.innergintel.org/innergid/#access",
         metadata,...(yearly?{customer_creation:"always" as const}:{subscription_data:{metadata}})

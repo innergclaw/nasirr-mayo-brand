@@ -39,7 +39,7 @@ test("payment return does not claim confirmation from a URL parameter", () => {
 
 test("signed-in unpaid accounts receive a clear activation path", () => {
   assert.match(html, /id="activation-panel"/);
-  assert.match(html, /Choose \$10 monthly or \$100 for 12 months/);
+  assert.match(html, /Choose \$15 monthly or \$150 for 12 months/);
   assert.match(html, /href="\.\.\/innergid\/#access"/);
   assert.match(js, /showActivationPanel/);
 });
@@ -51,6 +51,7 @@ test("free ID holders keep the credential without paid member resources", () => 
   assert.match(js, /member\.accessTier === "member"/);
   assert.match(js, /paidAccessNodes\.forEach/);
   assert.match(js, /Identity active/);
+  assert.match(js, /founder sessions/);
 });
 
 test("member card contains no OwnYourWeb client portal destination", () => {
@@ -78,9 +79,13 @@ test("member Media Hub uses verified release access", () => {
   assert.match(html, /2026-2027 BULL SUPER CYCLE/);
   assert.match(js, /member\.videoAccess && \(member\.videoChapters\?\.length \|\| member\.videoUrl\)/);
   assert.match(js, /setVideoChapters/);
+  assert.match(html, /kind="captions"/);
+  assert.match(js, /new Blob\(\[chapter\.captions\], \{ type: "text\/vtt" \}\)/);
   assert.match(js, /mediaVideo\.addEventListener\("ended"/);
   assert.match(html, /id="media-chapters"/);
   assert.match(html, /This release is included with active INNERG membership\./);
+  assert.match(html, /Pricing discussed in the recording reflects when it was made/);
+  assert.match(html, /Existing \$10 founding memberships keep their original rate/);
   assert.doesNotMatch(html, /membership\/#video-access/);
   assert.doesNotMatch(js, /Purchase this release once/);
 });

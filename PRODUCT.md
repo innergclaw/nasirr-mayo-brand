@@ -24,7 +24,7 @@ Different interests are entry points into the same system. The INNERG ID connect
 
 ## Operating Context
 
-People can enter through public articles, videos, books, market charts, lessons, and community discussion. Paid access adds the full media library, member research, market insights, community tools, and active benefits.
+People can enter through public articles, videos, books, market charts, lessons, and community discussion. Paid access adds the full media library, member research, market insights, community tools, and active benefits. New membership costs $15 per month or $150 for 12 months. Existing $10 monthly founding memberships keep their original rate. Selected premium briefings can also be purchased without membership for $19 each.
 
 Five one-time seven-day trials open each Sunday. A verified claim starts the trial. Each account and verified email can claim once.
 
@@ -35,6 +35,7 @@ Five one-time seven-day trials open each Sunday. A verified claim starts the tri
 - Market content is educational. It must show risk and must not promise returns or present random picks as a system.
 - Public education and paid member access must remain clear and separate.
 - An INNERG ID can remain attached to a person when time-limited or paid access changes.
+- The base membership offers priority questions and scheduled founder sessions. It does not promise unlimited direct access to Nasirr.
 
 ## Brand Commitments
 
