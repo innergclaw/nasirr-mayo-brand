@@ -13,7 +13,6 @@ test("the Sunday page states the five-place verification rule", () => {
   assert.match(html, /five ids\.<br \/>every sunday\./);
   assert.match(html, /email confirmation completes the claim/);
   assert.match(html, /form alone does not reserve a spot/);
-  assert.match(html, /one person\. one verified email\. one innerg id\./);
 });
 
 test("the page uses the existing secure account flow", () => {
@@ -48,8 +47,8 @@ test("free identity and paid access stay separate", () => {
   assert.doesNotMatch(watchlistAccess, /access_source === "sunday_free"/);
 });
 
-test("the page reuses INNERG media and supports reduced motion", () => {
-  assert.match(html, /innerg-id-sunday-montage\.mp4/);
+test("the page has no video section and supports reduced motion", () => {
+  assert.doesNotMatch(html, /<video|innerg-id-sunday-montage|drop-visual/);
   assert.match(html, /innerg-member-badge\.png/);
   assert.match(css, /prefers-reduced-motion/);
 });

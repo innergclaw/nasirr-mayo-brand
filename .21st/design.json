@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "project": {
+    "name": "nasirr-mayo-brand",
+    "productType": "Founder ecosystem and member access site",
+    "stack": [
+      "Static HTML",
+      "CSS",
+      "JavaScript"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "innergid/sunday/sunday.css"
+    ],
+    "components": [],
+    "assets": [
+      "assets"
+    ],
+    "instructions": [
+      "AGENTS.md"
+    ]
+  },
+  "design": {
+    "colorMode": "unknown",
+    "colors": {},
+    "typography": {},
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {},
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Preserve INNERG brand language and existing access behavior",
+      "Keep responsive layouts, keyboard focus, and reduced-motion support"
+    ],
+    "avoid": [
+      "Generic template styling",
+      "Decorative media that competes with the primary action"
+    ]
+  },
+  "decisions": [
+    {
+      "surface": "innergid/sunday",
+      "decision": "Use a single-column statement hero with no promotional video. Keep the weekly availability meter visible and let the claim card remain the next primary action.",
+      "date": "2026-09-20"
+    }
+  ],
+  "evidence": [],
+  "generatedAt": "2026-09-20T16:32:23.025Z"
+}
