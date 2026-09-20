@@ -65,9 +65,10 @@ test("INNERG ID explains the included access", () => {
   assert.equal((html.match(/<li>/g) || []).length, 10);
 });
 
-test("landing page points to the verified Sunday drop", () => {
-  assert.match(html, /five free innerg ids open every sunday/i);
+test("landing page points to the verified Sunday trial and fact page", () => {
+  assert.match(html, /five one-time seven-day trials open every sunday/i);
   assert.match(html, /href="\.\/sunday\/"/);
+  assert.match(html, /href="\.\/about\/"/);
   assert.match(css, /\.sunday-drop-link/);
 });
 
