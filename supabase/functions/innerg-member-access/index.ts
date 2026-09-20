@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
   const service = createClient(url, serviceKey);
   const { data: membership, error: membershipError } = await service
     .from("innerg_memberships")
-    .select("status,access_source,access_expires_at,billing_plan,stripe_customer_id")
+    .select("status,access_source,payment_verified,access_expires_at,billing_plan,stripe_customer_id,membership_number")
     .eq("user_id", user.id)
     .maybeSingle();
 
@@ -61,13 +61,18 @@ Deno.serve(async (req: Request) => {
     return Response.json({ error: "Your membership could not be verified." }, { status: 500, headers: corsHeaders });
   }
 
-  const membershipActive = membership?.status === "active" && (membership.access_source === "grandfathered" || !membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now());
-  if (!membershipActive) {
+  if (!membership?.membership_number) {
     return Response.json({
-      error: "Complete your INNERG membership to receive your ID and open the Media Hub.",
+      error: "Claim or activate your INNERG ID first.",
       membershipRequired: true,
     }, { status: 403, headers: { ...corsHeaders, "Cache-Control": "private, no-store" } });
   }
+
+  const fullAccess = membership.status === "active" && (
+    membership.access_source === "grandfathered" ||
+    (membership.access_source === "stripe" && membership.payment_verified === true &&
+      (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
+  );
 
   if (req.method === "POST") {
     let body: Record<string, unknown>;
@@ -102,9 +107,9 @@ Deno.serve(async (req: Request) => {
     return Response.json({ error: "Your member record is still being prepared. Please try again." }, { status: 409, headers: corsHeaders });
   }
 
-  const signedResults = await Promise.all(
-    VIDEO_OBJECTS.map((path) => service.storage.from("innerg-member-video").createSignedUrl(path, 3600))
-  );
+  const signedResults = fullAccess
+    ? await Promise.all(VIDEO_OBJECTS.map((path) => service.storage.from("innerg-member-video").createSignedUrl(path, 3600)))
+    : [];
   const videoChapters = signedResults
     .map(({ data, error }, index) => {
       if (error) {
@@ -122,12 +127,13 @@ Deno.serve(async (req: Request) => {
     firstName: member.first_name,
     lastName: member.last_name,
     email: user.email ?? null,
-    discordUrl: DISCORD_INVITE,
+    discordUrl: fullAccess ? DISCORD_INVITE : null,
     videoAccess: Boolean(videoUrl),
     videoUrl,
     videoChapters,
     membershipStatus: membership.status,
     accessSource: membership.access_source,
+    accessTier: fullAccess ? "member" : "free",
     billingPlan: membership.billing_plan,
     accessExpiresAt: membership.access_expires_at,
     canManageBilling: Boolean(membership.stripe_customer_id),

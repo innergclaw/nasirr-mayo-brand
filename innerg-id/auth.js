@@ -15,6 +15,11 @@ const idWrap = document.querySelector(".id-wrap");
 const idName = document.querySelector("#id-name");
 const idNumber = document.querySelector("#id-number");
 const memberSince = document.querySelector("#member-since");
+const idAccessLabel = document.querySelector("#id-access-label");
+const idAccessBadge = document.querySelector("#id-access-badge");
+const idAccessLine = document.querySelector("#id-access-line");
+const freeAccessPanel = document.querySelector("#free-access-panel");
+const paidAccessNodes = [...document.querySelectorAll("[data-paid-access]")];
 const nameForm = document.querySelector("#name-form");
 const nameStatus = document.querySelector("#name-status");
 const downloadCard = document.querySelector("#download-card");
@@ -110,7 +115,13 @@ const setVideoChapters = (chapters) => {
 
 const setMemberCard = (member) => {
   currentMember = member;
-  void refreshDiscord?.();
+  const fullAccess = member.accessTier === "member";
+  document.documentElement.dataset.accessTier = fullAccess ? "member" : "free";
+  freeAccessPanel.hidden = fullAccess;
+  paidAccessNodes.forEach((node) => { node.hidden = !fullAccess; });
+  const manageBilling = document.querySelector("#manage-billing");
+  if (manageBilling) manageBilling.hidden = !fullAccess || !member.canManageBilling;
+  if (fullAccess) void refreshDiscord?.();
   const discordLink = document.querySelector("#member-discord");
   const validDiscord = typeof member.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(member.discordUrl);
   discordLink.hidden = !validDiscord;
@@ -118,9 +129,14 @@ const setMemberCard = (member) => {
   const fullName = [member.firstName, member.lastName].filter(Boolean).join(" ");
   idName.textContent = fullName || "INNERG MEMBER";
   idNumber.textContent = member.membershipNumber;
+  idAccessLabel.textContent = fullAccess ? "Active member" : "Free ID";
+  idAccessBadge.textContent = fullAccess ? "Access active" : "Identity active";
+  idAccessLine.textContent = fullAccess
+    ? "Research / media / community / direct access"
+    : "Identity / public lessons / selected resources";
   if (member.joinedAt) {
     const joined = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(new Date(member.joinedAt));
-    memberSince.textContent = `Member since ${joined} · ${member.membershipNumber}`;
+    memberSince.textContent = `${fullAccess ? "Member" : "ID active"} since ${joined} · ${member.membershipNumber}`;
   }
   nameForm.hidden = Boolean(member.firstName && member.lastName);
   nameForm.elements.firstName.value = member.firstName || "";
@@ -229,7 +245,7 @@ const createCardBlob = async () => {
   context.fillText("INNERG INTEL", 1438, 136);
   context.font = "800 19px Inter, Arial, sans-serif";
   context.fillStyle = "#596159";
-  context.fillText("VERIFIED MEMBER CREDENTIAL", 1438, 174);
+  context.fillText(currentMember.accessTier === "member" ? "VERIFIED MEMBER CREDENTIAL" : "VERIFIED INNERG ID", 1438, 174);
 
   roundedRect(context, 1160, 214, 278, 58, 29);
   context.fillStyle = "rgba(17,20,17,.08)";
@@ -241,7 +257,7 @@ const createCardBlob = async () => {
   context.textAlign = "left";
   context.fillStyle = "#111411";
   context.font = "800 17px Inter, Arial, sans-serif";
-  context.fillText("ACCESS ACTIVE", 1225, 250);
+  context.fillText(currentMember.accessTier === "member" ? "ACCESS ACTIVE" : "IDENTITY ACTIVE", 1225, 250);
 
   const fullName = `${currentMember.firstName} ${currentMember.lastName}`.toUpperCase();
   context.textAlign = "left";
@@ -253,7 +269,7 @@ const createCardBlob = async () => {
   context.fillText(currentMember.membershipNumber, 116, 798);
   context.font = "800 24px Inter, Arial, sans-serif";
   context.fillStyle = "#596159";
-  context.fillText("IDENTITY / ACCESS / COMMUNITY", 116, 866);
+  context.fillText(currentMember.accessTier === "member" ? "IDENTITY / ACCESS / COMMUNITY" : "IDENTITY / LEARNING / OWNERSHIP", 116, 866);
   context.textAlign = "right";
   context.fillText("LEARN THE SYSTEM. RECODE THE MIND. BUILD THE FUTURE.", 1450, 866);
 
@@ -296,7 +312,7 @@ shareCard.addEventListener("click", async () => {
     const file = new File([blob], cardFilename(), { type: "image/png" });
     const shareData = {
       title: "My INNERG ID",
-      text: `I am INNERG member ${currentMember.membershipNumber}.`,
+      text: `My INNERG ID is ${currentMember.membershipNumber}.`,
       files: [file],
     };
     if (navigator.share && navigator.canShare?.(shareData)) {
@@ -328,12 +344,31 @@ mediaAction.addEventListener("click", async (event) => {
 
 const loadMemberRecord = async (session) => {
   const { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
-  if (error || !data?.membershipNumber) return { data: null, statusCode: functionStatus(error) };
-  setMemberCard(data);
+  let member = data;
+  let statusCode = functionStatus(error);
+  if (error || !member?.membershipNumber) {
+    const { data: freeRows, error: freeError } = await supabase.rpc("get_free_innerg_id_record");
+    const free = freeRows?.[0];
+    if (freeError || !free?.membership_number) return { data: null, statusCode };
+    member = {
+      membershipNumber: free.membership_number,
+      joinedAt: free.joined_at,
+      firstName: free.first_name,
+      lastName: free.last_name,
+      accessSource: free.access_source,
+      membershipStatus: free.membership_status,
+      accessTier: "free",
+      canManageBilling: false,
+      discordUrl: null,
+      videoAccess: false,
+    };
+    statusCode = 200;
+  }
+  setMemberCard(member);
   email.textContent = session.user.email
     ? `Verified as ${session.user.email}.`
     : "Your verified member record is active.";
-  return { data, statusCode: 200 };
+  return { data: member, statusCode: statusCode || 200 };
 };
 
 const resolveMemberAccess = async (session, { force = false } = {}) => {
@@ -424,10 +459,20 @@ nameForm.addEventListener("submit", async (event) => {
   }
   button.disabled = true;
   nameStatus.textContent = "Finishing your card...";
-  const { data, error } = await supabase.functions.invoke("innerg-member-access", {
-    method: "POST",
-    body: { firstName, lastName },
-  });
+  let data;
+  let error;
+  if (currentMember?.accessTier === "free") {
+    ({ error } = await supabase.rpc("update_free_innerg_id_name", {
+      p_first_name: firstName,
+      p_last_name: lastName,
+    }));
+    if (!error && currentSession) ({ data } = await loadMemberRecord(currentSession));
+  } else {
+    ({ data, error } = await supabase.functions.invoke("innerg-member-access", {
+      method: "POST",
+      body: { firstName, lastName },
+    }));
+  }
   button.disabled = false;
   if (error || !data?.membershipNumber) {
     nameStatus.textContent = "Your name could not be saved. Please try again.";

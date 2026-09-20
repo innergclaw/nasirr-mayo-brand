@@ -31,6 +31,10 @@ test("membership is an allowed post-auth destination", () => {
   assert.equal(getSafeDestination("?next=%2Fmembership%2F"), "/membership/");
 });
 
+test("Sunday ID claims are an allowed post-auth destination", () => {
+  assert.equal(getSafeDestination("?next=%2Finnergid%2Fsunday%2F"), "/innergid/sunday/");
+});
+
 test("INNERG ID offer is an allowed post-auth destination", () => {
   assert.equal(getSafeDestination("?next=%2Finnergid%2F"), "/innergid/");
 });

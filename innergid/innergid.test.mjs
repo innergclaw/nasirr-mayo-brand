@@ -65,6 +65,12 @@ test("INNERG ID explains the included access", () => {
   assert.equal((html.match(/<li>/g) || []).length, 10);
 });
 
+test("landing page points to the verified Sunday drop", () => {
+  assert.match(html, /five free innerg ids open every sunday/i);
+  assert.match(html, /href="\.\/sunday\/"/);
+  assert.match(css, /\.sunday-drop-link/);
+});
+
 test("value paywall keeps comparisons honest and both plans clear", () => {
   assert.match(html, /Same \$10\./);
   assert.match(html, /Coffee is an illustrative \$5 example, not a quoted price/);

@@ -191,7 +191,10 @@ Deno.serve(async (req: Request) => {
     .select("status,access_source,access_expires_at")
     .eq("user_id", user.id)
     .maybeSingle();
-  const innergActive = innergMembership?.status === "active" && (innergMembership.access_source === "grandfathered" || !innergMembership.access_expires_at || Date.parse(innergMembership.access_expires_at) > Date.now());
+  const innergActive = innergMembership?.status === "active" && (
+    innergMembership.access_source === "grandfathered" ||
+    (innergMembership.access_source === "stripe" && (!innergMembership.access_expires_at || Date.parse(innergMembership.access_expires_at) > Date.now()))
+  );
   const watchlistActive = membership?.status === "active" && membership.access_source !== "innerg_membership";
   if ((membershipError && membershipError.code !== "PGRST116") || (innergError && innergError.code !== "PGRST116") || (!watchlistActive && !innergActive)) {
     return Response.json({ error: "Paid watchlist membership required." }, { status: 402, headers: corsHeaders });

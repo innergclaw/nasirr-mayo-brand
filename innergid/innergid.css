@@ -29,6 +29,10 @@ html[data-access-view="loading"] .site-header, html[data-access-view="error"] .s
 .brand { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-decoration: none; }
 .brand img { border-radius: 50%; }
 .account-link { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 750; text-decoration: none; }
+.sunday-drop-link { display:flex; align-items:center; justify-content:space-between; gap:22px; margin-top:18px; padding:18px 20px; border:1px solid var(--line); border-radius:18px; background:var(--surface); }
+.sunday-drop-link p { margin:0 0 5px; }
+.sunday-drop-link strong { font-size:17px; letter-spacing:-.025em; }
+.sunday-drop-link a { display:inline-flex; flex-shrink:0; min-height:44px; align-items:center; padding:10px 15px; border-radius:999px; color:var(--paper); background:var(--ink); font-size:11px; font-weight:800; text-decoration:none; }
 .eyebrow { margin: 0; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .conversion { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; gap: 24px 40px; padding: 32px 0; align-items: start; }
 .offer-intro { grid-column: 1; grid-row: 1; }

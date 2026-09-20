@@ -25,6 +25,7 @@
       .status[data-state="error"] { color:#9e3f2e; }
       .activation-panel { max-width:760px; margin:38px 0 0; padding:clamp(24px,5vw,48px); border:1px solid var(--line); background:#fff9; }
       .activation-panel[hidden] { display:none; }
+      [hidden] { display:none !important; }
       .activation-panel .eyebrow { margin:0 0 16px; color:#6d756c; }
       .activation-panel h2 { max-width:680px; margin:0; font-size:clamp(34px,6vw,64px); line-height:.92; letter-spacing:-.07em; }
       .activation-panel p:not(.eyebrow) { max-width:590px; margin:20px 0 0; color:var(--muted); font-size:15px; line-height:1.55; }
@@ -163,13 +164,13 @@
                   <img class="id-crest" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" />
                   <span class="id-top"><span class="id-identity"><img class="id-logo" src="../innergid/assets/innerg-member-badge.png" alt="INNERG member badge" /><span class="id-brand">INNERG INTEL<br />Member credential</span></span><span class="id-verified">Verified</span></span>
                   <span class="id-micro">Identity / access / community<br />Learn the system. Recode the mind. Build the future.</span>
-                  <span class="id-bottom"><span><strong class="id-name" id="id-name">INNERG MEMBER</strong><span class="id-number" id="id-number">INNERG-000000</span></span><span class="id-label">Active member</span></span>
+                  <span class="id-bottom"><span><strong class="id-name" id="id-name">INNERG MEMBER</strong><span class="id-number" id="id-number">INNERG-000000</span></span><span class="id-label" id="id-access-label">Active member</span></span>
                 </span>
                 <span class="id-face id-back">
                   <img class="id-crest" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" />
-                  <span class="id-top"><span class="id-identity"><img class="id-logo" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" /><span class="id-brand">INNERG<br />Ecosystem</span></span><span class="id-verified">Access active</span></span>
+                  <span class="id-top"><span class="id-identity"><img class="id-logo" src="../innergid/assets/innerg-member-badge.png" alt="" aria-hidden="true" /><span class="id-brand">INNERG<br />Ecosystem</span></span><span class="id-verified" id="id-access-badge">Access active</span></span>
                   <h3>Build from the inside out.</h3>
-                  <span><span class="id-member-since" id="member-since">INNERG member</span><span class="id-access-line">Research / media / community / direct access</span></span>
+                  <span><span class="id-member-since" id="member-since">INNERG member</span><span class="id-access-line" id="id-access-line">Research / media / community / direct access</span></span>
                 </span>
               </button>
               <p class="flip-note">Press the card to view both sides</p>
@@ -182,20 +183,27 @@
             </div>
           </div>
 
-          <section class="discord-connect" aria-labelledby="discord-title">
+          <section class="activation-panel" id="free-access-panel" hidden>
+            <p class="eyebrow">YOUR FREE INNERG ID</p>
+            <h2>your identity stays yours.</h2>
+            <p>your verified number and card are active. free access includes public lessons, articles, and selected resources. upgrade when you want member research, the full media hub, discord roles, and active membership benefits.</p>
+            <div class="activation-actions"><a class="activation-action" href="../innergid/#access">see membership access</a></div>
+          </section>
+
+          <section class="discord-connect" data-paid-access aria-labelledby="discord-title">
             <h2 id="discord-title">Your place in Discord.</h2>
             <p id="discord-status" role="status" aria-live="polite">Connect your Discord account to receive your Members role.</p>
             <button class="card-tool" id="connect-discord" type="button">Connect Discord</button>
             <p>Community access stays free. Your Members role follows your active INNERG access.</p>
           </section>
           <nav class="actions" aria-label="INNERG member destinations">
-            <a class="action" id="member-discord" hidden target="_blank" rel="noopener noreferrer"><strong>INNERG Discord</strong><span>Enter</span></a>
-            <a class="action" href="/watchlist/"><strong>Research Desk / Market Watchlist</strong><span>Explore</span></a>
-            <a class="action" href="#media-hub"><strong>Media Hub</strong><span>Watch</span></a>
+            <a class="action" id="member-discord" data-paid-access hidden target="_blank" rel="noopener noreferrer"><strong>INNERG Discord</strong><span>Enter</span></a>
+            <a class="action" data-paid-access href="/watchlist/"><strong>Research Desk / Market Watchlist</strong><span>Explore</span></a>
+            <a class="action" data-paid-access href="#media-hub"><strong>Media Hub</strong><span>Watch</span></a>
             <a class="action" href="../"><strong>Home Base</strong><span>Return</span></a>
           </nav>
 
-          <section class="media-hub" id="media-hub" aria-labelledby="media-hub-title">
+          <section class="media-hub" id="media-hub" data-paid-access aria-labelledby="media-hub-title">
             <header class="media-head">
               <div>
                 <p class="eyebrow">Member Media Hub</p>
@@ -219,7 +227,7 @@
               </div>
             </article>
           </section>
-          <button class="sign-out" id="manage-billing" data-manage-billing type="button">Manage billing</button>
+          <button class="sign-out" id="manage-billing" data-paid-access data-manage-billing type="button">Manage billing</button>
           <p id="billing-status" role="status" aria-live="polite"></p>
           <button class="sign-out" id="sign-out" type="button">Sign out</button>
         </section>

@@ -34,7 +34,7 @@ test("payment return does not claim confirmation from a URL parameter", () => {
   assert.doesNotMatch(js, /Payment received|Payment confirmed|You will not be charged twice/);
   assert.doesNotMatch(html, /https:\/\/discord\.gg\//);
   assert.match(js, /member\.discordUrl/);
-  assert.match(html, /https:\/\/innergclaw\.github\.io\/innerg-watchlist\//);
+  assert.match(html, /href="\/watchlist\/"/);
 });
 
 test("signed-in unpaid accounts receive a clear activation path", () => {
@@ -42,6 +42,15 @@ test("signed-in unpaid accounts receive a clear activation path", () => {
   assert.match(html, /Choose \$10 monthly or \$100 for 12 months/);
   assert.match(html, /href="\.\.\/innergid\/#access"/);
   assert.match(js, /showActivationPanel/);
+});
+
+test("free ID holders keep the credential without paid member resources", () => {
+  assert.match(html, /id="free-access-panel"/);
+  assert.match(html, /data-paid-access/);
+  assert.match(html, /your verified number and card are active/i);
+  assert.match(js, /member\.accessTier === "member"/);
+  assert.match(js, /paidAccessNodes\.forEach/);
+  assert.match(js, /Identity active/);
 });
 
 test("member card contains no OwnYourWeb client portal destination", () => {

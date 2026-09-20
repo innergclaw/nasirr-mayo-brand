@@ -34,20 +34,31 @@ const showMember = async (session) => {
   }
   renderAccessView(document, "loading");
   try {
-    const { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
+    let { data, error } = await supabase.functions.invoke("innerg-member-access", { method: "GET" });
+    if (error || !data?.membershipNumber) {
+      const { data: freeRows, error: freeError } = await supabase.rpc("get_free_innerg_id_record");
+      const free = freeRows?.[0];
+      if (!freeError && free?.membership_number) {
+        data = { membershipNumber: free.membership_number, accessTier: "free", discordUrl: null };
+        error = null;
+      }
+    }
     if (request !== accessRequest) return null;
     if (error || !data?.membershipNumber) {
       renderAccessView(document, Number(error?.context?.status || error?.status) === 403 ? "public" : "error");
       return null;
     }
     number.textContent = data.membershipNumber;
-    status.textContent = "Your INNERG ID is active. Open your ID for the video, watchlist, and member resources.";
+    const isFree = data.accessTier === "free";
+    status.textContent = isFree
+      ? "Your free INNERG ID is active. Upgrade when you want member research, media, and community benefits."
+      : "Your INNERG ID is active. Open your ID for the video, watchlist, and member resources.";
     if (typeof data.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(data.discordUrl)) {
       discord.href = data.discordUrl;
       discord.hidden = false;
     }
-    purchase.dataset.active = "true";
-    renderAccessView(document, "active");
+    if (!isFree) purchase.dataset.active = "true";
+    renderAccessView(document, isFree ? "free" : "active");
     // Remove a stale pricing anchor after returning from sign-in.
     history.replaceState({}, "", location.pathname + "#member-panel");
     if (displayedMember !== session.user.id) panel.scrollIntoView({ behavior: "instant", block: "start" });

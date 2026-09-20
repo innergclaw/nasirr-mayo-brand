@@ -16,13 +16,13 @@ function page() {
     offers,
   };
 }
-for(const state of ["loading","active","public","error"]) {
+for(const state of ["loading","active","free","public","error"]) {
   test(state+" shows only its intended view",()=>{
     const root=page();
     renderAccessView(root,state);
-    assert.equal(root.offers.every(node=>node.hidden),state!=="public");
-    assert.equal(root.querySelector("#member-panel").hidden,state!=="active");
-    assert.equal(root.querySelector("#access-loading").hidden,["active","public"].includes(state));
+    assert.equal(root.offers.every(node=>node.hidden),!["public","free"].includes(state));
+    assert.equal(root.querySelector("#member-panel").hidden,!["active","free"].includes(state));
+    assert.equal(root.querySelector("#access-loading").hidden,["active","free","public"].includes(state));
     assert.equal(root.querySelector("#access-retry").hidden,state!=="error");
     if(state==="active") assert.equal(root.querySelector(".account-link").href,"../innerg-id/");
   });
@@ -32,7 +32,7 @@ const start=source.indexOf("const showMember = async");
 const end=source.indexOf('document.querySelector("#access-retry")',start);
 function flow(invoke){
   const document=page();
-  const context={document,renderAccessView,supabase:{functions:{invoke}},panel:document.querySelector("#member-panel"),
+  const context={document,renderAccessView,supabase:{functions:{invoke},rpc:async()=>({data:[],error:null})},panel:document.querySelector("#member-panel"),
     number:document.querySelector("#member-number"),status:document.querySelector("#member-status"),
     discord:document.querySelector("#discord-link"),purchase:document.querySelector(".purchase-action"),
     history:{replaceState(){}},location:{pathname:"/innergid/"}};
@@ -41,11 +41,19 @@ function flow(invoke){
   return {...context,document};
 }
 test("verified member sees number without any purchase section",async()=>{
- const f=flow(async()=>({data:{membershipNumber:"TEST-CARD",discordUrl:"https://discord.gg/test"},error:null}));
+ const f=flow(async()=>({data:{membershipNumber:"TEST-CARD",accessTier:"member",discordUrl:"https://discord.gg/test"},error:null}));
  await f.showMember({user:{id:"test"}});
  assert.equal(f.document.documentElement.dataset.accessView,"active");
  assert.equal(f.number.textContent,"TEST-CARD");
  assert.ok(f.document.offers.every(x=>x.hidden));
+});
+test("free ID holder keeps the upgrade offer and can open the credential",async()=>{
+ const f=flow(async()=>({data:{membershipNumber:"FREE-CARD",accessTier:"free",discordUrl:null},error:null}));
+ await f.showMember({user:{id:"test"}});
+ assert.equal(f.document.documentElement.dataset.accessView,"free");
+ assert.equal(f.number.textContent,"FREE-CARD");
+ assert.ok(f.document.offers.every(x=>!x.hidden));
+ assert.equal(f.purchase.dataset.active,undefined);
 });
 test("signed-in unpaid account still requires payment",async()=>{
  const f=flow(async()=>({data:null,error:{context:{status:403}}}));
