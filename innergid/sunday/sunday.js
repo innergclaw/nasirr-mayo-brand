@@ -8,6 +8,7 @@ const accountPath = "../../account/?next=%2Finnergid%2Fsunday%2F";
 
 const remaining = document.querySelector("#remaining-count");
 const dropDate = document.querySelector("#drop-date");
+const dropStatus = document.querySelector("#drop-status");
 const action = document.querySelector("#claim-action");
 const openId = document.querySelector("#open-id");
 const status = document.querySelector("#claim-status");
@@ -27,8 +28,12 @@ const updateStatus = async () => {
   if (error || !drop) {
     remaining.textContent = "—";
     dropDate.textContent = "weekly status is temporarily unavailable";
+    dropStatus.classList.add("has-error");
+    dropStatus.setAttribute("aria-busy", "false");
     return;
   }
+  dropStatus.classList.remove("has-error");
+  dropStatus.setAttribute("aria-busy", "false");
   remaining.textContent = String(drop.remaining);
   dropDate.textContent = `${formatDate(drop.drop_date)} · opens and closes at midnight et`;
   if (drop.remaining === 0) {
@@ -83,6 +88,7 @@ const claim = async () => {
   }
   claiming = true;
   action.disabled = true;
+  action.setAttribute("aria-busy", "true");
   action.textContent = "checking the five places…";
   status.textContent = "verifying your account and claim order…";
   try {
@@ -96,6 +102,7 @@ const claim = async () => {
     action.textContent = "retry my claim";
   } finally {
     claiming = false;
+    action.removeAttribute("aria-busy");
   }
 };
 

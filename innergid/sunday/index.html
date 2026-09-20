@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Five verified people can claim a free INNERG ID every Sunday." />
     <title>Sunday INNERG ID Drop | INNERG INTEL</title>
-    <link rel="stylesheet" href="./sunday.css?v=20260920" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./sunday.css?v=20260920-2" />
   </head>
   <body>
     <a class="skip-link" href="#claim">Skip to claim status</a>
@@ -17,30 +18,30 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">THE SUNDAY INNERG ID DROP</p>
           <h1 id="page-title">five ids.<br />every sunday.</h1>
           <p class="lede">five verified people receive a free innerg id each week. your email confirmation completes the claim. the form alone does not reserve a spot.</p>
-          <div class="drop-meter" aria-live="polite">
-            <span><strong id="remaining-count">—</strong> of 5 remaining</span>
-            <span id="drop-date">checking this week’s drop…</span>
-          </div>
+          <p class="identity-rule">one person. one verified email. one innerg id.</p>
         </div>
-      </section>
 
-      <section class="claim-card" id="claim" aria-labelledby="claim-title">
-        <p class="eyebrow">WEEKLY CLAIM</p>
-        <h2 id="claim-title">verify your place.</h2>
-        <p id="claim-copy">sign in or create your account with a secure email code. after verification, we will check the five available places.</p>
-        <button id="claim-action" type="button">verify my email and claim</button>
-        <a class="secondary-action" id="open-id" href="../../innerg-id/" hidden>open my innerg id</a>
-        <p class="claim-status" id="claim-status" role="status" aria-live="polite"></p>
+        <section class="claim-card" id="claim" aria-labelledby="claim-title">
+          <div class="drop-status" id="drop-status" aria-live="polite" aria-busy="true">
+            <span class="status-label">this week’s drop</span>
+            <span class="availability"><strong id="remaining-count">—</strong> of 5 available</span>
+            <span class="drop-date" id="drop-date">checking availability…</span>
+          </div>
+          <h2 id="claim-title">verify your place.</h2>
+          <p id="claim-copy">sign in or create your account with a secure email code. after verification, we will check the five available places.</p>
+          <button id="claim-action" type="button">verify my email and claim</button>
+          <a class="secondary-action" id="open-id" href="../../innerg-id/" hidden>open my innerg id</a>
+          <p class="claim-status" id="claim-status" role="status" aria-live="polite"></p>
+        </section>
       </section>
 
       <section class="rules" aria-labelledby="rules-title">
-        <div>
-          <p class="eyebrow">HOW IT WORKS</p>
+        <header>
           <h2 id="rules-title">confirmation decides the order.</h2>
-        </div>
+          <p>the first five completed email confirmations receive this week’s free ids.</p>
+        </header>
         <ol>
           <li><span>01</span><strong>start your claim</strong><small>use google or request a secure code by email.</small></li>
           <li><span>02</span><strong>confirm your email</strong><small>an unverified form does not hold one of the five places.</small></li>
@@ -50,7 +51,6 @@
 
       <section class="access-split" aria-labelledby="access-title">
         <header>
-          <p class="eyebrow">YOUR ID. YOUR ACCESS.</p>
           <h2 id="access-title">start free. build deeper when you are ready.</h2>
         </header>
         <article>
@@ -66,6 +66,6 @@
     </main>
 
     <footer><span>INNERG INTEL</span><span>learn the system. recode the mind. build the future.</span></footer>
-    <script type="module" src="./sunday.js?v=20260919"></script>
+    <script type="module" src="./sunday.js?v=20260920-2"></script>
   </body>
 </html>
