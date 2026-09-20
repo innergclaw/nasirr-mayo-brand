@@ -68,8 +68,14 @@ Deno.serve(async (req: Request) => {
     }, { status: 403, headers: { ...corsHeaders, "Cache-Control": "private, no-store" } });
   }
 
+  const trialActive = membership.status === "active" &&
+    membership.access_source === "sunday_free" &&
+    Number.isFinite(Date.parse(membership.access_expires_at)) &&
+    Date.parse(membership.access_expires_at) > Date.now();
+  const trialExpired = membership.access_source === "sunday_free" && !trialActive;
   const fullAccess = membership.status === "active" && (
     membership.access_source === "grandfathered" ||
+    trialActive ||
     (membership.access_source === "stripe" && membership.payment_verified === true &&
       (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
   );
@@ -134,6 +140,8 @@ Deno.serve(async (req: Request) => {
     membershipStatus: membership.status,
     accessSource: membership.access_source,
     accessTier: fullAccess ? "member" : "free",
+    trialActive,
+    trialExpired,
     billingPlan: membership.billing_plan,
     accessExpiresAt: membership.access_expires_at,
     canManageBilling: Boolean(membership.stripe_customer_id),

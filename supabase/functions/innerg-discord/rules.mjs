@@ -1,5 +1,6 @@
 export function eligible(member, now = Date.now()) {
   return member?.status === 'active' && (member.access_source === 'grandfathered' ||
+    (member.access_source === 'sunday_free' && Number.isFinite(Date.parse(member.access_expires_at)) && Date.parse(member.access_expires_at) > now) ||
     (member.access_source === 'stripe' && member.payment_verified === true && Number.isFinite(Date.parse(member.access_expires_at)) && Date.parse(member.access_expires_at) > now));
 }
 export async function sha256(value) {

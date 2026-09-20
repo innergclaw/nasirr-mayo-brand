@@ -9,6 +9,12 @@ test('paid membership needs verified payment and a future expiry', () => {
   for (const change of [{access_source:'unknown'},{payment_verified:false},{access_expires_at:null},{access_expires_at:'bad'},{access_expires_at:'2026-09-06T12:00:00Z'},{status:'canceled'}]) assert.equal(eligible({...active,...change},now),false);
   assert.equal(eligible(null,now),false);
 });
+test('Sunday trial access lasts exactly until its stored expiry', () => {
+  const trial = {status:'active',access_source:'sunday_free',payment_verified:false,access_expires_at:'2026-09-13T12:00:00Z'};
+  assert.equal(eligible(trial, now), true);
+  assert.equal(eligible(trial, Date.parse(trial.access_expires_at)), false);
+  assert.equal(eligible({...trial,access_expires_at:'bad'}, now), false);
+});
 test('role response classifications never claim access on errors', () => {
   assert.equal(roleResult(204,true),'active');
   assert.equal(roleResult(204,false),'inactive');

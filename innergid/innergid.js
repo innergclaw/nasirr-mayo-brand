@@ -50,9 +50,16 @@ const showMember = async (session) => {
     }
     number.textContent = data.membershipNumber;
     const isFree = data.accessTier === "free";
-    status.textContent = isFree
-      ? "Your free INNERG ID is active. Upgrade when you want member research, media, and community benefits."
-      : "Your INNERG ID is active. Open your ID for the video, watchlist, and member resources.";
+    const trialExpiry = data.accessExpiresAt ? new Intl.DateTimeFormat("en-US", {
+      month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short",
+    }).format(new Date(data.accessExpiresAt)) : null;
+    status.textContent = data.trialExpired
+      ? "Your seven-day trial has ended. Choose a membership to restore member research, media, and community access."
+      : data.trialActive && trialExpiry
+        ? `Your seven-day trial is active through ${trialExpiry}. Open your ID for all member resources.`
+        : isFree
+          ? "Your INNERG ID is active. Choose a membership for member research, media, and community access."
+          : "Your INNERG ID is active. Open your ID for the video, watchlist, and member resources.";
     if (typeof data.discordUrl === "string" && /^https:\/\/discord\.gg\/[A-Za-z0-9-]+$/.test(data.discordUrl)) {
       discord.href = data.discordUrl;
       discord.hidden = false;

@@ -193,6 +193,7 @@ Deno.serve(async (req: Request) => {
     .maybeSingle();
   const innergActive = innergMembership?.status === "active" && (
     innergMembership.access_source === "grandfathered" ||
+    (innergMembership.access_source === "sunday_free" && Number.isFinite(Date.parse(innergMembership.access_expires_at)) && Date.parse(innergMembership.access_expires_at) > Date.now()) ||
     (innergMembership.access_source === "stripe" && (!innergMembership.access_expires_at || Date.parse(innergMembership.access_expires_at) > Date.now()))
   );
   const watchlistActive = membership?.status === "active" && membership.access_source !== "innerg_membership";

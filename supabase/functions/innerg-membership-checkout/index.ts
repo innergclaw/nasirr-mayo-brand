@@ -40,7 +40,12 @@ Deno.serve(async (req: Request) => {
     .eq("user_id", user.id)
     .maybeSingle();
   if (membershipError) return Response.json({error:"Membership could not be verified."},{status:503,headers:corsHeaders});
-  if (membership?.status === "active" && (membership.access_source === "grandfathered" || !membership.access_expires_at || Date.parse(membership.access_expires_at)>Date.now())) {
+  const currentAccess = membership?.status === "active" && (
+    membership.access_source === "grandfathered" ||
+    (membership.access_source === "sunday_free" && Number.isFinite(Date.parse(membership.access_expires_at)) && Date.parse(membership.access_expires_at) > Date.now()) ||
+    (membership.access_source === "stripe" && (!membership.access_expires_at || Date.parse(membership.access_expires_at) > Date.now()))
+  );
+  if (currentAccess) {
     return Response.json({ alreadyActive: true, returnUrl: "https://nasirr.innergintel.org/innerg-id/" }, { headers: corsHeaders });
   }
 
