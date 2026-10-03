@@ -1,7 +1,8 @@
 (() => {
   const sectionId = "social-audience-stats";
+  const fallbackSubscribers = 748;
 
-  const buildSection = (page) => {
+  const buildSection = (page, subscribers = fallbackSubscribers) => {
     const section = document.createElement("section");
     section.id = sectionId;
     section.className = `social-stats social-stats--${page}`;
@@ -12,10 +13,10 @@
         <span>Current audience</span>
       </div>
       <div class="social-stats__grid">
-        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has 748 subscribers and more than 200,000 views">
+        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and more than 200,000 views">
           <span class="social-stats__platform">YouTube</span>
           <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="748" aria-hidden="true">748</strong><small>Subscribers</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="${subscribers}" data-count-source="youtube" aria-hidden="true">${subscribers}</strong><small>Subscribers</small></div>
             <div class="social-stats__metric"><strong class="social-count" data-count-target="200000" data-count-format="comma" data-count-suffix="+" aria-hidden="true">200,000+</strong><small>Views</small></div>
           </div>
         </article>
@@ -94,6 +95,31 @@
       .forEach((card) => observer.observe(card));
   };
 
+  const applySubscriberCount = (section, count) => {
+    const card = section.querySelector(".social-stats__card--youtube");
+    const node = card?.querySelector("[data-count-source='youtube']");
+    if (!card || !node || !Number.isFinite(count) || count <= 0) return;
+    node.dataset.countTarget = String(count);
+    card.setAttribute(
+      "aria-label",
+      `YouTube has ${new Intl.NumberFormat("en-US").format(count)} subscribers and more than 200,000 views`,
+    );
+    if (node.dataset.countStarted === "true") {
+      node.textContent = formatCount(count, node);
+    }
+  };
+
+  const loadSubscriberCount = async (section) => {
+    try {
+      const response = await fetch("/youtube-stats.json", { cache: "no-cache" });
+      if (!response.ok) return;
+      const stats = await response.json();
+      applySubscriberCount(section, Number(stats.subscriberCount));
+    } catch {
+      /* Keep the fallback count already rendered in the card. */
+    }
+  };
+
   const mount = () => {
     const mentorshipTarget = document.querySelector(".highlight-band");
     const homeTarget = document.querySelector(".profile-header");
@@ -101,6 +127,10 @@
     const existing = document.getElementById(sectionId);
     if (existing) {
       initCounters(existing);
+      if (existing.dataset.youtubeStatsLoaded !== "true") {
+        existing.dataset.youtubeStatsLoaded = "true";
+        loadSubscriberCount(existing);
+      }
       return;
     }
     if (!target) return;
@@ -111,6 +141,8 @@
       section,
     );
     initCounters(section);
+    section.dataset.youtubeStatsLoaded = "true";
+    loadSubscriberCount(section);
   };
 
   const start = () => {

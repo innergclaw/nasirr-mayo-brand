@@ -7,6 +7,7 @@ const home = await readFile(new URL("index.html", root), "utf8");
 const mentorship = await readFile(new URL("mentorship/index.html", root), "utf8");
 const script = await readFile(new URL("social-stats.js", root), "utf8");
 const styles = await readFile(new URL("social-stats.css", root), "utf8");
+const stats = await readFile(new URL("youtube-stats.json", root), "utf8");
 
 test("both public pages load the shared social statistics files", () => {
   assert.match(home, /social-stats\.css\?v=4/);
@@ -16,12 +17,21 @@ test("both public pages load the shared social statistics files", () => {
 });
 
 test("social statistics use the supplied values", () => {
-  assert.match(script, /data-count-target="748"/);
+  assert.match(script, /fallbackSubscribers = 748/);
   assert.match(script, /data-count-target="200000"/);
   assert.match(script, /data-count-target="10" data-count-suffix="K\+"/);
-  assert.match(script, /Founders & Business Owners Helped/);
+  assert.match(script, /Founders &amp; Business Owners Helped/);
   assert.match(script, /data-count-target="500" data-count-suffix="\+"/);
   assert.doesNotMatch(script, /Substack has 65 subscribers/);
+});
+
+test("youtube subscribers load from the refreshed stats file", () => {
+  assert.match(script, /fetch\("\/youtube-stats\.json"/);
+  assert.match(script, /stats\.subscriberCount/);
+  const payload = JSON.parse(stats);
+  assert.equal(payload.handle, "@innergintel");
+  assert.equal(typeof payload.subscriberCount, "number");
+  assert.ok(payload.subscriberCount > 0);
 });
 
 test("social numbers count up once when their cards enter the viewport", () => {

@@ -1,0 +1,47 @@
+name: Update YouTube subscribers
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh subscriber count
+        run: |
+          python3 - << 'PY'
+          import json, re, urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+          request = urllib.request.Request(
+              "https://www.youtube.com/@innergintel",
+              headers={"User-Agent": "Mozilla/5.0", "Accept-Language": "en-US"},
+          )
+          html = urllib.request.urlopen(request, timeout=30).read().decode("utf-8", "replace")
+          match = re.search(r'"content":"([\d,]+) subscribers"', html)
+          if not match:
+              raise SystemExit("Could not read subscriber count from the public channel page")
+          count = int(match.group(1).replace(",", ""))
+          payload = {
+              "handle": "@innergintel",
+              "subscriberCount": count,
+              "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "source": "https://www.youtube.com/@innergintel",
+          }
+          Path("youtube-stats.json").write_text(json.dumps(payload, indent=2) + "\n")
+          print(payload)
+          PY
+      - name: Commit updated count
+        run: |
+          git diff --quiet -- youtube-stats.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add youtube-stats.json
+          git commit -m "Update YouTube subscriber count"
+          git push
