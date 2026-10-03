@@ -10,16 +10,16 @@ const styles = await readFile(new URL("social-stats.css", root), "utf8");
 
 test("both public pages load the shared social statistics files", () => {
   assert.match(home, /social-stats\.css\?v=4/);
-  assert.match(home, /social-stats\.js\?v=4/);
+  assert.match(home, /social-stats\.js\?v=3/);
   assert.match(mentorship, /social-stats\.css\?v=3/);
-  assert.match(mentorship, /social-stats\.js\?v=3/);
+  assert.match(mentorship, /social-stats\.js\?v=2/);
 });
 
 test("social statistics use the supplied values", () => {
   assert.match(script, /data-count-target="748"/);
   assert.match(script, /data-count-target="200000"/);
   assert.match(script, /data-count-target="10" data-count-suffix="K\+"/);
-  assert.match(script, /Founders &amp; Business Owners Helped/);
+  assert.match(script, /Founders & Business Owners Helped/);
   assert.match(script, /data-count-target="500" data-count-suffix="\+"/);
   assert.doesNotMatch(script, /Substack has 65 subscribers/);
 });
