@@ -1,6 +1,7 @@
 (() => {
   const sectionId = "social-audience-stats";
   const fallbackSubscribers = 748;
+  const fallbackViews = 225000;
 
   const buildSection = (page, subscribers = fallbackSubscribers) => {
     const section = document.createElement("section");
@@ -13,11 +14,11 @@
         <span>Current audience</span>
       </div>
       <div class="social-stats__grid">
-        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and more than 200,000 views">
+        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and 225,000 views">
           <span class="social-stats__platform">YouTube</span>
           <div class="social-stats__metrics">
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${subscribers}" data-count-source="youtube" aria-hidden="true">${subscribers}</strong><small>Subscribers</small></div>
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="200000" data-count-format="comma" data-count-suffix="+" aria-hidden="true">200,000+</strong><small>Views</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">225,000</strong><small>Views</small></div>
           </div>
         </article>
         <article class="social-stats__card social-stats__card--instagram" aria-label="More than 10,000 followers across Instagram">
@@ -95,29 +96,35 @@
       .forEach((card) => observer.observe(card));
   };
 
-  const applySubscriberCount = (section, count) => {
+  const applyCount = (section, source, count, label) => {
     const card = section.querySelector(".social-stats__card--youtube");
-    const node = card?.querySelector("[data-count-source='youtube']");
+    const node = card?.querySelector(`[data-count-source='${source}']`);
     if (!card || !node || !Number.isFinite(count) || count <= 0) return;
     node.dataset.countTarget = String(count);
-    card.setAttribute(
-      "aria-label",
-      `YouTube has ${new Intl.NumberFormat("en-US").format(count)} subscribers and more than 200,000 views`,
-    );
+    if (label) card.setAttribute("aria-label", label);
     if (node.dataset.countStarted === "true") {
       node.textContent = formatCount(count, node);
     }
   };
 
-  const loadSubscriberCount = async (section) => {
+  const loadYoutubeStats = async (section) => {
+    let subscribers = fallbackSubscribers;
+    let views = fallbackViews;
     try {
       const response = await fetch("/youtube-stats.json", { cache: "no-cache" });
-      if (!response.ok) return;
-      const stats = await response.json();
-      applySubscriberCount(section, Number(stats.subscriberCount));
+      if (response.ok) {
+        const stats = await response.json();
+        const nextSubscribers = Number(stats.subscriberCount);
+        const nextViews = Number(stats.viewCount);
+        if (Number.isFinite(nextSubscribers) && nextSubscribers > 0) subscribers = nextSubscribers;
+        if (Number.isFinite(nextViews) && nextViews > 0) views = nextViews;
+      }
     } catch {
-      /* Keep the fallback count already rendered in the card. */
+      /* Keep the fallback counts already rendered in the card. */
     }
+    const label = `YouTube has ${new Intl.NumberFormat("en-US").format(subscribers)} subscribers and ${new Intl.NumberFormat("en-US").format(views)} views`;
+    applyCount(section, "youtube", subscribers, label);
+    applyCount(section, "youtube-views", views, label);
   };
 
   const mount = () => {
@@ -129,7 +136,7 @@
       initCounters(existing);
       if (existing.dataset.youtubeStatsLoaded !== "true") {
         existing.dataset.youtubeStatsLoaded = "true";
-        loadSubscriberCount(existing);
+        loadYoutubeStats(existing);
       }
       return;
     }
@@ -142,7 +149,7 @@
     );
     initCounters(section);
     section.dataset.youtubeStatsLoaded = "true";
-    loadSubscriberCount(section);
+    loadYoutubeStats(section);
   };
 
   const start = () => {

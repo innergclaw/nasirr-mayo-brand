@@ -28,13 +28,16 @@ jobs:
           if not match:
               raise SystemExit("Could not read subscriber count from the public channel page")
           count = int(match.group(1).replace(",", ""))
+          path = Path("youtube-stats.json")
+          existing = json.loads(path.read_text()) if path.exists() else {}
           payload = {
               "handle": "@innergintel",
               "subscriberCount": count,
+              "viewCount": existing.get("viewCount", 225000),
               "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "source": "https://www.youtube.com/@innergintel",
           }
-          Path("youtube-stats.json").write_text(json.dumps(payload, indent=2) + "\n")
+          path.write_text(json.dumps(payload, indent=2) + "\n")
           print(payload)
           PY
       - name: Commit updated count

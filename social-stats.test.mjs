@@ -18,7 +18,7 @@ test("both public pages load the shared social statistics files", () => {
 
 test("social statistics use the supplied values", () => {
   assert.match(script, /fallbackSubscribers = 748/);
-  assert.match(script, /data-count-target="200000"/);
+  assert.match(script, /fallbackViews = 225000/);
   assert.match(script, /data-count-target="10" data-count-suffix="K\+"/);
   assert.match(script, /Founders &amp; Business Owners Helped/);
   assert.match(script, /data-count-target="500" data-count-suffix="\+"/);
@@ -28,9 +28,11 @@ test("social statistics use the supplied values", () => {
 test("youtube subscribers load from the refreshed stats file", () => {
   assert.match(script, /fetch\("\/youtube-stats\.json"/);
   assert.match(script, /stats\.subscriberCount/);
+  assert.match(script, /stats\.viewCount/);
   const payload = JSON.parse(stats);
   assert.equal(payload.handle, "@innergintel");
   assert.equal(typeof payload.subscriberCount, "number");
+  assert.equal(payload.viewCount, 225000);
   assert.ok(payload.subscriberCount > 0);
 });
 
