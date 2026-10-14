@@ -1,0 +1,95 @@
+{
+  "marketDate": "2026-10-13",
+  "generatedAt": "2026-10-13T20:10:28.266625Z",
+  "universe": "Public INNERG watchlist, excluding crypto",
+  "method": "Regular-session daily percentage change",
+  "gainers": [
+    {
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 67.31,
+      "currency": "USD",
+      "changePercent": 4.1306
+    },
+    {
+      "symbol": "NTR",
+      "name": "Nutrien",
+      "sector": "materials",
+      "price": 69.69,
+      "currency": "USD",
+      "changePercent": 2.4853
+    },
+    {
+      "symbol": "COP",
+      "name": "ConocoPhillips",
+      "sector": "energy",
+      "price": 140.895,
+      "currency": "USD",
+      "changePercent": 2.4244
+    },
+    {
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 19.19,
+      "currency": "USD",
+      "changePercent": 1.8037
+    },
+    {
+      "symbol": "EMN",
+      "name": "Eastman Chemical",
+      "sector": "materials",
+      "price": 63.02,
+      "currency": "USD",
+      "changePercent": 1.4815
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 52.85,
+      "currency": "USD",
+      "changePercent": -3.4174
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix ADR",
+      "sector": "ai-compute",
+      "price": 157.06,
+      "currency": "USD",
+      "changePercent": -3.1868
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "sector": "ai-compute",
+      "price": 77.81,
+      "currency": "USD",
+      "changePercent": -3.0526
+    },
+    {
+      "symbol": "ALGT",
+      "name": "Allegiant Travel",
+      "sector": "industrials",
+      "price": 72.34,
+      "currency": "USD",
+      "changePercent": -3.0295
+    },
+    {
+      "symbol": "STM",
+      "name": "STMicroelectronics",
+      "sector": "ai-compute",
+      "price": 49.575,
+      "currency": "USD",
+      "changePercent": -1.7928
+    }
+  ],
+  "sources": [
+    "Yahoo Finance chart data",
+    "Hyperliquid public API"
+  ],
+  "disclaimer": "Research and education only. Prices can be delayed."
+}

@@ -1,8 +1,9 @@
-import { escapeHTML, money, percent, tone, filterAssets, chartPath, assetTags } from './display.mjs';
+import { escapeHTML, money, percent, tone, filterAssets, chartPath, assetTags, assetsForView } from './display.mjs';
 import { chartMarkup, bindCharts } from './interactive-charts.mjs';
 import { weeklyMoversMarkup } from './weekly-mover.mjs?v=weekly-top-three-1';
 
-const DATA_URL = 'https://innergclaw.github.io/innerg-watchlist/data/watchlist.json';
+const VIEW = ['all','stocks','crypto'].includes(document.body?.dataset.marketView) ? document.body.dataset.marketView : 'all';
+const DATA_URL = document.body?.dataset.dataUrl || 'https://innergclaw.github.io/innerg-watchlist/data/watchlist.json';
 let snapshot = null;
 let loading = false;
 const search = document.querySelector('#search');
@@ -21,8 +22,9 @@ function renderAssets() {
   if (!snapshot) return;
   observer?.disconnect();
   const openRanges = new Set([...document.querySelectorAll('.ranges[open]')].map(el=>el.dataset.symbol));
-  const assets = filterAssets(snapshot.assets, search.value, sectorFilter.value, sort.value);
-  document.querySelector('#results-status').textContent = `${assets.length} of ${snapshot.assets.length} assets shown`;
+  const scopedAssets = assetsForView(snapshot.assets,VIEW);
+  const assets = filterAssets(scopedAssets, search.value, sectorFilter.value, sort.value);
+  document.querySelector('#results-status').textContent = `${assets.length} of ${scopedAssets.length} assets shown`;
   document.querySelector('#sector-list').innerHTML = assets.length ? snapshot.sectors.map(sector=>{
     const rows = assets.filter(asset=>asset.sector===sector.id);
     if (!rows.length) return '';
@@ -47,11 +49,14 @@ function renderSnapshot(data) {
   document.querySelector('#market-state').textContent = old ? 'prices may be out of date' : 'latest price update';
   document.querySelector('#snapshot-time').textContent = generated.toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short',timeZone:'America/New_York'})+' ET';
   if(!changed) return;
+  if(typeof document.dispatchEvent==='function'&&typeof CustomEvent==='function')document.dispatchEvent(new CustomEvent('market-snapshot',{detail:data}));
   const selected = sectorFilter.value;
-  sectorFilter.innerHTML = '<option value="all">All sectors</option>' + data.sectors.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
-  sectorFilter.value = selected;
-  document.querySelector('#asset-count').textContent = `${data.assets.length} assets / ${data.sectors.length} sectors / Free access`;
-  document.querySelector('#leader-grid').innerHTML = weeklyMoversMarkup(data.assets);
+  const scopedAssets = assetsForView(data.assets,VIEW);
+  const scopedSectors = data.sectors.filter(sector=>scopedAssets.some(asset=>asset.sector===sector.id));
+  sectorFilter.innerHTML = '<option value="all">All sectors</option>' + scopedSectors.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
+  sectorFilter.value = selected==='all'||scopedSectors.some(sector=>sector.id===selected) ? selected : 'all';
+  document.querySelector('#asset-count').textContent = `${scopedAssets.length} assets / ${scopedSectors.length} ${scopedSectors.length===1?'sector':'sectors'} / Free access`;
+  document.querySelector('#leader-grid').innerHTML = weeklyMoversMarkup(scopedAssets);
   renderAssets();
 }
 

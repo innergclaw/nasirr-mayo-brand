@@ -2,7 +2,7 @@
 
 Public route: https://nasirr.innergintel.org/watchlist/
 
-The source of the interface remains innergclaw/innerg-watchlist. Run `node automation/sync-watchlist.mjs` to refresh the ten allowlisted public files. The hourly Sync Market Pulse interface workflow performs the same sync and requests a Pages build when files change. Do not edit mirrored files directly.
+The source of the interface remains innergclaw/innerg-watchlist. Run `node automation/sync-watchlist.mjs` to refresh the allowlisted public files, including the stock and crypto views, charts, and closing bell. The hourly Sync Market Pulse interface workflow performs the same sync and requests a Pages build when files change. Prices and charts load from the public snapshot. The closing bell board and graphic are rebuilt from that snapshot during the sync. Do not edit mirrored files directly.
 
 Prices load from the existing public snapshot endpoint on every page refresh. Existing price and news schedules stay in their original repository; no duplicate market collector is created. Private research is never copied here. The existing member-research service validates membership and permits this origin.
 
