@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-10-13",
-  "generatedAt": "2026-10-13T20:10:28.266625Z",
+  "generatedAt": "2026-10-14T18:29:12.416680Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -16,33 +16,33 @@
       "symbol": "NTR",
       "name": "Nutrien",
       "sector": "materials",
-      "price": 69.69,
+      "price": 69.68,
       "currency": "USD",
-      "changePercent": 2.4853
+      "changePercent": 2.4706
     },
     {
       "symbol": "COP",
       "name": "ConocoPhillips",
       "sector": "energy",
-      "price": 140.895,
+      "price": 140.9,
       "currency": "USD",
-      "changePercent": 2.4244
+      "changePercent": 2.428
     },
     {
       "symbol": "MOS",
       "name": "The Mosaic Company",
       "sector": "materials",
-      "price": 19.19,
+      "price": 19.18,
       "currency": "USD",
-      "changePercent": 1.8037
+      "changePercent": 1.7507
     },
     {
       "symbol": "EMN",
       "name": "Eastman Chemical",
       "sector": "materials",
-      "price": 63.02,
+      "price": 63,
       "currency": "USD",
-      "changePercent": 1.4815
+      "changePercent": 1.4493
     }
   ],
   "losers": [
@@ -50,9 +50,9 @@
       "symbol": "DRAM",
       "name": "Themes Generative AI ETF",
       "sector": "ai-compute",
-      "price": 52.85,
+      "price": 52.84,
       "currency": "USD",
-      "changePercent": -3.4174
+      "changePercent": -3.4357
     },
     {
       "symbol": "SKHY",
@@ -82,9 +82,9 @@
       "symbol": "STM",
       "name": "STMicroelectronics",
       "sector": "ai-compute",
-      "price": 49.575,
+      "price": 49.57,
       "currency": "USD",
-      "changePercent": -1.7928
+      "changePercent": -1.8027
     }
   ],
   "sources": [
