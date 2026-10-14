@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-10-13",
-  "generatedAt": "2026-10-14T18:29:12.416680Z",
+  "marketDate": "2026-10-14",
+  "generatedAt": "2026-10-14T21:53:45.266690Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "CECO",
-      "name": "CECO Environmental",
-      "sector": "industrials",
-      "price": 67.31,
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries",
+      "sector": "materials",
+      "price": 61.17,
       "currency": "USD",
-      "changePercent": 4.1306
+      "changePercent": 1.933
     },
     {
-      "symbol": "NTR",
-      "name": "Nutrien",
+      "symbol": "OLN",
+      "name": "Olin Corporation",
       "sector": "materials",
-      "price": 69.68,
+      "price": 15.03,
       "currency": "USD",
-      "changePercent": 2.4706
+      "changePercent": 1.076
     },
     {
       "symbol": "COP",
       "name": "ConocoPhillips",
       "sector": "energy",
-      "price": 140.9,
+      "price": 142.34,
       "currency": "USD",
-      "changePercent": 2.428
+      "changePercent": 1.022
     },
     {
-      "symbol": "MOS",
-      "name": "The Mosaic Company",
-      "sector": "materials",
-      "price": 19.18,
+      "symbol": "SCHD",
+      "name": "Schwab U.S. Dividend Equity ETF",
+      "sector": "core-funds",
+      "price": 33.71,
       "currency": "USD",
-      "changePercent": 1.7507
+      "changePercent": 1.0189
     },
     {
-      "symbol": "EMN",
-      "name": "Eastman Chemical",
-      "sector": "materials",
-      "price": 63,
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "sector": "energy",
+      "price": 153.56,
       "currency": "USD",
-      "changePercent": 1.4493
+      "changePercent": 0.307
     }
   ],
   "losers": [
     {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
-      "sector": "ai-compute",
-      "price": 52.84,
-      "currency": "USD",
-      "changePercent": -3.4357
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix ADR",
-      "sector": "ai-compute",
-      "price": 157.06,
-      "currency": "USD",
-      "changePercent": -3.1868
-    },
-    {
       "symbol": "CRWV",
       "name": "CoreWeave",
       "sector": "ai-compute",
-      "price": 77.81,
+      "price": 65.78,
       "currency": "USD",
-      "changePercent": -3.0526
+      "changePercent": -15.4607
     },
     {
-      "symbol": "ALGT",
-      "name": "Allegiant Travel",
-      "sector": "industrials",
-      "price": 72.34,
-      "currency": "USD",
-      "changePercent": -3.0295
-    },
-    {
-      "symbol": "STM",
-      "name": "STMicroelectronics",
+      "symbol": "IREN",
+      "name": "IREN Limited",
       "sector": "ai-compute",
-      "price": 49.57,
+      "price": 30.56,
       "currency": "USD",
-      "changePercent": -1.8027
+      "changePercent": -12.1839
+    },
+    {
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 24.68,
+      "currency": "USD",
+      "changePercent": -10.5473
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "ai-compute",
+      "price": 245.28,
+      "currency": "USD",
+      "changePercent": -8.7262
+    },
+    {
+      "symbol": "HOOD",
+      "name": "Robinhood Markets",
+      "sector": "platforms",
+      "price": 101.08,
+      "currency": "USD",
+      "changePercent": -8.5414
     }
   ],
   "sources": [
