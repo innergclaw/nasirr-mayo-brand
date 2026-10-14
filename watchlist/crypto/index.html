@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#151513" />
+  <meta name="description" content="INNERG Market Pulse crypto view. Explore HYPE, ZEC, BTC, and SOL charts with the latest HYPE all-time-high update." />
+  <title>Crypto | INNERG Market Pulse</title>
+  <meta property="og:title" content="Crypto | INNERG Market Pulse" />
+  <meta property="og:description" content="A focused crypto watchlist with charts, market context, levels, and risk." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nasirr.innergintel.org/watchlist/crypto/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=hype-brief-1" />
+  <script type="module" src="../app.js?v=hype-chart-1"></script>
+  <script type="module" src="../market-update.mjs?v=hype-brief-1"></script>
+<link rel="canonical" href="https://nasirr.innergintel.org/watchlist/crypto/" />
+</head>
+<body id="top" class="market-view-page" data-market-view="crypto" data-data-url="https://innergclaw.github.io/innerg-watchlist/data/watchlist.json" data-update-url="https://innergclaw.github.io/innerg-watchlist/data/market-updates.json">
+  <a class="skip-link" href="#market-flash">Skip to crypto update</a>
+  <header class="site-header market-view-header">
+    <a href="../">INNERG MARKET PULSE</a>
+    <a href="../#member-access" class="member-signin">INNERG ID sign in</a>
+  </header>
+  <main>
+    <section class="hero market-view-hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">Focused market view</p><h1 id="page-title">Crypto</h1><p class="hero-copy">Digital assets, catalysts, levels, and risk.</p><p class="intro">Crypto trades around the clock. This desk keeps it separate from the U.S. stock session.</p></div>
+      <div class="snapshot-clock"><span id="market-state">loading prices</span><strong id="snapshot-time">Please wait</strong><small>prices update regularly and may be delayed.</small><button id="refresh" type="button">Refresh data</button></div>
+    </section>
+    <nav class="market-view-nav" aria-label="Choose a market view">
+      <a href="../"><span>All Markets</span><small>Stocks, funds, and crypto</small></a>
+      <a href="../stocks/"><span>Stocks</span><small>Stocks, ETFs, and funds</small></a>
+      <a href="./" aria-current="page"><span>Crypto</span><small>Digital assets only</small></a>
+    </nav>
+    <section class="market-flash" id="market-flash" aria-labelledby="market-flash-title">
+      <div class="section-heading"><div><p class="eyebrow">Morning market pulse</p><h2 id="market-flash-title">HYPE enters price discovery.</h2></div><a href="#hype-chart-title">Open HYPE chart</a></div>
+      <div id="market-flash-content"><p class="section-note" role="status">Loading the latest HYPE update.</p></div>
+    </section>
+    <section class="pulse" id="weekly-mover" aria-labelledby="pulse-title">
+      <div class="section-heading"><div><p class="eyebrow">Crypto leader</p><h2 id="pulse-title">What moved this week.</h2></div><a href="#sectors">Explore all crypto</a></div>
+      <p class="section-note">Ranked from the crypto watchlist only. A move is not a buy signal.</p>
+      <div class="leader-grid" id="leader-grid"><p role="status">Loading weekly charts.</p></div>
+    </section>
+    <aside class="member-route-note" id="member-access"><p>Member research stays on the full Market Pulse desk.</p><a href="../#member-access">Open INNERG ID access</a></aside>
+    <section class="sectors" id="sectors" aria-labelledby="sectors-title">
+      <div class="section-heading"><div><p class="eyebrow" id="asset-count">Crypto watchlist</p><h2 id="sectors-title">Follow the digital-asset pulse.</h2></div></div>
+      <div class="filters crypto-filters">
+        <label>Search crypto<input id="search" type="search" placeholder="Ticker or name, e.g. HYPE" autocomplete="off" /></label>
+        <label class="sector-filter-control">Sector<select id="sector-filter" aria-label="Sector"><option value="all">All sectors</option></select></label>
+        <label>Sort assets<select id="sort" aria-label="Sort assets"><option value="default">Watchlist order</option><option value="week">Weekly gain</option><option value="loss">Weekly decline</option><option value="name">Ticker A to Z</option></select></label>
+      </div>
+      <details class="guide"><summary>How to read the numbers</summary><p><strong>1 day</strong> uses the latest 24-hour comparison available from the data provider. <strong>1 week</strong> and <strong>30 days</strong> compare with the available daily close on or before that date.</p><p>Crypto trades continuously. Prices can change while you read the page and may differ by venue.</p></details>
+      <p id="results-status" class="section-note" role="status"></p>
+      <div id="sector-list"></div>
+      <noscript><p>Enable JavaScript to explore charts, or <a href="https://innergclaw.github.io/innerg-watchlist/data/watchlist.json">download the public data</a>.</p></noscript>
+    </section>
+  </main>
+  <footer><p>Research and education. Not financial advice.<br />Data: Yahoo Finance and Hyperliquid.</p><a href="../">All Markets</a></footer>
+  <a class="back-to-top" href="#top" aria-label="Scroll to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 12 6-6 6 6M12 6v13"/></svg></a>
+</body>
+</html>
