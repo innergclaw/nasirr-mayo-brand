@@ -56,7 +56,7 @@ function renderSnapshot(data) {
   sectorFilter.innerHTML = '<option value="all">All sectors</option>' + scopedSectors.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');
   sectorFilter.value = selected==='all'||scopedSectors.some(sector=>sector.id===selected) ? selected : 'all';
   document.querySelector('#asset-count').textContent = `${scopedAssets.length} assets / ${scopedSectors.length} ${scopedSectors.length===1?'sector':'sectors'} / Free access`;
-  document.querySelector('#leader-grid').innerHTML = weeklyMoversMarkup(scopedAssets);
+  document.querySelector('#leader-grid').innerHTML = weeklyMoversMarkup(scopedAssets,{view:VIEW,publicLeaders:data.leadersByView?.[VIEW]});
   renderAssets();
 }
 
