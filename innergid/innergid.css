@@ -175,3 +175,5 @@ html[data-access-view="active"] .member-panel { min-height: 60vh; }
 .family-plan-discount { color: var(--accent) !important; font-weight: 700; }
 .family-plan .card-action { margin-top: auto; text-align: center; }
 @media (max-width: 760px) { .family-plan-grid { grid-template-columns: 1fr; } }
+
+.family-plan-phone { margin: 10px 0 0; text-align: center; font-weight: 700; color: inherit !important; }

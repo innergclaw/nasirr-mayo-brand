@@ -12,7 +12,11 @@ test("three family tiers come from one config", () => {
 test("set prices render and checkout stays on the notify button", () => {
   const out = renderFamilyPlans();
   for (const t of ["$9 / month", "$29 / month", "$99 / year, up to 4 members"]) assert.ok(out.includes(t), t);
-  assert.equal((out.match(/Ask to be notified/g) || []).length, 3);
+  assert.equal((out.match(/Text to sign up/g) || []).length, 3);
+  assert.equal((out.match(/\(267\) 473-0397/g) || []).length, 3);
+  assert.doesNotMatch(out, /Ask to be notified/);
+  for (const [msg] of [["Hi, I'm interested in the INNERG Child membership for my child."], ["Hi, I'm interested in the INNERG Parent membership."], ["Hi, we are a family interested in the INNERG Family membership."]])
+    assert.ok(out.includes("sms:+12674730397?&amp;body=" + encodeURIComponent(msg).replace(/'/g, "%27").replace(/%27/g, "'")), msg);
   assert.doesNotMatch(out, /pricing coming soon/);
   assert.match(out, /student curriculum and lessons, built for grades 3 through 12/);
   assert.match(out, /separate parent curriculum and lessons/);
