@@ -39,7 +39,7 @@ test("payment return does not claim confirmation from a URL parameter", () => {
 
 test("signed-in unpaid accounts receive a clear activation path", () => {
   assert.match(html, /id="activation-panel"/);
-  assert.match(html, /Choose \$15 monthly or \$150 for 12 months/);
+  assert.match(html, /Choose a Child, Parent, or Family membership/);
   assert.match(html, /href="\.\.\/innergid\/#access"/);
   assert.match(js, /showActivationPanel/);
 });
@@ -83,9 +83,10 @@ test("member Media Hub uses verified release access", () => {
   assert.match(js, /new Blob\(\[chapter\.captions\], \{ type: "text\/vtt" \}\)/);
   assert.match(js, /mediaVideo\.addEventListener\("ended"/);
   assert.match(html, /id="media-chapters"/);
-  assert.match(html, /This release is included with active INNERG membership\./);
+  assert.match(html, /This release is included with Parent and Family memberships\./);
   assert.match(html, /Pricing discussed in the recording reflects when it was made/);
-  assert.match(html, /Existing \$10 founding memberships keep their original rate/);
+  assert.match(html, /Child \$9\/month, Parent \$29\/month, and Family \$99\/year/);
+  assert.doesNotMatch(html + js, /\$15\b|\$150|founding/);
   assert.doesNotMatch(html, /membership\/#video-access/);
   assert.doesNotMatch(js, /Purchase this release once/);
 });
