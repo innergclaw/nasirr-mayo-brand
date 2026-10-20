@@ -6,7 +6,7 @@ const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
 test('every public menu link has a unique destination',()=>{
   const nav=html.match(/<nav class="section-nav"[\s\S]*?<\/nav>/)[0];
   const hashes=[...nav.matchAll(/href="#([^"]+)"/g)].map(m=>m[1]);
-  assert.equal(hashes.length,6);
+  assert.equal(hashes.length,7);
   for(const id of hashes) assert.equal(html.split(`id="${id}"`).length-1,1);
   assert.match(nav,/data-public-offer/);
 });
