@@ -1,7 +1,15 @@
 name: Sync Market Pulse interface
 on:
+  # Primary trigger: innerg-watchlist "Deploy public charts" sends this after
+  # the public data is live.
+  repository_dispatch:
+    types: [market-pulse-updated]
   schedule:
-    - cron: '17 * * * *'
+    # Intraday hourly refresh plus a late fallback for the close.
+    - cron: '17 9-18 * * 1-5'
+      timezone: 'America/New_York'
+    - cron: '30 21 * * 1-5'
+      timezone: 'America/New_York'
   workflow_dispatch:
   pull_request:
 permissions:
@@ -15,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
       - run: node --test automation/closing-snapshot.test.mjs
