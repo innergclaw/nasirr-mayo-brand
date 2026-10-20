@@ -28,6 +28,7 @@ export const FAMILY_PLANS = [
     yearly: 99,
     maxMembers: 4,
     price: "$99 / year, up to 4 members",
+    renewal: "Renews automatically every year.",
     discountNote: null, // computed below from the child and parent prices
     checkoutUrl: null,
   },
@@ -57,7 +58,7 @@ export function renderFamilyPlans(plans = FAMILY_PLANS, contactUrl = CONTACT_URL
     const cta = ready
       ? `<a class="card-action" href="${esc(p.checkoutUrl)}">Join with ${esc(p.name.toLowerCase())}</a>`
       : `<a class="card-action" href="${esc(contactUrl)}">Ask to be notified</a>`;
-    return `<article class="family-plan" data-plan="${esc(p.id)}"><p class="eyebrow">${esc(p.name)}</p><p class="family-plan-price">${price}</p><p>${esc(p.audience)}</p>${note}${cta}</article>`;
+    return `<article class="family-plan" data-plan="${esc(p.id)}"><p class="eyebrow">${esc(p.name)}</p><p class="family-plan-price">${price}</p><p>${esc(p.audience)}</p>${p.renewal ? `<p class="family-plan-renewal">${esc(p.renewal)}</p>` : ""}${note}${cta}</article>`;
   }).join("");
 }
 

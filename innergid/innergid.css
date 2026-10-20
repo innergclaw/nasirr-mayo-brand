@@ -161,6 +161,9 @@ html[data-access-view="active"] .member-panel { min-height: 60vh; }
 }
 
 /* Family memberships */
+.conversion .family-plans { grid-column: 1 / -1; grid-row: auto; margin: 0; }
+.conversion .briefing-offer { grid-row: auto; }
+.family-plan-renewal { font-weight: 700; color: inherit !important; }
 .family-plans { margin: 40px 0; padding: 28px 0; border-top: 1px solid var(--line); }
 .family-plans h2 { margin: 10px 0 12px; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -.035em; }
 .family-plans-intro { max-width: 62ch; margin: 0 0 20px; color: var(--muted); line-height: 1.55; }

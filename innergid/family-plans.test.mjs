@@ -18,6 +18,7 @@ test("set prices render and checkout stays on the notify button", () => {
   assert.match(out, /separate parent curriculum and lessons/);
   assert.match(out, /both the student curriculum and the parent curriculum, for up to 4 members/);
   assert.doesNotMatch(out, /same skills/);
+  assert.match(out, /Renews automatically every year\./);
 });
 test("family savings math: monthly x12 vs $99", () => {
   assert.deepEqual(familySavings(1, 1), { separate: (29 + 9) * 12, save: (29 + 9) * 12 - 99 });
