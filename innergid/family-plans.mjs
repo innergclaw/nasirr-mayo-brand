@@ -16,7 +16,7 @@ export const FAMILY_PLANS = [
   {
     id: "parent",
     name: "Parent membership",
-    audience: "A separate parent curriculum and lessons, made for parents and guardians. Not the same as the student lessons. You get your own INNERG ID.",
+    audience: "A separate parent curriculum and lessons, made for parents and guardians. Not the same as the student lessons. Includes the video briefings. You get your own INNERG ID.",
     monthly: 29,
     price: "$29 / month",
     checkoutUrl: null,
@@ -24,7 +24,7 @@ export const FAMILY_PLANS = [
   {
     id: "family",
     name: "Family membership",
-    audience: "Everything: both the student curriculum and the parent curriculum, for up to 4 members. Each member gets their own INNERG ID.",
+    audience: "Everything: both the student curriculum and the parent curriculum, plus the parent video briefings, for up to 4 members. Each member gets their own INNERG ID.",
     yearly: 99,
     maxMembers: 4,
     price: "$99 / year, up to 4 members",

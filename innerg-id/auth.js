@@ -174,7 +174,7 @@ const setMemberCard = (member) => {
     mediaStamp.textContent = "Member access";
     mediaAction.textContent = "Refresh access";
     mediaAction.href = "./";
-    mediaNote.textContent = "This release is included with active INNERG membership.";
+    mediaNote.textContent = "This release is included with Parent and Family memberships.";
   }
 };
 
