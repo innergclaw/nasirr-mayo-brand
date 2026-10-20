@@ -14,7 +14,10 @@ test("set prices render and checkout stays on the notify button", () => {
   for (const t of ["$9 / month", "$29 / month", "$99 / year, up to 4 members"]) assert.ok(out.includes(t), t);
   assert.equal((out.match(/Ask to be notified/g) || []).length, 3);
   assert.doesNotMatch(out, /pricing coming soon/);
-  assert.match(out, /own INNERG ID with access suited to/);
+  assert.match(out, /student curriculum and lessons, built for grades 3 through 12/);
+  assert.match(out, /separate parent curriculum and lessons/);
+  assert.match(out, /both the student curriculum and the parent curriculum, for up to 4 members/);
+  assert.doesNotMatch(out, /same skills/);
 });
 test("family savings math: monthly x12 vs $99", () => {
   assert.deepEqual(familySavings(1, 1), { separate: (29 + 9) * 12, save: (29 + 9) * 12 - 99 });
