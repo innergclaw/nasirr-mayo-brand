@@ -67,7 +67,7 @@ const showActivationPanel = ({ processing = false } = {}) => {
   activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
   activationCopy.textContent = processing
     ? "We are waiting for confirmed member access. Check again in a moment. If you already paid, do not start another checkout."
-    : "Choose $15 monthly or $150 for 12 months to activate your INNERG ID and open the full Media Hub.";
+    : "Choose a Child, Parent, or Family membership to activate your INNERG ID and open the full Media Hub.";
   activationLink.hidden = processing;
   activationRetry.hidden = !processing;
   status.classList.add("is-hidden");
