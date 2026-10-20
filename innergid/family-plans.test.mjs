@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { FAMILY_PLANS, renderFamilyPlans } from "./family-plans.mjs";
+import { FAMILY_PLANS, renderFamilyPlans, familySavings } from "./family-plans.mjs";
 const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 
 test("three family tiers come from one config", () => {
@@ -9,11 +9,25 @@ test("three family tiers come from one config", () => {
   assert.match(html, /id="family-plan-cards"/);
   assert.match(html, /family-plans\.mjs/);
 });
-test("unset prices show coming soon and a contact link, never a made-up price", () => {
+test("set prices render and checkout stays on the notify button", () => {
   const out = renderFamilyPlans();
-  assert.equal((out.match(/pricing coming soon/g) || []).length, 3);
+  for (const t of ["$9 / month", "$29 / month", "$99 / year, up to 4 members"]) assert.ok(out.includes(t), t);
+  assert.equal((out.match(/Ask to be notified/g) || []).length, 3);
+  assert.doesNotMatch(out, /pricing coming soon/);
+  assert.match(out, /own INNERG ID with access suited to/);
+});
+test("family savings math: monthly x12 vs $99", () => {
+  assert.deepEqual(familySavings(1, 1), { separate: (29 + 9) * 12, save: (29 + 9) * 12 - 99 });
+  assert.deepEqual(familySavings(1, 1), { separate: 456, save: 357 });
+  assert.deepEqual(familySavings(2, 2), { separate: 912, save: 813 });
+  const out = renderFamilyPlans();
+  assert.match(out, /A parent and child would pay \$456\/year separately\. Save \$357\./);
+  assert.match(out, /2 parents \+ 2 children: \$912\/year separately, save \$813\./);
+});
+test("unset prices fall back to coming soon", () => {
+  const out = renderFamilyPlans([{ id: "child", name: "Child membership", audience: "x", price: null, checkoutUrl: null }]);
+  assert.match(out, /pricing coming soon/);
   assert.match(out, /mailto:ownyourwebsmm@gmail\.com/);
-  assert.doesNotMatch(out, /\$\d/);
 });
 test("a filled tier renders its price and checkout link", () => {
   const out = renderFamilyPlans([{ id: "child", name: "Child membership", audience: "x", price: "$9", checkoutUrl: "https://example.com" }]);
