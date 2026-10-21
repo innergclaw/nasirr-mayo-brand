@@ -66,6 +66,15 @@ button { cursor: pointer; }
   align-items: center;
   min-height: 44px;
 }
+.brand { gap: 10px; }
+.brand img {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  object-fit: cover;
+}
 .public-label, .eyebrow {
   font: 500 12px var(--mono);
   letter-spacing: 0.08em;
@@ -130,7 +139,7 @@ input[type="email"], input[type="text"] {
 input::placeholder { color: var(--muted); }
 #code {
   font: 500 22px var(--mono);
-  letter-spacing: 0.28em;
+  letter-spacing: 0.16em;
   text-align: center;
 }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }

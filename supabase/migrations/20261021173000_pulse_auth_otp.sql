@@ -1,4 +1,4 @@
--- INNERG PULSE now asks Supabase Auth to send and check the 6-digit code.
+-- INNERG PULSE now asks Supabase Auth to send and check the 8-digit code.
 -- Safe to run more than once. Reverse notes are at the bottom.
 -- Does not read or write innerg_memberships, and does not delete auth.users.
 
@@ -96,7 +96,7 @@ begin
   end if;
 
   clean_email := public.pulse_normalize_email(p_email);
-  if clean_email is null or submitted !~ '^[0-9]{6}$' then
+  if clean_email is null or submitted !~ '^[0-9]{8}$' then
     return jsonb_build_object('status', 'invalid_code');
   end if;
 

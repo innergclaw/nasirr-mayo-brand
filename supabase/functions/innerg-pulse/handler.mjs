@@ -106,7 +106,7 @@ export async function handlePulse(req, deps) {
 
     if (action === "confirm") {
       const email = normalizeEmail(body.data.email);
-      const code = String(body.data.code ?? "").trim().slice(0, 10);
+      const code = String(body.data.code ?? "").replace(/\D/g, "").slice(0, 8);
       const gate = await deps.confirmGate(email, code, ip);
       if (gate?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
       if (gate?.status !== "ok") return json(req, { status: "invalid_code" });

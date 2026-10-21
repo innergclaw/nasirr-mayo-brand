@@ -14,13 +14,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="pulse.css?v=pulse-1" />
-  <script type="module" src="pulse.js?v=pulse-1"></script>
+  <link rel="stylesheet" href="pulse.css?v=pulse-8" />
+  <script type="module" src="pulse.js?v=pulse-8"></script>
 </head>
 <body data-pulse-page="signup">
   <a class="skip-link" href="#signup">Skip to signup</a>
   <header class="site-header">
-    <a href="https://nasirr.innergintel.org/">INNERG INTEL</a>
+    <a class="brand" href="https://nasirr.innergintel.org/">
+      <img src="../innergid/assets/innerg-member-badge.png" width="44" height="44" alt="INNERG member badge" />
+      INNERG INTEL
+    </a>
     <a href="https://nasirr.innergintel.org/watchlist/">Market Pulse</a>
   </header>
   <main class="desk" id="signup">
@@ -52,7 +55,7 @@
       <form id="code-form" hidden>
         <p id="sent-to" class="sent-to"></p>
         <label for="code">One-time code</label>
-        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" />
+        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="8" maxlength="8" pattern="[0-9]{8}" required placeholder="00000000" />
         <button type="submit">Confirm code</button>
         <div class="actions">
           <button id="resend-code" class="quiet" type="button">Send a new code</button>

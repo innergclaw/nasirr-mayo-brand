@@ -1,7 +1,7 @@
 -- INNERG PULSE free newsletter.
 -- The public API key cannot read or write these tables.
 -- This file creates the first list tables. 20261021173000_pulse_auth_otp.sql
--- hands the 6-digit code to Supabase Auth. Run this file first on a new database,
+-- hands the 8-digit code to Supabase Auth. Run this file first on a new database,
 -- then that file. Do not run this file again on project zkyhhoxcrjkhywblzehr.
 
 create table public.pulse_subscribers (
@@ -297,7 +297,7 @@ begin
   if not public.pulse_rate_allow('confirm_ip', p_ip) then
     return jsonb_build_object('status', 'rate_limited');
   end if;
-  if clean_email is null or submitted !~ '^[0-9]{6}$' then
+  if clean_email is null or submitted !~ '^[0-9]{8}$' then
     return jsonb_build_object('status', 'invalid_code');
   end if;
   if not public.pulse_rate_allow('confirm_email', clean_email) then

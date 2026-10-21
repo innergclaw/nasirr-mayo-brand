@@ -5,7 +5,7 @@ import { classifyAuthFailure, markPulseSubscriber, pulseAppMetadata, requestAuth
 import { handlePulse, normalizeEmail } from "./handler.mjs";
 
 const TOKEN = "ab".repeat(32);
-const CODE = "042315";
+const CODE = "04231518";
 const EMAIL = "reader@example.com";
 const ACCESS = "access-token-value";
 const USER_ID = "75677100-97b7-4578-92c5-cf131997b580";
@@ -120,6 +120,20 @@ test("confirm revokes only the new session and never returns it", async () => {
   assert.equal(calls.activate, 1);
   assert.equal(calls.markPulse.id, USER_ID);
   assert.equal(calls.markPulse.app_metadata.provider, "email");
+});
+
+test("confirm forwards the first 8 digits", async () => {
+  let seen = "";
+  const { deps } = world({
+    confirmGate: async (_email, code) => {
+      seen = code;
+      return { status: "invalid_code" };
+    },
+  });
+  const response = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: "12 34567890" })), deps);
+  assert.equal(seen, "12345678");
+  assert.equal((await response.json()).status, "invalid_code");
+  assert.equal(response.status, 200);
 });
 
 test("a wrong code does not activate the list", async () => {

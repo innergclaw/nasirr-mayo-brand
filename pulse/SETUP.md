@@ -1,6 +1,6 @@
 # INNERG PULSE signup setup
 
-The page is `https://nasirr.innergintel.org/pulse/`. A visitor enters an email, Supabase Auth emails a 6-digit code, and the address becomes active only after that code is checked. The public Supabase key cannot read the list.
+The page is `https://nasirr.innergintel.org/pulse/`. A visitor enters an email, Supabase Auth emails an 8-digit code, and the address becomes active only after that code is checked. The public Supabase key cannot read the list.
 
 Project: `zkyhhoxcrjkhywblzehr` (`https://zkyhhoxcrjkhywblzehr.supabase.co`).
 
@@ -55,13 +55,15 @@ Body, both templates:
 <p>This code confirms an INNERG ID sign-in or a free INNERG PULSE subscription. This is news, not financial advice.</p>
 ```
 
-`{{ .Token }}` is the 6-digit code. Do not include `{{ .ConfirmationURL }}` or `{{ .TokenHash }}`. A link in this message signs the browser into Auth. The signup page and the INNERG ID page both ask the person to type the code instead.
+`{{ .Token }}` is the 8-digit code. Do not include `{{ .ConfirmationURL }}` or `{{ .TokenHash }}`. A link in this message signs the browser into Auth. The signup page and the INNERG ID page both ask the person to type the code instead.
 
 Leave the reset-password template on its link. This change is only the two templates above.
 
 ## 4. Code length and expiry
 
-The code is 6 digits. The Email provider screen does not have a separate length field. Leave it at 6 so it matches the input on `/pulse/`.
+Auth already sends an 8-digit code. INNERG ID member sign-in uses that same length. Do not change it in the Supabase dashboard.
+
+`/pulse/` accepts 8 digits. `pulse_confirm_gate` rejects any other length before the code is checked with Auth.
 
 Open [Email provider](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/providers), then Email, then set **Email OTP expiration** to `900` seconds (15 minutes). Save.
 

@@ -37,6 +37,9 @@ test("public pages use the market desk voice", async () => {
   assert.match(page, /id="code-form" hidden/);
   assert.match(page, /id="done-panel" hidden/);
   assert.match(page, /data-pulse-page="signup"/);
+  assert.match(page, /minlength="8" maxlength="8" pattern="\[0-9\]\{8\}"/);
+  assert.match(page, /src="\.\.\/innergid\/assets\/innerg-member-badge\.png"/);
+  assert.match(page, /alt="INNERG member badge"/);
   assert.match(page, /canonical" href="https:\/\/nasirr\.innergintel\.org\/pulse\/"/);
   const leave = await readFile(new URL("unsubscribe/index.html", import.meta.url), "utf8");
   assert.match(leave, /data-pulse-page="unsubscribe"/);
