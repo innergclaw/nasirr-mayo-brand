@@ -1,88 +1,105 @@
 # INNERG PULSE signup setup
 
-The page is `https://nasirr.innergintel.org/pulse/`. Signup stores a subscriber only after a one-time code is entered on that page. The public Supabase key cannot read the list.
+The page is `https://nasirr.innergintel.org/pulse/`. A visitor enters an email, Supabase Auth emails a 6-digit code, and the address becomes active only after that code is checked. The public Supabase key cannot read the list.
 
 Project: `zkyhhoxcrjkhywblzehr` (`https://zkyhhoxcrjkhywblzehr.supabase.co`).
 
-The migration and the `innerg-pulse` function were applied to that project on October 21, 2026. Do not run the migration a second time there. Mail is not configured yet, so the page will say it could not send mail until you finish step 3.
+The list tables were created on October 21, 2026. The Auth handoff in `supabase/migrations/20261021173000_pulse_auth_otp.sql` was applied the same day. Do not run `supabase/migrations/20261021160000_pulse_subscribers.sql` again on this project. The Auth handoff is safe to run again.
+
+Until custom SMTP is saved, Auth's built-in mailer only delivers to addresses on the organization team, and only a few messages an hour. Everyone else sees "The desk could not send mail just now."
 
 ## 1. Database
 
-Migration file: `supabase/migrations/20261021160000_pulse_subscribers.sql`.
+Fresh database, in order:
 
-It creates `pulse_subscribers` and `pulse_rate_events`, turns on row level security, and grants no access to `anon` or `authenticated`. Codes are stored as HMAC hashes. The pepper is created in Vault as `pulse_otp_pepper`.
+1. `supabase/migrations/20261021160000_pulse_subscribers.sql`
+2. `supabase/migrations/20261021173000_pulse_auth_otp.sql`
 
-If this migration is not on the project yet, apply that file in the Supabase SQL editor, or with the CLI:
+This project already has both. The second file drops the old code columns and the old code functions. Codes are no longer stored in `pulse_subscribers`. Auth stores and checks them.
 
-```bash
-supabase db query --linked -f supabase/migrations/20261021160000_pulse_subscribers.sql
-```
+`pulse_subscribers` keeps email, status (`pending`, `active`, `unsubscribed`), timestamps, `unsubscribe_token`, and `auth_user_id`. `auth_user_id` points at the Auth user for that email. Deleting that Auth user clears the pointer and leaves the list row. It does not grant an INNERG ID membership.
 
-Do not run it twice. The pepper insert is skipped when `pulse_otp_pepper` already exists, but the tables are created only once.
+Row level security stays on. `anon` and `authenticated` have no grants.
 
 ## 2. Edge Function
 
 Source: `supabase/functions/innerg-pulse/`.
 
-`supabase/config.toml` sets `verify_jwt = false` for this function only. The page is public. The function still refuses to activate a subscription without the emailed code. Keep JWT checks on for the other functions.
+`supabase/config.toml` sets `verify_jwt = false` for this function only. The page is public. The function still refuses to activate a subscription until Auth accepts the emailed code. Keep JWT checks on for the other functions.
 
 ```bash
 supabase functions deploy innerg-pulse --project-ref zkyhhoxcrjkhywblzehr --no-verify-jwt
 ```
 
-## 3. Mail, pick one path
+The deployed function calls `POST /auth/v1/otp` and `POST /auth/v1/verify` with `type` set to `email`. That one type matches both a first-time code and a code for an address that already has an Auth user. After a match, the function marks the row active, sets `app_metadata.pulse_subscriber` to true, and signs out only that new session (`scope=local`). It does not send the session to the browser.
 
-The function sends nothing until one path below is configured. Set the secrets, then redeploy `innerg-pulse` so the new values are loaded.
+## 3. Email template
 
-### Path A, Gmail (same sender account as member mail)
+Auth has one Magic Link template and one Confirm signup template for the whole project. INNERG ID sign-in on `/account/` uses the same templates. Use a neutral code message. Do not write a PULSE-only letter here, or member sign-in mail will say it is only the newsletter.
 
-1. Sign in to Apps Script as `ownyourwebsmm@gmail.com`.
-2. Create a project named `INNERG PULSE codes`.
-3. Paste `automation/pulse-email/Code.gs`. Do not paste it over the member welcome script.
-4. In Project Settings, Script properties, add `WEBHOOK_SECRET` with a long random value.
-5. Deploy as a web app. Execute as the owner. Access: anyone with the web app URL.
-6. Copy the `/exec` URL.
+Open [Magic Link](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/templates) and [Confirm signup](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/templates).
 
-```bash
-supabase secrets set \
-  PULSE_GMAIL_WEBHOOK_URL="https://script.google.com/macros/s/DEPLOYMENT_ID/exec" \
-  PULSE_GMAIL_WEBHOOK_SECRET="the-same-webhook-secret" \
-  --project-ref zkyhhoxcrjkhywblzehr
+A new, unconfirmed address gets the Confirm signup template when Confirm email is enabled. An address that is already confirmed, including an INNERG ID member, gets the Magic Link template. Put the same code body in both.
+
+Subject, both templates:
+
+`Your INNERG verification code`
+
+Body, both templates:
+
+```html
+<h2>Your verification code</h2>
+<p>Enter this code on the page that asked for it:</p>
+<p>{{ .Token }}</p>
+<p>It expires in 15 minutes. If you did not request it, you can ignore this email.</p>
+<p>This code confirms an INNERG ID sign-in or a free INNERG PULSE subscription. This is news, not financial advice.</p>
 ```
 
-Gmail consumer accounts have a daily MailApp quota. A repeated send of the same code to the same address is ignored by the script.
+`{{ .Token }}` is the 6-digit code. Do not include `{{ .ConfirmationURL }}` or `{{ .TokenHash }}`. A link in this message signs the browser into Auth. The signup page and the INNERG ID page both ask the person to type the code instead.
 
-### Path B, Resend
+Leave the reset-password template on its link. This change is only the two templates above.
 
-Verify the sending domain in Resend, then:
+## 4. Code length and expiry
 
-```bash
-supabase secrets set \
-  RESEND_API_KEY="re_your_key" \
-  PULSE_FROM_EMAIL="INNERG PULSE <pulse@innergintel.org>" \
-  --project-ref zkyhhoxcrjkhywblzehr
-```
+The code is 6 digits. The Email provider screen does not have a separate length field. Leave it at 6 so it matches the input on `/pulse/`.
 
-### Path C, Brevo
+Open [Email provider](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/providers), then Email, then set **Email OTP expiration** to `900` seconds (15 minutes). Save.
 
-Use a key for this list. Do not reuse another product key from Vault.
+That clock is shared. `900` also shortens INNERG ID magic links, signup confirmation links, password recovery links, email-change links, and invite links. If those links need to stay at the default hour, leave the value at `3600` and change the sentence on `/pulse/` that says the code expires in 15 minutes. The page currently says 15 minutes.
 
-```bash
-supabase secrets set \
-  PULSE_BREVO_API_KEY="your-brevo-key" \
-  PULSE_FROM_EMAIL="INNERG PULSE <pulse@innergintel.org>" \
-  --project-ref zkyhhoxcrjkhywblzehr
-```
+Auth also waits about 60 seconds before it will email another code to the same address.
 
-`PULSE_FROM_EMAIL` must be a sender that provider has already verified. If more than one path is set, Gmail is used first, then Resend, then Brevo.
+## 5. Custom SMTP with a Gmail app password
 
-## 4. Smoke test
+The built-in mailer is not enough for a public list. Connect Gmail SMTP. Do not put the app password in this repo, and do not paste it into an Edge Function secret. It belongs only in the Auth SMTP form.
+
+1. Use the Google account that should send the codes. `ownyourwebsmm@gmail.com` is the account already used for member mail.
+2. Turn on 2-Step Verification for that Google account.
+3. Open `https://myaccount.google.com/apppasswords`.
+4. Create an app password named `INNERG Auth`. Copy the 16-character password.
+5. Open [SMTP settings](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/smtp).
+6. Enable custom SMTP.
+7. Host: `smtp.gmail.com`
+8. Port: `587`
+9. Username: the full Gmail address
+10. Password: the app password from step 4
+11. Sender email: the same Gmail address
+12. Sender name: `INNERG INTEL`
+13. Save.
+
+Gmail consumer accounts have a daily sending cap. After SMTP is on, Auth starts near 30 messages an hour until you raise it. Open [Rate limits](https://supabase.com/dashboard/project/zkyhhoxcrjkhywblzehr/auth/rate-limits) and set the email limit to a number the Gmail account can sustain.
+
+This SMTP path replaces the Apps Script, Resend, and Brevo options. Those are not used.
+
+## 6. Smoke test
 
 Open `/pulse/`, enter an email you can read, and confirm the code from that inbox. The page should move through code sent, then confirmed. A wrong code should stay on the code step and say the code is wrong or expired.
 
-Unsubscribe with the link in that email: `https://nasirr.innergintel.org/pulse/unsubscribe/?token=...`. The address is marked `unsubscribed` only after the button is pressed, so mail scanners that only open the link do not remove people.
+The browser does not keep an Auth session from this page. Signing in at `/account/` is a separate step. A confirmed newsletter address can later request a code there, the same as any address that has verified with Auth and has no membership yet. Member pages still require a row in `innerg_memberships`.
 
-## 5. Future issues
+Unsubscribe with the link you place in a future issue: `https://nasirr.innergintel.org/pulse/unsubscribe/?token=...`. The Auth code email cannot carry that per-address token. The address is marked `unsubscribed` only after the button is pressed, so mail scanners that only open the link do not remove people.
+
+## 7. Future issues
 
 Read active subscribers from the Supabase SQL editor (owner access), not from the public API:
 
@@ -108,15 +125,22 @@ Content-Type: `application/x-www-form-urlencoded`
 
 Mailbox providers may not send the Supabase `apikey` header. Use the web link above as the CAN-SPAM path until a one-click POST is verified from the mailbox.
 
-## 6. Limits
+## 8. Limits
 
-- 5 code emails per address per hour
-- 20 code emails per IP per hour
+The page still applies its own limits, hashed, with no raw email or IP stored:
+
+- 5 code requests per address per hour
+- 20 code requests per IP per hour
 - 10 confirm tries per address per hour
-- 5 wrong codes burn the current code
-- Codes expire after 15 minutes
-- A hidden `pulse_hp` field drops bot submits without sending mail
+- 30 confirm tries per IP per hour
+- A hidden `pulse_hp` field drops bot submits without calling Auth
 
-## 7. Leave the watchlist mirror alone
+Auth adds its own limit of about one code email per address per minute.
+
+## 9. Leave the watchlist mirror alone
 
 Do not edit `watchlist/` for this list. That folder is synced from the Market Pulse source repo.
+
+## 10. What this does not change
+
+Newsletter signup does not insert into `innerg_memberships`, does not call the member checkout functions, and does not sign the visitor in on the site. `app_metadata.pulse_subscriber` is only a marker that the service role can set. Member checks do not read it.

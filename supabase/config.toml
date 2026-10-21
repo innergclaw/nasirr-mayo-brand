@@ -1,5 +1,6 @@
-# Public newsletter endpoint. The function checks a honeypot, rate limits, and the emailed code.
-# It does not accept an INNERG ID session.
+# Public newsletter endpoint. Supabase Auth emails the 6-digit code.
+# The function checks the code with Auth, marks the address active, then revokes
+# only that new session. It does not accept an INNERG ID session from the browser.
 
 project_id = "zkyhhoxcrjkhywblzehr"
 

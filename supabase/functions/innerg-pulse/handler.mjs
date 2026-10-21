@@ -1,5 +1,3 @@
-import { mailRoute, sendCodeEmail } from "./mail.mjs";
-
 const PRODUCTION_ORIGIN = "https://nasirr.innergintel.org";
 
 export function normalizeEmail(value) {
@@ -67,6 +65,17 @@ async function readBody(req) {
   }
 }
 
+function publicStatus(kind) {
+  if (kind === "rate_limited") return jsonStatus(429, "rate_limited");
+  if (kind === "invalid_code") return jsonStatus(200, "invalid_code");
+  if (kind === "invalid_email") return jsonStatus(400, "invalid_email");
+  return jsonStatus(503, "unavailable");
+}
+
+function jsonStatus(http, status) {
+  return { http, status };
+}
+
 export async function handlePulse(req, deps) {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(req) });
   if (req.method !== "POST") return json(req, { status: "invalid_request" }, 405);
@@ -81,36 +90,39 @@ export async function handlePulse(req, deps) {
       if (honeypotFilled(body.data.pulse_hp)) return json(req, { status: "code_sent" });
       const email = normalizeEmail(body.data.email);
       if (!email) return json(req, { status: "invalid_email" }, 400);
-      if (!mailRoute(deps.env)) return json(req, { status: "unavailable" }, 503);
-      const prepared = await deps.prepare(email, ip);
-      if (prepared?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
-      if (prepared?.status === "invalid_email") return json(req, { status: "invalid_email" }, 400);
-      if (prepared?.status !== "code_ready" || !prepared.code || !prepared.unsubscribe_token) {
-        return json(req, { status: "unavailable" }, 503);
+      const gate = await deps.subscribeGate(email, ip);
+      if (gate?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
+      if (gate?.status === "invalid_email") return json(req, { status: "invalid_email" }, 400);
+      if (gate?.status !== "ok") return json(req, { status: "unavailable" }, 503);
+      const sent = await deps.requestOtp(email);
+      if (sent?.status !== "sent") {
+        const mapped = publicStatus(sent?.status);
+        return json(req, { status: mapped.status }, mapped.http);
       }
-      try {
-        await sendCodeEmail({
-          env: deps.env,
-          fetchImpl: deps.fetchImpl,
-          email,
-          code: prepared.code,
-          token: prepared.unsubscribe_token,
-        });
-      } catch {
-        await deps.clear(email).catch(() => {});
-        return json(req, { status: "unavailable" }, 503);
-      }
+      const noted = await deps.markPending(email);
+      if (noted?.status !== "pending") return json(req, { status: "unavailable" }, 503);
       return json(req, { status: "code_sent" });
     }
 
     if (action === "confirm") {
-      const email = String(body.data.email ?? "").trim().slice(0, 254);
+      const email = normalizeEmail(body.data.email);
       const code = String(body.data.code ?? "").trim().slice(0, 10);
-      const result = await deps.confirm(email, code, ip);
-      if (result?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
-      if (result?.status === "confirmed") return json(req, { status: "confirmed" });
-      if (result?.status === "invalid_code") return json(req, { status: "invalid_code" });
-      return json(req, { status: "unavailable" }, 503);
+      const gate = await deps.confirmGate(email, code, ip);
+      if (gate?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
+      if (gate?.status !== "ok") return json(req, { status: "invalid_code" });
+      const verified = await deps.verifyOtp(email, code);
+      if (verified?.accessToken) {
+        await deps.revokeSession(verified.accessToken).catch(() => {});
+      }
+      if (verified?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
+      if (verified?.status !== "verified" || !verified.user?.id) {
+        const mapped = publicStatus(verified?.status === "unavailable" ? "unavailable" : "invalid_code");
+        return json(req, { status: mapped.status }, mapped.http);
+      }
+      const activated = await deps.activate(email, verified.user.id);
+      if (activated?.status !== "confirmed") return json(req, { status: "unavailable" }, 503);
+      await deps.markPulse(verified.user).catch(() => {});
+      return json(req, { status: "confirmed" });
     }
 
     if (action === "unsubscribe") {

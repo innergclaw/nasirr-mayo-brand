@@ -1,12 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { classifyAuthFailure, markPulseSubscriber, pulseAppMetadata, requestAuthOtp, revokeAuthSession, verifyAuthOtp } from "./auth.mjs";
 import { handlePulse, normalizeEmail } from "./handler.mjs";
-import { buildCodeMessage, mailRoute, parseFrom, sendCodeEmail, unsubscribeUrl } from "./mail.mjs";
 
 const TOKEN = "ab".repeat(32);
 const CODE = "042315";
 const EMAIL = "reader@example.com";
+const ACCESS = "access-token-value";
+const USER_ID = "75677100-97b7-4578-92c5-cf131997b580";
 
 function request(body, { method = "POST", headers = {}, url = "https://zkyhhoxcrjkhywblzehr.supabase.co/functions/v1/innerg-pulse" } = {}) {
   return new Request(url, {
@@ -17,28 +19,49 @@ function request(body, { method = "POST", headers = {}, url = "https://zkyhhoxcr
 }
 
 function world(overrides = {}) {
-  const calls = { prepare: 0, clear: 0, confirm: 0, unsubscribe: 0, fetch: 0, fetchUrl: "", fetchBody: "" };
+  const calls = { subscribeGate: 0, markPending: 0, confirmGate: 0, activate: 0, unsubscribe: 0, requestOtp: 0, verifyOtp: 0, markPulse: null, revoked: "" };
   const deps = {
-    env: {
-      PULSE_GMAIL_WEBHOOK_URL: "https://script.google.com/macros/s/Abc_123-xyz/exec",
-      PULSE_GMAIL_WEBHOOK_SECRET: "test-secret",
+    subscribeGate: async () => {
+      calls.subscribeGate += 1;
+      return { status: "ok" };
     },
-    fetchImpl: async (url, options) => {
-      calls.fetch += 1;
-      calls.fetchUrl = url;
-      calls.fetchBody = options.body;
-      return { ok: true, status: 200, json: async () => ({ ok: true }) };
+    markPending: async () => {
+      calls.markPending += 1;
+      return { status: "pending" };
     },
-    prepare: async () => {
-      calls.prepare += 1;
-      return { status: "code_ready", code: CODE, unsubscribe_token: TOKEN, email: EMAIL };
+    confirmGate: async () => {
+      calls.confirmGate += 1;
+      return { status: "ok" };
     },
-    clear: async () => { calls.clear += 1; },
-    confirm: async () => { calls.confirm += 1; return { status: "confirmed" }; },
-    unsubscribe: async () => { calls.unsubscribe += 1; return { status: "unsubscribed" }; },
+    activate: async () => {
+      calls.activate += 1;
+      return { status: "confirmed" };
+    },
+    unsubscribe: async () => {
+      calls.unsubscribe += 1;
+      return { status: "unsubscribed" };
+    },
+    requestOtp: async () => {
+      calls.requestOtp += 1;
+      return { status: "sent" };
+    },
+    verifyOtp: async () => {
+      calls.verifyOtp += 1;
+      return {
+        status: "verified",
+        accessToken: ACCESS,
+        user: { id: USER_ID, app_metadata: { provider: "email", providers: ["email"] } },
+      };
+    },
+    markPulse: async (user) => {
+      calls.markPulse = user;
+    },
+    revokeSession: async (accessToken) => {
+      calls.revoked = accessToken;
+    },
     ...overrides,
   };
-  return { calls, deps: { ...deps, ...overrides } };
+  return { calls, deps };
 }
 
 test("email normalization matches the database check", () => {
@@ -47,42 +70,32 @@ test("email normalization matches the database check", () => {
   assert.equal(normalizeEmail("a@b.c"), "");
 });
 
-test("code mail stays on the pulse desk and carries the unsubscribe link", () => {
-  const link = unsubscribeUrl(TOKEN);
-  const message = buildCodeMessage({ code: CODE, unsubscribeUrl: link });
-  assert.equal(message.subject, "Your INNERG PULSE code");
-  assert.match(message.text, new RegExp(CODE));
-  assert.match(message.text, /This is news, not financial advice\./);
-  assert.match(message.text, /Your email is only used for INNERG PULSE\./);
-  assert.match(message.text, /US stocks and digital assets/);
-  assert.match(message.html, new RegExp(link.replace(/[?]/g, "\\?")));
-  assert.doesNotMatch(`${message.subject}\n${message.text}\n${message.html}`, /—|artificial intelligence|\bAI\b|ImportInfo/);
+test("pulse metadata keeps existing auth claims and only adds the list flag", () => {
+  const next = pulseAppMetadata({ provider: "google", providers: ["google"] });
+  assert.equal(next.provider, "google");
+  assert.deepEqual(next.providers, ["google"]);
+  assert.equal(next.pulse_subscriber, true);
+  assert.equal("role" in next, false);
 });
 
-test("mail route rejects a non-gmail webhook and prefers a valid gmail path", () => {
-  assert.equal(mailRoute({}), null);
-  assert.equal(mailRoute({ PULSE_GMAIL_WEBHOOK_URL: "https://evil.example/exec", PULSE_GMAIL_WEBHOOK_SECRET: "x" }), null);
-  assert.equal(mailRoute({
-    PULSE_GMAIL_WEBHOOK_URL: "https://script.google.com/macros/s/Abc/exec",
-    PULSE_GMAIL_WEBHOOK_SECRET: "x",
-    RESEND_API_KEY: "re_test",
-    PULSE_FROM_EMAIL: "INNERG PULSE <pulse@innergintel.org>",
-  }).provider, "gmail");
-  assert.equal(mailRoute({ RESEND_API_KEY: "re_test", PULSE_FROM_EMAIL: "pulse@innergintel.org" }).provider, "resend");
-  assert.deepEqual(parseFrom("INNERG PULSE <pulse@innergintel.org>"), { name: "INNERG PULSE", email: "pulse@innergintel.org" });
+test("auth failures map to the page states", () => {
+  assert.equal(classifyAuthFailure(429, { error_code: "over_email_send_rate_limit" }), "rate_limited");
+  assert.equal(classifyAuthFailure(403, { error_code: "otp_expired", msg: "Token has expired or is invalid" }), "invalid_code");
+  assert.equal(classifyAuthFailure(422, { msg: "Email address not authorized" }), "unavailable");
 });
 
-test("honeypot and missing mail do not issue a code", async () => {
+test("honeypot and a failed send do not store a pending row", async () => {
   const hp = world();
   const hpResponse = await handlePulse(request(JSON.stringify({ action: "subscribe", email: EMAIL, pulse_hp: "filled" })), hp.deps);
   assert.equal((await hpResponse.json()).status, "code_sent");
-  assert.equal(hp.calls.prepare, 0);
+  assert.equal(hp.calls.requestOtp, 0);
+  assert.equal(hp.calls.markPending, 0);
 
-  const unconfigured = world({ env: {} });
-  const response = await handlePulse(request(JSON.stringify({ action: "subscribe", email: EMAIL, pulse_hp: "" })), unconfigured.deps);
+  const unsent = world({ requestOtp: async () => ({ status: "unavailable" }) });
+  const response = await handlePulse(request(JSON.stringify({ action: "subscribe", email: EMAIL, pulse_hp: "" })), unsent.deps);
   assert.equal(response.status, 503);
   assert.equal((await response.json()).status, "unavailable");
-  assert.equal(unconfigured.calls.prepare, 0);
+  assert.equal(unsent.calls.markPending, 0);
 });
 
 test("a sent code is not returned to the browser", async () => {
@@ -92,38 +105,40 @@ test("a sent code is not returned to the browser", async () => {
   assert.equal(response.status, 200);
   assert.deepEqual(payload, { status: "code_sent" });
   assert.equal(JSON.stringify(payload).includes(CODE), false);
-  assert.equal(calls.fetchUrl, "https://script.google.com/macros/s/Abc_123-xyz/exec");
-  assert.match(calls.fetchBody, new RegExp(CODE));
-  assert.match(calls.fetchBody, /test-secret/);
-  assert.doesNotMatch(calls.fetchUrl, /test-secret/);
-  assert.equal(calls.clear, 0);
+  assert.equal(calls.requestOtp, 1);
+  assert.equal(calls.markPending, 1);
 });
 
-test("a mail failure clears the code", async () => {
-  const { calls, deps } = world({
-    fetchImpl: async () => ({ ok: false, status: 500, json: async () => ({ ok: false, error: "nope" }) }),
-  });
-  const response = await handlePulse(request(JSON.stringify({ action: "subscribe", email: EMAIL })), deps);
-  assert.equal(response.status, 503);
-  assert.equal(calls.clear, 1);
-  assert.equal(JSON.stringify(await response.json()).includes(CODE), false);
+test("confirm revokes only the new session and never returns it", async () => {
+  const { calls, deps } = world();
+  const response = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: CODE })), deps);
+  const text = await response.text();
+  assert.equal(response.status, 200);
+  assert.equal(text, JSON.stringify({ status: "confirmed" }));
+  assert.equal(text.includes(ACCESS), false);
+  assert.equal(calls.revoked, ACCESS);
+  assert.equal(calls.activate, 1);
+  assert.equal(calls.markPulse.id, USER_ID);
+  assert.equal(calls.markPulse.app_metadata.provider, "email");
+});
+
+test("a wrong code does not activate the list", async () => {
+  const bad = world({ verifyOtp: async () => ({ status: "invalid_code" }) });
+  const invalid = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: "000000" })), bad.deps);
+  assert.equal((await invalid.json()).status, "invalid_code");
+  assert.equal(bad.calls.activate, 0);
+  assert.equal(bad.calls.revoked, "");
 });
 
 test("confirm and unsubscribe keep their public states", async () => {
-  const bad = world({ confirm: async () => ({ status: "invalid_code" }) });
-  const invalid = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: "000000" })), bad.deps);
-  assert.equal((await invalid.json()).status, "invalid_code");
-
-  const limited = world({ confirm: async () => ({ status: "rate_limited" }) });
+  const limited = world({ confirmGate: async () => ({ status: "rate_limited" }) });
   const limitedResponse = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: CODE })), limited.deps);
   assert.equal(limitedResponse.status, 429);
+  assert.equal(limited.calls.verifyOtp, 0);
 
-  const ok = world();
-  const confirmed = await handlePulse(request(JSON.stringify({ action: "confirm", email: EMAIL, code: CODE })), ok.deps);
-  assert.equal((await confirmed.json()).status, "confirmed");
-
-  const removed = await handlePulse(request(JSON.stringify({ action: "unsubscribe", token: TOKEN })), ok.deps);
-  assert.equal((await removed.json()).status, "unsubscribed");
+  const removed = world();
+  const gone = await handlePulse(request(JSON.stringify({ action: "unsubscribe", token: TOKEN })), removed.deps);
+  assert.equal((await gone.json()).status, "unsubscribed");
 
   const missing = world({ unsubscribe: async () => ({ status: "invalid_token" }) });
   const nope = await handlePulse(request(JSON.stringify({ action: "unsubscribe", token: "nope" })), missing.deps);
@@ -133,7 +148,10 @@ test("confirm and unsubscribe keep their public states", async () => {
 test("one-click form posts unsubscribe with the token from the query", async () => {
   let seen = "";
   const { deps } = world({
-    unsubscribe: async (token) => { seen = token; return { status: "unsubscribed" }; },
+    unsubscribe: async (token) => {
+      seen = token;
+      return { status: "unsubscribed" };
+    },
   });
   const response = await handlePulse(request("List-Unsubscribe=One-Click", {
     headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -152,20 +170,59 @@ test("localhost can call the function during a desk check", async () => {
   assert.equal(response.headers.get("access-control-allow-origin"), "http://127.0.0.1:4173");
 });
 
-test("the gmail script only accepts pulse code mail", async () => {
-  const source = await readFile(new URL("../../../automation/pulse-email/Code.gs", import.meta.url), "utf8");
-  assert.match(source, /messageType !== 'pulse_code'/);
-  assert.match(source, /This is news, not financial advice\./);
-  assert.match(source, /Your email is only used for INNERG PULSE\./);
-  assert.doesNotMatch(source, /member_welcome|trial_day_|—|artificial intelligence|\bAI\b|ImportInfo/);
-});
+test("auth calls use the code check, a local sign-out, and no membership write", async () => {
+  const seen = [];
+  const fetchImpl = async (url, options) => {
+    seen.push({ url, options });
+    if (String(url).endsWith("/otp")) return { ok: true, status: 200, json: async () => ({}) };
+    if (String(url).endsWith("/verify")) {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          access_token: ACCESS,
+          refresh_token: "refresh-token-value",
+          user: { id: USER_ID, email: EMAIL, app_metadata: { provider: "email", providers: ["email"] } },
+        }),
+      };
+    }
+    return { ok: true, status: 200, json: async () => ({}) };
+  };
+  const auth = { authUrl: "https://example.supabase.co/auth/v1", anonKey: "anon-key", serviceKey: "service-key", fetchImpl };
+  assert.equal((await requestAuthOtp({ ...auth, email: EMAIL })).status, "sent");
+  const verified = await verifyAuthOtp({ ...auth, email: EMAIL, code: CODE });
+  assert.equal(verified.status, "verified");
+  assert.equal(await markPulseSubscriber({ ...auth, user: verified.user }), true);
+  assert.equal(await revokeAuthSession({ ...auth, accessToken: verified.accessToken }), true);
 
-test("sendCodeEmail refuses a redirect", async () => {
-  await assert.rejects(() => sendCodeEmail({
-    env: { RESEND_API_KEY: "re_test", PULSE_FROM_EMAIL: "pulse@innergintel.org" },
-    fetchImpl: async () => ({ ok: false, status: 302, json: async () => ({}) }),
-    email: EMAIL,
-    code: CODE,
-    token: TOKEN,
-  }));
+  const otp = seen[0];
+  assert.equal(otp.url, "https://example.supabase.co/auth/v1/otp");
+  assert.equal(JSON.parse(otp.options.body).create_user, true);
+  assert.equal(otp.options.headers.apikey, "anon-key");
+
+  const verify = seen[1];
+  assert.equal(JSON.parse(verify.options.body).type, "email");
+  assert.equal(JSON.parse(verify.options.body).token, CODE);
+
+  const mark = seen[2];
+  assert.equal(mark.url, `https://example.supabase.co/auth/v1/admin/users/${USER_ID}`);
+  assert.equal(mark.options.headers.Authorization, "Bearer service-key");
+  const markBody = JSON.parse(mark.options.body);
+  assert.deepEqual(Object.keys(markBody), ["app_metadata"]);
+  assert.equal(markBody.app_metadata.provider, "email");
+  assert.equal(markBody.app_metadata.pulse_subscriber, true);
+  assert.equal("role" in markBody, false);
+
+  const logout = seen[3];
+  assert.equal(logout.url, "https://example.supabase.co/auth/v1/logout?scope=local");
+  assert.equal(logout.options.headers.Authorization, `Bearer ${ACCESS}`);
+  assert.equal(logout.options.headers.apikey, "anon-key");
+  assert.doesNotMatch(logout.url, /scope=global/);
+
+  const names = ["handler.mjs", "auth.mjs", "index.ts"];
+  const banned = /—|artificial intelligence|\bAI\b|ImportInfo|RESEND_|PULSE_BREVO|PULSE_GMAIL|script\.google\.com|innerg_memberships/;
+  for (const name of names) {
+    const source = await readFile(new URL(name, import.meta.url), "utf8");
+    assert.doesNotMatch(source, banned, name);
+  }
 });

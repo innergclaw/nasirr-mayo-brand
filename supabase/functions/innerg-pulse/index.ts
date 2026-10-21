@@ -1,38 +1,34 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.112.4";
+import { markPulseSubscriber, requestAuthOtp, revokeAuthSession, verifyAuthOtp } from "./auth.mjs";
 import { handlePulse } from "./handler.mjs";
 
-const db = createClient(Deno.env.get("SUPABASE_URL") ?? "", Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "", {
-  auth: { persistSession: false },
-});
+const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+const anonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const authUrl = supabaseUrl ? `${supabaseUrl}/auth/v1` : "";
 
-function envGet(name: string) {
-  return Deno.env.get(name) ?? "";
-}
-
-const env = {
-  get PULSE_GMAIL_WEBHOOK_URL() { return envGet("PULSE_GMAIL_WEBHOOK_URL"); },
-  get PULSE_GMAIL_WEBHOOK_SECRET() { return envGet("PULSE_GMAIL_WEBHOOK_SECRET"); },
-  get RESEND_API_KEY() { return envGet("RESEND_API_KEY"); },
-  get PULSE_BREVO_API_KEY() { return envGet("PULSE_BREVO_API_KEY"); },
-  get PULSE_FROM_EMAIL() { return envGet("PULSE_FROM_EMAIL"); },
-};
+const db = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
 
 Deno.serve((req) => handlePulse(req, {
-  env,
-  fetchImpl: fetch,
-  prepare: async (email: string, ip: string) => {
-    const { data, error } = await db.rpc("pulse_prepare_code", { p_email: email, p_ip: ip });
-    if (error) throw new Error("prepare_failed");
+  subscribeGate: async (email: string, ip: string) => {
+    const { data, error } = await db.rpc("pulse_subscribe_gate", { p_email: email, p_ip: ip });
+    if (error) throw new Error("subscribe_gate_failed");
     return data;
   },
-  clear: async (email: string) => {
-    const { error } = await db.rpc("pulse_clear_code", { p_email: email });
-    if (error) throw new Error("clear_failed");
+  markPending: async (email: string) => {
+    const { data, error } = await db.rpc("pulse_mark_pending", { p_email: email });
+    if (error) throw new Error("mark_pending_failed");
+    return data;
   },
-  confirm: async (email: string, code: string, ip: string) => {
-    const { data, error } = await db.rpc("pulse_confirm_code", { p_email: email, p_code: code, p_ip: ip });
-    if (error) throw new Error("confirm_failed");
+  confirmGate: async (email: string, code: string, ip: string) => {
+    const { data, error } = await db.rpc("pulse_confirm_gate", { p_email: email, p_code: code, p_ip: ip });
+    if (error) throw new Error("confirm_gate_failed");
+    return data;
+  },
+  activate: async (email: string, authUserId: string) => {
+    const { data, error } = await db.rpc("pulse_activate", { p_email: email, p_auth_user_id: authUserId });
+    if (error) throw new Error("activate_failed");
     return data;
   },
   unsubscribe: async (token: string, ip: string) => {
@@ -40,4 +36,13 @@ Deno.serve((req) => handlePulse(req, {
     if (error) throw new Error("unsubscribe_failed");
     return data;
   },
+  requestOtp: (email: string) => requestAuthOtp({ authUrl, anonKey, fetchImpl: fetch, email }),
+  verifyOtp: (email: string, code: string) => verifyAuthOtp({ authUrl, anonKey, fetchImpl: fetch, email, code }),
+  markPulse: (user: { id: string, app_metadata?: Record<string, unknown> }) => markPulseSubscriber({
+    authUrl,
+    serviceKey,
+    fetchImpl: fetch,
+    user,
+  }),
+  revokeSession: (accessToken: string) => revokeAuthSession({ authUrl, anonKey, fetchImpl: fetch, accessToken }),
 }));

@@ -1,6 +1,8 @@
 -- INNERG PULSE free newsletter.
 -- The public API key cannot read or write these tables.
--- Edge Function innerg-pulse uses the service role to issue codes and confirm them.
+-- This file creates the first list tables. 20261021173000_pulse_auth_otp.sql
+-- hands the 6-digit code to Supabase Auth. Run this file first on a new database,
+-- then that file. Do not run this file again on project zkyhhoxcrjkhywblzehr.
 
 create table public.pulse_subscribers (
   id uuid primary key default gen_random_uuid(),
