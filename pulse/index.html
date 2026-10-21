@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#151513" />
+  <meta name="description" content="Free INNERG PULSE market updates. News recaps on US stocks and digital assets. Education only. This is news, not financial advice." />
+  <title>INNERG PULSE Market Updates</title>
+  <meta property="og:title" content="INNERG PULSE Market Updates" />
+  <meta property="og:description" content="Free market news recaps on US stocks and digital assets. Education only. This is news, not financial advice." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nasirr.innergintel.org/pulse/" />
+  <link rel="canonical" href="https://nasirr.innergintel.org/pulse/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pulse.css?v=pulse-1" />
+  <script type="module" src="pulse.js?v=pulse-1"></script>
+</head>
+<body data-pulse-page="signup">
+  <a class="skip-link" href="#signup">Skip to signup</a>
+  <header class="site-header">
+    <a href="https://nasirr.innergintel.org/">INNERG INTEL</a>
+    <a href="https://nasirr.innergintel.org/watchlist/">Market Pulse</a>
+  </header>
+  <main class="desk" id="signup">
+    <div>
+      <p class="public-label">Free list</p>
+      <p class="eyebrow">INNERG INTEL / Market desk</p>
+      <h1 id="page-title">INNERG PULSE</h1>
+      <p class="hero-copy">Market updates, free.</p>
+      <p class="intro">Short recaps of what moved in US stocks and digital assets. Written in plain language for people learning the market. Education only. No membership is required.</p>
+      <p class="advice">This is news, not financial advice.</p>
+      <dl class="gets">
+        <div><dt>What arrives</dt><dd>Market news recaps on US stocks and digital assets.</dd></div>
+        <div><dt>How it reads</dt><dd>Plain-language context for the move, so the headline is easier to follow.</dd></div>
+        <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns.</dd></div>
+      </dl>
+    </div>
+    <section class="panel" id="signup-panel" aria-labelledby="panel-title">
+      <h2 id="panel-title">Get the updates</h2>
+      <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
+      <form id="email-form">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com" />
+        <div class="hp" aria-hidden="true">
+          <label for="pulse-hp">Leave this empty</label>
+          <input id="pulse-hp" name="pulse_hp" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit">Send my code</button>
+      </form>
+      <form id="code-form" hidden>
+        <p id="sent-to" class="sent-to"></p>
+        <label for="code">One-time code</label>
+        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" />
+        <button type="submit">Confirm code</button>
+        <div class="actions">
+          <button id="resend-code" class="quiet" type="button">Send a new code</button>
+          <button id="change-email" class="quiet" type="button">Use a different email</button>
+        </div>
+      </form>
+      <div id="done-panel" hidden>
+        <p class="done-note">You can leave the list from the unsubscribe link in any issue.</p>
+        <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
+      </div>
+      <p class="privacy">Your email is only used for INNERG PULSE. Unsubscribe anytime.</p>
+    </section>
+  </main>
+  <footer>
+    <p>Research and education. Not financial advice.<br />Nasirr G. Mayo, INNERG INTEL</p>
+    <a href="https://nasirr.innergintel.org/watchlist/">Public Market Pulse</a>
+  </footer>
+  <noscript><p class="desk">JavaScript is required to confirm your email. The public charts remain available on the <a href="https://nasirr.innergintel.org/watchlist/">Market Pulse watchlist</a>.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Public newsletter endpoint. The function checks a honeypot, rate limits, and the emailed code.
+# It does not accept an INNERG ID session.
+
+project_id = "zkyhhoxcrjkhywblzehr"
+
+[functions.innerg-pulse]
+verify_jwt = false
