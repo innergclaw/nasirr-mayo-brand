@@ -14,8 +14,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="pulse.css?v=pulse-8" />
+  <link rel="stylesheet" href="pulse.css?v=pulse-samples-2" />
   <script type="module" src="pulse.js?v=pulse-8"></script>
+  <script type="module" src="samples.js?v=pulse-samples-2"></script>
 </head>
 <body data-pulse-page="signup">
   <a class="skip-link" href="#signup">Skip to signup</a>
@@ -27,7 +28,7 @@
     <a href="https://nasirr.innergintel.org/watchlist/">Market Pulse</a>
   </header>
   <main class="desk" id="signup">
-    <div>
+    <div class="lede">
       <p class="public-label">Free list</p>
       <p class="eyebrow">INNERG INTEL / Market desk</p>
       <h1 id="page-title">INNERG PULSE</h1>
@@ -39,6 +40,7 @@
         <div><dt>How it reads</dt><dd>Plain-language context for the move, so the headline is easier to follow.</dd></div>
         <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns.</dd></div>
       </dl>
+      <p class="intro"><a href="#samples">See what you get</a></p>
     </div>
     <section class="panel" id="signup-panel" aria-labelledby="panel-title">
       <h2 id="panel-title">Get the updates</h2>
@@ -67,6 +69,64 @@
         <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
       </div>
       <p class="privacy">Your email is only used for INNERG PULSE. Unsubscribe anytime.</p>
+    </section>
+    <section class="samples" id="samples" data-samples aria-labelledby="samples-title">
+      <div class="samples-intro">
+        <h2 id="samples-title">See what you get</h2>
+        <p>Two sample issues from one trading day. The scenes below are example data, written so you can preview the shape of INNERG PULSE before you subscribe.</p>
+      </div>
+      <div class="sample-rail" data-sample-rail aria-label="Sample issues">
+        <article class="sample-card" data-sample-card>
+          <div class="issue-sheet">
+            <header class="issue-mast">
+              <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
+              <p>INNERG PULSE</p>
+              <p class="sample-flag">SAMPLE</p>
+            </header>
+            <p class="issue-when">Pre-market ~ 8:15 AM ET</p>
+            <h3>Before the cash open</h3>
+            <p class="sample-note">Example data, not a live reading.</p>
+            <div class="sample-split">
+              <section class="sample-block">
+                <h4>US stocks</h4>
+                <p>Example: index futures are pointed higher into the cash open, and a large tech group is indicated with them. The note says what that usually means for the first hour, in plain words.</p>
+              </section>
+              <section class="sample-block">
+                <h4>Digital assets</h4>
+                <p>Example: a large coin is firm overnight, on its own clock. The note keeps that move separate from the stock open, so the two stories are not treated as one.</p>
+              </section>
+            </div>
+            <p class="advice">This is news, not financial advice.</p>
+          </div>
+        </article>
+        <article class="sample-card" data-sample-card>
+          <div class="issue-sheet">
+            <header class="issue-mast">
+              <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
+              <p>INNERG PULSE</p>
+              <p class="sample-flag">SAMPLE</p>
+            </header>
+            <p class="issue-when">After the close ~ 6:15 PM ET</p>
+            <h3>What to watch next trading day</h3>
+            <p class="sample-note">Example data, not a live reading.</p>
+            <div class="sample-split">
+              <section class="sample-block">
+                <h4>US stocks</h4>
+                <p>Example: one sector led the cash session and another lagged. The note names that split, then sets tomorrow's watch: whether it is still there at the next open.</p>
+              </section>
+              <section class="sample-block">
+                <h4>Digital assets</h4>
+                <p>Example: a large coin held a range after the stock close. Tomorrow's watch is whether that range breaks while the stock market is shut.</p>
+              </section>
+            </div>
+            <p class="advice">This is news, not financial advice.</p>
+          </div>
+        </article>
+      </div>
+      <div class="sample-nav">
+        <button class="quiet" type="button" data-sample-go="0" aria-pressed="true">Pre-market sample</button>
+        <button class="quiet" type="button" data-sample-go="1" aria-pressed="false">After-close sample</button>
+      </div>
     </section>
   </main>
   <footer>

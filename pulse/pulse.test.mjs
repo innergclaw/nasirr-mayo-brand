@@ -24,7 +24,7 @@ test("unsubscribe tokens are 64 hex characters", () => {
 });
 
 test("public pages use the market desk voice", async () => {
-  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "SETUP.md"];
+  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "samples.js", "SETUP.md"];
   for (const file of files) {
     const source = await readFile(new URL(file, import.meta.url), "utf8");
     assert.doesNotMatch(source, banned, file);
@@ -41,6 +41,27 @@ test("public pages use the market desk voice", async () => {
   assert.match(page, /src="\.\.\/innergid\/assets\/innerg-member-badge\.png"/);
   assert.match(page, /alt="INNERG member badge"/);
   assert.match(page, /canonical" href="https:\/\/nasirr\.innergintel\.org\/pulse\/"/);
+  assert.match(page, /id="samples"/);
+  assert.match(page, /See what you get/);
+  assert.match(page, /Pre-market ~ 8:15 AM ET/);
+  assert.match(page, /After the close ~ 6:15 PM ET/);
+  assert.match(page, /What to watch next trading day/);
+  assert.equal((page.match(/SAMPLE/g) || []).length, 2);
+  assert.equal((page.match(/<h4>US stocks<\/h4>/g) || []).length, 2);
+  assert.equal((page.match(/<h4>Digital assets<\/h4>/g) || []).length, 2);
+  assert.equal((page.match(/Example data, not a live reading\./g) || []).length, 2);
+  assert.equal((page.match(/This is news, not financial advice\./g) || []).length, 5);
+  const motion = await readFile(new URL("samples.js", import.meta.url), "utf8");
+  const css = await readFile(new URL("pulse.css", import.meta.url), "utf8");
+  assert.match(motion, /IntersectionObserver/);
+  assert.match(motion, /prefers-reduced-motion/);
+  assert.match(css, /animation-timeline: view\(\)/);
+  assert.match(css, /blur\(8px\)/);
+  assert.match(css, /scale\(0\.96\)/);
+  assert.match(css, /data-motion="swipe"/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(page, /id="email-form"/);
+  assert.match(page, /id="code-form" hidden/);
   const leave = await readFile(new URL("unsubscribe/index.html", import.meta.url), "utf8");
   assert.match(leave, /data-pulse-page="unsubscribe"/);
   assert.match(leave, /noindex/);
