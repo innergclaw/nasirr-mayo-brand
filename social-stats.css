@@ -43,7 +43,7 @@
 
 .social-stats__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) repeat(2, minmax(0, 0.75fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -79,6 +79,17 @@
     0 0 0 1px rgba(23, 23, 23, 0.08),
     0 1px 2px -1px rgba(23, 23, 23, 0.08),
     0 10px 24px rgba(107, 137, 25, 0.16);
+}
+
+.social-stats__card--tiktok {
+  color: #f8f8f4;
+  background:
+    radial-gradient(circle at 8% 100%, rgba(37, 244, 238, 0.42), transparent 44%),
+    radial-gradient(circle at 100% 0%, rgba(254, 44, 85, 0.5), transparent 52%),
+    #111111;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(17, 17, 17, 0.14);
 }
 
 .social-stats__card--instagram {
