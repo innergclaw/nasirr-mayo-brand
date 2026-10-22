@@ -21,6 +21,13 @@
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">236,267</strong><small>Views</small></div>
           </div>
         </article>
+        <article class="social-stats__card social-stats__card--tiktok" aria-label="TikTok has 256 followers and 11,177 likes">
+          <span class="social-stats__platform">TikTok</span>
+          <div class="social-stats__metrics">
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="256" aria-hidden="true">256</strong><small>Followers</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="11177" data-count-format="comma" aria-hidden="true">11,177</strong><small>Likes</small></div>
+          </div>
+        </article>
         <article class="social-stats__card social-stats__card--instagram" aria-label="More than 11,000 followers across Instagram">
           <span class="social-stats__platform">Instagram</span>
           <div class="social-stats__metrics">
