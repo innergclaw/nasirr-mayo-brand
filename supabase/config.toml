@@ -1,0 +1,8 @@
+# Public newsletter endpoint. Supabase Auth emails the 8-digit code.
+# The function checks the code with Auth, marks the address active, then revokes
+# only that new session. It does not accept an INNERG ID session from the browser.
+
+project_id = "zkyhhoxcrjkhywblzehr"
+
+[functions.innerg-pulse]
+verify_jwt = false
