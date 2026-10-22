@@ -1,7 +1,7 @@
 (() => {
   const sectionId = "social-audience-stats";
-  const fallbackSubscribers = 748;
-  const fallbackViews = 225000;
+  const fallbackSubscribers = 781;
+  const fallbackViews = 236267;
 
   const buildSection = (page, subscribers = fallbackSubscribers) => {
     const section = document.createElement("section");
@@ -14,11 +14,11 @@
         <span>Current audience</span>
       </div>
       <div class="social-stats__grid">
-        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and 225,000 views">
+        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and 236,267 views">
           <span class="social-stats__platform">YouTube</span>
           <div class="social-stats__metrics">
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${subscribers}" data-count-source="youtube" aria-hidden="true">${subscribers}</strong><small>Subscribers</small></div>
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">225,000</strong><small>Views</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">236,267</strong><small>Views</small></div>
           </div>
         </article>
         <article class="social-stats__card social-stats__card--instagram" aria-label="More than 10,000 followers across Instagram">
