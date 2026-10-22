@@ -21,10 +21,10 @@
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">236,267</strong><small>Views</small></div>
           </div>
         </article>
-        <article class="social-stats__card social-stats__card--instagram" aria-label="More than 10,000 followers across Instagram">
+        <article class="social-stats__card social-stats__card--instagram" aria-label="More than 11,000 followers across Instagram">
           <span class="social-stats__platform">Instagram</span>
           <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="10" data-count-suffix="K+" aria-hidden="true">10K+</strong><small>Followers</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="11" data-count-suffix="K+" aria-hidden="true">11K+</strong><small>Followers</small></div>
           </div>
         </article>
         <article class="social-stats__card social-stats__card--impact" aria-label="More than 500 founders and business owners helped">
