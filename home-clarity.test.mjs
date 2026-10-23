@@ -9,7 +9,7 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=\d+/);
-  assert.match(home, /home-clarity\.js\?v=15/);
+  assert.match(home, /home-clarity\.js\?v=\d+/);
 });
 
 test("skills follows about me with native disclosures and press me labels", () => {
@@ -23,7 +23,9 @@ test("skills follows about me with native disclosures and press me labels", () =
     assert.doesNotMatch(disclosure, /<details[^>]*\sopen(?:\s|>|=)/);
     assert.doesNotMatch(disclosure, />\+<\/span>/);
   }
-  assert.equal((disclosures[1].match(/<li>/g) ?? []).length, 6);
+  assert.equal((disclosures[1].match(/<li>/g) ?? []).length, 8);
+  assert.match(disclosures[1], /href="https:\/\/innergclaw\.github\.io\/innerg-skill-graph\/" target="_blank"/);
+  assert.match(disclosures[1], /see my skills in motion/);
   assert.match(script, /about\.insertAdjacentElement\("afterend", skills\)/);
   assert.match(script, /\(skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
   assert.match(styles, /\.about summary\s*\{\s*min-height:\s*44px/);
@@ -80,7 +82,7 @@ test("scheduled calls use phone icons and Odyssey uses the featured glow", async
   assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
   assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
   assert.doesNotMatch(booking, /new MutationObserver/);
-  assert.match(odysseyScript, /const anchor = linkList \|\| booking \|\| video/);
+  assert.match(odysseyScript, /\.odyssey-card/);
   assert.match(home, /odyssey-card\.js\?v=\d+/);
   assert.match(odyssey, /border-radius:\s*18px/);
   assert.match(odyssey, /conic-gradient/);
