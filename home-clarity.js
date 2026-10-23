@@ -1,5 +1,5 @@
 (() => {
-  const sectionId = "official-channels";
+  const sectionId = "professional-links";
   const pageDescription =
     "Nasirr G. Mayo helps founders, creatives, and business owners build brands, websites, and digital systems they can own.";
   const channels = [
@@ -58,28 +58,26 @@
   };
 
   const buildChannels = () => {
-    const section = document.createElement("section");
+    const section = document.createElement("details");
     section.id = sectionId;
-    section.className = "official-channels";
-    section.setAttribute("aria-labelledby", "official-channels-title");
+    section.className = "about professional-links";
     section.innerHTML = `
-      <div class="official-channels__heading">
-        <div>
-          <p>OFFICIAL CHANNELS</p>
-          <h2 id="official-channels-title">Find me without searching.</h2>
-        </div>
-        <span>These are the accounts I use for my public work.</span>
-      </div>
-      <div class="official-channels__grid">
-        ${channels
-          .map(
-            ({ name, handle, href }) => `
-              <a class="official-channel" href="${href}" target="_blank" rel="noopener noreferrer">
-                <span><strong>${name}</strong><small>${handle}</small></span>
-                <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
-              </a>`,
-          )
-          .join("")}
+      <summary id="professional-links-title">
+        <span class="section-label">my professional links</span>
+        <span class="about-toggle" aria-hidden="true">press me</span>
+      </summary>
+      <div class="about-copy">
+        <ul class="professional-links-list" aria-label="My professional links">
+          ${channels
+            .map(
+              ({ name, handle, href }) => `
+                <li><a class="professional-link" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${name}, ${handle} (opens in a new tab)">
+                  <span><strong>${name}</strong><small>${handle}</small></span>
+                  <svg class="home-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                </a></li>`,
+            )
+            .join("")}
+        </ul>
       </div>`;
     return section;
   };
@@ -104,7 +102,7 @@
 
     const header = document.querySelector(".profile-header");
     const role = header?.querySelector(".profile-role");
-    const about = document.querySelector(".about:not(.skills)");
+    const about = document.querySelector(".about:not(.skills):not(.professional-links)");
     const skills = document.getElementById("skills");
     if (header && role && about && role.nextElementSibling !== about) {
       role.insertAdjacentElement("afterend", about);
@@ -112,15 +110,20 @@
     if (header && about && skills && about.nextElementSibling !== skills) {
       about.insertAdjacentElement("afterend", skills);
     }
+    document.getElementById("official-channels")?.remove();
+    let links = document.getElementById(sectionId);
+    if (header && (skills || about) && !links) {
+      links = buildChannels();
+      (skills || about).insertAdjacentElement("afterend", links);
+    }
+    if (links && skills && skills.nextElementSibling !== links) {
+      skills.insertAdjacentElement("afterend", links);
+    }
     header?.querySelectorAll(".profile-statement").forEach((item) => item.remove());
     if (header && role && !header.querySelector(".profile-actions")) {
-      (skills || about || role).after(buildProfileActions());
+      (links || skills || about || role).after(buildProfileActions());
     }
 
-    const stats = document.getElementById("social-audience-stats");
-    if (stats && !document.getElementById(sectionId)) {
-      stats.insertAdjacentElement("afterend", buildChannels());
-    }
 
     const booking = document.getElementById("talk-business");
     const bookingLabel = booking?.querySelector(".section-label");
@@ -154,7 +157,6 @@
     }
     const orderedSections = [
       document.getElementById("social-audience-stats"),
-      document.getElementById(sectionId),
       video,
       linkList,
       ambassador,
