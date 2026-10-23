@@ -14,13 +14,13 @@
         <span>Current audience</span>
       </div>
       <div class="social-stats__grid">
-        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has ${subscribers} subscribers and 236,267 views">
-          <span class="social-stats__platform">YouTube</span>
+        <a class="social-stats__card social-stats__card--youtube" href="https://www.youtube.com/@innergintel?sub_confirmation=1" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to InnerG Intel on YouTube. ${subscribers} subscribers and 236,267 views. Opens in a new tab.">
+          <span class="social-stats__platform">Subscribe To InnerG Intel Youtube Channel</span>
           <div class="social-stats__metrics">
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${subscribers}" data-count-source="youtube" aria-hidden="true">${subscribers}</strong><small>Subscribers</small></div>
             <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">236,267</strong><small>Views</small></div>
           </div>
-        </article>
+        </a>
         <article class="social-stats__card social-stats__card--tiktok" aria-label="TikTok has 256 followers and 11,177 likes">
           <span class="social-stats__platform">TikTok</span>
           <div class="social-stats__metrics">
@@ -131,7 +131,7 @@
     } catch {
       /* Keep the fallback counts already rendered in the card. */
     }
-    const label = `YouTube has ${new Intl.NumberFormat("en-US").format(subscribers)} subscribers and ${new Intl.NumberFormat("en-US").format(views)} views`;
+    const label = `Subscribe to InnerG Intel on YouTube. ${new Intl.NumberFormat("en-US").format(subscribers)} subscribers and ${new Intl.NumberFormat("en-US").format(views)} views. Opens in a new tab.`;
     applyCount(section, "youtube", subscribers, label);
     applyCount(section, "youtube-views", views, label);
   };
