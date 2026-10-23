@@ -70,15 +70,56 @@
     0 12px 28px rgba(23, 23, 23, 0.12);
 }
 
-.social-stats__card--impact {
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.62), transparent 42%),
-    #c7ff38;
+.social-stats__card--duo {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  background: linear-gradient(90deg, #6f214f 0%, #8a2a8f 46%, #c7ff38 54%);
   box-shadow:
     0 0 0 1px rgba(23, 23, 23, 0.08),
-    0 1px 2px -1px rgba(23, 23, 23, 0.08),
-    0 10px 24px rgba(107, 137, 25, 0.16);
+    0 12px 28px rgba(92, 28, 70, 0.14);
+}
+
+.social-stats__half {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px;
+}
+
+.social-stats__half.social-stats__card--instagram {
+  color: #fff8f5;
+  background:
+    radial-gradient(circle at 12% 100%, rgba(255, 178, 64, 0.88), transparent 52%),
+    radial-gradient(circle at 100% 0%, rgba(179, 60, 255, 0.78), transparent 60%),
+    linear-gradient(90deg, #6f214f 0%, #7d2470 100%);
+}
+
+.social-stats__half.social-stats__card--impact {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 0.62), transparent 46%),
+    linear-gradient(90deg, #b8f236 0%, #c7ff38 22%);
+}
+
+.social-stats__half.social-stats__card--impact::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+  width: 1px;
+  background: rgba(23, 23, 23, 0.16);
+}
+
+.social-stats__card--instagram .social-stats__platform,
+.social-stats__card--instagram .social-stats__metric small {
+  color: rgba(255, 240, 248, 0.78);
 }
 
 .social-stats__card--tiktok {
@@ -90,17 +131,6 @@
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
     0 12px 28px rgba(17, 17, 17, 0.14);
-}
-
-.social-stats__card--instagram {
-  color: #fff8f5;
-  background:
-    radial-gradient(circle at 12% 100%, rgba(255, 178, 64, 0.88), transparent 46%),
-    radial-gradient(circle at 100% 0%, rgba(179, 60, 255, 0.78), transparent 54%),
-    #6f214f;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 12px 28px rgba(92, 28, 70, 0.14);
 }
 
 .social-stats__platform {
@@ -173,6 +203,14 @@
   padding: 22px;
 }
 
+.social-stats--mentorship .social-stats__card--duo {
+  padding: 0;
+}
+
+.social-stats--mentorship .social-stats__half {
+  padding: 22px;
+}
+
 .social-stats--mentorship .social-stats__metric strong {
   font-size: clamp(34px, 6vw, 58px);
 }
@@ -197,8 +235,33 @@
     padding: 18px;
   }
 
+  .social-stats__card--duo,
+  .social-stats--mentorship .social-stats__card--duo {
+    padding: 0;
+  }
+
+  .social-stats__half,
+  .social-stats--mentorship .social-stats__half {
+    padding: 16px 14px;
+  }
+
   .social-stats__metric strong,
   .social-stats--mentorship .social-stats__metric strong {
     font-size: clamp(29px, 10vw, 42px);
+  }
+}
+
+@media (max-width: 330px) {
+  .social-stats__card--duo {
+    grid-template-columns: 1fr;
+  }
+
+  .social-stats__half.social-stats__card--impact::before {
+    top: 0;
+    right: 16px;
+    bottom: auto;
+    left: 16px;
+    width: auto;
+    height: 1px;
   }
 }

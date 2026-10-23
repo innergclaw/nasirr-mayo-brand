@@ -28,16 +28,18 @@
             <div class="social-stats__metric"><strong class="social-count" data-count-target="11177" data-count-format="comma" aria-hidden="true">11,177</strong><small>Likes</small></div>
           </div>
         </article>
-        <article class="social-stats__card social-stats__card--instagram" aria-label="More than 11,000 followers across Instagram">
-          <span class="social-stats__platform">Instagram</span>
-          <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="11" data-count-suffix="K+" aria-hidden="true">11K+</strong><small>Followers</small></div>
+        <article class="social-stats__card social-stats__card--duo" aria-label="More than 11,000 Instagram followers and more than 500 founders and business owners helped since 2015">
+          <div class="social-stats__half social-stats__card--instagram">
+            <span class="social-stats__platform">Instagram</span>
+            <div class="social-stats__metrics">
+              <div class="social-stats__metric"><strong class="social-count" data-count-target="11" data-count-suffix="K+" aria-hidden="true">11K+</strong><small>Followers</small></div>
+            </div>
           </div>
-        </article>
-        <article class="social-stats__card social-stats__card--impact" aria-label="More than 500 founders and business owners helped">
-          <span class="social-stats__platform">Founders &amp; Business Owners Helped</span>
-          <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="500" data-count-suffix="+" aria-hidden="true">500+</strong><small>Since 2015</small></div>
+          <div class="social-stats__half social-stats__card--impact">
+            <span class="social-stats__platform">Founders &amp; Business Owners Helped</span>
+            <div class="social-stats__metrics">
+              <div class="social-stats__metric"><strong class="social-count" data-count-target="500" data-count-suffix="+" aria-hidden="true">500+</strong><small>Since 2015</small></div>
+            </div>
           </div>
         </article>
       </div>`;
