@@ -70,11 +70,10 @@ test("INNERG ID explains the included access", () => {
   assert.equal((html.match(/<li>/g) || []).length, 6);
 });
 
-test("landing page points to the verified Sunday trial and fact page", () => {
-  assert.match(html, /five one-time seven-day trials open every sunday/i);
-  assert.match(html, /href="\.\/sunday\/"/);
+test("landing page points to the fact page and no longer offers the Sunday trial", () => {
+  assert.doesNotMatch(html, /sunday/i);
   assert.match(html, /href="\.\/about\/"/);
-  assert.match(css, /\.sunday-drop-link/);
+  assert.doesNotMatch(css, /\.sunday-drop-link/);
 });
 
 test("membership copy stays honest", () => {

@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
-const js = await readFile(new URL("./sunday.js", import.meta.url), "utf8");
 const css = await readFile(new URL("./sunday.css", import.meta.url), "utf8");
 const originalMigration = await readFile(new URL("../../supabase/migrations/20260919170000_innerg_sunday_id_drop.sql", import.meta.url), "utf8");
 const trialMigration = await readFile(new URL("../../supabase/migrations/20260920171147_innerg_seven_day_trial.sql", import.meta.url), "utf8");
@@ -11,17 +10,10 @@ const migration = `${originalMigration}\n${trialMigration}`;
 const memberAccess = await readFile(new URL("../../supabase/functions/innerg-member-access/index.ts", import.meta.url), "utf8");
 const watchlistAccess = await readFile(new URL("../../supabase/functions/member-watchlist/index.ts", import.meta.url), "utf8");
 
-test("the Sunday page states the one-time seven-day rule", () => {
-  assert.match(html, /seven days\.<br \/>five places\./);
-  assert.match(html, /one person\. one verified email\. one free trial\./);
-  assert.match(html, /member access ends exactly seven days/);
-});
-
-test("the page uses the existing secure account flow", () => {
-  assert.match(js, /account\/?\?next=%2Finnergid%2Fsunday%2F/);
-  assert.match(js, /claim_innerg_sunday_id/);
-  assert.match(js, /get_innerg_sunday_drop_status/);
-  assert.match(js, /innerg_sunday_claim_intent/);
+test("the retired Sunday page redirects to memberships without offering a trial", () => {
+  assert.match(html, /http-equiv="refresh" content="0; url=\.\.\/#access"/);
+  assert.match(html, /noindex/);
+  assert.doesNotMatch(html, /free trial|seven days|sunday/i);
 });
 
 test("the claim is atomic, verified, and capped at five", () => {
@@ -60,8 +52,6 @@ test("active trials receive member access and expired trials do not", () => {
   assert.match(watchlistAccess, /access_source === "sunday_free"/);
 });
 
-test("the page has no video section and supports reduced motion", () => {
-  assert.doesNotMatch(html, /<video|innerg-id-sunday-montage|drop-visual/);
-  assert.match(html, /innerg-member-badge\.png/);
+test("shared styles still support reduced motion", () => {
   assert.match(css, /prefers-reduced-motion/);
 });
