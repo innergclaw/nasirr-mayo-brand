@@ -1,5 +1,8 @@
 export const PHONE = "+12674730397";
 export const BUDGETS = ["$100-$250", "$250 - $500", "$750 - $1000"];
+export const SERVICES = ["web development (sites, github pages, supabase)", "design (logos, brand systems, ui)", "SI orchestration (SI teammates & workflows)", "strategy (business & brand)", "teaching (SI education & workshops)", "writing (copy, scripts, books)"];
+export const AGREEMENT = "I understand that by submitting this form or texting, a 25% deposit is required on all projects discussed before any work begins.";
+export const DEPOSIT_ERROR = "Please check the deposit agreement box before sending your details.";
 export const DELIVERY = ["ASAP", "A Few Days", "A Few Weeks", "Not Sure"];
 
 export function validateDetails(details) {
@@ -9,6 +12,8 @@ export function validateDetails(details) {
     if (!value) errors[key] = `Enter your ${label}.`;
     else if (String(details[key]).length > max) errors[key] = `Keep ${label} to ${max} characters or fewer.`;
   }
+  if (!SERVICES.includes(details.serviceType)) errors.serviceType = "Select the service you need.";
+  if (details.depositAgreement !== "agreed") errors.depositAgreement = DEPOSIT_ERROR;
   if (!BUDGETS.includes(details.budget)) errors.budget = "Select one of the listed budgets.";
   if (!DELIVERY.includes(details.delivery)) errors.delivery = "Select an expected delivery timeframe.";
   return errors;
@@ -17,7 +22,7 @@ export function validateDetails(details) {
 export function buildMessage(details) {
   if (Object.keys(validateDetails(details)).length) throw new Error("Complete the project details before preparing a text.");
   const name = `${details.firstName.trim()} ${details.lastName.trim()}`.replace(/[\r\n]+/g, " ");
-  return `Hi Nasirr, I'd like to discuss a project.\n\nName: ${name}\nService needed: ${details.service.trim()}\nBudget: ${details.budget}\nExpected delivery: ${details.delivery}\n\nSent from nasirr.innergintel.org`;
+  return `Hi Nasirr, I'd like to discuss a project.\n\nName: ${name}\nService needed: ${details.serviceType}\nProject details: ${details.service.trim()}\nBudget: ${details.budget}\nExpected delivery: ${details.delivery}\nDeposit agreement: Agreed. ${AGREEMENT}\n\nSent from nasirr.innergintel.org`;
 }
 
 export function buildSmsHref(message) {
@@ -33,7 +38,11 @@ export function initIntake(form) {
   const manual = form.querySelector("#project-intake-manual");
   const preview = form.querySelector("#project-intake-message");
   const sms = form.querySelector("#project-intake-sms");
-  const fields = ["firstName", "lastName", "service", "budget", "delivery"];
+  const fields = ["firstName", "lastName", "serviceType", "service", "budget", "delivery", "depositAgreement"];
+  const depositError = form.querySelector("#project-deposit-error");
+  const deposit = form.elements.namedItem("depositAgreement");
+  // Native `required` blocks submit before our handler runs, so surface the clear message here too.
+  if (deposit && depositError) deposit.addEventListener("invalid", () => { depositError.hidden = false; });
 
   const prepare = () => {
     const details = Object.fromEntries(new FormData(form));
@@ -44,6 +53,7 @@ export function initIntake(form) {
       if (errors[name]) field.setAttribute("aria-invalid", "true");
       else field.removeAttribute("aria-invalid");
     });
+    if (depositError) depositError.hidden = !errors.depositAgreement;
     if (!form.reportValidity()) return null;
     return buildMessage(details);
   };
@@ -54,6 +64,7 @@ export function initIntake(form) {
       event.target.removeAttribute("aria-invalid");
     }
     counter.textContent = `${form.elements.namedItem("service").value.length} / 500`;
+    if (event.target.name === "depositAgreement" && event.target.checked && depositError) depositError.hidden = true;
     status.textContent = "";
     manual.hidden = true;
     preview.value = "";
