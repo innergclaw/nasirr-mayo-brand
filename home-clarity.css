@@ -410,3 +410,57 @@
 .ui-arrow{display:inline-block;width:.95em;height:.95em;vertical-align:-.12em;background-color:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat}
 .ui-arrow--se{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7l10 10M17 8v9H8'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7l10 10M17 8v9H8'/%3E%3C/svg%3E")}
 .ui-arrow--check{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E")}
+
+.professional-links-list {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.professional-link {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: #171717;
+  background: rgba(23, 23, 23, 0.04);
+  box-shadow: 0 0 0 1px rgba(23, 23, 23, 0.08);
+  text-decoration: none;
+  transition: background-color 180ms, transform 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.professional-link:hover {
+  background: rgba(23, 23, 23, 0.07);
+  transform: translateY(-1px);
+}
+
+.professional-link:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+.professional-link span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.professional-link strong {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.professional-link small {
+  color: #666;
+  font-size: 13px;
+}
+
+.professional-link svg {
+  flex-shrink: 0;
+  color: #666;
+}

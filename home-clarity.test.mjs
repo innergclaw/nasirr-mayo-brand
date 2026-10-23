@@ -27,15 +27,17 @@ test("skills follows about me with native disclosures and press me labels", () =
   assert.match(disclosures[1], /href="https:\/\/innergclaw\.github\.io\/innerg-skill-graph\/" target="_blank"/);
   assert.match(disclosures[1], /see my skills in motion/);
   assert.match(script, /about\.insertAdjacentElement\("afterend", skills\)/);
-  assert.match(script, /\(skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
+  assert.match(script, /\(links \|\| skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
+  assert.match(script, /class="section-label">my professional links<\/span>/);
+  assert.match(script, /skills\.insertAdjacentElement\("afterend", links\)/);
   assert.match(styles, /\.about summary\s*\{\s*min-height:\s*44px/);
   assert.match(styles, /\.about\[open\] \.about-toggle\s*\{[^}]*font-size:\s*12px;[^}]*transform:\s*none;/);
 });
 
-test("scroll order places the video under official channels", () => {
+test("scroll order places the video under the social stats", () => {
   assert.match(script, /role\.insertAdjacentElement\("afterend", about\)/);
   assert.match(script, /const orderedSections = \[/);
-  assert.match(script, /document\.getElementById\(sectionId\),[\s\S]*video,[\s\S]*linkList,[\s\S]*ambassador,[\s\S]*footer/);
+  assert.match(script, /getElementById\("social-audience-stats"\),[\s\S]*video,[\s\S]*linkList,[\s\S]*ambassador,[\s\S]*footer/);
 });
 
 test("top actions lead to booking, services, and official channels", () => {
