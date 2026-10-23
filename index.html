@@ -11,10 +11,10 @@
     />
     <link rel="stylesheet" href="/odyssey-card.css?v=3" />
     <link rel="stylesheet" href="/social-stats.css?v=7" />
-    <link rel="stylesheet" href="/home-clarity.css?v=13" />
+    <link rel="stylesheet" href="/home-clarity.css?v=14" />
     <link rel="stylesheet" href="/evil-eye.css?v=1" />
     <link rel="stylesheet" href="/home-motion.css?v=1" />
-    <link rel="stylesheet" href="/project-intake.css?v=1" />
+    <link rel="stylesheet" href="/project-intake.css?v=2" />
     <style>
       .talk-business {
         margin-top: 34px;
@@ -484,57 +484,6 @@
           </div>
         </details>
         <nav class="link-list" aria-label="Nasirr&#x27;s links">
-          <section class="hire-links" id="how-can-i-help" aria-labelledby="hire-links-title">
-            <p class="section-label" id="hire-links-title">HOW CAN I HELP YOU?</p>
-          </section>
-          <a
-            class="link-card"
-            href="https://ownyourweb.marketing/"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">01</span
-            ><span class="link-copy"
-              ><strong>OWNYOURWEB SYSTEMS</strong
-              ><small
-                >Websites and digital systems you can actually control.</small
-              ></span
-            ></a
-          ><a
-            class="link-card"
-            href="https://www.innergreads.study"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">02</span
-            ><span class="link-copy"
-              ><strong>INNERG INTEL EDUCATION</strong
-              ><small
-                >Education, systems, and the ideas behind the work.</small
-              ></span
-            ></a
-          ><a
-            class="link-card"
-            href="https://shopnasgfx.com/"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">03</span
-            ><span class="link-copy"
-              ><strong>CREATIVE DESIGN SERVICES</strong
-              ><small
-                >Graphics, branding, and creative services built with
-                purpose.</small
-              ></span
-            ></a
-          >
-          <div class="link-card link-card-disabled" aria-disabled="true">
-            <span class="link-number">04</span
-            ><span class="link-copy"
-              ><strong>AGENT ACADEMY / COMING SOON</strong
-              ><small
-                >Hands-on training for directing, building, and evaluating SI
-                agent systems.</small
-              ></span
-            ><span class="link-status">COMING SOON</span>
-          </div>
           <section class="project-intake" id="project-intake" aria-labelledby="project-intake-title">
             <p class="project-intake__eyebrow">Let's work together</p>
             <h2 id="project-intake-title">Tell me what you need.</h2>
@@ -551,7 +500,19 @@
                 </div>
               </div>
               <div class="project-intake__field">
-                <label for="project-service">Service Needed</label>
+                <label for="project-service-type">Service Needed</label>
+                <select id="project-service-type" name="serviceType" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="web development (sites, github pages, supabase)">web development (sites, github pages, supabase)</option>
+                  <option value="design (logos, brand systems, ui)">design (logos, brand systems, ui)</option>
+                  <option value="SI orchestration (SI teammates &amp; workflows)">SI orchestration (SI teammates &amp; workflows)</option>
+                  <option value="strategy (business &amp; brand)">strategy (business &amp; brand)</option>
+                  <option value="teaching (SI education &amp; workshops)">teaching (SI education &amp; workshops)</option>
+                  <option value="writing (copy, scripts, books)">writing (copy, scripts, books)</option>
+                </select>
+              </div>
+              <div class="project-intake__field">
+                <label for="project-service">Project Details</label>
                 <textarea id="project-service" name="service" rows="4" maxlength="500" placeholder="What are you creating, updating, or trying to solve?" aria-describedby="project-service-help" required></textarea>
                 <div class="project-intake__field-help">
                   <span id="project-service-help">Up to 500 characters.</span>
@@ -577,6 +538,11 @@
                   <option value="Not Sure">Not Sure</option>
                 </select>
               </div>
+              <div class="project-intake__agree">
+                <input type="checkbox" id="project-deposit" name="depositAgreement" value="agreed" required aria-describedby="project-deposit-error" />
+                <label for="project-deposit">I understand that by submitting this form or texting, a 25% deposit is required on all projects discussed before any work begins.</label>
+              </div>
+              <p class="project-intake__error" id="project-deposit-error" role="alert" hidden>Please check the deposit agreement box before sending your details.</p>
               <p class="project-intake__note" id="project-intake-note">This opens your text app with the details filled in. Tap send to finish. I'll confirm availability and timing with you.</p>
               <button class="project-intake__send" id="project-intake-send" type="submit" disabled>Send details by text</button>
               <div class="project-intake__fallback">
@@ -589,7 +555,7 @@
                 <textarea id="project-intake-message" rows="7" readonly></textarea>
               </div>
               <a id="project-intake-sms" href="sms:+12674730397" hidden>Open prepared text</a>
-              <noscript><p>Enable JavaScript to prepare your message, or text your name, service, budget, and timeframe to <a href="sms:+12674730397">267 473 0397</a>.</p></noscript>
+              <noscript><p>Enable JavaScript to prepare your message, or text your name, service, budget, timeframe, and your agreement to the 25% deposit to <a href="sms:+12674730397">267 473 0397</a>.</p></noscript>
             </form>
           </section>
         </nav>
@@ -749,7 +715,7 @@
     <script type="application/json">
       self.__next_f.push([
         1,
-        '10:I[72126,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n11:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"OutletBoundary"]\n12:"$Sreact.suspense"\n14:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"ViewportBoundary"]\n16:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"MetadataBoundary"]\n7:["$","section",null,{"className":"hire-links","aria-labelledby":"hire-links-title","children":["$","p",null,{"className":"section-label","id":"hire-links-title","children":"HOW CAN I HELP YOU?"}]}]\n8:["$","$L10",null,{"links":[{"number":"01","title":"OWNYOURWEB SYSTEMS","description":"Websites and digital systems you can actually control.","href":"https://ownyourweb.marketing/"},{"number":"02","title":"INNERG INTEL EDUCATION","description":"Education, systems, and the ideas behind the work.","href":"https://www.innergreads.study"},{"number":"03","title":"CREATIVE DESIGN SERVICES","description":"Graphics, branding, and creative services built with purpose.","href":"https://shopnasgfx.com/"},{"number":"04","title":"AGENT ACADEMY / COMING SOON","description":"Hands-on training for directing, building, and evaluating SI agent systems.","href":"","status":"COMING SOON"}]}]\n9:["$","section",null,{"className":"home-reference-room","aria-labelledby":"home-reference-title","children":[["$","div",null,{"className":"home-reference-heading","children":[["$","p",null,{"className":"section-label","children":"REFERENCE ROOM / CREATIVE ASSET RESOURCE"}],["$","span",null,{"children":"06"}]]}],["$","h2",null,{"id":"home-reference-title","children":"Give the next idea a better starting point."}],["$","p",null,{"children":"PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic SI can provide."}],["$","a",null,{"className":"home-reference-link","href":"resources/","children":["ENTER REFERENCE ROOM ",["$","span",null,{"className":"ui-arrow","aria-hidden":"true"}]]}]]}]\na:["$","footer",null,{"className":"link-tree-footer","children":[["$","span",null,{"children":"NM"}],["$","span",null,{"children":"Making useful things, one system at a time."}],["$","$L6",null,{}]]}]\nb:["$","script","script-0",{"src":"/_next/static/chunks/0qjebp~jsdyqi.js","async":true,"nonce":"$undefined"}]\nc:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]\nd:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]\nf:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]\n',
+        '10:I[72126,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n11:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"OutletBoundary"]\n12:"$Sreact.suspense"\n14:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"ViewportBoundary"]\n16:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"MetadataBoundary"]\n7:null\n8:null\n9:["$","section",null,{"className":"home-reference-room","aria-labelledby":"home-reference-title","children":[["$","div",null,{"className":"home-reference-heading","children":[["$","p",null,{"className":"section-label","children":"REFERENCE ROOM / CREATIVE ASSET RESOURCE"}],["$","span",null,{"children":"06"}]]}],["$","h2",null,{"id":"home-reference-title","children":"Give the next idea a better starting point."}],["$","p",null,{"children":"PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic SI can provide."}],["$","a",null,{"className":"home-reference-link","href":"resources/","children":["ENTER REFERENCE ROOM ",["$","span",null,{"className":"ui-arrow","aria-hidden":"true"}]]}]]}]\na:["$","footer",null,{"className":"link-tree-footer","children":[["$","span",null,{"children":"NM"}],["$","span",null,{"children":"Making useful things, one system at a time."}],["$","$L6",null,{}]]}]\nb:["$","script","script-0",{"src":"/_next/static/chunks/0qjebp~jsdyqi.js","async":true,"nonce":"$undefined"}]\nc:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]\nd:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]\nf:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]\n',
       ]);
     </script>
     <script type="application/json">
@@ -769,9 +735,9 @@
     <script src="/scramble-title.js?v=1"></script>
     <script src="/evil-eye.js?v=1"></script>
     <script src="/social-stats.js?v=8"></script>
-    <script src="/home-clarity.js?v=17"></script>
-    <script src="/mentorship-entry.js?v=services-10"></script>
-    <script type="module" src="/project-intake.mjs?v=1"></script>
+    <script src="/home-clarity.js?v=18"></script>
+    <script src="/mentorship-entry.js?v=services-11"></script>
+    <script type="module" src="/project-intake.mjs?v=2"></script>
     <script src="/account-entry.js?v=2"></script>
     <script src="/mentorship-social.js"></script>
     <script src="/home-motion.js?v=1"></script>

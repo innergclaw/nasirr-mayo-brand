@@ -33,24 +33,22 @@ test("mentorship member access uses the Home Base pill style", () => {
   assert.match(mentorshipPage, /\.member-access:active \{ transform:scale\(\.96\)/);
 });
 
-test("hire links lead the service list, then intake and booking follow", () => {
-  assert.match(html, /HOW CAN I HELP YOU\?/);
-  assert.doesNotMatch(html, /HIRE MY COMPANY TO HELP YOU/);
+test("how can i help section is gone; intake leads, booking follows", () => {
+  assert.doesNotMatch(html, /HOW CAN I HELP YOU\?/);
+  assert.doesNotMatch(html, /class="hire-links"/);
   assert.doesNotMatch(html, /HIRE ME LINKS/);
-  assert.match(mentorshipScript, /HOW CAN I HELP YOU\?/);
+  assert.doesNotMatch(mentorshipScript, /HOW CAN I HELP YOU\?/);
   assert.match(mentorshipScript, /list\.classList\.add\("company-services"\)/);
-  assert.match(mentorshipScript, /list\.prepend\(heading\)/);
-  assert.match(mentorshipScript, /serviceCards\.forEach/);
+  assert.match(mentorshipScript, /list\.prepend\(intake\)/);
   assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", booking\)/);
   assert.match(html, /business-booking\.js\?v=6/);
-  assert.match(mentorshipScript, /anchor\.insertAdjacentElement\("afterend", intake\)/);
-  assert.match(mentorshipScript, /if \(intake\) anchor = intake/);
-  assert.match(html, /mentorship-entry\.js\?v=services-10/);
+  assert.match(html, /mentorship-entry\.js\?v=services-11/);
 });
 
-test("home page removes hire link and names InnerG education", () => {
+
+test("home page removes hire link and the retired service cards", () => {
   assert.doesNotMatch(html, /HIRE \/ BOOK ME/);
-  assert.match(html, /INNERG INTEL EDUCATION/);
+  assert.doesNotMatch(html, /OWNYOURWEB SYSTEMS/);
 });
 
 test("about section uses the approved Philadelphia founder biography", () => {
@@ -61,7 +59,6 @@ test("about section uses the approved Philadelphia founder biography", () => {
   assert.doesNotMatch(aboutHtml, /I started building in 2015 because I saw problems/);
 });
 
-test("service restore script prevents duplicate headings and repeated number writes", () => {
-  assert.match(mentorshipScript, /headings\.forEach\(\(duplicate\) => duplicate\.remove\(\)\)/);
-  assert.match(mentorshipScript, /numberNode\.textContent !== number/);
+test("service script removes any hydrated hire heading or service cards", () => {
+  assert.match(mentorshipScript, /\.querySelectorAll\("\.hire-links, \.link-card"\)/);
 });

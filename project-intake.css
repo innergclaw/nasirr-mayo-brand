@@ -110,3 +110,25 @@
   .project-intake { padding: 22px 18px; }
   .project-intake__row { grid-template-columns: 1fr; gap: 18px; }
 }
+
+.project-intake__agree {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 4px 0 2px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.project-intake__agree input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: #171717;
+}
+.project-intake__error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
+  font-weight: 600;
+}
