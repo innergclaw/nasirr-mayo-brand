@@ -61,6 +61,8 @@
 }
 
 .social-stats__card--youtube {
+  text-decoration: none;
+  transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
   color: #f8f8f4;
   background:
     radial-gradient(circle at 92% 12%, rgba(202, 255, 55, 0.16), transparent 38%),
@@ -264,4 +266,13 @@
     width: auto;
     height: 1px;
   }
+}
+
+.social-stats__card--youtube:hover {
+  transform: translateY(-1px);
+}
+
+.social-stats__card--youtube:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 3px;
 }

@@ -10,10 +10,10 @@ const styles = await readFile(new URL("social-stats.css", root), "utf8");
 const stats = await readFile(new URL("youtube-stats.json", root), "utf8");
 
 test("both public pages load the shared social statistics files", () => {
-  assert.match(home, /social-stats\.css\?v=6/);
-  assert.match(home, /social-stats\.js\?v=7/);
-  assert.match(mentorship, /social-stats\.css\?v=6/);
-  assert.match(mentorship, /social-stats\.js\?v=7/);
+  assert.match(home, /social-stats\.css\?v=7/);
+  assert.match(home, /social-stats\.js\?v=8/);
+  assert.match(mentorship, /social-stats\.css\?v=7/);
+  assert.match(mentorship, /social-stats\.js\?v=8/);
 });
 
 test("social statistics use the supplied values", () => {
