@@ -11,7 +11,7 @@ const checkoutFunction = await readFile(new URL("../../supabase/functions/innerg
 test("briefing page keeps membership and one-time purchase distinct", () => {
   assert.match(html, /\$19/);
   assert.match(html, /no membership required/i);
-  assert.match(html, /Active INNERG members and seven-day trial members already have access/);
+  assert.match(html, /Active INNERG members already have access/);
   assert.match(html, /See Child, Parent, and Family memberships/);
   assert.match(html, /Pricing discussed in the recording reflects when it was made/);
   assert.doesNotMatch(html, /\$15\b|\$150|founding/);
