@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=hype-brief-1" />
-  <script type="module" src="../app.js?v=hype-chart-1"></script>
+  <link rel="stylesheet" href="../styles.css?v=one-chart-1" />
+  <script type="module" src="../app.js?v=one-chart-1"></script>
 <link rel="canonical" href="https://nasirr.innergintel.org/watchlist/stocks/" />
 </head>
 <body id="top" class="market-view-page" data-market-view="stocks" data-data-url="https://innergclaw.github.io/innerg-watchlist/data/watchlist.json">
@@ -43,9 +43,9 @@
       <div class="section-heading"><div><p class="eyebrow" id="asset-count">Stock watchlist</p><h2 id="sectors-title">Find the public-market setup.</h2></div></div>
       <div class="filters">
         <label>Search assets<input id="search" type="search" placeholder="Ticker or name, e.g. ARM" autocomplete="off" /></label>
-        <label class="sector-filter-control">Sector<select id="sector-filter" aria-label="Sector"><option value="all">All sectors</option></select></label>
         <label>Sort within sector<select id="sort" aria-label="Sort within sector"><option value="default">Watchlist order</option><option value="week">Weekly gain</option><option value="loss">Weekly decline</option><option value="name">Ticker A to Z</option></select></label>
       </div>
+      <section class="line-card" id="watchlist-chart" aria-labelledby="watchlist-chart-title"><p class="section-note" role="status">Loading the chart.</p></section>
       <details class="guide"><summary>How to read the numbers</summary><p><strong>1 day</strong> compares the latest price with the prior session close. <strong>1 week</strong> and <strong>30 days</strong> compare it with the available close on or before that date. These are price changes, not returns including dividends.</p><p>Prices can be delayed. The update time shows when the site refreshed, not when each trade occurred.</p></details>
       <p id="results-status" class="section-note" role="status"></p>
       <div id="sector-list"></div>
