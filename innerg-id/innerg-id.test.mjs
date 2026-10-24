@@ -47,7 +47,9 @@ test("signed-in unpaid accounts receive a clear activation path", () => {
 test("free ID holders keep the credential without paid member resources", () => {
   assert.match(html, /id="free-access-panel"/);
   assert.match(html, /data-paid-access/);
-  assert.match(html, /your verified number and card are active/i);
+  assert.match(html, /your verified number and card stay yours/i);
+  assert.match(html, /href="\/pulse\/"/);
+  assert.doesNotMatch(html, /YOUR FREE INNERG ID/);
   assert.match(js, /member\.accessTier === "member"/);
   assert.match(js, /paidAccessNodes\.forEach/);
   assert.match(js, /Identity active/);

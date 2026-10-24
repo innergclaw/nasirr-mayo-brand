@@ -102,3 +102,9 @@ test("legacy checkout script stays untouched but has no page button", () => {
   assert.match(html, /Open my INNERG ID/);
   assert.match(html, /See the \$19 briefing/);
 });
+
+test("each member's own ID gives kids child access and parents parent access", async () => {
+  const about = await readFile(new URL("./about/index.html", import.meta.url), "utf8");
+  assert.match(html, /kids get child access and parents get parent access/);
+  assert.match(about, /gives kids child access and parents parent access/);
+});
