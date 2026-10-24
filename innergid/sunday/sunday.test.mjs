@@ -55,3 +55,12 @@ test("active trials receive member access and expired trials do not", () => {
 test("shared styles still support reduced motion", () => {
   assert.match(css, /prefers-reduced-motion/);
 });
+
+test("new free or trial INNERG IDs are closed without touching existing rows", async () => {
+  const sql = await readFile(new URL("../../supabase/migrations/20261024220000_innerg_close_new_trials.sql", import.meta.url), "utf8");
+  const code = sql.replace(/--.*$/gm, "");
+  assert.match(code, /'closed'::text/);
+  assert.match(code, /'already_has_id'::text/);
+  assert.doesNotMatch(code, /\b(insert|update|delete|truncate|drop)\b/i);
+  assert.match(code, /revoke all on function public\.claim_innerg_sunday_id\(\) from public, anon, authenticated/);
+});
