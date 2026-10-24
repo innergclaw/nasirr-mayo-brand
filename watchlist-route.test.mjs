@@ -7,7 +7,7 @@ test('watchlist return destination stays same-origin',()=>{
   assert.notEqual(getSafeDestination('?next=https://evil.example/watchlist/'),'https://evil.example/watchlist/');
 });
 test('public mirror never includes private research',async()=>{
-  assert.deepEqual((await readdir('watchlist')).sort(),['app.js','assets','brief.mjs','closing-report.mjs','crypto','data','display.mjs','index.html','interactive-charts.mjs','market-update.mjs','member-access.mjs','news.mjs','section-nav.mjs','stocks','styles.css','weekly-mover.mjs'].sort());
+  assert.deepEqual((await readdir('watchlist')).sort(),['app.js','assets','brief.mjs','closing-report.mjs','crypto','data','display.mjs','index.html','interactive-charts.mjs','market-update.mjs','member-access.mjs','watchlist-chart.mjs','news.mjs','section-nav.mjs','stocks','styles.css','weekly-mover.mjs'].sort());
   const names=[];
   async function walk(dir,prefix=''){
     for(const entry of await readdir(dir,{withFileTypes:true})){

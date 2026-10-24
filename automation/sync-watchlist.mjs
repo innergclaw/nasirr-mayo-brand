@@ -20,6 +20,7 @@ const files = [
   'section-nav.mjs',
   'closing-report.mjs',
   'market-update.mjs',
+  'watchlist-chart.mjs',
   'stocks/index.html',
   'crypto/index.html',
 ];
