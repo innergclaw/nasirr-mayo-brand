@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-10-27",
-  "generatedAt": "2026-10-27T23:05:20.246106Z",
+  "marketDate": "2026-10-28",
+  "generatedAt": "2026-10-29T19:10:38.918752Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
+      "symbol": "SKHY",
+      "name": "SK hynix ADR",
+      "sector": "ai-compute",
+      "price": 164.7,
+      "currency": "USD",
+      "changePercent": 13.3049
+    },
+    {
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 54.84,
+      "currency": "USD",
+      "changePercent": 9.3519
+    },
+    {
       "symbol": "CRWV",
       "name": "CoreWeave",
       "sector": "ai-compute",
-      "price": 59.57,
+      "price": 63.93,
       "currency": "USD",
-      "changePercent": 7.9362
+      "changePercent": 7.3191
+    },
+    {
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 54.12,
+      "currency": "USD",
+      "changePercent": 7.1259
     },
     {
       "symbol": "IREN",
       "name": "IREN Limited",
       "sector": "ai-compute",
-      "price": 27.44,
+      "price": 28.84,
       "currency": "USD",
-      "changePercent": 7.9041
+      "changePercent": 5.102
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "HOOD",
+      "name": "Robinhood Markets",
+      "sector": "platforms",
+      "price": 91.43,
+      "currency": "USD",
+      "changePercent": -3.3101
     },
     {
-      "symbol": "STM",
-      "name": "STMicroelectronics",
-      "sector": "ai-compute",
-      "price": 48.68,
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 18.33,
       "currency": "USD",
-      "changePercent": 7.7229
+      "changePercent": -2.4481
     },
     {
       "symbol": "ALGT",
       "name": "Allegiant Travel",
       "sector": "industrials",
-      "price": 73.59,
+      "price": 72.26,
       "currency": "USD",
-      "changePercent": 7.2897
+      "changePercent": -1.8073
     },
     {
-      "symbol": "WDC",
-      "name": "Western Digital",
-      "sector": "ai-compute",
-      "price": 380.88,
+      "symbol": "OLN",
+      "name": "Olin Corporation",
+      "sector": "materials",
+      "price": 16.47,
       "currency": "USD",
-      "changePercent": 6.9497
-    }
-  ],
-  "losers": [
-    {
-      "symbol": "COP",
-      "name": "ConocoPhillips",
-      "sector": "energy",
-      "price": 147.96,
-      "currency": "USD",
-      "changePercent": -2.2528
+      "changePercent": -0.5435
     },
     {
-      "symbol": "OXY",
-      "name": "Occidental Petroleum",
-      "sector": "energy",
-      "price": 62.73,
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries",
+      "sector": "materials",
+      "price": 67.13,
       "currency": "USD",
-      "changePercent": -2.0915
-    },
-    {
-      "symbol": "HAFN",
-      "name": "Hafnia Limited",
-      "sector": "energy",
-      "price": 10.61,
-      "currency": "USD",
-      "changePercent": -1.4856
-    },
-    {
-      "symbol": "USO",
-      "name": "United States Oil Fund",
-      "sector": "energy",
-      "price": 163.88,
-      "currency": "USD",
-      "changePercent": -1.4137
-    },
-    {
-      "symbol": "MTDR",
-      "name": "Matador Resources",
-      "sector": "energy",
-      "price": 59.27,
-      "currency": "USD",
-      "changePercent": -1.3646
+      "changePercent": -0.4449
     }
   ],
   "sources": [
