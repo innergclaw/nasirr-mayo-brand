@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-10-29",
-  "generatedAt": "2026-10-29T19:33:17.360572Z",
+  "generatedAt": "2026-10-29T23:33:41.132021Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -8,41 +8,41 @@
       "symbol": "STM",
       "name": "STMicroelectronics",
       "sector": "ai-compute",
-      "price": 49.52,
+      "price": 49.99,
       "currency": "USD",
-      "changePercent": 2.061
-    },
-    {
-      "symbol": "EMN",
-      "name": "Eastman Chemical",
-      "sector": "materials",
-      "price": 67.96,
-      "currency": "USD",
-      "changePercent": 1.9349
+      "changePercent": 3.0297
     },
     {
       "symbol": "HAFN",
       "name": "Hafnia Limited",
       "sector": "energy",
-      "price": 11.04,
+      "price": 11.06,
       "currency": "USD",
-      "changePercent": 1.845
+      "changePercent": 2.0295
+    },
+    {
+      "symbol": "EMN",
+      "name": "Eastman Chemical",
+      "sector": "materials",
+      "price": 67.93,
+      "currency": "USD",
+      "changePercent": 1.8899
     },
     {
       "symbol": "SCHD",
       "name": "Schwab U.S. Dividend Equity ETF",
       "sector": "core-funds",
-      "price": 35.545,
+      "price": 35.61,
       "currency": "USD",
-      "changePercent": 1.2967
+      "changePercent": 1.4819
     },
     {
-      "symbol": "VTV",
-      "name": "Vanguard Value ETF",
-      "sector": "core-funds",
-      "price": 228.49,
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "sector": "energy",
+      "price": 168.19,
       "currency": "USD",
-      "changePercent": 0.683
+      "changePercent": 0.9726
     }
   ],
   "losers": [
@@ -50,41 +50,41 @@
       "symbol": "MRVL",
       "name": "Marvell Technology",
       "sector": "ai-compute",
-      "price": 215.87,
+      "price": 218.34,
       "currency": "USD",
-      "changePercent": -14.2182
-    },
-    {
-      "symbol": "IREN",
-      "name": "IREN Limited",
-      "sector": "ai-compute",
-      "price": 26.455,
-      "currency": "USD",
-      "changePercent": -8.2698
+      "changePercent": -13.2366
     },
     {
       "symbol": "ASST",
       "name": "Strive",
       "sector": "platforms",
-      "price": 25.265,
+      "price": 24.91,
       "currency": "USD",
-      "changePercent": -8.2274
+      "changePercent": -9.5169
     },
     {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
+      "symbol": "IREN",
+      "name": "IREN Limited",
       "sector": "ai-compute",
-      "price": 51.638,
+      "price": 26.25,
       "currency": "USD",
-      "changePercent": -4.5861
+      "changePercent": -8.9806
     },
     {
       "symbol": "CRWV",
       "name": "CoreWeave",
       "sector": "ai-compute",
-      "price": 61.31,
+      "price": 60.74,
       "currency": "USD",
-      "changePercent": -4.0982
+      "changePercent": -4.9898
+    },
+    {
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 51.75,
+      "currency": "USD",
+      "changePercent": -4.3792
     }
   ],
   "sources": [
