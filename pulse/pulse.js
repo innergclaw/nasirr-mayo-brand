@@ -3,12 +3,13 @@ import { PULSE_ENDPOINT, PULSE_PUBLISHABLE_KEY } from "./config.js";
 export const COPY = {
   codeSent: "Code sent. Enter the one-time code from your email. It expires in 15 minutes.",
   invalidCode: "That code is wrong or expired. Check the latest message, or send a new code.",
-  confirmed: "You're confirmed. Market news recaps will come to this email. This is news, not financial advice.",
+  confirmed: "You're confirmed. The lists you picked will come to this email. This is news, not financial advice.",
+  pickList: "Pick at least one list.",
   rateLimited: "Too many attempts. Wait a little while, then try again.",
   unavailable: "The desk could not send mail just now. Try again shortly.",
   confirmUnavailable: "The desk could not check that code just now. Try again shortly.",
   invalidEmail: "Enter a valid email address.",
-  unsubscribed: "You're unsubscribed. INNERG PULSE will stop sending market updates to that email.",
+  unsubscribed: "You're unsubscribed. That list will stop sending to this email.",
   invalidToken: "This unsubscribe link is not valid. Use the latest link from an INNERG PULSE email.",
   missingToken: "This unsubscribe link is missing its token. Open the link from your INNERG PULSE email.",
   unsubscribeUnavailable: "The desk could not update that subscription just now. Try again shortly.",
@@ -39,6 +40,17 @@ export function interpret(action, status) {
 export function tokenFromSearch(search) {
   const token = new URLSearchParams(search).get("token") || "";
   return /^[a-f0-9]{64}$/.test(token) ? token : "";
+}
+
+export function listFromSearch(search) {
+  const list = new URLSearchParams(search).get("list") || "";
+  return list === "tech" || list === "pulse" ? list : "all";
+}
+
+export function listsFromForm(form) {
+  const pulse = Boolean(form?.querySelector("[name=list_pulse]")?.checked);
+  const tech = Boolean(form?.querySelector("[name=list_tech]")?.checked);
+  return { pulse, tech };
 }
 
 export async function postPulse(body, fetchImpl = fetch) {
@@ -98,6 +110,7 @@ export function boot(doc = document) {
     const codeInput = doc.getElementById("code");
     const sentTo = doc.getElementById("sent-to");
     let pendingEmail = "";
+    let pendingLists = { pulse: true, tech: false };
 
     const subscribe = async (email) => {
       setBusy(emailForm, true);
@@ -125,6 +138,12 @@ export function boot(doc = document) {
     emailForm?.addEventListener("submit", (event) => {
       event.preventDefault();
       const email = emailInput?.value.trim() || "";
+      const lists = listsFromForm(emailForm);
+      if (!lists.pulse && !lists.tech) {
+        paint(doc, { view: "email", title: "Get the updates", message: COPY.pickList, tone: "error" });
+        return;
+      }
+      pendingLists = lists;
       subscribe(email);
     });
 
@@ -134,7 +153,7 @@ export function boot(doc = document) {
       setBusy(codeForm, true);
       if (status) status.textContent = "Checking that code.";
       try {
-        const result = await postPulse({ action: "confirm", email: pendingEmail, code });
+        const result = await postPulse({ action: "confirm", email: pendingEmail, code, lists: pendingLists });
         const view = interpret("confirm", result.status);
         paint(doc, view);
         if (view.tone === "error") {
@@ -162,6 +181,9 @@ export function boot(doc = document) {
   if (page === "unsubscribe") {
     const token = tokenFromSearch(doc.defaultView?.location?.search || "");
     const form = doc.getElementById("unsubscribe-form");
+    const list = listFromSearch(doc.defaultView?.location?.search || "");
+    const listName = list === "tech" ? "INNERG TECH" : list === "pulse" ? "INNERG PULSE" : "INNERG PULSE and INNERG TECH";
+    for (const node of doc.querySelectorAll("[data-list-name]")) node.textContent = listName;
     if (!token) {
       paint(doc, { view: "blocked", title: "Link not valid", message: COPY.missingToken, tone: "error" });
       return;
@@ -171,7 +193,7 @@ export function boot(doc = document) {
       setBusy(form, true);
       if (status) status.textContent = "Updating your subscription.";
       try {
-        const result = await postPulse({ action: "unsubscribe", token });
+        const result = await postPulse({ action: "unsubscribe", token, list });
         paint(doc, interpret("unsubscribe", result.status));
       } catch {
         paint(doc, interpret("unsubscribe", "unavailable"));

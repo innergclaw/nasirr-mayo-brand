@@ -26,13 +26,13 @@ Deno.serve((req) => handlePulse(req, {
     if (error) throw new Error("confirm_gate_failed");
     return data;
   },
-  activate: async (email: string, authUserId: string) => {
-    const { data, error } = await db.rpc("pulse_activate", { p_email: email, p_auth_user_id: authUserId });
+  activate: async (email: string, authUserId: string, lists: { pulse: boolean, tech: boolean }) => {
+    const { data, error } = await db.rpc("pulse_activate_lists", { p_email: email, p_auth_user_id: authUserId, p_pulse: lists.pulse, p_tech: lists.tech });
     if (error) throw new Error("activate_failed");
     return data;
   },
-  unsubscribe: async (token: string, ip: string) => {
-    const { data, error } = await db.rpc("pulse_unsubscribe", { p_token: token, p_ip: ip });
+  unsubscribe: async (token: string, ip: string, list: string) => {
+    const { data, error } = await db.rpc("pulse_unsubscribe_list", { p_token: token, p_ip: ip, p_list: list });
     if (error) throw new Error("unsubscribe_failed");
     return data;
   },

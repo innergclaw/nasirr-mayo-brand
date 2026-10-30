@@ -1,0 +1,22 @@
+/* Reveal motion after EasyUI (https://easyui.site/, MIT, Suraj Maurya). */
+.title-and { color: var(--muted); font-weight: 500; }
+.list-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 26px; max-width: 760px; }
+.list-card { padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); transition: border-color 0.25s ease, transform 0.25s ease; }
+.list-card:hover { border-color: var(--signal); }
+.list-card p { margin: 0; color: var(--muted); font-size: 15px; }
+.list-card .list-name { font: 500 12px var(--mono); letter-spacing: 0.08em; color: var(--signal); }
+.list-card .list-when { margin: 8px 0 10px; color: var(--paper); font-weight: 600; font-size: 16px; }
+.list-pick { border: 0; margin: 0 0 18px; padding: 0; display: grid; gap: 10px; }
+.list-pick legend { padding: 0; margin-bottom: 10px; font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.list-pick .pick { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; transition: border-color 0.2s ease, background-color 0.2s ease; }
+.list-pick .pick:has(input:checked) { border-color: var(--signal); background: rgba(202, 255, 55, 0.06); }
+.list-pick input[type="checkbox"] { width: 18px; height: 18px; margin: 3px 0 0; flex: none; accent-color: var(--signal); }
+.list-pick span { display: grid; gap: 2px; }
+.list-pick strong { font-size: 15px; }
+.list-pick small { color: var(--muted); font-size: 13px; }
+.reveal-on [data-reveal] { opacity: 0; filter: blur(6px); transform: translateY(14px); transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--reveal-delay, 0ms); }
+.reveal-on [data-reveal].is-in { opacity: 1; filter: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on [data-reveal] { opacity: 1; filter: none; transform: none; transition: none; }
+  .list-card, .list-pick .pick { transition: none; }
+}

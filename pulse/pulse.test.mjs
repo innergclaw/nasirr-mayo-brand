@@ -24,16 +24,20 @@ test("unsubscribe tokens are 64 hex characters", () => {
 });
 
 test("public pages use the market desk voice", async () => {
-  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "samples.js", "SETUP.md"];
+  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "samples.js", "SETUP.md", "lists-motion.js", "lists-motion.css"];
   for (const file of files) {
     const source = await readFile(new URL(file, import.meta.url), "utf8");
     assert.doesNotMatch(source, banned, file);
   }
   const page = await readFile(new URL("index.html", import.meta.url), "utf8");
   assert.match(page, /This is news, not financial advice\./);
-  assert.match(page, /Your email is only used for INNERG PULSE\. Unsubscribe anytime\./);
+  assert.match(page, /Your email is only used for the lists you pick\. Unsubscribe anytime\./);
   assert.match(page, /Market news recaps on US stocks and digital assets\./);
   assert.match(page, /name="pulse_hp"/);
+  assert.match(page, /name="list_pulse" id="list-pulse" checked/);
+  assert.match(page, /name="list_tech" id="list-tech" \/>/);
+  assert.match(page, /INNERG TECH/);
+  assert.doesNotMatch(page, /[\u2190-\u21FF]|\u2014/);
   assert.match(page, /id="code-form" hidden/);
   assert.match(page, /id="done-panel" hidden/);
   assert.match(page, /data-pulse-page="signup"/);
@@ -50,7 +54,7 @@ test("public pages use the market desk voice", async () => {
   assert.equal((page.match(/<h4>US stocks<\/h4>/g) || []).length, 2);
   assert.equal((page.match(/<h4>Digital assets<\/h4>/g) || []).length, 2);
   assert.equal((page.match(/Example data, not a live reading\./g) || []).length, 2);
-  assert.equal((page.match(/This is news, not financial advice\./g) || []).length, 5);
+  assert.equal((page.match(/This is news, not financial advice\./g) || []).length, 3);
   const motion = await readFile(new URL("samples.js", import.meta.url), "utf8");
   const css = await readFile(new URL("pulse.css", import.meta.url), "utf8");
   assert.match(motion, /IntersectionObserver/);

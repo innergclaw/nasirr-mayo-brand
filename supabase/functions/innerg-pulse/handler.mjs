@@ -65,6 +65,19 @@ async function readBody(req) {
   }
 }
 
+export function readLists(value) {
+  const v = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  const pulse = v.pulse === true;
+  const tech = v.tech === true;
+  if (!pulse && !tech) return { pulse: true, tech: false };
+  return { pulse, tech };
+}
+
+export function readList(value) {
+  const list = String(value ?? "all").trim().toLowerCase();
+  return ["pulse", "tech", "all"].includes(list) ? list : "all";
+}
+
 function publicStatus(kind) {
   if (kind === "rate_limited") return jsonStatus(429, "rate_limited");
   if (kind === "invalid_code") return jsonStatus(200, "invalid_code");
@@ -119,7 +132,7 @@ export async function handlePulse(req, deps) {
         const mapped = publicStatus(verified?.status === "unavailable" ? "unavailable" : "invalid_code");
         return json(req, { status: mapped.status }, mapped.http);
       }
-      const activated = await deps.activate(email, verified.user.id);
+      const activated = await deps.activate(email, verified.user.id, readLists(body.data.lists));
       if (activated?.status !== "confirmed") return json(req, { status: "unavailable" }, 503);
       await deps.markPulse(verified.user).catch(() => {});
       return json(req, { status: "confirmed" });
@@ -127,7 +140,7 @@ export async function handlePulse(req, deps) {
 
     if (action === "unsubscribe") {
       const token = String(body.data.token ?? "").trim().slice(0, 80);
-      const result = await deps.unsubscribe(token, ip);
+      const result = await deps.unsubscribe(token, ip, readList(body.data.list));
       if (result?.status === "rate_limited") return json(req, { status: "rate_limited" }, 429);
       if (result?.status === "unsubscribed") return json(req, { status: "unsubscribed" });
       if (result?.status === "invalid_token") return json(req, { status: "invalid_token" });

@@ -240,3 +240,14 @@ test("auth calls use the code check, a local sign-out, and no membership write",
     assert.doesNotMatch(source, banned, name);
   }
 });
+
+import { readLists, readList } from "./handler.mjs";
+test("list choice defaults to Pulse only and keeps an explicit Tech pick", () => {
+  assert.deepEqual(readLists(undefined), { pulse: true, tech: false });
+  assert.deepEqual(readLists({ pulse: false, tech: false }), { pulse: true, tech: false });
+  assert.deepEqual(readLists({ tech: true }), { pulse: false, tech: true });
+  assert.deepEqual(readLists({ pulse: true, tech: true }), { pulse: true, tech: true });
+  assert.equal(readList("tech"), "tech");
+  assert.equal(readList("bogus"), "all");
+  assert.equal(readList(undefined), "all");
+});

@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#151513" />
-  <meta name="description" content="Free INNERG PULSE market updates. News recaps on US stocks and digital assets. Education only. This is news, not financial advice." />
-  <title>INNERG PULSE Market Updates</title>
-  <meta property="og:title" content="INNERG PULSE Market Updates" />
-  <meta property="og:description" content="Free market news recaps on US stocks and digital assets. Education only. This is news, not financial advice." />
+  <meta name="description" content="Two free lists. INNERG PULSE market notes three times on weekdays, and INNERG TECH, one daily tech and security digest. Pick one or both." />
+  <title>INNERG PULSE and INNERG TECH Free Lists</title>
+  <meta property="og:title" content="INNERG PULSE and INNERG TECH Free Lists" />
+  <meta property="og:description" content="Pick market notes, a daily tech and security digest, or both. Free, plain, and easy to leave." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://nasirr.innergintel.org/pulse/" />
   <link rel="canonical" href="https://nasirr.innergintel.org/pulse/" />
@@ -15,7 +15,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="pulse.css?v=pulse-samples-2" />
-  <script type="module" src="pulse.js?v=pulse-8"></script>
+  <link rel="stylesheet" href="lists-motion.css?v=tech-1" />
+  <script type="module" src="pulse.js?v=pulse-9"></script>
+  <script type="module" src="lists-motion.js?v=tech-1"></script>
   <script type="module" src="samples.js?v=pulse-samples-2"></script>
 </head>
 <body data-pulse-page="signup">
@@ -30,22 +32,39 @@
   <main class="desk" id="signup">
     <div class="lede">
       <p class="public-label">Free list</p>
-      <p class="eyebrow">INNERG INTEL / Market desk</p>
-      <h1 id="page-title">INNERG PULSE</h1>
-      <p class="hero-copy">Market updates, free.</p>
-      <p class="intro">Short recaps of what moved in US stocks and digital assets. Written in plain language for people learning the market. Education only. No membership is required.</p>
+      <p class="eyebrow">INNERG INTEL / Free lists</p>
+      <h1 id="page-title">INNERG PULSE <span class="title-and">and</span> INNERG TECH</h1>
+      <p class="hero-copy">Two free lists. Pick one or both.</p>
+      <p class="intro">Each list is short and written in plain language. No membership is required, and you can leave either list from any issue.</p>
+      <div class="list-cards" data-reveal-group>
+        <article class="list-card" data-reveal>
+          <p class="list-name">INNERG PULSE</p>
+          <p class="list-when">Market notes ~ 3 times on weekdays</p>
+          <p>Short recaps of what moved in US stocks and digital assets, for people learning the market. Education only.</p>
+        </article>
+        <article class="list-card" data-reveal>
+          <p class="list-name">INNERG TECH</p>
+          <p class="list-when">One daily digest ~ around 7 AM ET</p>
+          <p>What changed in tech and SI, plus the security news worth knowing, explained plainly so you can act on it.</p>
+        </article>
+      </div>
       <p class="advice">This is news, not financial advice.</p>
-      <dl class="gets">
-        <div><dt>What arrives</dt><dd>Market news recaps on US stocks and digital assets.</dd></div>
+      <dl class="gets" data-reveal>
+        <div><dt>What arrives</dt><dd>PULSE: Market news recaps on US stocks and digital assets. TECH: one tech and security digest each day.</dd></div>
         <div><dt>How it reads</dt><dd>Plain-language context for the move, so the headline is easier to follow.</dd></div>
-        <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns.</dd></div>
+        <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns. Your email is never shown or shared.</dd></div>
       </dl>
-      <p class="intro"><a href="#samples">See what you get</a></p>
+      <p class="intro"><a href="#samples">See a sample PULSE issue</a></p>
     </div>
     <section class="panel" id="signup-panel" aria-labelledby="panel-title">
       <h2 id="panel-title">Get the updates</h2>
       <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
       <form id="email-form">
+        <fieldset class="list-pick">
+          <legend>Pick your lists</legend>
+          <label class="pick"><input type="checkbox" name="list_pulse" id="list-pulse" checked /><span><strong>INNERG PULSE</strong><small>Market notes, 3 times on weekdays</small></span></label>
+          <label class="pick"><input type="checkbox" name="list_tech" id="list-tech" /><span><strong>INNERG TECH</strong><small>Daily tech and security digest, around 7 AM ET</small></span></label>
+        </fieldset>
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com" />
         <div class="hp" aria-hidden="true">
@@ -65,15 +84,15 @@
         </div>
       </form>
       <div id="done-panel" hidden>
-        <p class="done-note">You can leave the list from the unsubscribe link in any issue.</p>
+        <p class="done-note">You can leave a list from the unsubscribe link in any issue.</p>
         <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
       </div>
-      <p class="privacy">Your email is only used for INNERG PULSE. Unsubscribe anytime.</p>
+      <p class="privacy">Your email is only used for the lists you pick. Unsubscribe anytime.</p>
     </section>
-    <section class="samples" id="samples" data-samples aria-labelledby="samples-title">
+    <section class="samples" id="samples" data-reveal data-samples aria-labelledby="samples-title">
       <div class="samples-intro">
         <h2 id="samples-title">See what you get</h2>
-        <p>Two sample issues from one trading day. The scenes below are example data, written so you can preview the shape of INNERG PULSE before you subscribe.</p>
+        <p>Two sample INNERG PULSE issues from one trading day. The scenes below are example data, written so you can preview the shape of the market notes before you subscribe.</p>
       </div>
       <div class="sample-rail" data-sample-rail aria-label="Sample issues">
         <article class="sample-card" data-sample-card>
