@@ -20,3 +20,16 @@
   .reveal-on [data-reveal] { opacity: 1; filter: none; transform: none; transition: none; }
   .list-card, .list-pick .pick { transition: none; }
 }
+.tech-sample { margin-top: 56px; grid-column: 1 / -1; }
+.tech-sheet { max-width: 760px; margin-top: 18px; }
+.tech-sheet h3 { margin: 4px 0 6px; }
+.tech-sec { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.tech-sec h4 { margin: 0 0 6px; font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); }
+.tech-sec ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.tech-item p { margin: 0; }
+.tech-head { font-weight: 600; font-size: 16px; line-height: 1.35; }
+.tech-why { margin-top: 4px !important; color: var(--muted); font-size: 15px; }
+.tech-src { margin-top: 6px !important; font: 500 12px var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.tech-src a { color: var(--paper); }
+.tech-src a:hover { color: var(--signal); }
+@media (max-width: 480px) { .tech-head { font-size: 15px; } .tech-why { font-size: 14px; } }
