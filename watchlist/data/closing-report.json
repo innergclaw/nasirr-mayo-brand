@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-10-30",
-  "generatedAt": "2026-10-30T19:14:37.330914Z",
+  "generatedAt": "2026-10-30T23:10:37.614974Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -8,83 +8,83 @@
       "symbol": "OLN",
       "name": "Olin Corporation",
       "sector": "materials",
-      "price": 17.55,
+      "price": 17.6,
       "currency": "USD",
-      "changePercent": 9.3458
+      "changePercent": 9.6573
     },
     {
       "symbol": "LYB",
       "name": "LyondellBasell Industries",
       "sector": "materials",
-      "price": 68.465,
+      "price": 68.64,
       "currency": "USD",
-      "changePercent": 4.7346
+      "changePercent": 5.0023
     },
     {
       "symbol": "COP",
       "name": "ConocoPhillips",
       "sector": "energy",
-      "price": 153.41,
+      "price": 154.03,
       "currency": "USD",
-      "changePercent": 2.2529
-    },
-    {
-      "symbol": "OXY",
-      "name": "Occidental Petroleum",
-      "sector": "energy",
-      "price": 63.92,
-      "currency": "USD",
-      "changePercent": 1.4442
+      "changePercent": 2.6661
     },
     {
       "symbol": "MTDR",
       "name": "Matador Resources",
       "sector": "energy",
-      "price": 60.63,
+      "price": 60.88,
       "currency": "USD",
-      "changePercent": 1.3371
+      "changePercent": 1.755
+    },
+    {
+      "symbol": "OXY",
+      "name": "Occidental Petroleum",
+      "sector": "energy",
+      "price": 64,
+      "currency": "USD",
+      "changePercent": 1.5712
     }
   ],
   "losers": [
     {
-      "symbol": "ARM",
-      "name": "Arm Holdings",
-      "sector": "ai-compute",
-      "price": 202.56,
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 22.195,
       "currency": "USD",
-      "changePercent": -11.4569
+      "changePercent": -10.8992
     },
     {
       "symbol": "MRVL",
       "name": "Marvell Technology",
       "sector": "ai-compute",
-      "price": 193.33,
+      "price": 196.4,
       "currency": "USD",
-      "changePercent": -11.4546
+      "changePercent": -10.0485
     },
     {
-      "symbol": "ASST",
-      "name": "Strive",
-      "sector": "platforms",
-      "price": 22.0604,
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "sector": "ai-compute",
+      "price": 205.97,
       "currency": "USD",
-      "changePercent": -11.4396
+      "changePercent": -9.9663
     },
     {
       "symbol": "CRWV",
       "name": "CoreWeave",
       "sector": "ai-compute",
-      "price": 54.46,
+      "price": 54.87,
       "currency": "USD",
-      "changePercent": -10.3392
+      "changePercent": -9.6641
     },
     {
       "symbol": "IREN",
       "name": "IREN Limited",
       "sector": "ai-compute",
-      "price": 23.585,
+      "price": 23.95,
       "currency": "USD",
-      "changePercent": -10.1524
+      "changePercent": -8.7619
     }
   ],
   "sources": [
