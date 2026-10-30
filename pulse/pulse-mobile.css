@@ -1,0 +1,31 @@
+/* Mobile and tablet fixes for /pulse/. Loaded last. */
+img { max-width: 100%; height: auto; }
+.desk > * { min-width: 0; }
+.source-ticker { max-width: 100%; }
+[id] { scroll-margin-top: 84px; }
+.tech-src a, .lede .intro a { display: inline-flex; align-items: center; min-height: 46px; padding: 0 2px; }
+.tech-src { align-items: center; margin-top: 2px !important; }
+.list-pick .pick { min-height: 56px; align-items: center; }
+.list-pick input[type="checkbox"] { width: 22px; height: 22px; margin: 0; }
+#email-form input[type="email"], #code-form input { width: 100%; font-size: 16px; min-height: 48px; }
+#signup-panel button { min-height: 48px; }
+
+@media (max-width: 800px) {
+  .desk { grid-template-columns: minmax(0, 1fr); width: auto; margin: 0; padding: 24px 20px 56px; gap: 32px; }
+  h1 { font-size: clamp(34px, 10.5vw, 46px); letter-spacing: -0.045em; }
+  .hero-copy { font-size: 20px; }
+  .intro, .advice, .samples-intro p, .tech-why, .list-card p, .sample-block p { font-size: 16px; }
+  .public-label, .eyebrow, .gets dt, .list-card .list-name, footer p, footer a, .list-pick legend, .issue-mast p, .issue-when, .tech-sec h4, .sample-block h4, .tech-src, .ticker-track, .site-header a { font-size: 13px; }
+  .sample-note, .list-pick small { font-size: 14px; }
+  .list-cards { grid-template-columns: minmax(0, 1fr); }
+  .tech-sheet, .issue-sheet { padding: 18px 16px; }
+  .tech-head { font-size: 16px; }
+  .site-header { min-height: 60px; padding: 8px 16px; }
+  .brand img { width: 36px; height: 36px; }
+  .samples-intro h2 { font-size: clamp(28px, 8vw, 36px); }
+  .reveal-on [data-rv] { filter: blur(4px); transform: translateY(16px); }
+  .samples[data-motion="swipe"] .sample-card, .samples[data-motion="observe"] .sample-card { filter: blur(3px); }
+}
+@media (min-width: 560px) and (max-width: 800px) {
+  .list-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

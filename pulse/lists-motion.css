@@ -2,7 +2,6 @@
 .title-and { color: var(--muted); font-weight: 500; }
 .list-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 26px; max-width: 760px; }
 .list-card { padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); transition: border-color 0.25s ease, transform 0.25s ease; }
-.list-card:hover { border-color: var(--signal); }
 .list-card p { margin: 0; color: var(--muted); font-size: 15px; }
 .list-card .list-name { font: 500 12px var(--mono); letter-spacing: 0.08em; color: var(--signal); }
 .list-card .list-when { margin: 8px 0 10px; color: var(--paper); font-weight: 600; font-size: 16px; }
@@ -26,7 +25,6 @@
 .tech-why { margin-top: 4px !important; color: var(--muted); font-size: 15px; }
 .tech-src { margin-top: 6px !important; font: 500 12px var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .tech-src a { color: var(--paper); }
-.tech-src a:hover { color: var(--signal); }
 @media (max-width: 480px) { .tech-head { font-size: 15px; } .tech-why { font-size: 14px; } }
 
 /* Motion after EasyUI (https://easyui.site/, MIT, Suraj Maurya). Only active with html.motion-on. */
@@ -35,12 +33,8 @@
 
 .motion-on .spot { position: relative; isolation: isolate; }
 .motion-on .spot::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; opacity: 0; transition: opacity 0.3s ease; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(202, 255, 55, 0.13), transparent 65%); }
-.motion-on .spot:hover::before { opacity: 1; }
 .motion-on .list-card.is-in, .motion-on .tech-sheet.is-in { transition: opacity 0.75s ease, filter 0.75s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease; transition-delay: 0ms; }
-.motion-on .list-card:hover { transform: translateY(-5px); border-color: var(--signal); box-shadow: 0 18px 40px -22px rgba(202, 255, 55, 0.45); }
-.motion-on .tech-sheet:hover { transform: translateY(-3px); box-shadow: 0 24px 60px -34px rgba(202, 255, 55, 0.35); }
 .motion-on .tech-item { transition: transform 0.25s ease; }
-.motion-on .tech-item.is-in:hover { transform: translateX(4px); }
 
 .tech-sheet .sample-flag { background: linear-gradient(110deg, transparent 30%, rgba(202, 255, 55, 0.35) 50%, transparent 70%) 0 0 / 250% 100% no-repeat; }
 .motion-on .tech-sheet .sample-flag { animation: badge-shine 3.2s ease-in-out infinite; }
@@ -58,7 +52,6 @@
 .list-pick strong { background: linear-gradient(var(--signal), var(--signal)) 0 100% / 0 2px no-repeat; transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1); padding-bottom: 2px; justify-self: start; }
 .list-pick .pick:has(input:checked) strong { background-size: 100% 2px; }
 .motion-on .list-pick .pick { transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease; }
-.motion-on .list-pick .pick:hover { transform: translateY(-2px); }
 .motion-on .list-pick .pick.just-changed { animation: pick-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes pick-pop { 0% { transform: scale(1); } 40% { transform: scale(1.025); box-shadow: 0 0 0 4px rgba(202, 255, 55, 0.18); } 100% { transform: scale(1); } }
 
@@ -72,4 +65,14 @@
   .reveal-on [data-rv] { opacity: 1; filter: none; transform: none; }
   .ticker-track, .tech-sheet .sample-flag, .tech-sheet h3 { animation: none !important; }
   .list-pick strong, .list-card, .list-pick .pick { transition: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .list-card:hover { border-color: var(--signal); }
+  .tech-src a:hover { color: var(--signal); }
+  .motion-on .spot:hover::before { opacity: 1; }
+  .motion-on .list-card:hover { transform: translateY(-5px); border-color: var(--signal); box-shadow: 0 18px 40px -22px rgba(202, 255, 55, 0.45); }
+  .motion-on .tech-sheet:hover { transform: translateY(-3px); box-shadow: 0 24px 60px -34px rgba(202, 255, 55, 0.35); }
+  .motion-on .tech-item.is-in:hover { transform: translateX(4px); }
+  .motion-on .list-pick .pick:hover { transform: translateY(-2px); }
 }

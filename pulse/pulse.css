@@ -204,11 +204,9 @@ footer a { min-height: 44px; display: inline-flex; align-items: center; }
   #signup-panel { order: 2; }
   .tech-sample { order: 3; }
   .samples { order: 4; }
-  #signup-panel { order: 3; }
   h1 { font-size: 46px; }
 }
 @media (max-width: 620px) {
-  .site-header { align-items: flex-start; flex-direction: column; gap: 0; }
   .panel { padding: 18px; }
   footer { flex-direction: column; gap: 4px; }
 }
