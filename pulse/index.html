@@ -14,15 +14,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="pulse.css?v=m-2" />
-  <link rel="stylesheet" href="lists-motion.css?v=m-2" />
-  <link rel="stylesheet" href="pulse-mobile.css?v=m-2" />
+  <link rel="stylesheet" href="pulse.css?v=u-1" />
+  <link rel="stylesheet" href="lists-motion.css?v=u-1" />
+  <link rel="stylesheet" href="pulse-uniform.css?v=u-1" />
+  <link rel="stylesheet" href="pulse-mobile.css?v=u-1" />
   <script type="module" src="pulse.js?v=pulse-9"></script>
-  <script type="module" src="lists-motion.js?v=tech-3"></script>
-  <script type="module" src="samples.js?v=pulse-samples-2"></script>
+  <script type="module" src="lists-motion.js?v=u-1"></script>
 </head>
 <body data-pulse-page="signup">
-  <a class="skip-link" href="#signup">Skip to signup</a>
+  <a class="skip-link" href="#signup-panel">Skip to signup</a>
   <header class="site-header">
     <a class="brand" href="https://nasirr.innergintel.org/">
       <img src="../innergid/assets/innerg-member-badge.png" width="44" height="44" alt="INNERG member badge" />
@@ -30,33 +30,15 @@
     </a>
     <a href="https://nasirr.innergintel.org/watchlist/">Market Pulse</a>
   </header>
-  <main class="desk" id="signup">
-    <div class="lede">
+  <main class="desk flow" id="signup">
+    <section class="lede hero" aria-labelledby="page-title">
       <p class="public-label">Free list</p>
       <p class="eyebrow">INNERG INTEL / Free lists</p>
-      <h1 id="page-title">INNERG PULSE <span class="title-and">and</span> INNERG TECH</h1>
+      <h1 id="page-title" data-words>INNERG PULSE <span class="title-and">and</span> INNERG TECH</h1>
       <p class="hero-copy">Two free lists. Pick one or both.</p>
       <p class="intro">Each list is short and written in plain language. No membership is required, and you can leave either list from any issue.</p>
-      <div class="list-cards" data-reveal-group>
-        <article class="list-card" data-reveal>
-          <p class="list-name">INNERG PULSE</p>
-          <p class="list-when">Market notes ~ 3 times on weekdays</p>
-          <p>Short recaps of what moved in US stocks and digital assets, for people learning the market. Education only.</p>
-        </article>
-        <article class="list-card" data-reveal>
-          <p class="list-name">INNERG TECH</p>
-          <p class="list-when">One daily digest ~ around 7 AM ET</p>
-          <p>What changed in tech and SI, plus the security news worth knowing, explained plainly so you can act on it.</p>
-        </article>
-      </div>
       <p class="advice">This is news, not financial advice.</p>
-      <dl class="gets" data-reveal>
-        <div><dt>What arrives</dt><dd>PULSE: Market news recaps on US stocks and digital assets. TECH: one tech and security digest each day.</dd></div>
-        <div><dt>How it reads</dt><dd>Plain-language context for the move, so the headline is easier to follow.</dd></div>
-        <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns. Your email is never shown or shared.</dd></div>
-      </dl>
-      <p class="intro"><a href="#samples">See a sample PULSE issue</a></p>
-    </div>
+    </section>
     <section class="panel" id="signup-panel" aria-labelledby="panel-title">
       <h2 id="panel-title">Get the updates</h2>
       <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
@@ -90,20 +72,21 @@
       </div>
       <p class="privacy">Your email is only used for the lists you pick. Unsubscribe anytime.</p>
     </section>
-    <section class="tech-sample" id="tech-sample" data-reveal aria-labelledby="tech-sample-title">
-      <div class="samples-intro">
-        <h2 id="tech-sample-title">What an INNERG TECH issue looks like</h2>
-        <p>Each item is one headline, one line on why it matters, and a link to the source.</p>
+    <section class="block samples-pair" id="samples" aria-labelledby="samples-title">
+      <div class="block-intro">
+        <h2 id="samples-title" data-words>See what you get</h2>
+        <p>One sample of each list, in the same format. Each item is one headline, one line on why it matters, and its source.</p>
       </div>
-      <article class="issue-sheet tech-sheet">
+      <div class="sheet-pair">
+      <article class="issue-sheet tech-sheet" id="tech-sample" aria-label="Sample INNERG TECH issue">
         <header class="issue-mast">
           <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
           <p>INNERG TECH</p>
           <p class="sample-flag">Sample issue</p>
         </header>
         <p class="issue-when">Friday, October 30, 2026 ~ 7 AM ET</p>
-        <div class="source-ticker" aria-label="Sources watched: @techdevnotes, @AIinPublic, @TheInsiderPaper, @unusual_whales, @BRICSinfo, @ThisWeeknAI"><div class="ticker-track" aria-hidden="true"><span>@techdevnotes</span><span>@AIinPublic</span><span>@TheInsiderPaper</span><span>@unusual_whales</span><span>@BRICSinfo</span><span>@ThisWeeknAI</span><span>@techdevnotes</span><span>@AIinPublic</span><span>@TheInsiderPaper</span><span>@unusual_whales</span><span>@BRICSinfo</span><span>@ThisWeeknAI</span></div></div>
         <h3>INNERG TECH</h3>
+        <div class="source-ticker" aria-label="Sources watched: @techdevnotes, @AIinPublic, @TheInsiderPaper, @unusual_whales, @BRICSinfo, @ThisWeeknAI"><div class="ticker-track" aria-hidden="true"><span>@techdevnotes</span><span>@AIinPublic</span><span>@TheInsiderPaper</span><span>@unusual_whales</span><span>@BRICSinfo</span><span>@ThisWeeknAI</span><span>@techdevnotes</span><span>@AIinPublic</span><span>@TheInsiderPaper</span><span>@unusual_whales</span><span>@BRICSinfo</span><span>@ThisWeeknAI</span></div></div>
         <section class="tech-sec">
           <h4>Top story</h4>
           <ul>
@@ -151,64 +134,77 @@
         </section>
         <p class="sample-note">Sample from real posts on October 28 to 30, 2026. Daily issues arrive around 7 AM ET.</p>
       </article>
+      <article class="issue-sheet tech-sheet pulse-sheet" id="pulse-sample" aria-label="Sample INNERG PULSE issue">
+        <header class="issue-mast">
+          <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
+          <p>INNERG PULSE</p>
+          <p class="sample-flag">Sample issue</p>
+        </header>
+        <p class="issue-when">One example trading day ~ weekdays</p>
+        <h3>INNERG PULSE</h3>
+        <div class="source-ticker" aria-label="Covers: US stocks, Digital assets, Pre-market ~ 8:15 AM ET, After the close ~ 6:15 PM ET"><div class="ticker-track" aria-hidden="true"><span>US stocks</span><span>Digital assets</span><span>Pre-market ~ 8:15 AM ET</span><span>After the close ~ 6:15 PM ET</span><span>US stocks</span><span>Digital assets</span><span>Pre-market ~ 8:15 AM ET</span><span>After the close ~ 6:15 PM ET</span></div></div>
+        <section class="tech-sec">
+          <h4>Pre-market ~ 8:15 AM ET</h4>
+          <p class="sec-sub">Before the cash open</p>
+          <ul>
+          <li class="tech-item">
+            <p class="tech-head">US stocks</p>
+            <p class="tech-why">Example: index futures are pointed higher into the cash open, and a large tech group is indicated with them. The note says what that usually means for the first hour, in plain words.</p>
+            <p class="tech-src"><span>Example data, not a live reading.</span></p>
+          </li>
+          <li class="tech-item">
+            <p class="tech-head">Digital assets</p>
+            <p class="tech-why">Example: a large coin is firm overnight, on its own clock. The note keeps that move separate from the stock open, so the two stories are not treated as one.</p>
+            <p class="tech-src"><span>Example data, not a live reading.</span></p>
+          </li>
+          </ul>
+        </section>
+        <section class="tech-sec">
+          <h4>After the close ~ 6:15 PM ET</h4>
+          <p class="sec-sub">What to watch next trading day</p>
+          <ul>
+          <li class="tech-item">
+            <p class="tech-head">US stocks</p>
+            <p class="tech-why">Example: one sector led the cash session and another lagged. The note names that split, then sets tomorrow's watch: whether it is still there at the next open.</p>
+            <p class="tech-src"><span>Example data, not a live reading.</span></p>
+          </li>
+          <li class="tech-item">
+            <p class="tech-head">Digital assets</p>
+            <p class="tech-why">Example: a large coin held a range after the stock close. Tomorrow's watch is whether that range breaks while the stock market is shut.</p>
+            <p class="tech-src"><span>Example data, not a live reading.</span></p>
+          </li>
+          </ul>
+        </section>
+        <p class="sample-note">Example data, not a live reading. This is news, not financial advice.</p>
+      </article>
+      </div>
     </section>
-    <section class="samples" id="samples" data-reveal data-samples aria-labelledby="samples-title">
-      <div class="samples-intro">
-        <h2 id="samples-title">See what you get</h2>
-        <p>Two sample INNERG PULSE issues from one trading day. The scenes below are example data, written so you can preview the shape of the market notes before you subscribe.</p>
+    <section class="block" id="what-you-get" aria-labelledby="gets-title">
+      <div class="block-intro">
+        <h2 id="gets-title" data-words>What each list gets</h2>
       </div>
-      <div class="sample-rail" data-sample-rail aria-label="Sample issues">
-        <article class="sample-card" data-sample-card>
-          <div class="issue-sheet">
-            <header class="issue-mast">
-              <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
-              <p>INNERG PULSE</p>
-              <p class="sample-flag">SAMPLE</p>
-            </header>
-            <p class="issue-when">Pre-market ~ 8:15 AM ET</p>
-            <h3>Before the cash open</h3>
-            <p class="sample-note">Example data, not a live reading.</p>
-            <div class="sample-split">
-              <section class="sample-block">
-                <h4>US stocks</h4>
-                <p>Example: index futures are pointed higher into the cash open, and a large tech group is indicated with them. The note says what that usually means for the first hour, in plain words.</p>
-              </section>
-              <section class="sample-block">
-                <h4>Digital assets</h4>
-                <p>Example: a large coin is firm overnight, on its own clock. The note keeps that move separate from the stock open, so the two stories are not treated as one.</p>
-              </section>
-            </div>
-            <p class="advice">This is news, not financial advice.</p>
-          </div>
+      <div class="list-cards">
+        <article class="list-card">
+          <p class="list-name">INNERG PULSE</p>
+          <p class="list-when">Market notes ~ 3 times on weekdays</p>
+          <p>Short recaps of what moved in US stocks and digital assets, for people learning the market. Education only.</p>
         </article>
-        <article class="sample-card" data-sample-card>
-          <div class="issue-sheet">
-            <header class="issue-mast">
-              <img src="../innergid/assets/innerg-member-badge.png" width="28" height="28" alt="" />
-              <p>INNERG PULSE</p>
-              <p class="sample-flag">SAMPLE</p>
-            </header>
-            <p class="issue-when">After the close ~ 6:15 PM ET</p>
-            <h3>What to watch next trading day</h3>
-            <p class="sample-note">Example data, not a live reading.</p>
-            <div class="sample-split">
-              <section class="sample-block">
-                <h4>US stocks</h4>
-                <p>Example: one sector led the cash session and another lagged. The note names that split, then sets tomorrow's watch: whether it is still there at the next open.</p>
-              </section>
-              <section class="sample-block">
-                <h4>Digital assets</h4>
-                <p>Example: a large coin held a range after the stock close. Tomorrow's watch is whether that range breaks while the stock market is shut.</p>
-              </section>
-            </div>
-            <p class="advice">This is news, not financial advice.</p>
-          </div>
+        <article class="list-card">
+          <p class="list-name">INNERG TECH</p>
+          <p class="list-when">One daily digest ~ around 7 AM ET</p>
+          <p>What changed in tech and SI, plus the security news worth knowing, explained plainly so you can act on it.</p>
         </article>
       </div>
-      <div class="sample-nav">
-        <button class="quiet" type="button" data-sample-go="0" aria-pressed="true">Pre-market sample</button>
-        <button class="quiet" type="button" data-sample-go="1" aria-pressed="false">After-close sample</button>
-      </div>
+      <dl class="gets">
+        <div><dt>What arrives</dt><dd>PULSE: Market news recaps on US stocks and digital assets. TECH: one tech and security digest each day.</dd></div>
+        <div><dt>How it reads</dt><dd>Plain-language context for the move, so the headline is easier to follow.</dd></div>
+        <div><dt>What it is not</dt><dd>Not a trade alert, not a membership, and not a promise about returns. Your email is never shown or shared.</dd></div>
+      </dl>
+    </section>
+    <section class="block final-cta" id="final-signup" aria-labelledby="final-title">
+      <h2 id="final-title" data-words>Get the updates</h2>
+      <p>Pick INNERG PULSE, INNERG TECH, or both. Free, and you can leave anytime.</p>
+      <a class="cta-button" href="#signup-panel" data-jump-signup>Pick your lists</a>
     </section>
   </main>
   <footer>

@@ -1,0 +1,49 @@
+/* Uniform layout for /pulse/: one column, same container, cards and heading scale.
+   Motion after EasyUI (https://easyui.site/, MIT, Suraj Maurya). */
+:root { --radius: 16px; --gutter: clamp(20px, 5vw, 48px); --rhythm: clamp(56px, 8vw, 96px); }
+.desk.flow { display: flex; flex-direction: column; gap: var(--rhythm); width: min(1040px, 100%); margin: 0 auto; padding: clamp(28px, 6vw, 64px) var(--gutter) var(--rhythm); }
+.desk.flow > * { order: 0 !important; grid-column: auto !important; grid-row: auto !important; margin-top: 0; }
+.hero { max-width: 820px; }
+.hero h1 { margin: 14px 0 16px; }
+.block-intro { max-width: 62ch; margin-bottom: 28px; }
+.block-intro h2, .final-cta h2, #panel-title { font-size: clamp(30px, 4vw, 44px); font-weight: 800; }
+.block-intro p { margin-top: 12px; color: var(--muted); font-size: 16px; }
+
+.panel, .tech-sheet, .list-card, .final-cta { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 20px 50px -40px rgba(0, 0, 0, 0.9); }
+#signup-panel { width: 100%; max-width: 100%; padding: clamp(20px, 4vw, 36px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+#signup-panel > * { max-width: 620px; }
+@media (min-width: 900px) {
+  #signup-panel { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 48px; row-gap: 12px; align-items: start; }
+  #signup-panel > #panel-status:empty { display: none; }
+  #signup-panel > #panel-title, #signup-panel > #panel-status, #signup-panel > .privacy { grid-column: 1; }
+  #signup-panel > form, #signup-panel > #done-panel { grid-column: 2; grid-row: 1 / span 3; }
+}
+
+.sheet-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+@media (min-width: 980px) { .sheet-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.tech-sheet { max-width: none; margin: 0; padding: clamp(18px, 3vw, 28px); }
+.tech-sheet h3 { font-size: clamp(26px, 3vw, 34px); font-weight: 800; letter-spacing: -0.04em; }
+.sec-sub { margin: 0 0 8px; font-weight: 600; color: var(--paper); }
+.tech-src span { color: var(--muted); }
+
+#what-you-get .list-cards { margin-top: 0; max-width: none; gap: 16px; }
+.list-card { padding: 22px; }
+#what-you-get .gets { margin-top: 28px; }
+
+.final-cta { padding: clamp(28px, 5vw, 48px); text-align: center; display: grid; justify-items: center; gap: 14px; }
+.final-cta p { color: var(--muted); max-width: 52ch; }
+.cta-button { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--signal); color: var(--ink); font-weight: 700; text-decoration: none; }
+
+/* Word reveal and sheen */
+.motion-on .words .w { display: inline-block; opacity: 0; filter: blur(10px); transform: translateY(0.45em); }
+.motion-on .words.words-in .w { opacity: 1; filter: blur(0); transform: none; transition: opacity 0.7s ease, filter 0.7s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: calc(var(--wi) * 90ms); }
+.motion-on .words.sheen .w { filter: none; transform: none; transition: none; }
+.motion-on .words.sheen { background: linear-gradient(90deg, var(--paper) 0%, var(--paper) 40%, var(--signal) 50%, var(--paper) 60%, var(--paper) 100%) 0 0 / 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: title-sheen 6s linear infinite; }
+.motion-on .words.sheen .w, .motion-on .words.sheen .title-and { color: transparent; }
+@media (max-width: 800px) { .motion-on .words .w { filter: blur(4px); } }
+@media (prefers-reduced-motion: reduce) { .motion-on .words .w { opacity: 1; filter: none; transform: none; } }
+@media (hover: hover) and (pointer: fine) {
+  .motion-on #signup-panel:hover, .motion-on .final-cta:hover { transform: translateY(-3px); box-shadow: 0 24px 60px -34px rgba(202, 255, 55, 0.35); }
+  .cta-button:hover { filter: brightness(1.08); }
+}
+.motion-on #signup-panel.is-in, .motion-on .final-cta { transition: opacity 0.75s ease, filter 0.75s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease; }

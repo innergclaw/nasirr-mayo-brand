@@ -3,7 +3,7 @@ img { max-width: 100%; height: auto; }
 .desk > * { min-width: 0; }
 .source-ticker { max-width: 100%; }
 [id] { scroll-margin-top: 84px; }
-.tech-src a, .lede .intro a { display: inline-flex; align-items: center; min-height: 46px; padding: 0 2px; }
+.tech-src a, .lede .intro a, .actions a { display: inline-flex; align-items: center; min-height: 46px; padding: 0 2px; }
 .tech-src { align-items: center; margin-top: 2px !important; }
 .list-pick .pick { min-height: 56px; align-items: center; }
 .list-pick input[type="checkbox"] { width: 22px; height: 22px; margin: 0; }
@@ -11,7 +11,7 @@ img { max-width: 100%; height: auto; }
 #signup-panel button { min-height: 48px; }
 
 @media (max-width: 800px) {
-  .desk { grid-template-columns: minmax(0, 1fr); width: auto; margin: 0; padding: 24px 20px 56px; gap: 32px; }
+  .desk.flow { padding: 24px 20px 56px; gap: 48px; }
   h1 { font-size: clamp(34px, 10.5vw, 46px); letter-spacing: -0.045em; }
   .hero-copy { font-size: 20px; }
   .intro, .advice, .samples-intro p, .tech-why, .list-card p, .sample-block p { font-size: 16px; }

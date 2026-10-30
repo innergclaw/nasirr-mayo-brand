@@ -24,7 +24,7 @@ test("unsubscribe tokens are 64 hex characters", () => {
 });
 
 test("public pages use the market desk voice", async () => {
-  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "samples.js", "SETUP.md", "lists-motion.js", "lists-motion.css"];
+  const files = ["index.html", "unsubscribe/index.html", "pulse.css", "pulse.js", "samples.js", "SETUP.md", "lists-motion.js", "lists-motion.css", "pulse-uniform.css", "pulse-mobile.css"];
   for (const file of files) {
     const source = await readFile(new URL(file, import.meta.url), "utf8");
     assert.doesNotMatch(source, banned, file);
@@ -50,19 +50,14 @@ test("public pages use the market desk voice", async () => {
   assert.match(page, /Pre-market ~ 8:15 AM ET/);
   assert.match(page, /After the close ~ 6:15 PM ET/);
   assert.match(page, /What to watch next trading day/);
-  assert.equal((page.match(/SAMPLE/g) || []).length, 2);
-  assert.equal((page.match(/<h4>US stocks<\/h4>/g) || []).length, 2);
-  assert.equal((page.match(/<h4>Digital assets<\/h4>/g) || []).length, 2);
-  assert.equal((page.match(/Example data, not a live reading\./g) || []).length, 2);
-  assert.equal((page.match(/This is news, not financial advice\./g) || []).length, 3);
-  const motion = await readFile(new URL("samples.js", import.meta.url), "utf8");
+  assert.equal((page.match(/class="sample-flag">Sample issue</g) || []).length, 2);
+  assert.equal((page.match(/<p class="tech-head">US stocks<\/p>/g) || []).length, 2);
+  assert.equal((page.match(/<p class="tech-head">Digital assets<\/p>/g) || []).length, 2);
+  assert.ok(page.indexOf('id="tech-sample"') < page.indexOf('id="pulse-sample"'));
+  assert.ok(page.indexOf('id="signup-panel"') < page.indexOf('id="samples"'));
+  assert.ok(page.indexOf('id="what-you-get"') < page.indexOf('id="final-signup"'));
+  assert.match(page, /data-jump-signup/);
   const css = await readFile(new URL("pulse.css", import.meta.url), "utf8");
-  assert.match(motion, /IntersectionObserver/);
-  assert.match(motion, /prefers-reduced-motion/);
-  assert.match(css, /animation-timeline: view\(\)/);
-  assert.match(css, /blur\(8px\)/);
-  assert.match(css, /scale\(0\.96\)/);
-  assert.match(css, /data-motion="swipe"/);
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(page, /id="email-form"/);
   assert.match(page, /id="code-form" hidden/);

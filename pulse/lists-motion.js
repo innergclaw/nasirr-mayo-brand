@@ -1,19 +1,73 @@
 // Motion for /pulse/. Vanilla rebuild of EasyUI style effects
 // (https://easyui.site/, MIT License, by Suraj Maurya): staggered blur-fade-up
-// reveal, cursor spotlight cards, badge shine, and a source ticker.
+// reveal, word by word headings, cursor spotlight cards, badge shine, and a source ticker.
 // The site is static HTML on GitHub Pages, so this uses IntersectionObserver
 // and CSS instead of React and Framer Motion. Content stays visible without JS,
 // and nothing moves when the visitor prefers reduced motion.
-const REVEAL = [".lede > *", "#signup-panel", ".list-card", ".gets > div", ".tech-sample .samples-intro", ".tech-sheet", ".tech-sheet .issue-when", ".source-ticker", ".tech-sec h4", ".tech-item", ".tech-sheet .sample-note", "#samples .samples-intro", "#samples .sample-rail", "#samples .sample-nav"];
-const SPOT = [".list-card", ".tech-sheet", "#signup-panel", ".list-pick .pick"];
+const REVEAL = [".hero > *:not(h1)", "#signup-panel", ".block-intro", ".tech-sheet", ".tech-sheet .issue-when", ".source-ticker", ".tech-sec h4", ".sec-sub", ".tech-item", ".sample-note", ".list-card", ".gets > div", ".final-cta > *"];
+const SPOT = [".list-card", ".tech-sheet", "#signup-panel", ".list-pick .pick", ".final-cta"];
+
+// Second signup point: scroll to the one real form and focus the email field.
+export function bootJump(doc = document) {
+  for (const link of doc.querySelectorAll("[data-jump-signup]")) {
+    link.addEventListener("click", (event) => {
+      const panel = doc.getElementById("signup-panel");
+      if (!panel) return;
+      event.preventDefault();
+      const still = doc.defaultView?.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      panel.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+      const field = doc.getElementById("email");
+      field?.focus({ preventScroll: true });
+    });
+  }
+}
+
+// Word by word blur-fade-up for headings marked data-words, then the lime sheen.
+export function splitWords(el, doc = document) {
+  let index = 0;
+  const walk = (node) => {
+    for (const child of [...node.childNodes]) {
+      if (child.nodeType === 3) {
+        const frag = doc.createDocumentFragment();
+        for (const part of child.textContent.split(/(\s+)/)) {
+          if (!part) continue;
+          if (/^\s+$/.test(part)) { frag.append(doc.createTextNode(part)); continue; }
+          const word = doc.createElement("span");
+          word.className = "w";
+          word.textContent = part;
+          word.style.setProperty("--wi", String(index++));
+          frag.append(word);
+        }
+        child.replaceWith(frag);
+      } else if (child.nodeType === 1) walk(child);
+    }
+  };
+  walk(el);
+  return index;
+}
 
 export function bootMotion(doc = document) {
   const view = doc.defaultView;
   if (!view) return;
+  bootJump(doc);
   const reduce = view.matchMedia?.("(prefers-reduced-motion: reduce)");
   if (reduce?.matches) return;
   const root = doc.documentElement;
   root.classList.add("motion-on");
+
+  for (const heading of doc.querySelectorAll("[data-words]")) {
+    const count = splitWords(heading, doc);
+    heading.classList.add("words");
+    const play = () => {
+      heading.classList.add("words-in");
+      view.setTimeout(() => heading.classList.add("sheen"), 700 + count * 90);
+    };
+    if (heading.closest(".hero") || !view.IntersectionObserver) { view.requestAnimationFrame(() => view.requestAnimationFrame(play)); continue; }
+    const wio = new view.IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { play(); wio.disconnect(); }
+    }, { threshold: 0.4 });
+    wio.observe(heading);
+  }
 
   const items = [...new Set(REVEAL.flatMap((sel) => [...doc.querySelectorAll(sel)]))];
   if (view.IntersectionObserver) {
