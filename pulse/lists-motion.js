@@ -1,28 +1,58 @@
-// Section reveal for /pulse/. A small vanilla rebuild of the blur-fade-in reveal
-// motion used across EasyUI (https://easyui.site/, MIT, by Suraj Maurya).
-// The site is static HTML on GitHub Pages, so this skips React and Framer Motion
-// and uses IntersectionObserver plus CSS transitions instead.
-export function bootReveal(doc = document) {
+// Motion for /pulse/. Vanilla rebuild of EasyUI style effects
+// (https://easyui.site/, MIT License, by Suraj Maurya): staggered blur-fade-up
+// reveal, cursor spotlight cards, badge shine, and a source ticker.
+// The site is static HTML on GitHub Pages, so this uses IntersectionObserver
+// and CSS instead of React and Framer Motion. Content stays visible without JS,
+// and nothing moves when the visitor prefers reduced motion.
+const REVEAL = [".lede > *", "#signup-panel", ".list-card", ".gets > div", ".tech-sample .samples-intro", ".tech-sheet", ".tech-sheet .issue-when", ".source-ticker", ".tech-sec h4", ".tech-item", ".tech-sheet .sample-note", "#samples .samples-intro", "#samples .sample-rail", "#samples .sample-nav"];
+const SPOT = [".list-card", ".tech-sheet", "#signup-panel", ".list-pick .pick"];
+
+export function bootMotion(doc = document) {
   const view = doc.defaultView;
-  const items = [...doc.querySelectorAll("[data-reveal]")];
-  if (!view || items.length === 0) return;
+  if (!view) return;
   const reduce = view.matchMedia?.("(prefers-reduced-motion: reduce)");
-  if (reduce?.matches || !view.IntersectionObserver) return;
-  doc.documentElement.classList.add("reveal-on");
-  items.forEach((item) => {
-    const group = item.parentElement?.closest("[data-reveal-group]");
-    const index = group ? [...group.querySelectorAll("[data-reveal]")].indexOf(item) : 0;
-    item.style.setProperty("--reveal-delay", `${index * 90}ms`);
-  });
-  const observer = new view.IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      entry.target.classList.add("is-in");
-      observer.unobserve(entry.target);
-    }
-  }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
-  items.forEach((item) => observer.observe(item));
-  reduce?.addEventListener?.("change", () => items.forEach((item) => item.classList.add("is-in")));
+  if (reduce?.matches) return;
+  const root = doc.documentElement;
+  root.classList.add("motion-on");
+
+  const items = [...new Set(REVEAL.flatMap((sel) => [...doc.querySelectorAll(sel)]))];
+  if (view.IntersectionObserver) {
+    const seen = new Map();
+    items.forEach((el) => el.setAttribute("data-rv", ""));
+    root.classList.add("reveal-on");
+    const io = new view.IntersectionObserver((entries) => {
+      const hits = entries.filter((e) => e.isIntersecting).map((e) => e.target)
+        .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top || a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+      hits.forEach((el, i) => {
+        if (seen.has(el)) return;
+        seen.set(el, true);
+        el.style.setProperty("--rv-delay", `${Math.min(i, 8) * 85}ms`);
+        el.classList.add("is-in");
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    items.forEach((el) => io.observe(el));
+    // Safety: never leave content hidden.
+    view.setTimeout(() => items.forEach((el) => el.classList.add("is-in")), 6000);
+  }
+
+  for (const el of SPOT.flatMap((sel) => [...doc.querySelectorAll(sel)])) {
+    el.classList.add("spot");
+    el.addEventListener("pointermove", (event) => {
+      const box = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${event.clientX - box.left}px`);
+      el.style.setProperty("--my", `${event.clientY - box.top}px`);
+    });
+  }
+
+  for (const input of doc.querySelectorAll(".list-pick input[type=checkbox]")) {
+    input.addEventListener("change", () => {
+      const pick = input.closest(".pick");
+      pick?.classList.remove("just-changed");
+      void pick?.offsetWidth;
+      pick?.classList.add("just-changed");
+    });
+  }
 }
 
-if (typeof document !== "undefined") bootReveal(document);
+if (typeof document !== "undefined") bootMotion(document);

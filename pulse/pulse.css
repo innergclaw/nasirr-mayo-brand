@@ -103,7 +103,8 @@ button { cursor: pointer; }
 }
 .lede { grid-column: 1; grid-row: 1; }
 #signup-panel { grid-column: 2; grid-row: 1; }
-.samples { grid-column: 1 / -1; grid-row: 2; }
+.tech-sample { grid-column: 1 / -1; grid-row: 2; }
+.samples { grid-column: 1 / -1; grid-row: 3; }
 h1 { font-size: clamp(48px, 6vw, 76px); font-weight: 800; margin: 12px 0 14px; }
 .hero-copy { font-size: clamp(20px, 2vw, 26px); font-weight: 600; }
 .intro, .advice { max-width: 62ch; margin-top: 14px; color: var(--muted); font-size: 15px; }
@@ -198,9 +199,11 @@ footer a { min-height: 44px; display: inline-flex; align-items: center; }
 
 @media (max-width: 800px) {
   .desk { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; }
-  .lede, #signup-panel, .samples { grid-column: 1; grid-row: auto; }
+  .lede, #signup-panel, .tech-sample, .samples { grid-column: 1; grid-row: auto; }
   .lede { order: 1; }
-  .samples { order: 2; }
+  #signup-panel { order: 2; }
+  .tech-sample { order: 3; }
+  .samples { order: 4; }
   #signup-panel { order: 3; }
   h1 { font-size: 46px; }
 }

@@ -14,12 +14,7 @@
 .list-pick span { display: grid; gap: 2px; }
 .list-pick strong { font-size: 15px; }
 .list-pick small { color: var(--muted); font-size: 13px; }
-.reveal-on [data-reveal] { opacity: 0; filter: blur(6px); transform: translateY(14px); transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--reveal-delay, 0ms); }
-.reveal-on [data-reveal].is-in { opacity: 1; filter: none; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal-on [data-reveal] { opacity: 1; filter: none; transform: none; transition: none; }
-  .list-card, .list-pick .pick { transition: none; }
-}
+
 .tech-sample { margin-top: 56px; grid-column: 1 / -1; }
 .tech-sheet { max-width: 760px; margin-top: 18px; }
 .tech-sheet h3 { margin: 4px 0 6px; }
@@ -33,3 +28,48 @@
 .tech-src a { color: var(--paper); }
 .tech-src a:hover { color: var(--signal); }
 @media (max-width: 480px) { .tech-head { font-size: 15px; } .tech-why { font-size: 14px; } }
+
+/* Motion after EasyUI (https://easyui.site/, MIT, Suraj Maurya). Only active with html.motion-on. */
+.reveal-on [data-rv] { opacity: 0; filter: blur(10px); transform: translateY(28px) scale(0.985); }
+.reveal-on [data-rv].is-in { opacity: 1; filter: blur(0); transform: none; transition: opacity 0.75s ease, filter 0.75s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--rv-delay, 0ms); }
+
+.motion-on .spot { position: relative; isolation: isolate; }
+.motion-on .spot::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; opacity: 0; transition: opacity 0.3s ease; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(202, 255, 55, 0.13), transparent 65%); }
+.motion-on .spot:hover::before { opacity: 1; }
+.motion-on .list-card.is-in, .motion-on .tech-sheet.is-in { transition: opacity 0.75s ease, filter 0.75s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease; transition-delay: 0ms; }
+.motion-on .list-card:hover { transform: translateY(-5px); border-color: var(--signal); box-shadow: 0 18px 40px -22px rgba(202, 255, 55, 0.45); }
+.motion-on .tech-sheet:hover { transform: translateY(-3px); box-shadow: 0 24px 60px -34px rgba(202, 255, 55, 0.35); }
+.motion-on .tech-item { transition: transform 0.25s ease; }
+.motion-on .tech-item.is-in:hover { transform: translateX(4px); }
+
+.tech-sheet .sample-flag { background: linear-gradient(110deg, transparent 30%, rgba(202, 255, 55, 0.35) 50%, transparent 70%) 0 0 / 250% 100% no-repeat; }
+.motion-on .tech-sheet .sample-flag { animation: badge-shine 3.2s ease-in-out infinite; }
+@keyframes badge-shine { 0% { background-position: 130% 0; } 60%, 100% { background-position: -130% 0; } }
+.tech-sheet h3 { background: linear-gradient(90deg, var(--paper) 0%, var(--paper) 40%, var(--signal) 50%, var(--paper) 60%, var(--paper) 100%) 0 0 / 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.motion-on .tech-sheet h3 { animation: title-sheen 6s linear infinite; }
+@keyframes title-sheen { from { background-position: 100% 0; } to { background-position: -200% 0; } }
+
+.source-ticker { margin: 14px 0 4px; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 8px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.ticker-track { display: flex; gap: 28px; width: max-content; font: 500 12px var(--mono); color: var(--muted); }
+.motion-on .ticker-track { animation: ticker 26s linear infinite; }
+.source-ticker:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.list-pick strong { background: linear-gradient(var(--signal), var(--signal)) 0 100% / 0 2px no-repeat; transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1); padding-bottom: 2px; justify-self: start; }
+.list-pick .pick:has(input:checked) strong { background-size: 100% 2px; }
+.motion-on .list-pick .pick { transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease; }
+.motion-on .list-pick .pick:hover { transform: translateY(-2px); }
+.motion-on .list-pick .pick.just-changed { animation: pick-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes pick-pop { 0% { transform: scale(1); } 40% { transform: scale(1.025); box-shadow: 0 0 0 4px rgba(202, 255, 55, 0.18); } 100% { transform: scale(1); } }
+
+/* Spacing tidy */
+.tech-sample .samples-intro { max-width: 62ch; }
+.tech-sheet { padding: clamp(18px, 4vw, 30px); }
+.tech-sheet .issue-mast { align-items: center; }
+@media (max-width: 800px) { .tech-sample { margin-top: 12px; } .list-cards { margin-top: 20px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on [data-rv] { opacity: 1; filter: none; transform: none; }
+  .ticker-track, .tech-sheet .sample-flag, .tech-sheet h3 { animation: none !important; }
+  .list-pick strong, .list-card, .list-pick .pick { transition: none; }
+}
