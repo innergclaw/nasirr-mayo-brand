@@ -1,0 +1,96 @@
+/* INNERG INTEL ~ Style A full page for /pulse/. Load LAST, after pulse-signup-sa.css.
+   Styling only: no ids, classes, copy or behavior change. Needs pulse_burst_v2.png in /pulse/. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600..900,100&family=Cormorant+Garamond:wght@600;700&family=Courier+Prime:wght@400;700&display=swap");
+:root{
+  --cream:#F3EBDD;--ink-a:#1E1414;--red:#9E2B25;
+  /* remap the old dark tokens so every legacy rule lands on paper */
+  --ink:#F3EBDD;--paper:#1E1414;--muted:#4A3A33;--line:#1E1414;--signal:#9E2B25;--danger:#9E2B25;--panel:#FBF6EC;
+  --display:"Cormorant Garamond",Georgia,serif;--mono:"Courier Prime",ui-monospace,monospace;
+  --serif:"Fraunces",Georgia,serif;color-scheme:light}
+html{background:var(--cream);overflow-x:clip}
+body{overflow-x:clip;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .08 0 0 0 0 .08 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") var(--cream)!important;color:var(--ink-a)!important;font:600 18px/1.5 var(--display)!important;position:relative}
+
+::selection{background:var(--red);color:var(--cream)}
+:focus-visible{outline:3px solid var(--red)!important;outline-offset:3px}
+::-webkit-scrollbar-thumb{background:var(--ink-a)}
+a{color:var(--ink-a)}
+
+/* header */
+.site-header{background:var(--cream)!important;border-bottom:3px solid var(--ink-a)!important;backdrop-filter:none!important;box-shadow:0 4px 0 rgba(158,43,37,.25)}
+.site-header a{color:var(--ink-a)!important;font:700 14px var(--mono)!important;letter-spacing:.2em;text-transform:uppercase}
+.brand img{filter:grayscale(1) contrast(1.2);border:2px solid var(--ink-a);border-radius:50%}
+
+/* hero with ink burst + speed lines */
+.hero{position:relative;isolation:isolate;padding-bottom:clamp(170px,22vw,280px)!important}
+.hero::before{content:"";position:absolute;z-index:-1;left:-8%;right:-8%;bottom:0;height:clamp(180px,24vw,300px);
+ background:url(pulse_burst_v2.png) center bottom/100% 100% no-repeat;opacity:.55;transform-origin:50% 100%;
+ -webkit-mask:linear-gradient(transparent,#000 45%);mask:linear-gradient(transparent,#000 35%),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect}
+.public-label,.eyebrow{font:700 13px var(--mono)!important;letter-spacing:.28em!important;text-transform:uppercase;color:var(--red)!important}
+.public-label::before{background:var(--red)!important;box-shadow:none!important}
+h1,h2,h3,.final-cta h2{font-family:var(--serif)!important;font-variation-settings:'opsz' 144,'wght' 900,'SOFT' 100;color:var(--ink-a)!important;letter-spacing:-.02em!important;text-transform:uppercase;-webkit-text-fill-color:currentColor}
+h1{font-size:clamp(50px,8vw,112px)!important;line-height:.9!important;text-shadow:5px 4px 0 rgba(158,43,37,.8)}
+h2{font-size:clamp(38px,5vw,68px)!important;line-height:.95!important;text-shadow:4px 3px 0 rgba(158,43,37,.7)}
+.title-and{color:var(--red)!important;font-family:var(--display)!important;font-style:italic;text-transform:lowercase;font-weight:700!important;text-shadow:-3px 2px 0 rgba(30,20,20,.45)}
+.hero-copy{font-family:var(--serif)!important;font-variation-settings:'wght' 700;font-size:clamp(22px,2.4vw,30px)!important;color:var(--ink-a)!important}
+.intro,.advice{color:var(--muted)!important;font-size:19px!important}
+.advice{color:var(--red)!important;font-family:var(--mono)!important;font-size:14px!important;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+
+/* blocks */
+.block-intro p,.final-cta p{color:var(--muted)!important;font-size:19px!important}
+.issue-sheet,.tech-sheet,.list-card,.final-cta{background:var(--panel)!important;color:var(--ink-a)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:8px 8px 0 var(--ink-a)!important}
+.tech-sheet h3{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--ink-a)!important;font-size:clamp(30px,3.4vw,44px)!important;text-shadow:3px 2px 0 rgba(158,43,37,.7)}
+.issue-mast{border-bottom:2px dashed var(--ink-a)!important}
+.issue-mast p{font:700 13px var(--mono)!important;letter-spacing:.18em;color:var(--ink-a)!important}
+.issue-mast img{filter:grayscale(1)}
+.sample-flag{background:var(--red)!important;color:var(--cream)!important;border:0!important;border-radius:0!important;padding:3px 8px!important;-webkit-text-fill-color:var(--cream)!important}
+.issue-when,.tech-src,.tech-src span,.ticker-track,.sample-note{font-family:var(--mono)!important;color:var(--muted)!important;font-size:13px!important}
+.source-ticker{border-color:var(--ink-a)!important;border-width:2px 0!important;background:repeating-linear-gradient(90deg,rgba(30,20,20,.06) 0 2px,transparent 2px 9px)}
+.ticker-track span{color:var(--ink-a)!important;font-weight:700}
+.tech-sec{border-top:2px solid var(--ink-a)!important}
+.tech-sec h4,.gets dt{font:700 13px var(--mono)!important;letter-spacing:.2em!important;color:var(--red)!important}
+.tech-head{font-family:var(--serif)!important;font-variation-settings:'wght' 800;font-size:20px!important;color:var(--ink-a)!important;line-height:1.15}
+.tech-why,.sec-sub,.gets dd,.list-card p{color:var(--muted)!important;font-size:18px!important}
+.sec-sub{color:var(--ink-a)!important}
+.tech-src a{color:var(--red)!important;text-decoration:underline;font-weight:700}
+.tech-item{border-left:3px solid transparent;padding-left:10px}
+.list-card .list-name{font-family:var(--serif)!important;font-variation-settings:'wght' 900;font-size:26px!important;color:var(--red)!important;letter-spacing:0!important}
+.list-card .list-when{color:var(--ink-a)!important;font:700 14px var(--mono)!important;letter-spacing:.1em}
+.gets div{border-top:2px solid var(--ink-a)!important}
+
+/* final cta with burst */
+.final-cta{position:relative;overflow:hidden;isolation:isolate;padding-bottom:200px!important}
+.final-cta::after{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;bottom:-4px;height:180px;background:url(pulse_burst_v2.png) center bottom/100% 100% no-repeat;opacity:.7;pointer-events:none}
+.cta-button,button:not(.quiet){background:var(--red)!important;color:var(--cream)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:4px 4px 0 var(--ink-a)!important;font:900 20px var(--serif)!important;font-variation-settings:'wght' 900;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.cta-button:hover,button:not(.quiet):hover{background:#86221d!important;filter:none!important}
+.cta-button:active,button:not(.quiet):active{transform:translate(3px,3px)!important;box-shadow:1px 1px 0 var(--ink-a)!important}
+button.quiet{background:transparent!important;color:var(--ink-a)!important}
+
+/* footer */
+footer{border-top:3px solid var(--ink-a)!important;color:var(--ink-a)!important;font:700 13px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase}
+footer a{color:var(--red)!important}
+noscript .desk{color:var(--ink-a)}
+
+/* kill old lime hover glows */
+.motion-on .list-card:hover,.motion-on .tech-sheet:hover,.motion-on #signup-panel:hover,.motion-on .final-cta:hover{box-shadow:12px 12px 0 var(--ink-a)!important;transform:translate(-3px,-3px)!important}
+.motion-on .spot:not(#signup-panel):not(.final-cta)::before{background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(158,43,37,.10),transparent 70%)!important}
+
+/* text motion: ink-stamp slam on JS-split words, red misregistration jitter, speed-line wipe */
+.motion-on .words .w{display:inline-block}
+.motion-on .words.words-in .w{animation:sa-slam .55s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(var(--wi,0)*110ms)}
+.motion-on .words.sheen,.motion-on .words.sheen .w{background:none!important;-webkit-text-fill-color:currentColor!important;color:var(--ink-a)!important}
+.motion-on .title-and .w,.motion-on .title-and{animation:sa-jitter 2.8s 1.4s steps(1) infinite}
+.motion-on h1.words,.motion-on #final-title.words,.motion-on #samples-title.words,.motion-on #gets-title.words{position:relative}
+.motion-on .words.words-in::after{content:"";position:absolute;inset:-4px -3%;pointer-events:none;background:repeating-linear-gradient(90deg,var(--ink-a) 0 3px,transparent 3px 11px);transform-origin:100% 50%;animation:sa-wipe .7s .35s ease-in both}
+.motion-on .hero::before{animation:fa-burst 1.2s cubic-bezier(.2,.9,.2,1) both}
+.motion-on .tech-sec h4,.motion-on .gets dt,.motion-on .issue-when{overflow:hidden;white-space:nowrap}
+.motion-on .tech-sec h4.is-in,.motion-on .issue-when.is-in{animation:sa-type .9s steps(20) both}
+@keyframes sa-slam{0%{opacity:0;transform:scale(2.3) rotate(-4deg);filter:blur(3px)}55%{opacity:1;transform:scale(.94) rotate(.6deg);filter:none}75%{transform:scale(1.03)}100%{opacity:1;transform:none;filter:none}}
+@keyframes sa-jitter{0%{text-shadow:-3px 2px 0 rgba(30,20,20,.45)}20%{text-shadow:-5px 1px 0 rgba(30,20,20,.5),3px -1px 0 rgba(158,43,37,.35)}24%{text-shadow:-2px 3px 0 rgba(30,20,20,.45)}60%{text-shadow:-4px 2px 0 rgba(30,20,20,.55)}64%{text-shadow:-3px 2px 0 rgba(30,20,20,.45)}}
+@keyframes sa-wipe{0%{transform:scaleX(1);opacity:.9}100%{transform:scaleX(0);opacity:0}}
+@keyframes fa-burst{0%{transform:scaleY(.2) scaleX(.6);opacity:0}100%{transform:none;opacity:.55}}
+@keyframes sa-type{from{max-width:0}to{max-width:40ch}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.words::after{display:none!important}}
+
+/* keep the sign-up panel's own burst (lists-motion.js adds .spot, whose ::before would replace it) */
+.motion-on #signup-panel.sa.spot::before{background:url(pulse_burst_v2.png) center bottom/100% 100% no-repeat!important;opacity:.85!important;inset:auto -10% -2px -10%!important;border-radius:0!important;z-index:0!important}
+@media (max-width:620px){.final-cta{padding-bottom:150px!important}.final-cta::after{height:130px}.site-header a{letter-spacing:.1em}}
