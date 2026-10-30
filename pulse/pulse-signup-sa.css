@@ -1,0 +1,83 @@
+/* Pulse sign-up, Style A v2. Scoped to #signup-panel.sa so pulse.css rules do not leak in. sign-up block. Keeps every id/name pulse.js uses. Needs pulse_burst_v2.png beside this file. Same ids/names/copy, so pulse.js and its Supabase POST are unchanged. */
+#signup-panel.sa{--cream:#F3EBDD;--ink:#1E1414;--red:#9E2B25;position:relative;overflow:hidden;background:var(--cream);color:var(--ink);
+ border:3px solid var(--ink);padding:clamp(22px,4vw,48px);display:grid;gap:28px;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700}
+#signup-panel.sa::before{content:"";position:absolute;left:-10%;right:-10%;bottom:-2px;height:62%;background:url(pulse_burst_v2.png) center bottom/100% 100% no-repeat;opacity:.85;transform-origin:50% 100%;animation:sa-burst 1.1s cubic-bezier(.2,.9,.2,1) both;pointer-events:none}
+#signup-panel.sa::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .08 0 0 0 0 .08 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#signup-panel.sa,#signup-panel.sa *{box-sizing:border-box}#signup-panel.sa [hidden]{display:none!important}#signup-panel.sa>*{position:relative;z-index:1}
+.sa-head{max-width:560px}
+.sa-kick{font-family:"Courier Prime",monospace;letter-spacing:5px;font-size:14px;color:var(--red);text-transform:uppercase}
+#signup-panel.sa h2{font-family:Fraunces,Georgia,serif;font-variation-settings:'opsz' 144,'wght' 900,'SOFT' 100;font-size:clamp(48px,7vw,92px);line-height:.9;letter-spacing:-2px;margin:10px 0 14px;text-shadow:4px 3px 0 rgba(158,43,37,.8);text-transform:uppercase}
+#signup-panel.sa .panel-status:not(:empty){border-left:5px solid var(--red);padding:6px 12px;background:rgba(243,235,221,.9);font-size:19px}
+#signup-panel.sa .privacy{font-size:18px;max-width:40ch;background:var(--cream);box-shadow:0 0 14px 10px var(--cream)}
+#signup-panel.sa form{background:rgba(243,235,221,.94);border:2px solid var(--ink);padding:clamp(18px,3vw,28px);display:grid;gap:12px;box-shadow:7px 7px 0 var(--ink)}
+#signup-panel.sa fieldset{border:0;padding:0;margin:0;display:grid;gap:10px}
+#signup-panel.sa legend,#signup-panel.sa label[for]{font-family:"Courier Prime",monospace;letter-spacing:4px;text-transform:uppercase;font-size:14px;margin-bottom:6px}
+#signup-panel.sa .pick{display:flex;gap:14px;align-items:flex-start;border:2px solid var(--ink);padding:12px 14px;cursor:pointer;background:var(--cream)}
+#signup-panel.sa .pick:has(input:checked){background:var(--ink);color:var(--cream)}
+#signup-panel.sa .pick input{appearance:none;width:22px;height:22px;border:2px solid currentColor;border-radius:50%;margin-top:3px;flex:none;display:grid;place-content:center}
+#signup-panel.sa .pick input:checked::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px var(--cream)}
+#signup-panel.sa .pick strong{display:block;font-family:Fraunces,Georgia,serif;font-variation-settings:'wght' 900;font-size:22px;letter-spacing:.5px}
+#signup-panel.sa .pick small{font-size:17px}
+#signup-panel.sa input[type=email],#signup-panel.sa input#code{font:700 20px "Courier Prime",monospace;color:var(--ink);background:var(--cream);border:2px solid var(--ink);border-bottom-width:4px;padding:13px 14px;min-height:52px;width:100%;border-radius:0}
+#signup-panel.sa input::placeholder{color:#8a7b70}
+#signup-panel.sa button{font-family:Fraunces,Georgia,serif;font-variation-settings:'wght' 900;font-size:22px;letter-spacing:1px;text-transform:uppercase;background:var(--red);color:var(--cream);border:2px solid var(--ink);min-height:56px;padding:12px 18px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);border-radius:0}
+#signup-panel.sa button:hover{background:#86221d}#signup-panel.sa button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+#signup-panel.sa button.quiet{background:transparent;color:var(--ink);box-shadow:none;border:0;text-decoration:underline;font-size:16px;min-height:44px}
+#signup-panel.sa .actions{display:flex;flex-wrap:wrap;gap:8px}
+#signup-panel.sa :focus-visible{outline:3px solid var(--red);outline-offset:3px}
+#signup-panel.sa .hp{position:absolute;left:-9999px}
+.sa-foot{justify-self:start;background:var(--cream);padding:4px 10px;font-family:"Courier Prime",monospace;letter-spacing:5px;font-size:13px;color:var(--red)}
+@media(min-width:900px){#signup-panel.sa{grid-template-columns:.9fr 1fr;column-gap:56px;align-items:start}#signup-panel.sa::before{height:58%}}
+
+#signup-panel.sa h2 .w{display:inline-block;animation:sa-slam .55s cubic-bezier(.2,1.6,.4,1) both}
+#signup-panel.sa h2 .w2{animation-delay:.12s}#signup-panel.sa h2 .w3{animation-delay:.26s}
+#signup-panel.sa h2 .red{color:var(--red);text-shadow:-4px 3px 0 rgba(30,20,20,.55);animation:sa-slam .55s .26s cubic-bezier(.2,1.6,.4,1) both,sa-jitter 2.6s 1s steps(1) infinite}
+#signup-panel.sa h2{position:relative}
+#signup-panel.sa h2::after{content:"";position:absolute;left:-4%;right:-4%;top:0;bottom:0;pointer-events:none;
+ background:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 11px);mix-blend-mode:multiply;transform-origin:100% 50%;animation:sa-wipe .7s .5s ease-in both}
+#signup-panel.sa form{animation:sa-reveal .7s .45s cubic-bezier(.2,.9,.2,1) both}
+#signup-panel.sa .tw{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;animation:sa-type 1s .8s steps(16) both}
+#signup-panel.sa .tw2{animation-delay:1.3s;animation-timing-function:steps(5)}
+#signup-panel.sa .privacy{animation:sa-fade .6s .9s both}
+@keyframes sa-slam{0%{opacity:0;transform:scale(2.4) rotate(-4deg);filter:blur(3px)}55%{opacity:1;transform:scale(.94) rotate(.6deg);filter:none}75%{transform:scale(1.03)}100%{transform:none}}
+@keyframes sa-jitter{0%{text-shadow:-4px 3px 0 rgba(30,20,20,.55)}20%{text-shadow:-6px 2px 0 rgba(30,20,20,.55),3px -1px 0 rgba(158,43,37,.35)}24%{text-shadow:-3px 4px 0 rgba(30,20,20,.55)}60%{text-shadow:-5px 3px 0 rgba(30,20,20,.6),-1px 0 0 rgba(30,20,20,.2)}64%{text-shadow:-4px 3px 0 rgba(30,20,20,.55)}}
+@keyframes sa-wipe{0%{transform:scaleX(1);opacity:.9}100%{transform:scaleX(0);opacity:0}}
+@keyframes sa-reveal{0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-30px)}100%{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
+@keyframes sa-type{from{max-width:0}to{max-width:30ch}}
+@keyframes sa-fade{from{opacity:0}to{opacity:1}}
+@keyframes sa-burst{0%{transform:scaleY(.2) scaleX(.6);opacity:0}100%{transform:none;opacity:.85}}
+@media (prefers-reduced-motion:reduce){#signup-panel.sa *,#signup-panel.sa::before,#signup-panel.sa *::after{animation:none!important}#signup-panel.sa h2::after{display:none}}
+
+/* Overrides of shared panel rules (pulse.css, pulse-uniform.css, lists-motion.css) */
+#signup-panel.sa{border-radius:0;max-width:100%;width:100%;grid-template-columns:minmax(0,1fr);grid-template-rows:none;box-shadow:none}
+#signup-panel.sa>*{max-width:none;min-width:0}
+#signup-panel.sa .sa-head,#signup-panel.sa .sa-forms{min-width:0}
+#signup-panel.sa h2{color:var(--ink);overflow-wrap:anywhere}
+#signup-panel.sa .panel-status{min-height:0;color:var(--ink)}
+#signup-panel.sa .panel-status[data-tone=error]{border-left-color:var(--red);color:var(--red)}
+#signup-panel.sa .sent-to,#signup-panel.sa .done-note{font-size:19px;margin:0}
+#signup-panel.sa #done-panel{background:rgba(243,235,221,.94);border:2px solid var(--ink);padding:clamp(18px,3vw,28px);box-shadow:7px 7px 0 var(--ink);display:grid;gap:12px}
+#signup-panel.sa #done-panel a{color:var(--red);font-size:19px}
+#signup-panel.sa .pick:has(input:checked) small,#signup-panel.sa .pick small{color:inherit}
+#signup-panel.sa label[for]{color:var(--ink);display:block}
+#signup-panel.sa .pick:has(input:checked) input{border-color:var(--cream)}
+#signup-panel.sa button{width:100%;max-width:100%;white-space:normal}
+#signup-panel.sa button.quiet{width:auto}
+@media(min-width:900px){#signup-panel.sa{grid-template-columns:minmax(0,.9fr) minmax(0,1fr)}#signup-panel.sa .sa-foot{grid-column:1/-1}}
+@media(max-width:430px){#signup-panel.sa h2{font-size:clamp(40px,13vw,56px);letter-spacing:-1px}#signup-panel.sa{gap:20px}}
+@media (prefers-reduced-motion:reduce){#signup-panel.sa,#signup-panel.sa *{transition:none!important}#signup-panel.sa .tw{max-width:none}}
+[hidden]{display:none!important}
+/* lists-motion.js adds .spot to the panel; keep its spotlight layer from replacing the burst */
+#signup-panel.sa::before{top:auto;z-index:0;border-radius:0;opacity:.85;transition:none}
+#signup-panel.sa h2{font-size:clamp(44px,5.6vw,84px);line-height:.9;letter-spacing:-2px;text-wrap:initial;overflow-wrap:normal}
+#signup-panel.sa legend{color:var(--ink);font:700 14px "Courier Prime",monospace;letter-spacing:4px;padding:0}
+#signup-panel.sa .privacy{color:var(--ink);font-size:18px;margin-top:0;line-height:1.3}
+#signup-panel.sa .pick{border-radius:0;min-height:0}
+#signup-panel.sa .pick strong{background:none;padding-bottom:0}
+#signup-panel.sa .pick small{display:block;line-height:1.25}
+#signup-panel.sa .pick input{margin-top:4px}
+@media(max-width:430px){#signup-panel.sa h2{font-size:clamp(40px,12.5vw,54px)}#signup-panel.sa legend,#signup-panel.sa label[for]{font-size:13px;letter-spacing:3px}}
+#signup-panel.sa .pick input{border-color:var(--ink);background:transparent;min-height:0;padding:0}#signup-panel.sa .pick:has(input:checked) input{border-color:var(--cream)}
+#signup-panel.sa .sent-to,#signup-panel.sa .done-note{color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:0}
+@media(max-width:400px){#signup-panel.sa .pick strong{font-size:19px;letter-spacing:0}}

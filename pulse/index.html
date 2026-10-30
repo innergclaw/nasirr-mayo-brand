@@ -13,13 +13,15 @@
   <link rel="canonical" href="https://nasirr.innergintel.org/pulse/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,900,100&family=Cormorant+Garamond:wght@700&family=Courier+Prime:wght@700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="pulse.css?v=u-1" />
   <link rel="stylesheet" href="lists-motion.css?v=u-1" />
   <link rel="stylesheet" href="pulse-uniform.css?v=u-1" />
   <link rel="stylesheet" href="pulse-mobile.css?v=u-1" />
+  <link rel="stylesheet" href="pulse-signup-sa.css?v=sa-1" />
   <script type="module" src="pulse.js?v=pulse-9"></script>
   <script type="module" src="lists-motion.js?v=u-1"></script>
+  <script type="module" src="pulse-signup-sa.js?v=sa-1"></script>
 </head>
 <body data-pulse-page="signup">
   <a class="skip-link" href="#signup-panel">Skip to signup</a>
@@ -39,39 +41,38 @@
       <p class="intro">Each list is short and written in plain language. No membership is required, and you can leave either list from any issue.</p>
       <p class="advice">This is news, not financial advice.</p>
     </section>
-    <section class="panel" id="signup-panel" aria-labelledby="panel-title">
-      <h2 id="panel-title">Get the updates</h2>
-      <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
-      <form id="email-form">
-        <fieldset class="list-pick">
-          <legend>Pick your lists</legend>
-          <label class="pick"><input type="checkbox" name="list_pulse" id="list-pulse" checked /><span><strong>INNERG PULSE</strong><small>Market notes, 3 times on weekdays</small></span></label>
-          <label class="pick"><input type="checkbox" name="list_tech" id="list-tech" /><span><strong>INNERG TECH</strong><small>Daily tech and security digest, around 7 AM ET</small></span></label>
-        </fieldset>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com" />
-        <div class="hp" aria-hidden="true">
-          <label for="pulse-hp">Leave this empty</label>
-          <input id="pulse-hp" name="pulse_hp" type="text" tabindex="-1" autocomplete="off" />
-        </div>
-        <button type="submit">Send my code</button>
-      </form>
-      <form id="code-form" hidden>
-        <p id="sent-to" class="sent-to"></p>
-        <label for="code">One-time code</label>
-        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="8" maxlength="8" pattern="[0-9]{8}" required placeholder="00000000" />
-        <button type="submit">Confirm code</button>
-        <div class="actions">
-          <button id="resend-code" class="quiet" type="button">Send a new code</button>
-          <button id="change-email" class="quiet" type="button">Use a different email</button>
-        </div>
-      </form>
-      <div id="done-panel" hidden>
-        <p class="done-note">You can leave a list from the unsubscribe link in any issue.</p>
-        <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
-      </div>
-      <p class="privacy">Your email is only used for the lists you pick. Unsubscribe anytime.</p>
-    </section>
+    <section class="panel sa" id="signup-panel" aria-labelledby="panel-title">
+  <div class="sa-head">
+        <h2 id="panel-title" aria-label="Get the updates"><span class="w w1">Get</span> <span class="w w2">the</span> <span class="w w3 red">updates</span></h2>
+    <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
+    <p class="privacy">Your email is only used for the lists you pick. Unsubscribe anytime.</p>
+  </div>
+  <div class="sa-forms">
+  <form id="email-form">
+    <fieldset class="list-pick">
+      <legend><span class="tw">Pick your lists</span></legend>
+      <label class="pick"><input type="checkbox" name="list_pulse" id="list-pulse" checked /><span><strong>INNERG PULSE</strong><small>Market notes, 3 times on weekdays</small></span></label>
+      <label class="pick"><input type="checkbox" name="list_tech" id="list-tech" /><span><strong>INNERG TECH</strong><small>Daily tech and security digest, around 7 AM ET</small></span></label>
+    </fieldset>
+    <label for="email"><span class="tw tw2">Email</span></label>
+    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com" />
+    <div class="hp" aria-hidden="true"><label for="pulse-hp">Leave this empty</label><input id="pulse-hp" name="pulse_hp" type="text" tabindex="-1" autocomplete="off" /></div>
+    <button type="submit">Send my code</button>
+  </form>
+  <form id="code-form" hidden>
+    <p id="sent-to" class="sent-to"></p>
+    <label for="code">One-time code</label>
+    <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="8" maxlength="8" pattern="[0-9]{8}" required placeholder="00000000" />
+    <button type="submit">Confirm code</button>
+    <div class="actions"><button id="resend-code" class="quiet" type="button">Send a new code</button><button id="change-email" class="quiet" type="button">Use a different email</button></div>
+  </form>
+  <div id="done-panel" hidden>
+    <p class="done-note">You can leave a list from the unsubscribe link in any issue.</p>
+    <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
+  </div>
+  </div>
+  <p class="sa-foot"><span class="tw">INNERG INTEL ~ 2026</span></p>
+</section>
     <section class="block samples-pair" id="samples" aria-labelledby="samples-title">
       <div class="block-intro">
         <h2 id="samples-title" data-words>See what you get</h2>
