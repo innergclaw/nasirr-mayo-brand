@@ -51,6 +51,11 @@ test("public pages use the market desk voice", async () => {
   const hz = await readFile(new URL("pulse-horizon.css", import.meta.url), "utf8");
   assert.doesNotMatch(hz, banned);
   assert.match(hz, /prefers-reduced-motion:reduce/);
+  const sp = await readFile(new URL("pulse-splash.js", import.meta.url), "utf8");
+  assert.doesNotMatch(sp, banned);
+  assert.match(sp, /sessionStorage/);
+  assert.match(sp, /prefers-reduced-motion: reduce/);
+  assert.match(page, /src="pulse-splash\.js/);
   const css = await readFile(new URL("pulse.css", import.meta.url), "utf8");
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(page, /id="email-form"/);
