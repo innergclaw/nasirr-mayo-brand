@@ -50,8 +50,8 @@ export function listFromSearch(search) {
 
 // Schedules for the two new lists live here (pending confirmation). Edit these strings only.
 export const LIST_SCHEDULES = {
-  wisdom: "Short money and mindset cards, every week",
-  oyw: "Own your website ~ simple tips for business owners, every month",
+  wisdom: "Short money and mindset cards, twice a week",
+  oyw: "Own your website ~ simple tips for business owners, every week",
 };
 
 // The sign-up backend only stores pulse and tech today. Wisdom and OwnYourWeb Tips are shown but not sent.
