@@ -30,7 +30,7 @@ test("public pages use the market desk voice", async () => {
     assert.doesNotMatch(source, banned, file);
   }
   const page = await readFile(new URL("index.html", import.meta.url), "utf8");
-  assert.match(page, /This is news, not financial advice\./);
+  assert.doesNotMatch(page, /Nasirr G\. Mayo,/);
   assert.match(page, /Your email is only used for the lists you pick\./);
   assert.match(page, /free market news, 3 times a day/);
   assert.match(page, /name="pulse_hp"/);

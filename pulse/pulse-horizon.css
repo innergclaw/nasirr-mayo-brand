@@ -58,6 +58,7 @@ button.quiet{background:none;color:var(--ink);border:0;padding:8px 0;text-decora
 .wisdom figcaption span{display:block;font-style:normal;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--sky)}
 .hz-foot{margin-top:90px;background:var(--ink);color:var(--cream);text-align:center;padding:44px 20px 52px;font-family:var(--mono);font-size:14px;line-height:1.9}
 .hz-foot p{margin:0}
+.foot-seal{display:block;width:96px;height:96px;margin:0 auto 18px;border-radius:50%;box-shadow:0 0 0 3px var(--cream)}
 .foot-brand{font-family:var(--serif)!important;font-weight:900;font-size:26px;letter-spacing:3px;margin-bottom:8px!important}
 .foot-brand span,.hz-foot .tag{color:#E0675A}
 .hz-foot .tag{font-weight:700;letter-spacing:2px}
@@ -66,6 +67,7 @@ button.quiet{background:none;color:var(--ink);border:0;padding:8px 0;text-decora
 @media (max-width:760px){
   .hz-top{padding:14px 16px}.seal img{width:54px;height:54px}.brand{font-size:12px;letter-spacing:3px}
   .hero{padding-top:104px}
+  .foot-seal{width:80px;height:80px;margin-bottom:14px}
   .ground{height:320px;margin-top:18px}
   .panel{margin:-70px 14px 0;padding:24px 18px 18px;box-shadow:6px 6px 0 var(--ink)}
   .panel h2{font-size:28px}
