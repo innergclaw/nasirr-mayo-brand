@@ -5,6 +5,7 @@ export const COPY = {
   invalidCode: "That code is wrong or expired. Check the latest message, or send a new code.",
   confirmed: "You're confirmed. The lists you picked will come to this email. This is news, not financial advice.",
   pickList: "Pick at least one list.",
+  pickLive: "INNERG WISDOM and OWNYOURWEB TIPS open soon. Pick INNERG PULSE or INNERG TECH to sign up today.",
   rateLimited: "Too many attempts. Wait a little while, then try again.",
   unavailable: "The desk could not send mail just now. Try again shortly.",
   confirmUnavailable: "The desk could not check that code just now. Try again shortly.",
@@ -47,10 +48,45 @@ export function listFromSearch(search) {
   return list === "tech" || list === "pulse" ? list : "all";
 }
 
+// Schedules for the two new lists live here (pending confirmation). Edit these strings only.
+export const LIST_SCHEDULES = {
+  wisdom: "Short money and mindset cards, every week",
+  oyw: "Own your website ~ simple tips for business owners, every month",
+};
+
+// The sign-up backend only stores pulse and tech today. Wisdom and OwnYourWeb Tips are shown but not sent.
 export function listsFromForm(form) {
   const pulse = Boolean(form?.querySelector("[name=list_pulse]")?.checked);
   const tech = Boolean(form?.querySelector("[name=list_tech]")?.checked);
   return { pulse, tech };
+}
+
+export function soonFromForm(form) {
+  return ["list_wisdom", "list_oyw"].some((name) => Boolean(form?.querySelector(`[name=${name}]`)?.checked));
+}
+
+export function wireSelectAll(form, doc = document) {
+  const all = form?.querySelector("#list-all");
+  const boxes = [...(form?.querySelectorAll(".list-pick input[type=checkbox][name^=list_]") || [])];
+  const soon = doc.getElementById("list-soon");
+  for (const [key, text] of Object.entries(LIST_SCHEDULES)) {
+    const node = form?.querySelector(`[data-list-desc=${key}]`);
+    if (node) node.textContent = text;
+  }
+  const sync = () => {
+    const on = boxes.filter((box) => box.checked).length;
+    if (all) {
+      all.checked = on === boxes.length;
+      all.indeterminate = on > 0 && on < boxes.length;
+    }
+    if (soon) soon.hidden = !soonFromForm(form);
+  };
+  all?.addEventListener("change", () => {
+    for (const box of boxes) box.checked = all.checked;
+    sync();
+  });
+  for (const box of boxes) box.addEventListener("change", sync);
+  sync();
 }
 
 export async function postPulse(body, fetchImpl = fetch) {
@@ -111,6 +147,7 @@ export function boot(doc = document) {
     const sentTo = doc.getElementById("sent-to");
     let pendingEmail = "";
     let pendingLists = { pulse: true, tech: false };
+    wireSelectAll(emailForm, doc);
 
     const subscribe = async (email) => {
       setBusy(emailForm, true);
@@ -140,7 +177,7 @@ export function boot(doc = document) {
       const email = emailInput?.value.trim() || "";
       const lists = listsFromForm(emailForm);
       if (!lists.pulse && !lists.tech) {
-        paint(doc, { view: "email", title: "Get the updates", message: COPY.pickList, tone: "error" });
+        paint(doc, { view: "email", title: "Get the updates", message: soonFromForm(emailForm) ? COPY.pickLive : COPY.pickList, tone: "error" });
         return;
       }
       pendingLists = lists;
