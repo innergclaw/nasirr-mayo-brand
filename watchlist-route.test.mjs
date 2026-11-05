@@ -23,7 +23,7 @@ test('public mirror never includes private research',async()=>{
   const page=await readFile('watchlist/index.html','utf8');
   assert.match(page,/data-data-url="https:\/\/innergclaw\.github\.io\/innerg-watchlist\/data\/watchlist\.json"/);
   assert.match(page,/data-update-url="https:\/\/innergclaw\.github\.io\/innerg-watchlist\/data\/market-updates\.json"/);
-  assert.match(page,/rel="canonical" href="https:\/\/nasirr\.innergintel\.org\/watchlist\/"/);
+  assert.match(page,/rel="canonical" href="https:\/\/nasirr\.innergintel\.study\/watchlist\/"/);
   const stocks=await readFile('watchlist/stocks/index.html','utf8');
   assert.match(stocks,/data-data-url="https:\/\/innergclaw\.github\.io\/innerg-watchlist\/data\/watchlist\.json"/);
   const closing=await readFile('watchlist/closing-report.mjs','utf8');
