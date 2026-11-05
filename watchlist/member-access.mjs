@@ -9,7 +9,7 @@ let revision=0, pendingEmail='';
 const signin=document.querySelector('#signin-controls');
 const signout=document.querySelector('#research-signout');
 const prefs=document.querySelector('#research-preferences');
-const gateMarkup=`<div class="research-lock"><div class="research-placeholder" aria-hidden="true"><b>Research notes and context</b><p>Source review · What changed · What to watch</p><p>Member analysis and daily research</p></div><div class="research-lock-copy"><p class="eyebrow">INNERG ID access</p><h3>Read beyond the chart.</h3><p>Unlock the news, watch points, and risks with an active membership.</p><div class="member-actions"><a class="member-cta" href="https://nasirr.innergintel.org/innergid/">Become a member</a><a href="#member-access">Already a member? Sign in</a></div></div></div>`;
+const gateMarkup=`<div class="research-lock"><div class="research-placeholder" aria-hidden="true"><b>Research notes and context</b><p>Source review · What changed · What to watch</p><p>Member analysis and daily research</p></div><div class="research-lock-copy"><p class="eyebrow">INNERG ID access</p><h3>Read beyond the chart.</h3><p>Unlock the news, watch points, and risks with an active membership.</p><div class="member-actions"><a class="member-cta" href="https://nasirr.innergintel.study/innergid/">Become a member</a><a href="#member-access">Already a member? Sign in</a></div></div></div>`;
 function lock(){
   document.querySelectorAll('.research-gate').forEach(el=>{el.hidden=false;});
   document.querySelectorAll('.research-content').forEach(el=>{el.hidden=true;});

@@ -1,6 +1,6 @@
 # INNERG PULSE signup setup
 
-The page is `https://nasirr.innergintel.org/pulse/`. A visitor enters an email, Supabase Auth emails an 8-digit code, and the address becomes active only after that code is checked. The public Supabase key cannot read the list.
+The page is `https://nasirr.innergintel.study/pulse/`. A visitor enters an email, Supabase Auth emails an 8-digit code, and the address becomes active only after that code is checked. The public Supabase key cannot read the list.
 
 Project: `zkyhhoxcrjkhywblzehr` (`https://zkyhhoxcrjkhywblzehr.supabase.co`).
 
@@ -99,7 +99,7 @@ Open `/pulse/`, enter an email you can read, and confirm the code from that inbo
 
 The browser does not keep an Auth session from this page. Signing in at `/account/` is a separate step. A confirmed newsletter address can later request a code there, the same as any address that has verified with Auth and has no membership yet. Member pages still require a row in `innerg_memberships`.
 
-Unsubscribe with the link you place in a future issue: `https://nasirr.innergintel.org/pulse/unsubscribe/?token=...`. The Auth code email cannot carry that per-address token. The address is marked `unsubscribed` only after the button is pressed, so mail scanners that only open the link do not remove people.
+Unsubscribe with the link you place in a future issue: `https://nasirr.innergintel.study/pulse/unsubscribe/?token=...`. The Auth code email cannot carry that per-address token. The address is marked `unsubscribed` only after the button is pressed, so mail scanners that only open the link do not remove people.
 
 ## 7. Future issues
 
@@ -113,7 +113,7 @@ where status = 'active';
 
 Put this link in every issue:
 
-`https://nasirr.innergintel.org/pulse/unsubscribe/?token=` plus `unsubscribe_token`.
+`https://nasirr.innergintel.study/pulse/unsubscribe/?token=` plus `unsubscribe_token`.
 
 The same token stays on the row so older issues keep working. Commercial issues should also include your postal address. That address is not stored in this repo.
 

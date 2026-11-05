@@ -1,6 +1,6 @@
 # Drop: private publishing inbox
 
-Live route: https://nasirr.innergintel.org/drop/
+Live route: https://nasirr.innergintel.study/drop/
 
 Owner: existing Founder Dashboard Auth UID. Login uses the same Supabase project, a separate `founder-drop-session` session, and email codes with automatic account creation disabled. Member accounts cannot read or write any inbox content. Text is stored in `founder_drops`, never shipped in static HTML, the service worker, or a public JSON file.
 

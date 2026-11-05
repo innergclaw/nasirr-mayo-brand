@@ -22,7 +22,7 @@ export function validateDetails(details) {
 export function buildMessage(details) {
   if (Object.keys(validateDetails(details)).length) throw new Error("Complete the project details before preparing a text.");
   const name = `${details.firstName.trim()} ${details.lastName.trim()}`.replace(/[\r\n]+/g, " ");
-  return `Hi Nasirr, I'd like to discuss a project.\n\nName: ${name}\nService needed: ${details.serviceType}\nProject details: ${details.service.trim()}\nBudget: ${details.budget}\nExpected delivery: ${details.delivery}\nDeposit agreement: Agreed. ${AGREEMENT}\n\nSent from nasirr.innergintel.org`;
+  return `Hi Nasirr, I'd like to discuss a project.\n\nName: ${name}\nService needed: ${details.serviceType}\nProject details: ${details.service.trim()}\nBudget: ${details.budget}\nExpected delivery: ${details.delivery}\nDeposit agreement: Agreed. ${AGREEMENT}\n\nSent from nasirr.innergintel.study`;
 }
 
 export function buildSmsHref(message) {

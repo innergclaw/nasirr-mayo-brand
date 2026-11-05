@@ -3,7 +3,7 @@ import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {buildClosingReport, renderClosingGraphic, sameClosingBoard} from './closing-snapshot.mjs';
 
 const origin = 'https://innergclaw.github.io/innerg-watchlist/';
-const home = 'https://nasirr.innergintel.org/watchlist/';
+const home = 'https://nasirr.innergintel.study/watchlist/';
 const snapshotUrl = `${origin}data/watchlist.json`;
 const updatesUrl = `${origin}data/market-updates.json`;
 const destination = new URL('../watchlist/', import.meta.url);

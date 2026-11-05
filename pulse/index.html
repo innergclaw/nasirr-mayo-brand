@@ -1,121 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1F3FBF" />
-  <meta name="description" content="INNERG PULSE is free market news, 3 times a day on weekdays. Simple and clear. Join with your email." />
-  <title>INNERG PULSE ~ Free market news, simple and clear</title>
-  <meta property="og:title" content="INNERG PULSE ~ Free market news, simple and clear" />
-  <meta property="og:description" content="Free market news, 3 times a day on weekdays. Simple and clear." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://nasirr.innergintel.org/pulse/assets/wisdom/wisdom-002.jpg" />
-  <meta property="og:url" content="https://nasirr.innergintel.org/pulse/" />
-  <link rel="canonical" href="https://nasirr.innergintel.org/pulse/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="pulse-horizon.css?v=h-4" />
-  <script type="module" src="pulse.js?v=pulse-11"></script>
+<meta charset="utf-8">
+<title>INNERG PULSE has moved</title>
+<link rel="canonical" href="https://pulse.innergintel.study/">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=https://pulse.innergintel.study/">
+<script>location.replace("https://pulse.innergintel.study/" + location.search + location.hash);</script>
 </head>
-<body data-pulse-page="signup">
-  <script src="pulse-splash.js?v=s-1"></script>
-  <a class="skip-link" href="#signup-panel">Skip to sign up</a>
-  <div class="grain" aria-hidden="true"></div>
-
-  <header class="hz-top">
-    <a class="seal" href="https://nasirr.innergintel.org/"><img src="assets/seal-320.jpg" width="72" height="72" alt="InnerG Intel seal" /></a>
-    <p class="brand">INNERG <span>PULSE</span></p>
-  </header>
-
-  <main id="signup">
-    <section class="hero" aria-labelledby="page-title">
-      <p class="kicker">Free market news</p>
-      <h1 id="page-title">The market,<br />made simple.</h1>
-      <p class="hero-sub">INNERG PULSE is free market news, 3 times a day. Simple and clear, so anyone can follow it.</p>
-      <svg class="ground" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
-        <defs>
-          <radialGradient id="soil" cx="50%" cy="0%" r="90%">
-            <stop offset="0" stop-color="#C9573A" />
-            <stop offset=".45" stop-color="#9E2B25" />
-            <stop offset="1" stop-color="#5A1A16" />
-          </radialGradient>
-          <filter id="paint"><feTurbulence type="fractalNoise" baseFrequency=".012 .05" numOctaves="3" seed="7" /><feDisplacementMap in="SourceGraphic" scale="14" /></filter>
-        </defs>
-        <path d="M-40 120 Q720 -40 1480 120 L1480 560 L-40 560 Z" fill="url(#soil)" filter="url(#paint)" />
-        <g fill="none" stroke="#F3EBDD" stroke-opacity=".55" filter="url(#paint)">
-          <ellipse cx="720" cy="300" rx="120" ry="34" stroke-width="3" />
-          <ellipse cx="720" cy="300" rx="230" ry="66" stroke-width="2.6" stroke-opacity=".45" />
-          <ellipse cx="720" cy="300" rx="360" ry="104" stroke-width="2.2" stroke-opacity=".35" />
-          <ellipse cx="720" cy="300" rx="520" ry="150" stroke-width="1.8" stroke-opacity=".25" />
-          <ellipse cx="720" cy="300" rx="700" ry="202" stroke-width="1.4" stroke-opacity=".18" />
-        </g>
-        <g fill="#1E1414" transform="translate(712 248)">
-          <circle cx="8" cy="5" r="5" />
-          <path d="M3 12 h10 l2 22 h-4 l-1 22 h-4 l-1-22 h-4 Z" />
-        </g>
-        <ellipse cx="720" cy="306" rx="16" ry="4" fill="#1E1414" opacity=".35" />
-      </svg>
-    </section>
-
-    <section class="panel" id="signup-panel" aria-labelledby="panel-title">
-      <h2 id="panel-title">Get the updates</h2>
-      <p id="panel-status" class="panel-status" role="status" aria-live="polite"></p>
-      <form id="email-form">
-        <fieldset class="list-pick">
-          <legend>Pick your lists</legend>
-          <label class="pick pick-all"><input type="checkbox" id="list-all" /><span><strong>SELECT ALL</strong><small>Check or clear every list at once</small></span></label>
-          <label class="pick"><input type="checkbox" name="list_pulse" id="list-pulse" checked /><span><strong>INNERG PULSE</strong><small>Market news, 3 times a day on weekdays</small></span></label>
-          <label class="pick"><input type="checkbox" name="list_tech" id="list-tech" /><span><strong>INNERG TECH</strong><small>Optional ~ one daily tech and security digest</small></span></label>
-          <label class="pick"><input type="checkbox" name="list_wisdom" id="list-wisdom" /><span><strong>INNERG WISDOM</strong><small data-list-desc="wisdom">Short money and mindset cards, twice a week</small></span></label>
-          <label class="pick"><input type="checkbox" name="list_oyw" id="list-oyw" /><span><strong>OWNYOURWEB TIPS</strong><small data-list-desc="oyw">Own your website ~ simple tips for business owners, every week</small></span></label>
-        </fieldset>
-        <label for="email">Email</label>
-        <div class="row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="you@example.com" />
-          <button type="submit">Send my code</button>
-        </div>
-        <div class="hp" aria-hidden="true"><label for="pulse-hp">Leave this empty</label><input id="pulse-hp" name="pulse_hp" type="text" tabindex="-1" autocomplete="off" /></div>
-      </form>
-      <form id="code-form" hidden>
-        <p id="sent-to" class="sent-to"></p>
-        <label for="code">One-time code</label>
-        <div class="row">
-          <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="8" maxlength="8" pattern="[0-9]{8}" required placeholder="00000000" />
-          <button type="submit">Confirm code</button>
-        </div>
-        <div class="actions"><button id="resend-code" class="quiet" type="button">Send a new code</button><button id="change-email" class="quiet" type="button">Use a different email</button></div>
-      </form>
-      <div id="done-panel" hidden>
-        <p class="done-note">You can leave a list from the unsubscribe link in any issue.</p>
-        <p class="actions"><a href="https://nasirr.innergintel.org/watchlist/">Open the public Market Pulse desk</a></p>
-      </div>
-      <p class="privacy">Free. Your email is only used for the lists you pick. Leave anytime.</p>
-    </section>
-
-    <section class="gets" aria-labelledby="gets-title">
-      <div class="gets-copy">
-        <p class="kicker ink">What you get</p>
-        <h2 id="gets-title">Three short notes. <span>One clear picture.</span></h2>
-        <ol>
-          <li><strong>Before the open</strong> What to know before the market starts.</li>
-          <li><strong>Midday</strong> What moved, and why, in plain words.</li>
-          <li><strong>After the close</strong> The day in 3 key moves, plus what to watch.</li>
-        </ol>
-      </div>
-      <figure class="wisdom">
-        <img src="assets/wisdom/wisdom-002.jpg" width="864" height="1080" loading="lazy" alt="WISDOM of the day card: 6 cybersecurity stocks and ETFs worth considering" />
-        <figcaption><span>WISDOM of the day</span> Every issue ends with one simple money idea.</figcaption>
-      </figure>
-    </section>
-  </main>
-
-  <footer class="hz-foot">
-    <img class="foot-seal" src="assets/seal-320.jpg" width="96" height="96" alt="INNERG INTEL official seal" loading="lazy" />
-    <p class="foot-brand">INNERG <span>PULSE</span></p>
-    <p><a href="https://www.youtube.com/@innergintel">YouTube ~ InnerG Intel @innergintel</a></p>
-    <p class="tag">#ROADTO1000</p>
-  </footer>
-  <noscript><p class="noscript">JavaScript is required to confirm your email.</p></noscript>
-</body>
+<body><p>INNERG PULSE now lives at <a href="https://pulse.innergintel.study/">pulse.innergintel.study</a>.</p></body>
 </html>
