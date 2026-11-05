@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-11-03",
-  "generatedAt": "2026-11-04T00:41:29.560973Z",
+  "marketDate": "2026-11-04",
+  "generatedAt": "2026-11-05T00:56:06.401285Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "IREN",
-      "name": "IREN Limited",
-      "sector": "ai-compute",
-      "price": 24.46,
-      "currency": "USD",
-      "changePercent": 11.0808
-    },
-    {
-      "symbol": "CRWV",
-      "name": "CoreWeave",
-      "sector": "ai-compute",
-      "price": 53.74,
-      "currency": "USD",
-      "changePercent": 7.1585
-    },
-    {
-      "symbol": "CECO",
-      "name": "CECO Environmental",
-      "sector": "industrials",
-      "price": 50.21,
-      "currency": "USD",
-      "changePercent": 3.3128
-    },
-    {
-      "symbol": "BHE",
-      "name": "Benchmark Electronics",
-      "sector": "industrials",
-      "price": 70.93,
-      "currency": "USD",
-      "changePercent": 3.261
-    },
-    {
-      "symbol": "STM",
-      "name": "STMicroelectronics",
-      "sector": "ai-compute",
-      "price": 48.54,
-      "currency": "USD",
-      "changePercent": 2.9044
-    }
-  ],
-  "losers": [
-    {
-      "symbol": "CANE",
-      "name": "Teucrium Sugar Fund",
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
       "sector": "materials",
-      "price": 11.06,
+      "price": 21.62,
       "currency": "USD",
-      "changePercent": -3.4904
-    },
-    {
-      "symbol": "OLN",
-      "name": "Olin Corporation",
-      "sector": "materials",
-      "price": 17.53,
-      "currency": "USD",
-      "changePercent": -3.416
+      "changePercent": 17.3724
     },
     {
       "symbol": "OPEN",
       "name": "Opendoor Technologies",
       "sector": "platforms",
-      "price": 1.74,
+      "price": 1.98,
       "currency": "USD",
-      "changePercent": -3.3333
+      "changePercent": 13.7931
     },
     {
-      "symbol": "MOS",
-      "name": "The Mosaic Company",
-      "sector": "materials",
-      "price": 18.42,
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 22.92,
       "currency": "USD",
-      "changePercent": -3.2055
+      "changePercent": 10.939
     },
     {
       "symbol": "ALGT",
       "name": "Allegiant Travel",
       "sector": "industrials",
-      "price": 74.46,
+      "price": 81.53,
       "currency": "USD",
-      "changePercent": -2.7684
+      "changePercent": 9.495
+    },
+    {
+      "symbol": "NTR",
+      "name": "Nutrien",
+      "sector": "materials",
+      "price": 72.07,
+      "currency": "USD",
+      "changePercent": 3.9671
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "sector": "ai-compute",
+      "price": 21.71,
+      "currency": "USD",
+      "changePercent": -11.2428
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "sector": "ai-compute",
+      "price": 48.42,
+      "currency": "USD",
+      "changePercent": -9.8995
+    },
+    {
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 45.4,
+      "currency": "USD",
+      "changePercent": -9.5798
+    },
+    {
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "sector": "energy",
+      "price": 145.41,
+      "currency": "USD",
+      "changePercent": -8.0673
+    },
+    {
+      "symbol": "BHE",
+      "name": "Benchmark Electronics",
+      "sector": "industrials",
+      "price": 65.26,
+      "currency": "USD",
+      "changePercent": -7.9938
     }
   ],
   "sources": [
