@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-05",
-  "generatedAt": "2026-11-05T21:02:08.279240Z",
+  "generatedAt": "2026-11-05T21:38:56.014978Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -16,43 +16,43 @@
       "symbol": "MOS",
       "name": "The Mosaic Company",
       "sector": "materials",
-      "price": 22.35,
+      "price": 22.33,
       "currency": "USD",
-      "changePercent": 3.3765
+      "changePercent": 3.284
     },
     {
       "symbol": "USO",
       "name": "United States Oil Fund",
       "sector": "energy",
-      "price": 148.205,
+      "price": 148.21,
       "currency": "USD",
-      "changePercent": 1.9221
+      "changePercent": 1.9256
     },
     {
       "symbol": "GSG",
       "name": "iShares S&P GSCI Commodity Trust",
       "sector": "energy",
-      "price": 34.54,
+      "price": 34.53,
       "currency": "USD",
-      "changePercent": 0.9942
+      "changePercent": 0.9649
     },
     {
       "symbol": "CANE",
       "name": "Teucrium Sugar Fund",
       "sector": "materials",
-      "price": 11.165,
+      "price": 11.16,
       "currency": "USD",
-      "changePercent": 0.5856
+      "changePercent": 0.5405
     }
   ],
   "losers": [
     {
-      "symbol": "CECO",
-      "name": "CECO Environmental",
-      "sector": "industrials",
-      "price": 37.46,
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 37.01,
       "currency": "USD",
-      "changePercent": -17.489
+      "changePercent": -17.9561
     },
     {
       "symbol": "WDC",
@@ -61,6 +61,14 @@
       "price": 267.63,
       "currency": "USD",
       "changePercent": -17.3548
+    },
+    {
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 37.66,
+      "currency": "USD",
+      "changePercent": -17.0485
     },
     {
       "symbol": "IREN",
@@ -77,14 +85,6 @@
       "price": 133.55,
       "currency": "USD",
       "changePercent": -16.4268
-    },
-    {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
-      "sector": "ai-compute",
-      "price": 37.83,
-      "currency": "USD",
-      "changePercent": -16.1383
     }
   ],
   "sources": [
