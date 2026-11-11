@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-11-10",
-  "generatedAt": "2026-11-11T00:42:36.493154Z",
+  "marketDate": "2026-11-11",
+  "generatedAt": "2026-11-11T21:17:55.733132Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "OXY",
-      "name": "Occidental Petroleum",
-      "sector": "energy",
-      "price": 56.9,
-      "currency": "USD",
-      "changePercent": 2.0445
-    },
-    {
-      "symbol": "LYB",
-      "name": "LyondellBasell Industries",
-      "sector": "materials",
-      "price": 60.6,
-      "currency": "USD",
-      "changePercent": 1.8487
-    },
-    {
-      "symbol": "CORN",
-      "name": "Teucrium Corn Fund",
-      "sector": "materials",
-      "price": 17.35,
-      "currency": "USD",
-      "changePercent": 1.1072
-    },
-    {
-      "symbol": "MOS",
-      "name": "The Mosaic Company",
-      "sector": "materials",
-      "price": 22.99,
-      "currency": "USD",
-      "changePercent": 0.9662
-    },
-    {
-      "symbol": "COP",
-      "name": "ConocoPhillips",
-      "sector": "energy",
-      "price": 135.59,
-      "currency": "USD",
-      "changePercent": 0.8329
-    }
-  ],
-  "losers": [
-    {
-      "symbol": "IREN",
-      "name": "IREN Limited",
+      "symbol": "CRWV",
+      "name": "CoreWeave",
       "sector": "ai-compute",
-      "price": 19.73,
+      "price": 60.77,
       "currency": "USD",
-      "changePercent": -7.8468
+      "changePercent": 24.7076
     },
     {
-      "symbol": "OPEN",
-      "name": "Opendoor Technologies",
-      "sector": "platforms",
-      "price": 1.31,
-      "currency": "USD",
-      "changePercent": -7.0922
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix ADR",
+      "symbol": "ARM",
+      "name": "Arm Holdings",
       "sector": "ai-compute",
-      "price": 129.66,
+      "price": 203.36,
       "currency": "USD",
-      "changePercent": -3.5124
+      "changePercent": 12.0502
     },
     {
       "symbol": "DRAM",
       "name": "Themes Generative AI ETF",
       "sector": "ai-compute",
-      "price": 40.64,
+      "price": 44.85,
       "currency": "USD",
-      "changePercent": -2.7286
+      "changePercent": 10.3592
     },
     {
-      "symbol": "ALGT",
-      "name": "Allegiant Travel",
-      "sector": "industrials",
-      "price": 94.69,
+      "symbol": "SKHY",
+      "name": "SK hynix ADR",
+      "sector": "ai-compute",
+      "price": 142.25,
       "currency": "USD",
-      "changePercent": -2.5923
+      "changePercent": 9.71
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "ai-compute",
+      "price": 168.8,
+      "currency": "USD",
+      "changePercent": 9.3335
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 22.8,
+      "currency": "USD",
+      "changePercent": -0.8265
+    },
+    {
+      "symbol": "NTR",
+      "name": "Nutrien",
+      "sector": "materials",
+      "price": 71.65,
+      "currency": "USD",
+      "changePercent": -0.7205
+    },
+    {
+      "symbol": "FXAIX",
+      "name": "Fidelity 500 Index Fund",
+      "sector": "core-funds",
+      "price": 261.51,
+      "currency": "USD",
+      "changePercent": 0
+    },
+    {
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "sector": "energy",
+      "price": 141.47,
+      "currency": "USD",
+      "changePercent": 0.0141
+    },
+    {
+      "symbol": "CORN",
+      "name": "Teucrium Corn Fund",
+      "sector": "materials",
+      "price": 17.37,
+      "currency": "USD",
+      "changePercent": 0.1153
     }
   ],
   "sources": [
