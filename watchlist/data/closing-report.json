@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-11",
-  "generatedAt": "2026-11-11T21:17:55.733132Z",
+  "generatedAt": "2026-11-12T01:56:05.606325Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -26,7 +26,7 @@
       "sector": "ai-compute",
       "price": 44.85,
       "currency": "USD",
-      "changePercent": 10.3592
+      "changePercent": 10.3593
     },
     {
       "symbol": "SKHY",
@@ -52,7 +52,7 @@
       "sector": "materials",
       "price": 22.8,
       "currency": "USD",
-      "changePercent": -0.8265
+      "changePercent": -0.8264
     },
     {
       "symbol": "NTR",
@@ -61,14 +61,6 @@
       "price": 71.65,
       "currency": "USD",
       "changePercent": -0.7205
-    },
-    {
-      "symbol": "FXAIX",
-      "name": "Fidelity 500 Index Fund",
-      "sector": "core-funds",
-      "price": 261.51,
-      "currency": "USD",
-      "changePercent": 0
     },
     {
       "symbol": "USO",
@@ -85,6 +77,14 @@
       "price": 17.37,
       "currency": "USD",
       "changePercent": 0.1153
+    },
+    {
+      "symbol": "GSG",
+      "name": "iShares S&P GSCI Commodity Trust",
+      "sector": "energy",
+      "price": 33.82,
+      "currency": "USD",
+      "changePercent": 0.4455
     }
   ],
   "sources": [
