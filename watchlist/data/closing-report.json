@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-11-11",
-  "generatedAt": "2026-11-12T01:56:05.606325Z",
+  "marketDate": "2026-11-12",
+  "generatedAt": "2026-11-12T21:02:21.660021Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "CRWV",
-      "name": "CoreWeave",
-      "sector": "ai-compute",
-      "price": 60.77,
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 56.01,
       "currency": "USD",
-      "changePercent": 24.7076
-    },
-    {
-      "symbol": "ARM",
-      "name": "Arm Holdings",
-      "sector": "ai-compute",
-      "price": 203.36,
-      "currency": "USD",
-      "changePercent": 12.0502
-    },
-    {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
-      "sector": "ai-compute",
-      "price": 44.85,
-      "currency": "USD",
-      "changePercent": 10.3593
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix ADR",
-      "sector": "ai-compute",
-      "price": 142.25,
-      "currency": "USD",
-      "changePercent": 9.71
-    },
-    {
-      "symbol": "MRVL",
-      "name": "Marvell Technology",
-      "sector": "ai-compute",
-      "price": 168.8,
-      "currency": "USD",
-      "changePercent": 9.3335
-    }
-  ],
-  "losers": [
-    {
-      "symbol": "MOS",
-      "name": "The Mosaic Company",
-      "sector": "materials",
-      "price": 22.8,
-      "currency": "USD",
-      "changePercent": -0.8264
-    },
-    {
-      "symbol": "NTR",
-      "name": "Nutrien",
-      "sector": "materials",
-      "price": 71.65,
-      "currency": "USD",
-      "changePercent": -0.7205
+      "changePercent": 4.6916
     },
     {
       "symbol": "USO",
       "name": "United States Oil Fund",
       "sector": "energy",
-      "price": 141.47,
+      "price": 146.07,
       "currency": "USD",
-      "changePercent": 0.0141
+      "changePercent": 3.2516
     },
     {
-      "symbol": "CORN",
-      "name": "Teucrium Corn Fund",
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries",
       "sector": "materials",
-      "price": 17.37,
+      "price": 63.87,
       "currency": "USD",
-      "changePercent": 0.1153
+      "changePercent": 2.0614
     },
     {
-      "symbol": "GSG",
-      "name": "iShares S&P GSCI Commodity Trust",
+      "symbol": "OXY",
+      "name": "Occidental Petroleum",
       "sector": "energy",
-      "price": 33.82,
+      "price": 58.41,
       "currency": "USD",
-      "changePercent": 0.4455
+      "changePercent": 2.044
+    },
+    {
+      "symbol": "HAFN",
+      "name": "Hafnia Limited",
+      "sector": "energy",
+      "price": 9.61,
+      "currency": "USD",
+      "changePercent": 2.017
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies",
+      "sector": "platforms",
+      "price": 1.235,
+      "currency": "USD",
+      "changePercent": -9.5238
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "sector": "ai-compute",
+      "price": 56.6,
+      "currency": "USD",
+      "changePercent": -6.8619
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "sector": "ai-compute",
+      "price": 19.48,
+      "currency": "USD",
+      "changePercent": -6.5259
+    },
+    {
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 21.75,
+      "currency": "USD",
+      "changePercent": -4.6053
+    },
+    {
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 22.25,
+      "currency": "USD",
+      "changePercent": -4.0948
     }
   ],
   "sources": [
