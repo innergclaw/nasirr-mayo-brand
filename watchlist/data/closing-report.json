@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-12",
-  "generatedAt": "2026-11-12T21:02:21.660021Z",
+  "generatedAt": "2026-11-12T21:25:54.552646Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -8,9 +8,9 @@
       "symbol": "CECO",
       "name": "CECO Environmental",
       "sector": "industrials",
-      "price": 56.01,
+      "price": 56,
       "currency": "USD",
-      "changePercent": 4.6916
+      "changePercent": 4.6729
     },
     {
       "symbol": "USO",
@@ -21,28 +21,28 @@
       "changePercent": 3.2516
     },
     {
+      "symbol": "HAFN",
+      "name": "Hafnia Limited",
+      "sector": "energy",
+      "price": 9.62,
+      "currency": "USD",
+      "changePercent": 2.1231
+    },
+    {
       "symbol": "LYB",
       "name": "LyondellBasell Industries",
       "sector": "materials",
-      "price": 63.87,
+      "price": 63.88,
       "currency": "USD",
-      "changePercent": 2.0614
+      "changePercent": 2.0773
     },
     {
       "symbol": "OXY",
       "name": "Occidental Petroleum",
       "sector": "energy",
-      "price": 58.41,
+      "price": 58.4,
       "currency": "USD",
-      "changePercent": 2.044
-    },
-    {
-      "symbol": "HAFN",
-      "name": "Hafnia Limited",
-      "sector": "energy",
-      "price": 9.61,
-      "currency": "USD",
-      "changePercent": 2.017
+      "changePercent": 2.0266
     }
   ],
   "losers": [
@@ -74,9 +74,9 @@
       "symbol": "MOS",
       "name": "The Mosaic Company",
       "sector": "materials",
-      "price": 21.75,
+      "price": 21.76,
       "currency": "USD",
-      "changePercent": -4.6053
+      "changePercent": -4.5614
     },
     {
       "symbol": "ASST",
