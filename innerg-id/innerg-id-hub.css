@@ -1,0 +1,126 @@
+/* INNERG ID page in the NAS hub look (2026-11-13). Loaded after the page's own <style>; overrides its tokens and shapes.
+   Layout, card flip and all [hidden]/is-* behavior stay in the original rules. */
+:root{--paper:#F3EBDD;--ink:#1E1414;--muted:#5A4A42;--line:#1E1414;--acid:#EBC2BC;--dark:#1E1414;--dark-muted:#D9CBB8;
+  --font:"Cormorant",Georgia,serif;--ease-out:cubic-bezier(.16,1,.3,1)}
+body{font-weight:600}
+:where(a,button,input):focus-visible{outline:3px dashed var(--red);outline-offset:4px}
+.page{padding:calc(var(--m) + 26px) clamp(24px,5vw,60px) calc(var(--m) + 40px)}
+.shell{width:min(100%,1120px)}
+
+/* type */
+.topline{font:700 12px/1.3 var(--mono);letter-spacing:4px;color:var(--ink)}
+.topline a{color:var(--red)}
+.eyebrow{margin-top:clamp(40px,7vh,72px);font:700 13px/1.2 var(--mono);letter-spacing:5px;color:var(--red)}
+h1{font-family:var(--serif);font-weight:900;font-variation-settings:"opsz" 144,"SOFT" 100;text-transform:uppercase;letter-spacing:-.01em;
+  line-height:.9;font-size:clamp(46px,8.4vw,120px);text-shadow:5px 4px 0 var(--mis)}
+.lede{color:var(--ink);font-size:clamp(20px,1.8vw,26px);line-height:1.3}
+.status{font:700 12px/1.5 var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.status[data-state="error"]{color:var(--red)}
+
+/* activation (no plan yet) */
+.activation-panel{border:4px solid var(--ink);background:var(--sheet);box-shadow:6px 5px 0 var(--mis);rotate:-.4deg}
+.activation-panel .eyebrow{color:var(--red)}
+.activation-panel h2,.discord-connect h2{font-family:var(--serif);font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.activation-panel p:not(.eyebrow){color:var(--ink);font-size:19px;line-height:1.35}
+.activation-action,.media-action,.sign-out{border-radius:0;font:700 13px/1 var(--mono);letter-spacing:4px;min-height:48px}
+.activation-action{border:0;background:var(--ink);color:var(--paper)}
+.activation-action.secondary{background:var(--sheet);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.activation-action:hover,.activation-action:focus-visible{background:var(--red);color:var(--paper)}
+
+/* the ID stage: ink sheet, sharp corners, red misprint */
+.id-stage{border-radius:0;background:var(--ink);box-shadow:8px 7px 0 var(--red)}
+.id-copy .eyebrow{color:var(--acid)}
+.id-copy h2,.media-head h2,.release-copy h3{font-family:var(--serif);font-weight:900;font-variation-settings:"opsz" 144,"SOFT" 100;text-transform:uppercase;letter-spacing:-.01em;line-height:.92}
+.id-copy > p:not(.eyebrow){font-size:19px;line-height:1.35}
+
+/* the card itself: printed paper front, ink back */
+.id-face{border-radius:16px;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--red)}
+.id-front{color:var(--ink);background:linear-gradient(132deg,#FAF4E8 0%,#F0E6D6 60%,#E3D5C0 100%)}
+.id-front::before{border-color:rgba(30,20,20,.28);border-radius:10px}
+.id-back{background:radial-gradient(circle at 82% 22%,#3a2422 0,#241818 40%,#1E1414 100%);border-color:var(--paper)}
+.id-back::after{border-radius:10px}
+.id-brand,.id-label,.id-verified,.id-micro,.id-number,.id-access-line{font-family:var(--mono);font-weight:700}
+.id-verified::before{background:var(--red);box-shadow:0 0 0 3px rgba(158,43,37,.22)}
+.id-name,.id-back h3{font-family:var(--serif);font-weight:900;letter-spacing:-.01em}
+.id-member-since{font-size:15px}
+.flip-note{font:700 11px/1.4 var(--mono);letter-spacing:3px;color:var(--dark-muted)}
+
+/* tools + name form */
+.card-tool,.name-form input,.name-form button{border-radius:0;font-family:var(--mono);font-weight:700;letter-spacing:3px}
+.card-tool{border:2px solid var(--paper);background:transparent;color:var(--paper)}
+.card-tool:first-child{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.name-form label{font:700 11px/1.2 var(--mono);letter-spacing:3px}
+.name-form input{border:2px solid var(--paper);background:#2a1e1e;color:var(--paper);font:600 19px/1.2 var(--font);letter-spacing:0}
+.name-form button{background:var(--red);color:var(--paper)}
+.share-note,.share-status,.form-status{font-family:var(--mono);font-weight:700;letter-spacing:1px}
+
+/* quick links */
+.action{border:3px solid var(--ink);background:var(--sheet);box-shadow:5px 4px 0 var(--mis);transition:transform .2s var(--ease-out),box-shadow .2s}
+.action strong{font:900 20px/1.05 var(--serif);text-transform:uppercase;letter-spacing:0}
+.action span{font:700 11px/1 var(--mono);letter-spacing:3px;color:var(--red)}
+
+/* discord */
+.discord-connect{border:3px solid var(--ink);border-radius:0;background:var(--sheet);box-shadow:5px 4px 0 var(--mis)}
+.discord-connect p{font-size:19px}
+.discord-connect button{border-radius:0}
+
+/* media hub */
+.media-hub{border-radius:0;box-shadow:8px 7px 0 var(--red)}
+.media-head .eyebrow,.release-meta{color:var(--acid);font-family:var(--mono)}
+.media-count{font-family:var(--mono);color:var(--dark-muted)}
+.media-release{border-top:2px dashed rgba(243,235,221,.4)}
+.media-visual{border-radius:0;border:3px solid var(--paper)}
+.media-stamp,.chapter-button{border-radius:0;font-family:var(--mono);font-weight:700;letter-spacing:2px}
+.release-copy > p:not(.release-meta){font-size:18px;line-height:1.35}
+.media-action{border:2px solid var(--paper)}
+.media-note{font-size:14px;color:var(--dark-muted)}
+
+.sign-out{border:2px solid var(--ink)}
+
+@media (hover:hover) and (pointer:fine){
+  .action:hover{transform:translate(-3px,-3px);background:var(--sheet);box-shadow:8px 7px 0 var(--mis)}
+  .card-tool:hover:not(:disabled){border-color:var(--acid)}
+  .sign-out:hover{background:var(--ink);color:var(--paper)}
+}
+@media (max-width:520px){
+  h1{text-shadow:3px 3px 0 var(--mis)}
+  .id-stage{margin-inline:0;border-radius:0}
+  .media-hub{margin-inline:0;border-radius:0;padding:30px 16px}
+}
+
+/* ---------- plan + seats panel (seats.js) ---------- */
+.seats{margin-top:32px;padding:clamp(20px,2.6vw,30px);background:var(--sheet);border:4px solid var(--ink);box-shadow:6px 5px 0 var(--mis)}
+.seats[hidden]{display:none!important}
+.seats .eyebrow{margin:0 0 10px}
+.seats h2{margin:0 0 8px;font:900 clamp(28px,3.6vw,44px)/1 var(--serif);font-variation-settings:"opsz" 144,"SOFT" 100;text-transform:uppercase}
+.seats-copy{margin:0 0 18px;font-size:19px;line-height:1.35;max-width:62ch}
+.seats-list{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.seat{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;padding:12px 14px;border:2px solid var(--ink);background:#fff}
+.seat-who{font:900 20px/1.1 var(--serif);text-transform:uppercase}
+.seat-meta{font:700 11px/1.4 var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.seat-meta.on{color:var(--red)}
+.seat-actions{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.seat-btn{background:none;border:0;padding:4px 0;cursor:pointer;color:var(--ink);font:700 11px/1.4 var(--mono);letter-spacing:2px;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px}
+.seat-btn:hover{color:var(--red)}
+.seats-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.seats-form label{flex:1 1 220px;display:grid;gap:6px;font:700 11px/1.2 var(--mono);letter-spacing:3px;text-transform:uppercase}
+.seats-form input{padding:12px 12px 10px;border:3px solid var(--ink);border-radius:0;background:#fff;font:600 19px/1.2 var(--font)}
+.seats-form button,.seats-link button,.join-banner .mh-btn{border:0;background:var(--ink);color:var(--paper);cursor:pointer;padding:14px 18px 13px;font:700 13px/1 var(--mono);letter-spacing:4px;text-transform:uppercase}
+.seats-form button:hover,.seats-link button:hover{background:var(--red)}
+.seats-form button[disabled]{opacity:.5;cursor:not-allowed}
+.seats-link{margin:14px 0 0;padding:14px;border:3px dashed var(--red);background:#fff;display:grid;gap:10px}
+.seats-link[hidden]{display:none!important}
+.seats-link p{margin:0;font:700 11px/1.5 var(--mono);letter-spacing:2px;text-transform:uppercase}
+.seats-link code{display:block;padding:10px;border:2px solid var(--ink);background:var(--paper);font:700 12px/1.4 var(--mono);overflow-wrap:anywhere}
+.seats-link .row{display:flex;flex-wrap:wrap;gap:10px}
+.seats-status{min-height:1.4em;margin:10px 0 0;font:700 11px/1.5 var(--mono);letter-spacing:2px;text-transform:uppercase}
+.seats-status[data-state="error"]{color:var(--red)}
+.join-banner{margin:28px 0 0;padding:18px 20px;background:var(--ink);color:var(--paper);box-shadow:6px 5px 0 var(--red)}
+.join-banner[hidden]{display:none!important}
+.join-banner p{margin:0 0 12px;font-size:20px}
+.join-banner[data-state="error"]{background:var(--red);box-shadow:6px 5px 0 var(--ink)}
+/* a guardian manages a child's seat; the "choose a plan" panel is not for them */
+html.is-guardian #activation-panel,html.is-guardian #free-access-panel{display:none!important}
+.discord-connect .card-tool{border:0;background:var(--ink);color:var(--paper);min-height:48px;padding:13px 18px}
+.discord-connect .card-tool:hover,.discord-connect .card-tool:focus-visible{background:var(--red);border-color:var(--red)}
+.discord-connect p:last-child{color:var(--muted);font-size:15px}
