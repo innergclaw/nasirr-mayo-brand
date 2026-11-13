@@ -1,16 +1,107 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=../innergid/" />
-    <link rel="canonical" href="https://nasirr.innergintel.study/innergid/" />
-    <title>INNERG ID | NASIRR G. MAYO</title>
-    <script>
-      location.replace(`../innergid/${location.search}${location.hash}`);
-    </script>
-  </head>
-  <body>
-    <p><a href="../innergid/">Continue to INNERG ID</a></p>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#F3EBDD" />
+  <title>INNERG ID Membership | NASIRR G. MAYO</title>
+  <meta name="description" content="Get your INNERG ID. Child $19/month, Parent $29/month, or Family of 4 $390/year. Lessons, briefings, research and community, each person with their own member number." />
+  <link rel="canonical" href="https://nasirr.innergintel.study/membership/" />
+  <link rel="preload" href="/hub/fonts/Fraunces.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="stylesheet" href="/member-hub.css?v=mh-1" />
+  <link rel="stylesheet" href="./membership.css?v=ms-1" />
+  <script type="module" src="./membership.js?v=ms-1"></script>
+</head>
+<body>
+  <div class="mh-grain" aria-hidden="true"></div>
+  <div class="mh-wrap">
+    <header class="mh-top">
+      <a class="mh-home" href="/#innerg-intel" aria-label="Back to the NAS hub"><span aria-hidden="true">&lsaquo;</span> HOME</a>
+      <p class="mh-corner">INNERG ~ ID</p>
+    </header>
+
+    <main>
+      <section class="ms-hero" aria-labelledby="ms-title">
+        <p class="mh-kicker mh-rise">INNERG ID ~ membership</p>
+        <h1 class="mh-head mh-rise" id="ms-title" style="--i:1">Get your <em>number.</em></h1>
+        <p class="mh-lede mh-rise" style="--i:2">Your INNERG ID is your member number and your key to what we build: the lessons, the briefings, the research desk and the community. Pick the plan that fits your house.</p>
+      </section>
+
+      <div class="ms-bar" id="ms-bar" hidden>
+        <p class="ms-bar-text" id="ms-bar-text"></p>
+        <div class="ms-bar-actions">
+          <button class="mh-btn" type="button" id="ms-continue">Continue to checkout</button>
+          <button class="mh-link" type="button" id="ms-change">Pick another plan</button>
+        </div>
+      </div>
+      <p class="mh-status" id="ms-status" role="status" aria-live="polite"></p>
+
+      <section class="ms-plans" id="plans" aria-label="Plans">
+        <article class="mh-card ms-plan mh-rise" style="--i:3" data-plan="child">
+          <p class="ms-who">For one student ~ grades 3 to 12</p>
+          <h2 class="mh-h2">Child</h2>
+          <p class="ms-price"><span class="ms-amt">$19</span><span class="ms-per">/ month</span></p>
+          <ul class="ms-list">
+            <li>The student curriculum and lessons</li>
+            <li>Their own INNERG ID and member card</li>
+            <li>A parent or guardian buys it, then invites the child</li>
+          </ul>
+          <button class="mh-btn ms-pick" type="button" data-plan="child">Choose child</button>
+        </article>
+
+        <article class="mh-card dark ms-plan mh-rise" style="--i:4" data-plan="parent">
+          <p class="ms-who">For a parent or guardian</p>
+          <h2 class="mh-h2">Parent</h2>
+          <p class="ms-price"><span class="ms-amt">$29</span><span class="ms-per">/ month</span></p>
+          <ul class="ms-list">
+            <li>The parent curriculum and lessons</li>
+            <li>The video briefings</li>
+            <li>Research desk, market watchlist and Discord member role</li>
+          </ul>
+          <button class="mh-btn ghost ms-pick" type="button" data-plan="parent">Choose parent</button>
+        </article>
+
+        <article class="mh-card red ms-plan ms-best mh-rise" style="--i:5" data-plan="family">
+          <span class="ms-stamp" aria-hidden="true">BEST VALUE</span>
+          <p class="ms-who">For up to 4 people</p>
+          <h2 class="mh-h2">Family</h2>
+          <p class="ms-price"><span class="ms-amt">$390</span><span class="ms-per">/ year</span></p>
+          <ul class="ms-list">
+            <li>Everything in Child and Parent</li>
+            <li>4 people, each with their own INNERG ID</li>
+            <li>Invite your family right after checkout</li>
+          </ul>
+          <p class="ms-save">2 parents + 2 kids on monthly plans would be $1,152 a year.</p>
+          <button class="mh-btn ms-pick" type="button" data-plan="family">Choose family</button>
+        </article>
+      </section>
+
+      <section class="ms-how" aria-labelledby="ms-how-title">
+        <h2 class="mh-kicker" id="ms-how-title">How it works</h2>
+        <ol class="ms-steps">
+          <li><b>01</b><span>Pick a plan.</span></li>
+          <li><b>02</b><span>Sign in with Google or a code sent to your email.</span></li>
+          <li><b>03</b><span>Pay securely with Stripe.</span></li>
+          <li><b>04</b><span>Get your number. Child and Family plans then send invite links to their people.</span></li>
+        </ol>
+      </section>
+
+      <section class="ms-already">
+        <p>Already a member?</p>
+        <a class="mh-btn ghost" href="/innerg-id/">Open my INNERG ID</a>
+      </section>
+
+      <p class="mh-fine ms-terms">Prices in US dollars. Child and Parent renew monthly and Family renews yearly until you cancel. Cancel anytime from Manage billing on your INNERG ID. Child plans are bought by a parent or guardian.</p>
+    </main>
+
+    <footer class="mh-foot">
+      <span>No. 006 &bull; INNERG ID &bull; 2026</span>
+      <nav aria-label="INNERG public channels">
+        <a href="/">Home Base</a>
+        <a href="https://www.youtube.com/@innergintel" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://innergintelligence.substack.com/" target="_blank" rel="noopener">Substack</a>
+      </nav>
+    </footer>
+  </div>
+</body>
 </html>

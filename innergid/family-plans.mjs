@@ -13,10 +13,10 @@ export const FAMILY_PLANS = [
     id: "child",
     smsBody: "Hi, I'm interested in the INNERG Child membership for my child.",
     name: "Child membership",
-    audience: "The student curriculum and lessons, built for grades 3 through 12. Your child gets their own INNERG ID.",
-    monthly: 9,
-    price: "$9 / month",
-    checkoutUrl: null,
+    audience: "The student curriculum and lessons, built for grades 3 through 12. A parent or guardian buys it and invites the child, who gets their own INNERG ID.",
+    monthly: 19,
+    price: "$19 / month",
+    checkoutUrl: "/membership/#plans",
   },
   {
     id: "parent",
@@ -25,19 +25,19 @@ export const FAMILY_PLANS = [
     audience: "A separate parent curriculum and lessons, made for parents and guardians. Not the same as the student lessons. Includes the video briefings. You get your own INNERG ID.",
     monthly: 29,
     price: "$29 / month",
-    checkoutUrl: null,
+    checkoutUrl: "/membership/#plans",
   },
   {
     id: "family",
     smsBody: "Hi, we are a family interested in the INNERG Family membership.",
     name: "Family membership",
     audience: "Everything: both the student curriculum and the parent curriculum, plus the parent video briefings, for up to 4 members. Each member gets their own INNERG ID.",
-    yearly: 99,
+    yearly: 390,
     maxMembers: 4,
-    price: "$99 / year, up to 4 members",
+    price: "$390 / year, up to 4 members",
     renewal: "Renews automatically every year.",
     discountNote: null, // computed below from the child and parent prices
-    checkoutUrl: null,
+    checkoutUrl: "/membership/#plans",
   },
 ];
 

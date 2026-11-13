@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="View, save, and share your private INNERG member ID. Access member media and releases." />
     <title>Your INNERG ID | NASIRR G. MAYO</title>
+    <link rel="stylesheet" href="/member-hub.css?v=mh-1" />
     <link rel="stylesheet" href="../innerg-progress.css?v=20260906" />
     <link rel="stylesheet" href="../member-footer.css?v=20260906" />
     <style>
@@ -121,11 +122,14 @@
       @media (max-width:520px) { .topline { align-items:flex-start; flex-direction:column; gap:8px; } .eyebrow { margin-top:68px; } .id-stage { margin-inline:-8px; padding:28px 16px; border-radius:22px; } .id-card { min-height:214px; } .id-face { padding:20px; } .id-logo { width:46px; } .id-brand { font-size:9px; } .id-verified { padding:6px 7px; font-size:7px; } .id-micro { margin-bottom:10px; font-size:6px; } .id-name { font-size:clamp(24px,8.4vw,36px); } .id-label { font-size:7px; } .name-form { grid-template-columns:1fr; } .media-hub { margin-inline:-8px; padding:34px 16px; border-radius:22px; } .media-head { align-items:flex-start; flex-direction:column; gap:16px; } .media-visual,.media-visual img,.media-visual video { min-height:220px; } }
       @media (prefers-reduced-motion:reduce) { .content.is-visible{animation:fade 180ms ease both} .id-wrap,.id-card,.action,.sign-out,.name-form button,.card-tool,.media-action,.chapter-button,.activation-action{transition:none} .id-card.is-flipped{transform:none} .id-card.is-flipped .id-front{visibility:hidden} @keyframes fade{from{opacity:0}to{opacity:1}} }
     </style>
+    <link rel="stylesheet" href="./innerg-id-hub.css?v=ih-1" />
+    <script>try{var j=new URLSearchParams(location.search).get("join")||"";if(/^[0-9a-f]{64}$/.test(j)){localStorage.setItem("innerg_join_token",JSON.stringify({t:j,exp:Date.now()+6048e5}));var u=new URL(location.href);u.searchParams.delete("join");history.replaceState(null,"",u.pathname+u.search+u.hash)}}catch(e){}</script>
   </head>
   <body>
+    <div class="mh-grain" aria-hidden="true"></div>
     <main class="page">
       <div class="shell">
-        <div class="topline"><a href="../innergid/">INNERG ID access</a><span>Home Base / INNERG ID</span></div>
+        <div class="topline"><a href="../membership/">INNERG ID plans</a><span>Home Base / INNERG ID</span></div>
         <p class="eyebrow">Verified member credential</p>
         <h1>Your place has a number.</h1>
         <p class="lede">This is your personal INNERG ID. It connects your verified account to the community and future member access.</p>
@@ -133,12 +137,15 @@
         <div class="innerg-progress" role="progressbar" aria-label="Opening your INNERG ID">
           <span class="innerg-progress-fill" aria-hidden="true"></span>
         </div>
+        <section class="join-banner" id="join-banner" role="status" aria-live="polite" hidden>
+          <p id="join-banner-text"></p>
+        </section>
         <section class="activation-panel" id="activation-panel" aria-labelledby="activation-title" hidden>
           <p class="eyebrow" id="activation-eyebrow">INNERG ID activation</p>
           <h2 id="activation-title">Your account is ready.</h2>
-          <p id="activation-copy">Choose a Child, Parent, or Family membership to activate your INNERG ID and open the full Media Hub.</p>
+          <p id="activation-copy">Choose a Child, Parent, or Family membership to activate your INNERG ID and open the full Media Hub. Child is $19/month, Parent $29/month, and Family (up to 4 people) $390/year.</p>
           <div class="activation-actions">
-            <a class="activation-action" id="activation-link" href="../innergid/#access">Activate my INNERG ID</a>
+            <a class="activation-action" id="activation-link" href="../membership/#plans">Choose my plan</a>
             <button class="activation-action secondary" id="activation-retry" type="button" hidden>Check access again</button>
             <button class="activation-action secondary" data-manage-billing type="button">Manage existing billing</button>
           </div>
@@ -187,7 +194,24 @@
             <p class="eyebrow">YOUR INNERG ID</p>
             <h2>your identity stays yours.</h2>
             <p>your verified number and card stay yours. for member lessons, research, media, and discord roles, choose a child, parent, or family membership. for free market updates, get <a href="/pulse/">innerg pulse</a>.</p>
-            <div class="activation-actions"><a class="activation-action" href="../innergid/#access">see membership access</a></div>
+            <div class="activation-actions"><a class="activation-action" href="../membership/#plans">see the plans</a></div>
+          </section>
+
+          <section class="seats" id="seats" aria-labelledby="seats-title" hidden>
+            <p class="eyebrow">Your plan ~ seats</p>
+            <h2 id="seats-title">Your family</h2>
+            <p class="seats-copy" id="seats-copy"></p>
+            <ul class="seats-list" id="seats-list" aria-label="Seats on your plan"></ul>
+            <form class="seats-form" id="seats-form" hidden>
+              <label for="seat-label">Who is this for? (optional)<input id="seat-label" name="label" type="text" maxlength="40" autocomplete="off" placeholder="First name" /></label>
+              <button type="submit">Make invite link</button>
+            </form>
+            <div class="seats-link" id="seats-link" hidden>
+              <p>Send this link to them. It works once.</p>
+              <code id="seats-link-code"></code>
+              <div class="row"><button type="button" id="seats-copy-link">Copy link</button><button type="button" id="seats-share-link" hidden>Share</button></div>
+            </div>
+            <p class="seats-status" id="seats-status" role="status" aria-live="polite"></p>
           </section>
 
           <section class="discord-connect" data-paid-access aria-labelledby="discord-title">
@@ -225,7 +249,7 @@
                 <h3>The End-of-Year Frequency</h3>
                 <p>A grounded breakdown of the 2026-2027 BULL SUPER CYCLE, tokenization, stablecoins, SI, DCA, diversification, and the mistakes beginners should avoid.</p>
                 <a class="media-action" id="media-action" href="./">Refresh access</a>
-                <p class="media-note" id="media-note">This release is included with Parent and Family memberships. Pricing discussed in the recording reflects when it was made. Current memberships are Child $9/month, Parent $29/month, and Family $99/year for up to 4 members. <a href="../innergid/#access">See memberships</a>.</p>
+                <p class="media-note" id="media-note">This release is included with Parent and Family memberships. Pricing discussed in the recording reflects when it was made. Current memberships are Child $19/month, Parent $29/month, and Family $390/year for up to 4 members. <a href="../membership/#plans">See memberships</a>.</p>
               </div>
             </article>
           </section>
@@ -245,5 +269,6 @@
       </nav>
     </footer>
     <script type="module" src="./auth.js?v=20260920-captions"></script>
+    <script type="module" src="./seats.js?v=s-1"></script>
   </body>
 </html>
