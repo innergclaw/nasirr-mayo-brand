@@ -173,3 +173,12 @@ body::after{z-index:46;box-shadow:0 0 0 100vmax var(--paper)}
 .yt .ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 .yt .ghost:hover,.yt .ghost:focus-visible{background:var(--ink);color:var(--paper)}
 .yt .yt-btn+.yt-btn{margin-left:12px}
+
+/* 2026-11-12: NAS center opens About; mobile headings fit */
+.nas-link{color:inherit;text-decoration:none;display:inline-block;transition:color .3s var(--out),transform .3s var(--out)}
+.nas-link:hover,.nas-link:focus-visible{color:var(--red);transform:scale(1.04)}
+.nas-link:focus-visible{outline:4px dashed var(--red);outline-offset:10px}
+.skills-label{margin:0 0 12px}
+.cards.skills{grid-template-rows:none}
+.skills .card{grid-template-rows:auto auto 1fr;grid-row:auto}
+@media (max-width:620px){.head{font-size:clamp(30px,12vw,52px)}#h-bd{font-size:clamp(24px,9vw,52px)}}
