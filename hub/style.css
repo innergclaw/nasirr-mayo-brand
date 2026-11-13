@@ -230,3 +230,18 @@ body.spazz .corner{color:var(--red)}
 @media (max-width:620px){.stats{grid-template-columns:1fr 1fr;gap:14px}.stat-yt,.stat-hero{grid-column:1/-1}.stat{padding:14px 14px 16px;box-shadow:4px 3px 0 var(--mis)}.stat-yt a{padding:14px 16px 16px}
   .stat-hero{box-shadow:4px 3px 0 var(--ink)}.stat-n b{font-size:clamp(24px,8vw,34px)}.stat-plat{letter-spacing:3px;font-size:11px}}
 @media (prefers-reduced-motion:reduce){.stat{rotate:0deg}}
+
+/* social links in hub footer (2026-11-13) */
+.socials ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px}
+.soc{display:inline-block;padding:7px 11px 6px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);text-decoration:none;
+  font-family:"Courier Prime",monospace;font-weight:700;font-size:12px;letter-spacing:3px;line-height:1;box-shadow:3px 3px 0 var(--mis);
+  rotate:var(--tilt,0deg);transition:background .2s,color .2s,transform .2s var(--out),rotate .25s var(--out),box-shadow .2s}
+.socials li:nth-child(1) .soc{--tilt:-2deg}.socials li:nth-child(2) .soc{--tilt:1.5deg}.socials li:nth-child(3) .soc{--tilt:-1deg}.socials li:nth-child(4) .soc{--tilt:2deg}.socials li:nth-child(5) .soc{--tilt:-1.5deg}
+.soc:hover,.soc:focus-visible{background:var(--red);color:var(--paper);rotate:0deg;transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.soc:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.soc:focus-visible{outline:3px dashed var(--red);outline-offset:3px}
+body.spazz .soc{animation:shake .12s steps(2) infinite}
+@media (max-width:480px){.soc{font-size:11px;letter-spacing:2px;padding:6px 9px 5px}}
+@media (prefers-reduced-motion:reduce){.soc{rotate:0deg}}
+body:not(.portrait) .socials{position:fixed;top:clamp(10px,1.8vh,18px);right:clamp(14px,1.6vw,24px);z-index:2}
+body:not(.portrait) .socials ul{margin:0;justify-content:flex-end}
