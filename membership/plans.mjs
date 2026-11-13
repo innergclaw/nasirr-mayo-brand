@@ -1,9 +1,9 @@
 // INNERG ID plans: the one place for names and prices shown on /membership/.
 // Must match innerg-membership-checkout (innergclaw/innerg-id) and the database payment rule.
 export const PLANS = {
-  child: { label: "Child", priceText: "$19 a month", cents: 1900, interval: "month", seats: 1 },
-  parent: { label: "Parent", priceText: "$29 a month", cents: 2900, interval: "month", seats: 0 },
-  family: { label: "Family of 4", priceText: "$390 a year", cents: 39000, interval: "year", seats: 3 },
+  child: { label: "Individual", priceText: "$19 a month", cents: 1900, interval: "month", seats: 1 },
+  parent: { label: "Team lead", priceText: "$29 a month", cents: 2900, interval: "month", seats: 0 },
+  family: { label: "Organization", priceText: "$390 a year", cents: 39000, interval: "year", seats: 3 },
 };
 
 export const PENDING_PLAN_KEY = "innerg_pending_plan";

@@ -14,7 +14,7 @@ test("page prices match the plan table", () => {
   assert.match(html, /\$19<\/span><span class="ms-per">\/ month/);
   assert.match(html, /\$29<\/span><span class="ms-per">\/ month/);
   assert.match(html, /\$390<\/span><span class="ms-per">\/ year/);
-  assert.match(html, new RegExp(`would be \\$${familyComparison().toLocaleString("en-US")} a year`));
+  assert.match(html, /A focused pilot for teams that need a safe starting system/);
 });
 
 test("every plan has a pick button and nothing else is sold", () => {

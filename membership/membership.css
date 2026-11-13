@@ -1,4 +1,9 @@
 .ms-hero{max-width:900px}
+.ms-moat{margin:clamp(26px,4vh,44px) 0 clamp(28px,5vh,52px);padding:20px 0 0;border-top:3px solid var(--ink)}
+.ms-moat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.ms-moat-grid article{display:flex;flex-direction:column;gap:7px;padding:14px 0;border-top:2px solid var(--red)}
+.ms-moat-grid b{font:900 22px/1.05 var(--serif);text-transform:uppercase}
+.ms-moat-grid span{max-width:28ch;font-size:16px;line-height:1.35}
 .ms-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,32px);align-items:stretch;margin:clamp(10px,2vh,24px) 0 clamp(40px,7vh,72px)}
 .ms-plan{display:flex;flex-direction:column;gap:6px;rotate:var(--tilt,0deg);transition:rotate .3s var(--out),transform .25s var(--out)}
 .ms-plan:nth-child(1){--tilt:-.8deg}.ms-plan:nth-child(2){--tilt:.6deg}.ms-plan:nth-child(3){--tilt:-.4deg}
@@ -41,5 +46,6 @@
 .ms-terms{max-width:80ch;margin:0}
 
 @media (max-width:980px){.ms-plans{grid-template-columns:1fr;max-width:560px}.ms-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.ms-moat-grid{grid-template-columns:1fr}}
 @media (max-width:520px){.ms-steps{grid-template-columns:1fr}.ms-stamp{right:-4px}.ms-plan{--tilt:0deg!important}}
 @media (prefers-reduced-motion:reduce){.ms-plan{rotate:0deg}}
