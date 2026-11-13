@@ -7,10 +7,10 @@ const js = await readFile(new URL("./innergid.js", import.meta.url), "utf8");
 const css = await readFile(new URL("./innergid.css", import.meta.url), "utf8");
 
 test("landing page presents membership and one-time briefing paths", () => {
-  assert.match(html, /ACTIVE INNERG ID/);
+  assert.match(html, /WORKPLACE AI ACCESS/);
   assert.match(html, /\$15/);
   assert.match(html, /\/ month/);
-  assert.match(html, /Your ID\. Full ecosystem access\./);
+  assert.match(html, /Your ID\. Your work system\. Your control\./);
   assert.match(html, /\$150 for 12 months/);
   assert.match(html, /\$19/);
   assert.match(html, /NO MEMBERSHIP REQUIRED/);
@@ -52,7 +52,7 @@ test("video preview uses the widescreen Market Pulse export and its poster", () 
 
 test("member home uses the INNERG community badge", () => {
   assert.match(html, /innerg-member-badge\.png/);
-  assert.match(html, /YOUR KEY TO INNERG/);
+  assert.match(html, /WORKPLACE AI SYSTEMS/);
   assert.match(html, /alt="INNERG Member badge"/);
 });
 
@@ -66,7 +66,7 @@ test("INNERG ID explains the included access", () => {
   assert.match(html, /Media Hub and member-only releases/);
   assert.match(html, /Discord, resources, and future events/);
   assert.match(html, /Who is this for\?/);
-  assert.equal((html.match(/<li>/g) || []).length, 10);
+  assert.equal((html.match(/<li>/g) || []).length, 13);
 });
 
 test("landing page points to the verified Sunday trial and fact page", () => {
@@ -77,13 +77,13 @@ test("landing page points to the verified Sunday trial and fact page", () => {
 });
 
 test("value paywall keeps comparisons honest and both plans clear", () => {
-  assert.match(html, /Choose flexibility/);
+  assert.match(html, /Start with one workflow/);
   assert.match(html, /\$15 \/ month/);
   assert.match(html, /\$150 once/);
   assert.match(html, /Save \$30/);
   assert.match(html, /Existing \$10 monthly founding memberships keep their original rate/);
   assert.match(html, /Included with both plans/);
-  assert.match(html, /top three weekly movers/);
+  assert.match(html, /workflow guidance/);
   assert.match(html, /<table aria-describedby="comparison-note">/);
   assert.equal((html.match(/scope="col"/g) || []).length, 3);
   assert.doesNotMatch(html, /free trial|guaranteed return|guaranteed profit/i);
