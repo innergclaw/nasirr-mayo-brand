@@ -144,9 +144,9 @@
   }
   document.addEventListener('pointerdown',function(e){
     if(e.target.closest('.hx'))return;
-    var hit=e.target.closest('a,button,.card,.node');if(!hit)return;
+    var hit=e.target.closest('a,button,.card,.stat,.node');if(!hit)return;
     splat(e.clientX,e.clientY);
-    if(hit.classList.contains('card')){hit.classList.remove('wig');void hit.offsetWidth;hit.classList.add('wig');buzz(6)}
+    if(hit.classList.contains('card')||hit.classList.contains('stat')){hit.classList.remove('wig');void hit.offsetWidth;hit.classList.add('wig');buzz(6)}
     else if(hit.classList.contains('node')){hit.classList.remove('pressed');void hit.offsetWidth;hit.classList.add('pressed')}
     else if(!hit.classList.contains('nas-link'))buzz(8);
   },true);
@@ -177,4 +177,23 @@
       el.textContent=out;if(f<tot)setTimeout(step,40);else el.textContent=to})()}
   if(corner&&!RM.matches){corner.setAttribute('aria-label','NAS ~ HUB');
     setInterval(function(){if(document.hidden||spazzing)return;li=(li+1)%lines.length;scramble(corner,lines[li])},5200)}
+})();
+
+/* ===== reach stats (2026-11-13): live YouTube numbers, count-up, sticker tilt ===== */
+(function(){
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)'),counts=[].slice.call(document.querySelectorAll('.count'));
+  if(!counts.length)return;
+  var anim=!RM.matches&&('IntersectionObserver' in window);
+  [].forEach.call(document.querySelectorAll('.stat'),function(s){s.style.setProperty('--tilt',((Math.random()*2-1)*1.4).toFixed(2)+'deg')});
+  function fmt(n,el){return (el.dataset.fmt==='comma'?n.toLocaleString('en-US'):String(n))+(el.dataset.suf||'')}
+  fetch('/youtube-stats.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(!d)return;counts.forEach(function(el){var v=Number(d[el.dataset.src]);if(el.dataset.src&&isFinite(v)&&v>0){el.dataset.to=v;if(!anim)el.textContent=fmt(v,el)}});
+  }).catch(function(){});
+  function run(el){if(el._run)return;el._run=true;var to=Number(el.dataset.to),t0=performance.now(),dur=to>=100000?1600:1200;
+    (function step(now){var p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(Number(el.dataset.to)*e),el);if(p<1)requestAnimationFrame(step)})(t0)}
+  if(!anim)return;
+  counts.forEach(function(el){el.textContent=fmt(0,el)});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+    [].forEach.call(e.target.querySelectorAll('.count'),run);io.unobserve(e.target)})},{threshold:.4});
+  [].forEach.call(document.querySelectorAll('.stat'),function(s){io.observe(s)});
 })();
