@@ -8,11 +8,10 @@ const css = await readFile(new URL("./innergid.css", import.meta.url), "utf8");
 
 test("landing page presents the three memberships and the one-time briefing", () => {
   assert.match(html, /id="family-plan-cards"/);
-  assert.match(html, /Individual \$30\.00\/month/);
-  assert.match(html, /Team lead \$75\.00\/month/);
-  assert.match(html, /\$250\.00\/year/);
+  assert.match(html, /Individual \$75\.00\/month/);
+  assert.match(html, /Small team \$350\.00\/year/);
   assert.match(html, /href="\/membership\/#plans"/);
-  assert.match(html, /\$30\.00/);
+  assert.match(html, /\$75\.00/);
   assert.match(html, /NO MEMBERSHIP REQUIRED/);
   assert.match(html, /href="\.\/briefing\/"/);
   assert.doesNotMatch(html, /FREE MEMBERSHIP/);
