@@ -86,9 +86,9 @@ test("member Media Hub uses verified release access", () => {
   assert.match(js, /new Blob\(\[chapter\.captions\], \{ type: "text\/vtt" \}\)/);
   assert.match(js, /mediaVideo\.addEventListener\("ended"/);
   assert.match(html, /id="media-chapters"/);
-  assert.match(html, /This release is included with Parent and Family memberships\./);
-  assert.match(html, /Pricing discussed in the recording reflects when it was made/);
-  assert.match(html, /Child \$19\/month, Parent \$29\/month, and Family \$390\/year/);
+  assert.match(html, /This release is included with active INNERG ID access\./);
+  assert.match(html, /Current workplace pricing is/);
+  assert.match(html, /Individual \$30\.00\/month, Team lead \$75\.00\/month, and Organization \$250\.00\/year/);
   assert.doesNotMatch(html + js, /\$15\b|\$150|founding/);
   assert.doesNotMatch(html, /membership\/#video-access/);
   assert.doesNotMatch(js, /Purchase this release once/);

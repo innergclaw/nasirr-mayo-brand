@@ -1,4 +1,4 @@
-// INNERG family membership tiers ~ the ONE place to set prices and links.
+// INNERG workplace membership tiers ~ the ONE place to set prices and links.
 // Leave price as null until Mr G sets it. While null, the card shows
 // "pricing coming soon" and the contact button below.
 // checkoutUrl: null until a real checkout exists for that tier.
@@ -11,37 +11,37 @@ export const smsLink = body => `sms:${SIGNUP_PHONE}?&body=${encodeURIComponent(b
 export const FAMILY_PLANS = [
   {
     id: "child",
-    smsBody: "Hi, I'm interested in the INNERG Child membership for my child.",
-    name: "Child membership",
-    audience: "The student curriculum and lessons, built for grades 3 through 12. A parent or guardian buys it and invites the child, who gets their own INNERG ID.",
-    monthly: 19,
-    price: "$19 / month",
+    smsBody: "Hi, I'm interested in the INNERG Individual workplace AI membership.",
+    name: "Individual access",
+    audience: "Workplace AI systems lessons and practical briefings for one operator. Build a clear path from task to bot-assisted workflow.",
+    monthly: 30,
+    price: "$30.00 / month",
     checkoutUrl: "/membership/#plans",
   },
   {
     id: "parent",
-    smsBody: "Hi, I'm interested in the INNERG Parent membership.",
-    name: "Parent membership",
-    audience: "A separate parent curriculum and lessons, made for parents and guardians. Not the same as the student lessons. Includes the video briefings. You get your own INNERG ID.",
-    monthly: 29,
-    price: "$29 / month",
+    smsBody: "Hi, I'm interested in the INNERG Team lead workplace AI membership.",
+    name: "Team lead access",
+    audience: "Workplace AI guidance for a team lead or manager. Learn bot review, permissions, data control, and team adoption.",
+    monthly: 75,
+    price: "$75.00 / month",
     checkoutUrl: "/membership/#plans",
   },
   {
     id: "family",
-    smsBody: "Hi, we are a family interested in the INNERG Family membership.",
-    name: "Family membership",
-    audience: "Everything: both the student curriculum and the parent curriculum, plus the parent video briefings, for up to 4 members. Each member gets their own INNERG ID.",
-    yearly: 390,
+    smsBody: "Hi, I'm interested in the INNERG Organization workplace AI pilot.",
+    name: "Organization pilot",
+    audience: "A focused workplace AI pilot for up to 4 people. Each person gets their own INNERG ID and a shared path for safe bot adoption.",
+    yearly: 250,
     maxMembers: 4,
-    price: "$390 / year, up to 4 members",
+    price: "$250.00 / year, up to 4 members",
     renewal: "Renews automatically every year.",
-    discountNote: null, // computed below from the child and parent prices
+    discountNote: "Regular price $390.00 / year. Current sale price $250.00 / year.",
     checkoutUrl: "/membership/#plans",
   },
 ];
 
-// Savings vs paying monthly for 12 months, computed from the prices above.
+// Reference comparison for the current workplace plans.
 export function familySavings(parents, children, plans = FAMILY_PLANS) {
   const by = id => plans.find(p => p.id === id);
   const separate = (parents * by("parent").monthly + children * by("child").monthly) * 12;
