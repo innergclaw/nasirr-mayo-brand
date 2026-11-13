@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { PHONE, BUDGETS, DELIVERY, validateDetails, buildMessage, buildSmsHref } from "./project-intake.mjs";
+import { PHONE, BUDGETS, DELIVERY, SERVICES, AGREEMENT, validateDetails, buildMessage, buildSmsHref } from "./project-intake.mjs";
 
-const valid = { firstName: "Sam", lastName: "Rivera", service: "A new website & logo.", budget: "$250 - $500", delivery: "A Few Weeks" };
+const valid = { firstName: "Sam", lastName: "Rivera", serviceType: "design (logos, brand systems, ui)", service: "A new website & logo.", depositAgreement: "agreed", budget: "$250 - $500", delivery: "A Few Weeks" };
 const home = await readFile(new URL("index.html", import.meta.url), "utf8");
 const script = await readFile(new URL("project-intake.mjs", import.meta.url), "utf8");
 
@@ -13,7 +13,7 @@ test("recipient and choices match the approved intake", () => {
   assert.deepEqual(DELIVERY, ["ASAP", "A Few Days", "A Few Weeks", "Not Sure"]);
   for (const value of [...BUDGETS, ...DELIVERY]) assert.ok(home.includes(`<option value="${value}">${value}</option>`));
 });
-test("all five fields are required and whitespace-only text is rejected", () => {
+test("all seven fields are required and whitespace-only text is rejected", () => {
   for (const name of Object.keys(valid)) {
     assert.ok(validateDetails({ ...valid, [name]: "   " })[name]);
   }
@@ -35,15 +35,28 @@ test("prepared message includes each detail and encodes punctuation safely", () 
   const href = buildSmsHref(message);
   assert.ok(href.startsWith("sms:+12674730397?&body="));
   assert.equal(decodeURIComponent(href.split("body=")[1]), message);
-  for (const fragment of ["Name: Zoë O'Neil", details.service, details.budget, details.delivery]) assert.ok(message.includes(fragment));
+  for (const fragment of ["Name: Zoë O'Neil", details.service, details.budget, details.delivery, details.serviceType, "Deposit agreement: Agreed. " + AGREEMENT]) assert.ok(message.includes(fragment));
   assert.ok(href.includes("%26"));
   assert.ok(href.includes("%23"));
 });
 test("form loads locally, avoids duplicate handlers and makes no sent claim", () => {
-  assert.match(home, /type="module" src="\/project-intake\.mjs\?v=1"/);
-  assert.match(home, /project-intake\.css\?v=1/);
+  assert.match(home, /type="module" src="\/project-intake\.mjs\?v=2"/);
+  assert.match(home, /project-intake\.css\?v=2/);
   assert.match(script, /form\.dataset\.intakeReady === "true"/);
   assert.match(script, /event\.preventDefault\(\)/);
   assert.match(script, /navigator\.clipboard\.writeText/);
   assert.doesNotMatch(script, /fetch\(|localStorage|sessionStorage|innerHTML|successfully sent|message sent/i);
+});
+test("service options match the skill-graph client services", () => {
+  assert.deepEqual(SERVICES, ["web development (sites, github pages, supabase)", "design (logos, brand systems, ui)", "SI orchestration (SI teammates & workflows)", "strategy (business & brand)", "teaching (SI education & workshops)", "writing (copy, scripts, books)"]);
+  for (const value of SERVICES) { const v = value.replace(/&/g, "&amp;"); assert.ok(home.includes(`<option value="${v}">${v}</option>`)); }
+  assert.doesNotMatch(home, /<option[^>]*>(trading research|security operations)/i);
+});
+test("deposit agreement checkbox is required, guarded and captured", () => {
+  assert.match(home, /<input type="checkbox" id="project-deposit" name="depositAgreement" value="agreed" required/);
+  assert.ok(home.includes("a 25% deposit is required on all projects discussed before any work begins."));
+  assert.match(home, /id="project-deposit-error" role="alert" hidden/);
+  const errors = validateDetails({ ...valid, depositAgreement: undefined });
+  assert.ok(errors.depositAgreement);
+  assert.throws(() => buildMessage({ ...valid, depositAgreement: undefined }));
 });

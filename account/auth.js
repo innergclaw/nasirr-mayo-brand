@@ -1,5 +1,6 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm";
 import { INNERG_ID_PATH, getSafeDestination, isRecoveryCallback, shouldRedirectToDestination } from "./auth-flow.mjs";
+import { captchaOptions, captchaReady, mountCaptcha, resetCaptcha } from "./captcha.mjs";
 
 const SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
@@ -10,6 +11,7 @@ const memberEmail = document.querySelector("#member-email");
 const providerButtons = [...document.querySelectorAll("[data-provider]")];
 const emailForm = document.querySelector("#email-form");
 const codeForm = document.querySelector("#code-form");
+mountCaptcha(document.querySelector("#auth-captcha")).catch(() => {});
 const codeEmail = document.querySelector("#code-email");
 const changeEmail = document.querySelector("#change-email");
 const recoveryForm = document.querySelector("#recovery-form");
@@ -102,12 +104,17 @@ emailForm.addEventListener("submit", async (event) => {
     setStatus("Enter a valid email address.", "error");
     return;
   }
+  if (!captchaReady()) {
+    setStatus("Complete the security check, then try again.", "error");
+    return;
+  }
   setBusy(true);
   setStatus("Sending your secure sign-in code...");
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { shouldCreateUser: true, emailRedirectTo: accountReturnUrl },
+    options: { shouldCreateUser: true, emailRedirectTo: accountReturnUrl, ...captchaOptions() },
   });
+  resetCaptcha();
   setBusy(false);
   if (error) {
     setStatus("We could not send the code. Check the email and try again.", "error");
@@ -150,8 +157,9 @@ recoveryForm.addEventListener("submit", async (event) => {
   const formData = new FormData(recoveryForm);
   const password = String(formData.get("password") || "");
   const confirmation = String(formData.get("password-confirm") || "");
-  if (password.length < 8 || password !== confirmation) {
-    setStatus("Use at least 8 characters and make both passwords match.", "error");
+  // Matches Supabase Auth hardening: 10+ characters with letters and digits.
+  if (password.length < 10 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password) || password !== confirmation) {
+    setStatus("Use at least 10 characters with letters and numbers, and make both passwords match.", "error");
     return;
   }
   const button = recoveryForm.querySelector("button");

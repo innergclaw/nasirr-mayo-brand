@@ -11,7 +11,8 @@ const number = document.querySelector("#member-number");
 const status = document.querySelector("#member-status");
 const discord = document.querySelector("#discord-link");
 const signOut = document.querySelector("#member-sign-out");
-const purchase = document.querySelector(".purchase-action");
+// The old monthly/yearly join button is no longer on the page; a stub keeps member-access code safe.
+const purchase = document.querySelector(".purchase-action") ?? { dataset: {}, disabled: false, addEventListener() {} };
 const purchaseStatus = document.querySelector("#purchase-status");
 
 let activeSession = null;
@@ -121,6 +122,7 @@ const checkCompletedMembership = async () => {
 
 const planInputs = document.querySelectorAll('input[name="billing-plan"]');
 const updatePlan = () => {
+  if (!planInputs.length) return;
   const selected = document.querySelector('input[name="billing-plan"]:checked').value;
   try { sessionStorage.setItem("innerg-billing-plan", selected); } catch {}
   document.querySelector("#plan-price").textContent = selected === "yearly" ? "$150" : "$15";

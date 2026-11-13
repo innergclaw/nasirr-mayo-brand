@@ -1,4 +1,4 @@
-import { escapeHTML, percent, tone, assetTags } from './display.mjs';
+import { escapeHTML, percent, tone, assetTags, assetsForView } from './display.mjs';
 import { safeSource } from './brief.mjs';
 import { chartMarkup } from './interactive-charts.mjs';
 
@@ -14,13 +14,23 @@ let memberMoversUnlocked = false;
 // Set only after the research endpoint verifies an active, numbered member.
 export function setWeeklyMoverAccess(active) { memberMoversUnlocked = active === true; }
 
-export function weeklyMoversMarkup(assets) {
-  const ranked = topWeeklyMovers(assets);
+// Movers 2-3 come only from the member-watchlist endpoint (verified members).
+// The public snapshot publishes the #1 mover per view in `leadersByView`.
+let memberMoverAssets = null;
+export function setMemberMoverAssets(assets) { memberMoverAssets = Array.isArray(assets) && assets.length ? assets : null; }
+
+export function weeklyMoversMarkup(assets, { view = 'all', publicLeaders = null } = {}) {
+  const unlocked = memberMoversUnlocked && memberMoverAssets;
+  const source = unlocked ? assetsForView(memberMoverAssets, view)
+    : Array.isArray(publicLeaders) && publicLeaders.length ? publicLeaders.slice(0, 1) : assets;
+  let ranked = topWeeklyMovers(source);
+  // Public view: the real #1 plus two anonymous locked cards (no data for ranks 2-3 needed).
+  if (!memberMoversUnlocked && ranked.length) ranked = [ranked[0], null, null];
   if (!ranked.length) return '<p>Weekly data is unavailable. Try refreshing shortly.</p>';
   return ranked.map((asset, index) => {
     const rank = index + 1;
-    if (rank > 1 && !memberMoversUnlocked) {
-      return `<article class="leader-card leader-locked" aria-label="Weekly mover ${rank}, members only"><p class="eyebrow">Weekly rank 0${rank} · INNERG ID access</p><div class="mover-placeholder" aria-hidden="true"><span></span><span></span><span></span></div><h3>See the next mover.</h3><p>Sign in with an active INNERG ID to see all three weekly movers and member research.</p><div class="member-actions"><a class="member-cta" href="#member-access">Sign in with INNERG ID</a><a href="https://nasirr.innergintel.org/innergid/">Become a member</a></div></article>`;
+    if (rank > 1 && (!memberMoversUnlocked || !asset)) {
+      return `<article class="leader-card leader-locked" aria-label="Weekly mover ${rank}, members only"><p class="eyebrow">Weekly rank 0${rank} · INNERG ID access</p><div class="mover-placeholder" aria-hidden="true"><span></span><span></span><span></span></div><h3>See the next mover.</h3><p>Sign in with an active INNERG ID to see all three weekly movers and member research.</p><div class="member-actions"><a class="member-cta" href="#member-access">Sign in with INNERG ID</a><a href="https://nasirr.innergintel.study/innergid/">Become a member</a></div></article>`;
     }
     return `<article class="leader-card" data-weekly-rank="${rank}"><p class="eyebrow">Weekly rank 0${rank}</p><div class="leader-top"><div><h3>${escapeHTML(asset.symbol)}</h3><p>${escapeHTML(asset.name)}</p><div class="asset-tags asset-tags-dark" aria-label="Asset classification">${assetTags(asset)}</div></div><strong class="${tone(asset.returns.week)}">${percent(asset.returns.week)}<small>1 week</small></strong></div>${chartMarkup(asset, 'leader')}${moverExplanation(asset.symbol)}</article>`;
   }).join('');
@@ -32,7 +42,7 @@ export function setMoverContext(value) { moverContext=value; }
 
 export function moverExplanation(symbol, now = Date.now()) {
   if(!moverContext && memberMoversUnlocked)return '<div class="mover-context"><h4>What is behind the move?</h4><p>A fresh review for this mover is not available yet. Check the member asset news for recent reporting.</p><a href="#asset-news">Read asset news</a></div>';
-  if(!moverContext)return '<div class="mover-context"><h4>What is behind the move?</h4><p>Members can read the news, context, and risks behind the numbers.</p><a href="#member-access">Sign in with INNERG ID</a> · <a href="https://nasirr.innergintel.org/innergid/">Become a member</a></div>';
+  if(!moverContext)return '<div class="mover-context"><h4>What is behind the move?</h4><p>Members can read the news, context, and risks behind the numbers.</p><a href="#member-access">Sign in with INNERG ID</a> · <a href="https://nasirr.innergintel.study/innergid/">Become a member</a></div>';
   const age = now - Date.parse(moverContext.reviewedAt);
   if (symbol !== moverContext.symbol || !Number.isFinite(age) || age > 7 * 86400000 || age < 0) {
     return '<div class="mover-context"><h4>What is behind the move?</h4><p>there is no recent analysis for this mover yet. explore asset news for the latest reports.</p></div>';

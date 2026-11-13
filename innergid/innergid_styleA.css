@@ -1,0 +1,75 @@
+/* INNERG INTEL Style A theme layer for /innergid/. Load LAST.
+   Styling only: no ids, behavior or form changes. Mirrors /pulse/pulse_styleA_full.css. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600..900,100&family=Cormorant+Garamond:wght@600;700&family=Courier+Prime:wght@400;700&display=swap");
+:root{
+  --cream:#F3EBDD;--ink-a:#1E1414;--red:#9E2B25;--card:#FBF6EC;
+  --paper:#F3EBDD;--surface:#FBF6EC;--ink:#1E1414;--muted:#4A3A33;--line:#1E1414;--accent:#9E2B25;
+  --dark:#1E1414;--dark-muted:#E4D8C4;--member-ivory:#F3EBDD;
+  --serif:"Fraunces",Georgia,serif;--display:"Cormorant Garamond",Georgia,serif;--mono:"Courier Prime",ui-monospace,monospace;
+  --font:var(--display);color-scheme:light}
+html{background:var(--cream);overflow-x:clip}
+body{overflow-x:clip;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .08 0 0 0 0 .08 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") var(--cream)!important;color:var(--ink-a)!important;font:600 18px/1.5 var(--display)!important}
+::selection{background:var(--red);color:var(--cream)}
+a:focus-visible,button:focus-visible,video:focus-visible,summary:focus-visible,:focus-visible{outline:3px solid var(--red)!important;outline-offset:3px}
+
+/* header */
+.site-header{background:var(--cream)!important;border-bottom:3px solid var(--ink-a)!important;box-shadow:0 4px 0 rgba(158,43,37,.25)}
+.brand,.account-link,.section-nav a{font-family:var(--mono)!important;font-weight:700!important;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-a)!important}
+.brand{font-size:13px!important}
+.brand img{filter:grayscale(1) contrast(1.2);border:2px solid var(--ink-a)}
+.account-link{border:2px solid var(--ink-a)!important;border-radius:0!important;background:var(--card);box-shadow:3px 3px 0 var(--ink-a)}
+.section-nav a{font-size:12px!important;border-radius:0!important}
+.section-nav a[aria-current="location"]{background:var(--ink-a)!important;color:var(--cream)!important}
+
+/* type */
+.eyebrow{font:700 13px var(--mono)!important;letter-spacing:.26em!important;color:var(--red)!important}
+h1,h2,h3,summary{font-family:var(--serif)!important;font-variation-settings:'opsz' 144,'wght' 900,'SOFT' 100;color:var(--ink-a)!important;letter-spacing:-.01em!important}
+h1,h2{text-transform:uppercase;text-shadow:3px 3px 0 rgba(158,43,37,.28)}
+.offer-intro h1{font-size:clamp(44px,6.2vw,84px)!important;line-height:.92!important}
+h1 .sa-accent{color:var(--red)}
+h2{line-height:.98!important}
+p,li,figcaption,td,th{font-family:var(--display)}
+.intro-copy,.family-plans-intro,.briefing-offer p:not(.eyebrow),.offer-details p,.utility-list li{font-size:19px!important;line-height:1.5!important;color:var(--ink-a)!important}
+
+/* hero burst + speed lines */
+.offer-intro{position:relative;isolation:isolate}
+.offer-intro::before{content:"";position:absolute;z-index:-1;left:-12%;right:-12%;top:-30px;height:clamp(200px,24vw,320px);background:url(assets/innergid_burst.png) center/100% 100% no-repeat;opacity:.18;pointer-events:none}
+
+/* cards */
+.preview-panel,.family-plan,.briefing-offer,.offer-details details,.member-panel,#access-loading,.choice-card,.value-comparison{background:var(--card)!important;color:var(--ink-a)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:8px 8px 0 var(--ink-a)!important}
+.video-frame,.video-frame video{border-radius:0!important}
+.preview-label{background:var(--red)!important;color:var(--cream)!important;border-radius:0!important;font-family:var(--mono)!important;letter-spacing:.14em;text-transform:uppercase}
+.preview-panel figcaption strong{font-family:var(--serif)!important;text-transform:uppercase}
+.family-plan[data-plan="family"]{background:var(--ink-a)!important;color:var(--cream)!important;box-shadow:8px 8px 0 var(--red)!important}
+.family-plan[data-plan="family"] *:not(.card-action){color:var(--cream)!important}
+.family-plan[data-plan="family"] .eyebrow{color:#E9A79F!important}
+.family-plan-price{font-family:var(--serif)!important;font-variation-settings:'opsz' 144,'wght' 900}
+.family-plan-discount{background:var(--red)!important;color:var(--cream)!important;border-radius:0!important;font-family:var(--mono)!important}
+.member-panel .eyebrow{color:var(--red)!important}
+.member-number{font-family:var(--mono)!important;color:var(--ink-a)!important}
+
+/* buttons */
+.primary-action,.card-action,.briefing-action{background:var(--red)!important;color:var(--cream)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:4px 4px 0 var(--ink-a)!important;font:700 14px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.secondary-action{background:var(--cream)!important;color:var(--ink-a)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:4px 4px 0 var(--ink-a)!important;font:700 14px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase}
+.primary-action:active,.card-action:active,.secondary-action:active{transform:translate(3px,3px)!important;box-shadow:1px 1px 0 var(--ink-a)!important}
+.innerg-progress{border-radius:0!important;border:2px solid var(--ink-a)}
+.innerg-progress-fill{background:var(--red)!important}
+.purchase-status,.member-status,.billing-help{font-family:var(--mono)!important;color:var(--ink-a)!important}
+.offer-details summary{text-transform:uppercase;font-size:clamp(18px,2.2vw,24px)!important}
+
+/* footer: tagline + numbered stamp */
+.member-social-footer{border-top:3px solid var(--ink-a)!important;color:var(--ink-a)!important;font:700 12px/1.3 var(--mono)!important;letter-spacing:.18em;flex-wrap:wrap;position:relative}
+.member-social-footer > span{color:var(--ink-a)!important}
+.member-social-footer a{color:var(--ink-a)!important}
+.member-social-footer a:hover{color:var(--red)!important}
+.member-social-footer .sa-tagline{flex-basis:100%;order:-1;margin:0 0 6px;font:900 clamp(20px,3vw,30px)/1.05 var(--serif);font-variation-settings:'opsz' 144,'wght' 900,'SOFT' 100;letter-spacing:-.01em;text-transform:uppercase}
+.member-social-footer .sa-tagline em{font-style:normal;color:var(--red)}
+.member-social-footer::after{content:"No. 004 \2022  INNERG INTEL \2022  2026";flex-basis:100%;padding-top:14px;border-top:1px dashed var(--ink-a);color:var(--red)}
+
+@media (max-width:760px){
+  .offer-intro h1{font-size:clamp(38px,11vw,56px)!important}
+  .preview-panel,.family-plan,.briefing-offer,.offer-details details,.member-panel{box-shadow:5px 5px 0 var(--ink-a)!important}
+  .member-social-footer{flex-direction:column;align-items:flex-start}
+  .member-social-footer nav{justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

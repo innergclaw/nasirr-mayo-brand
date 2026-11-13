@@ -1,7 +1,9 @@
 (() => {
   const sectionId = "social-audience-stats";
+  const fallbackSubscribers = 781;
+  const fallbackViews = 236267;
 
-  const buildSection = (page) => {
+  const buildSection = (page, subscribers = fallbackSubscribers) => {
     const section = document.createElement("section");
     section.id = sectionId;
     section.className = `social-stats social-stats--${page}`;
@@ -12,23 +14,32 @@
         <span>Current audience</span>
       </div>
       <div class="social-stats__grid">
-        <article class="social-stats__card social-stats__card--youtube" aria-label="YouTube has 719 subscribers and more than 200,000 views">
-          <span class="social-stats__platform">YouTube</span>
+        <a class="social-stats__card social-stats__card--youtube" href="https://www.youtube.com/@innergintel?sub_confirmation=1" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to InnerG Intel on YouTube. ${subscribers} subscribers and 236,267 views. Opens in a new tab.">
+          <span class="social-stats__platform">Subscribe To InnerG Intel Youtube Channel</span>
           <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="719" aria-hidden="true">719</strong><small>Subscribers</small></div>
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="200000" data-count-format="comma" data-count-suffix="+" aria-hidden="true">200,000+</strong><small>Views</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="${subscribers}" data-count-source="youtube" aria-hidden="true">${subscribers}</strong><small>Subscribers</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="${fallbackViews}" data-count-format="comma" data-count-source="youtube-views" aria-hidden="true">236,267</strong><small>Views</small></div>
+          </div>
+        </a>
+        <article class="social-stats__card social-stats__card--tiktok" aria-label="TikTok has 256 followers and 11,177 likes">
+          <span class="social-stats__platform">TikTok</span>
+          <div class="social-stats__metrics">
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="256" aria-hidden="true">256</strong><small>Followers</small></div>
+            <div class="social-stats__metric"><strong class="social-count" data-count-target="11177" data-count-format="comma" aria-hidden="true">11,177</strong><small>Likes</small></div>
           </div>
         </article>
-        <article class="social-stats__card social-stats__card--instagram" aria-label="More than 10,000 followers across Instagram">
-          <span class="social-stats__platform">Instagram</span>
-          <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="10" data-count-suffix="K+" aria-hidden="true">10K+</strong><small>Followers</small></div>
+        <article class="social-stats__card social-stats__card--duo" aria-label="More than 11,000 Instagram followers and more than 500 founders and business owners helped since 2015">
+          <div class="social-stats__half social-stats__card--instagram">
+            <span class="social-stats__platform">Instagram</span>
+            <div class="social-stats__metrics">
+              <div class="social-stats__metric"><strong class="social-count" data-count-target="11" data-count-suffix="K+" aria-hidden="true">11K+</strong><small>Followers</small></div>
+            </div>
           </div>
-        </article>
-        <article class="social-stats__card social-stats__card--impact" aria-label="More than 500 founders and business owners helped">
-          <span class="social-stats__platform">Founders &amp; Business Owners Helped</span>
-          <div class="social-stats__metrics">
-            <div class="social-stats__metric"><strong class="social-count" data-count-target="500" data-count-suffix="+" aria-hidden="true">500+</strong><small>Since 2015</small></div>
+          <div class="social-stats__half social-stats__card--impact">
+            <span class="social-stats__platform">Founders &amp; Business Owners Helped</span>
+            <div class="social-stats__metrics">
+              <div class="social-stats__metric"><strong class="social-count" data-count-target="500" data-count-suffix="+" aria-hidden="true">500+</strong><small>Since 2015</small></div>
+            </div>
           </div>
         </article>
       </div>`;
@@ -94,6 +105,37 @@
       .forEach((card) => observer.observe(card));
   };
 
+  const applyCount = (section, source, count, label) => {
+    const card = section.querySelector(".social-stats__card--youtube");
+    const node = card?.querySelector(`[data-count-source='${source}']`);
+    if (!card || !node || !Number.isFinite(count) || count <= 0) return;
+    node.dataset.countTarget = String(count);
+    if (label) card.setAttribute("aria-label", label);
+    if (node.dataset.countStarted === "true") {
+      node.textContent = formatCount(count, node);
+    }
+  };
+
+  const loadYoutubeStats = async (section) => {
+    let subscribers = fallbackSubscribers;
+    let views = fallbackViews;
+    try {
+      const response = await fetch("/youtube-stats.json", { cache: "no-cache" });
+      if (response.ok) {
+        const stats = await response.json();
+        const nextSubscribers = Number(stats.subscriberCount);
+        const nextViews = Number(stats.viewCount);
+        if (Number.isFinite(nextSubscribers) && nextSubscribers > 0) subscribers = nextSubscribers;
+        if (Number.isFinite(nextViews) && nextViews > 0) views = nextViews;
+      }
+    } catch {
+      /* Keep the fallback counts already rendered in the card. */
+    }
+    const label = `Subscribe to InnerG Intel on YouTube. ${new Intl.NumberFormat("en-US").format(subscribers)} subscribers and ${new Intl.NumberFormat("en-US").format(views)} views. Opens in a new tab.`;
+    applyCount(section, "youtube", subscribers, label);
+    applyCount(section, "youtube-views", views, label);
+  };
+
   const mount = () => {
     const mentorshipTarget = document.querySelector(".highlight-band");
     const homeTarget = document.querySelector(".profile-header");
@@ -101,6 +143,10 @@
     const existing = document.getElementById(sectionId);
     if (existing) {
       initCounters(existing);
+      if (existing.dataset.youtubeStatsLoaded !== "true") {
+        existing.dataset.youtubeStatsLoaded = "true";
+        loadYoutubeStats(existing);
+      }
       return;
     }
     if (!target) return;
@@ -111,6 +157,8 @@
       section,
     );
     initCounters(section);
+    section.dataset.youtubeStatsLoaded = "true";
+    loadYoutubeStats(section);
   };
 
   const start = () => {

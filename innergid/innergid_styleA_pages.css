@@ -1,0 +1,42 @@
+/* INNERG INTEL Style A, extension for /innergid/ subpages (about, briefing, library).
+   Load AFTER ../innergid_styleA.css. Styling only. */
+:root{--acid:#9E2B25;--dark-copy:#E4D8C4;--white:#F3EBDD;--line-strong:#1E1414;--focus:#9E2B25;--radius:0px}
+.site-header{position:relative}
+.site-header nav a,.header-nav a,.quiet-link{font-family:var(--mono)!important;font-weight:700!important;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-a)!important;border-radius:0!important}
+.brand span{font-family:var(--mono)!important}
+blockquote,dd,dt,small,ol,ul{font-family:var(--display)}
+dt,.lib-type,.lib-creator,.price-line span,.access-state,#access-stamp,.chapter-button,.disclaimer,.member-note,#library-message,#watch-note,#access-message{font-family:var(--mono)!important}
+.fact-hero h1,.lib-hero h1,.hero h1{font-size:clamp(42px,6.4vw,92px)!important;line-height:.94!important}
+.fact-lede,.lede,.intro-copy,.fact-close p,.framework-steps p,.boundaries p,.lib-why,.membership-path p:not(.eyebrow),.outline li span{font-size:19px!important;line-height:1.5!important;color:var(--ink-a)!important}
+.fact-hero,.lib-hero,.hero{position:relative;isolation:isolate}
+.fact-hero::before,.lib-hero::before,.hero::before{content:"";position:absolute;z-index:-1;left:-12%;right:-12%;top:-30px;height:clamp(200px,24vw,320px);background:url(assets/innergid_burst.png) center/100% 100% no-repeat;opacity:.18;pointer-events:none}
+/* dark blocks become ink panels; light blocks become paper cards */
+.fact-close,.doors,.briefing-access,.lib-upgrade,.watch-surface{background:var(--ink-a)!important;color:var(--cream)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:8px 8px 0 var(--red)!important}
+.fact-close *:not(a),.doors *:not(a),.briefing-access *:not(a):not(button),.lib-upgrade *:not(a){color:var(--cream)!important}
+.fact-close h2,.doors h2,.briefing-access h2{text-shadow:3px 3px 0 rgba(158,43,37,.6)!important}
+.fact-close .eyebrow,.doors .eyebrow,.briefing-access .eyebrow,.lib-upgrade .eyebrow{color:#E9A79F!important}
+.doors nav a{background:var(--cream)!important;color:var(--ink-a)!important;border:2px solid var(--cream)!important;border-radius:0!important}
+.doors nav a *{color:var(--ink-a)!important}
+.framework-steps article,.boundaries,.fact-index dl,.outline,.membership-path,.poster,.lib-item,.access-state{background:var(--card)!important;color:var(--ink-a)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:6px 6px 0 var(--ink-a)!important}
+.poster img,.video-shell,.video-shell video{border-radius:0!important}
+.outline li::before{background:var(--red)!important;color:var(--cream)!important;border-radius:0!important}
+.chapter-button{border:2px solid var(--cream)!important;border-radius:0!important;background:transparent!important;color:var(--cream)!important}
+.chapter-button[aria-current="true"]{background:var(--red)!important}
+.price-line strong{font-family:var(--serif)!important;color:var(--red)!important}
+.primary-cta,.lib-cta,.lib-open{background:var(--red)!important;color:var(--cream)!important;border:2px solid var(--ink-a)!important;border-radius:0!important;box-shadow:4px 4px 0 var(--ink-a)!important;font:700 14px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.text-cta{font-family:var(--mono)!important;font-weight:700;color:var(--red)!important;text-transform:uppercase;letter-spacing:.12em}
+.primary-cta:active,.lib-cta:active,.lib-open:active{transform:translate(3px,3px)!important;box-shadow:1px 1px 0 var(--ink-a)!important}
+.shelf-head{border-bottom:3px solid var(--ink-a)!important}
+/* subpage footer: tagline + numbered stamp from data-sa-no */
+body > footer{border-top:3px solid var(--ink-a)!important;color:var(--ink-a)!important;font:700 12px/1.3 var(--mono)!important;letter-spacing:.18em;text-transform:uppercase;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 20px;background:transparent!important}
+body > footer a,body > footer span{color:var(--ink-a)!important}
+body > footer .sa-tagline{flex-basis:100%;order:-1;margin:0 0 6px;font:900 clamp(20px,3vw,30px)/1.05 var(--serif);font-variation-settings:'opsz' 144,'wght' 900,'SOFT' 100;letter-spacing:-.01em;text-transform:uppercase}
+body > footer .sa-tagline em{font-style:normal;color:var(--red)!important}
+body > footer[data-sa-no]::after{content:"No. " attr(data-sa-no) " \2022  INNERG INTEL \2022  2026";flex-basis:100%;padding-top:14px;border-top:1px dashed var(--ink-a);color:var(--red)}
+@media (max-width:760px){
+  .framework-steps article,.boundaries,.fact-index dl,.outline,.membership-path,.poster,.lib-item,.access-state{box-shadow:4px 4px 0 var(--ink-a)!important}
+  .fact-close,.doors,.briefing-access,.lib-upgrade,.watch-surface{box-shadow:5px 5px 0 var(--red)!important}
+}
+/* access badge inside the ink panel: red stamp, readable */
+.briefing-access .access-state,.access-state{background:var(--red)!important;color:var(--cream)!important;border:2px solid var(--cream)!important;box-shadow:none!important}
+.briefing-access .access-state *{color:var(--cream)!important}

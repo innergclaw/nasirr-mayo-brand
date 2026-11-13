@@ -17,11 +17,11 @@ test("new visitors can find the mission, access model, and boundaries", () => {
   assert.match(html, /one verified identity that connects a person to their access/);
   assert.match(html, /not a get-rich-quick trading room/);
   assert.match(html, /no guaranteed returns and no random stock picks/);
-  assert.match(html, /five one-time seven-day trials open each sunday/);
+  assert.doesNotMatch(html, /free sunday|sunday trial|trials open each sunday|href="\.\.\/sunday\/"/i);
 });
 
 test("the fact page connects the public INNERG ecosystem", () => {
-  for (const destination of ["/watchlist/", "https://www.innergreads.study/", "https://innergintelligence.substack.com/", "https://www.youtube.com/@innergintel", "../sunday/"]) {
+  for (const destination of ["/watchlist/", "https://www.innergreads.study/", "https://innergintelligence.substack.com/", "https://www.youtube.com/@innergintel", "../#access"]) {
     assert.match(html, new RegExp(destination.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
 });

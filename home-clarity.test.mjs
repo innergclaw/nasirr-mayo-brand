@@ -9,7 +9,7 @@ const styles = await readFile(new URL("home-clarity.css", root), "utf8");
 
 test("home loads the one-page clarity layer", () => {
   assert.match(home, /home-clarity\.css\?v=\d+/);
-  assert.match(home, /home-clarity\.js\?v=15/);
+  assert.match(home, /home-clarity\.js\?v=\d+/);
 });
 
 test("skills follows about me with native disclosures and press me labels", () => {
@@ -23,28 +23,33 @@ test("skills follows about me with native disclosures and press me labels", () =
     assert.doesNotMatch(disclosure, /<details[^>]*\sopen(?:\s|>|=)/);
     assert.doesNotMatch(disclosure, />\+<\/span>/);
   }
-  assert.equal((disclosures[1].match(/<li>/g) ?? []).length, 6);
+  assert.equal((disclosures[1].match(/<li>/g) ?? []).length, 8);
+  assert.match(disclosures[1], /href="https:\/\/innergclaw\.github\.io\/innerg-skill-graph\/" target="_blank"/);
+  assert.match(disclosures[1], /see my skills in motion/);
   assert.match(script, /about\.insertAdjacentElement\("afterend", skills\)/);
-  assert.match(script, /\(skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
+  assert.match(script, /\(links \|\| skills \|\| about \|\| role\)\.after\(buildProfileActions\(\)\)/);
+  assert.match(script, /class="section-label">my professional links<\/span>/);
+  assert.match(script, /skills\.insertAdjacentElement\("afterend", links\)/);
   assert.match(styles, /\.about summary\s*\{\s*min-height:\s*44px/);
   assert.match(styles, /\.about\[open\] \.about-toggle\s*\{[^}]*font-size:\s*12px;[^}]*transform:\s*none;/);
 });
 
-test("scroll order places the video under official channels", () => {
+test("scroll order places the video under the social stats", () => {
   assert.match(script, /role\.insertAdjacentElement\("afterend", about\)/);
   assert.match(script, /const orderedSections = \[/);
-  assert.match(script, /document\.getElementById\(sectionId\),[\s\S]*video,[\s\S]*linkList,[\s\S]*ambassador,[\s\S]*footer/);
+  assert.match(script, /getElementById\("social-audience-stats"\),[\s\S]*video,[\s\S]*linkList,[\s\S]*ambassador,[\s\S]*footer/);
 });
 
 test("top actions lead to booking, services, and official channels", () => {
   assert.match(script, /href="#talk-business">SPEAK WITH ME/);
-  assert.match(script, /href="#how-can-i-help">WORK WITH ME/);
+  assert.match(script, /href="#project-intake">WORK WITH ME/);
   assert.match(script, /class="profile-action profile-action--member profile-action--channels" href="\/innergid\/">GET YOUR INNERG ID/);
   assert.doesNotMatch(script, />MARKET WATCHLIST<\/a>/);
   assert.match(script, /href="https:\/\/www\.innergreads\.study\/reads\/">READ WITH ME/);
   assert.doesNotMatch(script, /FIND MY CHANNELS/);
-  assert.match(home, /id="how-can-i-help"/);
-  assert.match(styles, /#how-can-i-help\s*{[\s\S]*scroll-margin-top:\s*96px/);
+  assert.doesNotMatch(home, /id="how-can-i-help"/);
+  assert.match(home, /id="project-intake"/);
+  assert.match(styles, /#project-intake\s*{[\s\S]*scroll-margin-top:\s*96px/);
   assert.match(script, /I help founders, creatives, and business owners/);
   assert.doesNotMatch(script, /This is the main place to find my work/);
   assert.match(script, /founder-footer-quote/);
@@ -80,7 +85,7 @@ test("scheduled calls use phone icons and Odyssey uses the featured glow", async
   assert.equal((booking.match(/talk-business-icon/g) ?? []).length, 2);
   assert.match(booking, /featuredCard\.insertAdjacentElement\("beforebegin", section\)/);
   assert.doesNotMatch(booking, /new MutationObserver/);
-  assert.match(odysseyScript, /const anchor = linkList \|\| booking \|\| video/);
+  assert.match(odysseyScript, /\.odyssey-card/);
   assert.match(home, /odyssey-card\.js\?v=\d+/);
   assert.match(odyssey, /border-radius:\s*18px/);
   assert.match(odyssey, /conic-gradient/);

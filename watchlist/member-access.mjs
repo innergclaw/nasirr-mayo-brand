@@ -1,7 +1,7 @@
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
 import {loadBrief,renderPortfolio,renderFounderWatch} from './brief.mjs?v=daily-watch-1';
 import {loadNews} from './news.mjs?v=member-copy-2';
-import {setMoverContext,setWeeklyMoverAccess} from './weekly-mover.mjs?v=weekly-top-three-1';
+import {setMoverContext,setWeeklyMoverAccess,setMemberMoverAssets} from './weekly-mover.mjs?v=weekly-top-three-1';
 const client=createClient('https://zkyhhoxcrjkhywblzehr.supabase.co','sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_');
 const panel=document.querySelector('#member-access');
 const message=document.querySelector('#member-status');
@@ -9,14 +9,14 @@ let revision=0, pendingEmail='';
 const signin=document.querySelector('#signin-controls');
 const signout=document.querySelector('#research-signout');
 const prefs=document.querySelector('#research-preferences');
-const gateMarkup=`<div class="research-lock"><div class="research-placeholder" aria-hidden="true"><b>Research notes and context</b><p>Source review · What changed · What to watch</p><p>Member analysis and daily research</p></div><div class="research-lock-copy"><p class="eyebrow">INNERG ID access</p><h3>Read beyond the chart.</h3><p>Unlock the news, watch points, and risks with an active membership.</p><div class="member-actions"><a class="member-cta" href="https://nasirr.innergintel.org/innergid/">Become a member</a><a href="#member-access">Already a member? Sign in</a></div></div></div>`;
+const gateMarkup=`<div class="research-lock"><div class="research-placeholder" aria-hidden="true"><b>Research notes and context</b><p>Source review · What changed · What to watch</p><p>Member analysis and daily research</p></div><div class="research-lock-copy"><p class="eyebrow">INNERG ID access</p><h3>Read beyond the chart.</h3><p>Unlock the news, watch points, and risks with an active membership.</p><div class="member-actions"><a class="member-cta" href="https://nasirr.innergintel.study/innergid/">Become a member</a><a href="#member-access">Already a member? Sign in</a></div></div></div>`;
 function lock(){
   document.querySelectorAll('.research-gate').forEach(el=>{el.hidden=false;});
   document.querySelectorAll('.research-content').forEach(el=>{el.hidden=true;});
   document.querySelector('#brief-items').innerHTML='';document.querySelector('#news-items').innerHTML='';
   document.querySelector('#portfolio-items').replaceChildren();document.querySelector('#founder-watch-points').replaceChildren();
   document.querySelector('#news-coverage').innerHTML='';document.querySelector('#news-filter').onchange=null;
-  setWeeklyMoverAccess(false);setMoverContext(null);document.dispatchEvent(new Event('research-change'));
+  setWeeklyMoverAccess(false);setMoverContext(null);setMemberMoverAssets(null);document.dispatchEvent(new Event('research-change'));
   prefs.hidden=true;
   document.querySelector('#email-unsubscribe').hidden=true;
   document.querySelector('#research-retry').hidden=true;
@@ -52,6 +52,9 @@ async function check(session){
     if(current!==revision){lock();return;}
     document.querySelector('#portfolio-items').innerHTML=portfolioMarkup;
     document.querySelector('#founder-watch-points').innerHTML=watchMarkup;
+    // Movers 2-3 are served only by member-watchlist; on failure members still see #1.
+    try{const {data:market,error:marketError}=await client.functions.invoke('member-watchlist',{method:'GET'});if(!marketError&&current===revision)setMemberMoverAssets(market?.assets);}catch{}
+    if(current!==revision){lock();return;}
     setWeeklyMoverAccess(true);setMoverContext(data.mover);document.dispatchEvent(new Event('research-change'));
     message.textContent=`${data.membershipNumber} · Research access active.`;
     document.querySelector('#daily-email').checked=data.dailyEmail===true;prefs.hidden=false;

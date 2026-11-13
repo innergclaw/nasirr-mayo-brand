@@ -26,7 +26,7 @@ Different interests are entry points into the same system. The INNERG ID connect
 
 People can enter through public articles, videos, books, market charts, lessons, and community discussion. Paid access adds the full media library, member research, market insights, community tools, and active benefits. New membership costs $15 per month or $150 for 12 months. Existing $10 monthly founding memberships keep their original rate. Selected premium briefings can also be purchased without membership for $19 each.
 
-Five one-time seven-day trials open each Sunday. A verified claim starts the trial. Each account and verified email can claim once.
+The Sunday trial is retired. Visitors start with free public work, then choose a Child, Parent, or Family membership.
 
 ## Capabilities and Constraints
 

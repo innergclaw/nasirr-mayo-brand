@@ -6,18 +6,20 @@ const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const js = await readFile(new URL("./innergid.js", import.meta.url), "utf8");
 const css = await readFile(new URL("./innergid.css", import.meta.url), "utf8");
 
-test("landing page presents membership and one-time briefing paths", () => {
-  assert.match(html, /WORKPLACE AI ACCESS/);
-  assert.match(html, /\$15/);
-  assert.match(html, /\/ month/);
-  assert.match(html, /Your ID\. Your work system\. Your control\./);
-  assert.match(html, /\$150 for 12 months/);
+test("landing page presents the three memberships and the one-time briefing", () => {
+  assert.match(html, /id="family-plan-cards"/);
+  assert.match(html, /Child \$19\/month/);
+  assert.match(html, /Parent \$29\/month/);
+  assert.match(html, /\$390\/year/);
+  assert.match(html, /href="\/membership\/#plans"/);
   assert.match(html, /\$19/);
   assert.match(html, /NO MEMBERSHIP REQUIRED/);
   assert.match(html, /href="\.\/briefing\/"/);
-  assert.match(html, /No automatic renewal/);
   assert.doesNotMatch(html, /FREE MEMBERSHIP/);
-  assert.equal((html.match(/class="choice-card/g) || []).length, 1);
+});
+
+test("old $15 and $150 plans and the $10 founding note are gone from the page", () => {
+  assert.doesNotMatch(html, /\$15\b|\$150|\$10 monthly|choice-card|value-comparison|billing-plan/);
 });
 
 test("sign in returns to the public INNERG ID page", () => {
@@ -52,7 +54,7 @@ test("video preview uses the widescreen Market Pulse export and its poster", () 
 
 test("member home uses the INNERG community badge", () => {
   assert.match(html, /innerg-member-badge\.png/);
-  assert.match(html, /WORKPLACE AI SYSTEMS/);
+  assert.match(html, /YOUR KEY TO INNERG/);
   assert.match(html, /alt="INNERG Member badge"/);
 });
 
@@ -66,26 +68,17 @@ test("INNERG ID explains the included access", () => {
   assert.match(html, /Media Hub and member-only releases/);
   assert.match(html, /Discord, resources, and future events/);
   assert.match(html, /Who is this for\?/);
-  assert.equal((html.match(/<li>/g) || []).length, 13);
+  assert.equal((html.match(/<li>/g) || []).length, 6);
 });
 
-test("landing page points to the verified Sunday trial and fact page", () => {
-  assert.match(html, /five one-time seven-day trials open every sunday/i);
-  assert.match(html, /href="\.\/sunday\/"/);
+test("landing page points to the fact page and no longer offers the Sunday trial", () => {
+  assert.doesNotMatch(html, /sunday/i);
   assert.match(html, /href="\.\/about\/"/);
-  assert.match(css, /\.sunday-drop-link/);
+  assert.doesNotMatch(css, /\.sunday-drop-link/);
 });
 
-test("value paywall keeps comparisons honest and both plans clear", () => {
-  assert.match(html, /Start with one workflow/);
-  assert.match(html, /\$15 \/ month/);
-  assert.match(html, /\$150 once/);
-  assert.match(html, /Save \$30/);
-  assert.match(html, /Existing \$10 monthly founding memberships keep their original rate/);
-  assert.match(html, /Included with both plans/);
-  assert.match(html, /workflow guidance/);
-  assert.match(html, /<table aria-describedby="comparison-note">/);
-  assert.equal((html.match(/scope="col"/g) || []).length, 3);
+test("membership copy stays honest", () => {
+  assert.match(html, /top three weekly movers|Research Desk and Market Watchlist/);
   assert.doesNotMatch(html, /free trial|guaranteed return|guaranteed profit/i);
 });
 
@@ -96,18 +89,23 @@ test("join action is not delayed by scroll animations", () => {
   assert.match(css, /min-height: 50px/);
 });
 
-test("preview and purchase come before optional details", () => {
-  assert.ok(html.indexOf('<video') < html.indexOf('class="card-action purchase-action"'));
-  assert.ok(html.indexOf('class="card-action purchase-action"') < html.indexOf('<details '));
+test("preview and memberships come before optional details", () => {
+  assert.ok(html.indexOf('<video') < html.indexOf('id="family-plan-cards"'));
+  assert.ok(html.indexOf('id="family-plan-cards"') < html.indexOf('<details '));
   assert.equal((html.match(/<details\b/g) || []).length, 3);
-  assert.equal((html.match(/purchase-action/g) || []).length, 1);
-  assert.match(html, /Sign in or create your account, then pay securely/);
+  assert.match(html, /id="purchase-status"/);
 });
 
-test("purchase uses the monthly membership checkout", () => {
+test("legacy checkout script stays untouched but has no page button", () => {
   assert.match(js, /innerg-membership-checkout/);
   assert.match(js, /membership.*success/);
+  assert.match(js, /querySelector\("\.purchase-action"\) \?\?/);
   assert.match(html, /Open my INNERG ID/);
-  assert.doesNotMatch(js, /innerg-video-checkout/);
   assert.match(html, /See the \$19 briefing/);
+});
+
+test("each member's own ID gives kids child access and parents parent access", async () => {
+  const about = await readFile(new URL("./about/index.html", import.meta.url), "utf8");
+  assert.match(html, /kids get child access and parents get parent access/);
+  assert.match(about, /gives kids child access and parents parent access/);
 });

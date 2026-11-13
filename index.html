@@ -1,774 +1,132 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" as="image" href="/nasirr-g-mark.png" />
-    <link
-      rel="stylesheet"
-      href="/_next/static/chunks/0_4aywx-3i3z1.css"
-      data-precedence="next"
-    />
-    <link rel="stylesheet" href="/odyssey-card.css?v=3" />
-    <link rel="stylesheet" href="/social-stats.css?v=4" />
-    <link rel="stylesheet" href="/home-clarity.css?v=10" />
-    <link rel="stylesheet" href="/home-motion.css?v=1" />
-    <link rel="stylesheet" href="/project-intake.css?v=1" />
-    <style>
-      .talk-business {
-        margin-top: 34px;
-        padding: 28px 4px 30px;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAS ~ Hub | INNERG INTEL</title>
+<meta name="description" content="NAS hub: INNERG INTEL, PULSE, PROGRAMS, OWNYOURWEB and SHOPNASGFX.">
+<link rel="preload" href="/hub/fonts/Fraunces.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="/hub/style.css?v=2a19cb9">
+</head>
+<body>
+<a class="skip" href="#hub-nodes">Skip to menu</a>
+<div class="grain" aria-hidden="true"></div>
 
-      .mentorship-main-card {
-        position: relative;
-        isolation: isolate;
-        display: grid;
-        align-items: stretch;
-        gap: 22px;
-        min-height: 210px;
-        padding: 28px;
-        overflow: hidden;
-        border: 0;
-        border-radius: 18px;
-        color: #f8f8f4;
-        background: #171717;
-        text-align: left;
-        box-shadow:
-          0 0 0 1px rgba(199, 255, 56, 0.18),
-          0 18px 42px rgba(23, 23, 23, 0.14),
-          0 0 30px rgba(199, 255, 56, 0.16);
-      }
+<main id="hub" class="hub" aria-label="NAS hub">
+  <p class="corner">NAS ~ HUB</p>
+  <div class="stage" id="stage">
+    <img class="burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+    <svg class="wires" id="wires" aria-hidden="true"></svg>
+    <h1 class="nas" id="nas"><a class="nas-link" href="#about" aria-label="NAS, about me and skills">NAS</a></h1>
+    <nav id="hub-nodes" aria-label="Branches">
+      <ul>
+        <li><a class="node" data-dir="top" data-branch="innerg-intel" href="#innerg-intel"><span>INNERG INTEL</span></a></li>
+        <li><a class="node" data-dir="left" data-branch="pulse" href="#pulse"><span>PULSE</span></a></li>
+        <li><a class="node" data-dir="right" data-branch="programs" href="#programs"><span>PROGRAMS</span></a></li>
+        <li><a class="node duo" data-dir="bottom" data-branch="build" href="#build"><span>OWNYOURWEB<br>SHOPNASGFX</span></a></li>
+      </ul>
+    </nav>
+  </div>
+  <footer class="hub-foot">
+    <nav class="socials" aria-label="Social links">
+      <ul>
+        <li><a class="soc" href="https://www.youtube.com/@innergintel" target="_blank" rel="noopener" aria-label="YouTube, @innergintel (opens in a new tab)">YOUTUBE</a></li>
+        <li><a class="soc" href="https://x.com/InnerGNas" target="_blank" rel="noopener" aria-label="X, @InnerGNas (opens in a new tab)">X</a></li>
+        <li><a class="soc" href="https://www.instagram.com/shopnasgfx/" target="_blank" rel="noopener" aria-label="Instagram, creative, @shopnasgfx (opens in a new tab)">IG &middot; GFX</a></li>
+        <li><a class="soc" href="https://www.instagram.com/innergintel/" target="_blank" rel="noopener" aria-label="Instagram, education, @innergintel (opens in a new tab)">IG &middot; EDU</a></li>
+        <li><a class="soc" href="https://innergintelligence.substack.com/" target="_blank" rel="noopener" aria-label="Substack, InnerG Intelligence (opens in a new tab)">SUBSTACK</a></li>
+        <li><a class="soc" href="https://www.innergreads.study/reads/" target="_blank" rel="noopener" aria-label="Personal essays and writings (opens in a new tab)">ESSAYS</a></li>
+      </ul>
+    </nav>
+    <p class="tagline">Learn the system. Recode the mind. Build the future.</p>
+    <p class="folio">No. 001 &bull; NAS HUB &bull; 2026</p>
+  </footer>
+</main>
 
-      .mentorship-main-card::before {
-        content: "";
-        position: absolute;
-        inset: -120%;
-        z-index: 0;
-        background: conic-gradient(
-          from 0turn,
-          #c7ff38 0 12%,
-          transparent 20% 40%,
-          #c8d9ff 50% 62%,
-          transparent 72% 90%,
-          #c7ff38 100%
-        );
-        animation: mentorship-border-spin 8s linear infinite;
-      }
+<div class="flood" id="flood" aria-hidden="true"></div>
 
-      .mentorship-main-card::after {
-        content: "";
-        position: absolute;
-        inset: 2px;
-        z-index: 0;
-        border-radius: 16px;
-        background:
-          radial-gradient(circle at 92% 8%, rgba(199, 255, 56, 0.12), transparent 34%),
-          #171717;
-      }
+<section class="page" id="page-about" data-branch="about" hidden aria-labelledby="h-ab">
+  <a class="home" href="#" aria-label="Home, back to NAS hub"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 L4 6 L8 10" /></svg>HOME</a>
+  <img class="page-burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+  <div class="page-inner">
+    <h2 class="head rise" id="h-ab">ABOUT <em>NAS</em></h2>
+    <p class="lede rise">Philadelphia-based creative entrepreneur and educator with more than 10 years of experience in branding, digital systems, sales, project management, and business operations. As the owner and lead designer of NGVISIONS, I help clients turn ideas into organized brands, websites, and business tools. Through InnerG Intel and InnerG Reads, I also create educational content focused on entrepreneurship, technology, ownership, and independent thinking. I want to help Philadelphia youth move from ideas to practical business skills, stronger confidence, and real opportunities.</p>
+    <p class="num rise skills-label">REACH</p>
+    <ul class="stats rise">
+      <li class="stat stat-yt"><a href="https://www.youtube.com/@innergintel?sub_confirmation=1" target="_blank" rel="noopener"><span class="stat-plat">YOUTUBE</span><span class="stat-row"><span class="stat-n"><b class="count" data-to="784" data-src="subscriberCount">784</b><small>SUBSCRIBERS</small></span><span class="stat-n"><b class="count" data-to="236672" data-fmt="comma" data-src="viewCount">236,672</b><small>VIEWS</small></span></span><span class="sr"> (subscribe, opens in a new tab)</span></a></li>
+      <li class="stat"><span class="stat-plat">TIKTOK</span><span class="stat-row"><span class="stat-n"><b class="count" data-to="256">256</b><small>FOLLOWERS</small></span><span class="stat-n"><b class="count" data-to="11177" data-fmt="comma">11,177</b><small>LIKES</small></span></span></li>
+      <li class="stat"><span class="stat-plat">INSTAGRAM</span><span class="stat-row"><span class="stat-n"><b class="count" data-to="11" data-suf="K+">11K+</b><small>FOLLOWERS</small></span></span></li>
+      <li class="stat stat-hero"><span class="stat-plat">FOUNDERS &amp; BUSINESS OWNERS HELPED</span><span class="stat-row"><span class="stat-n"><b class="count" data-to="500" data-suf="+">500+</b><small>SINCE 2015</small></span></span></li>
+    </ul>
+    <p class="num rise skills-label">SKILLS</p>
+    <ol class="cards skills">
+      <li class="card rise"><span class="num">01</span><h3>WEB DEVELOPMENT</h3><p>Static sites, GitHub Pages, Supabase backends.</p></li>
+      <li class="card rise"><span class="num">02</span><h3>DESIGN</h3><p>Logos, brand systems, UI.</p></li>
+      <li class="card rise"><span class="num">03</span><h3>SI ORCHESTRATION</h3><p>Directing a team of SI teammates with clear jobs and approvals.</p></li>
+      <li class="card rise"><span class="num">04</span><h3>STRATEGY</h3><p>Business and brand strategy.</p></li>
+      <li class="card rise"><span class="num">05</span><h3>TEACHING</h3><p>SI education for families, students and builders.</p></li>
+      <li class="card rise"><span class="num">06</span><h3>WRITING</h3><p>Books, reads, copy and scripts.</p></li>
+      <li class="card rise"><span class="num">07</span><h3>TRADING RESEARCH</h3><p>Markets research and watchlists.</p></li>
+      <li class="card rise"><span class="num">08</span><h3>SECURITY OPERATIONS</h3><p>SOC fundamentals.</p></li>
+    </ol>
+    <p class="yt rise"><a class="yt-btn visit" href="#build">WORK WITH ME</a></p>
+  </div>
+  <p class="folio page-folio">No. 000 &bull; ABOUT NAS &bull; 2026</p>
+</section>
 
-      .mentorship-main-card > * {
-        position: relative;
-        z-index: 1;
-      }
+<section class="page" id="page-innerg-intel" data-branch="innerg-intel" hidden aria-labelledby="h-ii">
+  <a class="home" href="#" aria-label="Home, back to NAS hub"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 L4 6 L8 10" /></svg>HOME</a>
+  <img class="page-burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+  <div class="page-inner">
+    <h2 class="head rise" id="h-ii">INNERG <em>INTEL</em></h2>
+    <p class="lede rise">INNERG INTEL helps people understand themselves, understand the systems shaping their lives, and develop the intelligence to build on their own terms. Through education, financial literacy, emerging technology, entrepreneurship, and community, we connect knowledge to practical capability and practical capability to ownership.</p>
+    <ol class="cards">
+      <li class="card rise"><span class="num">01</span><h3>DEPROGRAM</h3><p>Examine inherited beliefs, habits, assumptions, and narratives that influence behavior and decision-making.</p></li>
+      <li class="card rise"><span class="num">02</span><h3>RELEARN</h3><p>Develop a more accurate understanding of oneself, the surrounding environment, and available opportunities.</p></li>
+      <li class="card rise"><span class="num">03</span><h3>RECODE</h3><p>Translate new understanding into improved thinking patterns, habits, and decisions.</p></li>
+      <li class="card rise"><span class="num">04</span><h3>REBUILD</h3><p>Apply knowledge and improved capabilities to create tangible value.</p></li>
+    </ol>
+    <p class="yt rise"><a class="yt-btn yt-play" href="https://www.youtube.com/@innergintel" rel="noopener"><svg class="play" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M6.4 4.9 L11.2 8 L6.4 11.1 Z"/></svg>WATCH ON YOUTUBE</a></p>
+    <p class="yt rise"><a class="yt-btn visit" href="/membership/">MEMBERSHIP</a></p>
+  </div>
+  <p class="folio page-folio">No. 002 &bull; INNERG INTEL &bull; 2026</p>
+</section>
 
-      .mentorship-main-card:hover {
-        background: #171717;
-        box-shadow:
-          0 0 0 1px rgba(199, 255, 56, 0.28),
-          0 22px 46px rgba(23, 23, 23, 0.18),
-          0 0 36px rgba(199, 255, 56, 0.24);
-      }
+<section class="page" id="page-pulse" data-branch="pulse" hidden aria-labelledby="h-pu">
+  <a class="home" href="#" aria-label="Home, back to NAS hub"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 L4 6 L8 10" /></svg>HOME</a>
+  <img class="page-burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+  <div class="page-inner">
+    <h2 class="head rise" id="h-pu"><em>PULSE</em></h2>
+    <p class="lede rise">Markets and jobs, in plain words. Free notes three times every weekday, a live watchlist of today&rsquo;s movers, and a Monday labor brief on who&rsquo;s cutting and who&rsquo;s hiring. No hype.</p>
+    <p class="yt rise"><a class="yt-btn visit" href="https://pulse.innergintel.study/" target="_blank" rel="noopener">GET THE UPDATES<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a></p>
+  </div>
+  <p class="folio page-folio">No. 003 &bull; PULSE &bull; 2026</p>
+</section>
 
-      .mentorship-main-meta {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        color: #b8b8b0;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.11em;
-      }
+<section class="page" id="page-programs" data-branch="programs" hidden aria-labelledby="h-pr">
+  <a class="home" href="#" aria-label="Home, back to NAS hub"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 L4 6 L8 10" /></svg>HOME</a>
+  <img class="page-burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+  <div class="page-inner">
+    <h2 class="head rise" id="h-pr"><em>PROGRAMS</em></h2>
+    <p class="lede rise">SI literacy for the future. Join the InnerG Intelligence Program, or book a workshop for your team or community.</p>
+    <p class="yt rise"><a class="yt-btn visit" href="https://innergclaw.github.io/innerg-ai-program-signup/" target="_blank" rel="noopener">JOIN THE PROGRAM<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a><span class="yt-url">InnerG Intelligence Program 2026</span></p>
+    <p class="yt rise"><a class="yt-btn visit ghost" href="https://innergclaw.github.io/innerg-ai-classes/" target="_blank" rel="noopener">BOOK A WORKSHOP<span class="sr"> (opens in a new tab)</span></a></p>
+  </div>
+  <p class="folio page-folio">No. 004 &bull; PROGRAMS &bull; 2026</p>
+</section>
 
-      .mentorship-main-meta span:last-child {
-        color: #c7ff38;
-        text-align: right;
-      }
+<section class="page" id="page-build" data-branch="build" hidden aria-labelledby="h-bd">
+  <a class="home" href="#" aria-label="Home, back to NAS hub"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 L4 6 L8 10" /></svg>HOME</a>
+  <img class="page-burst" src="/hub/assets/nas_burst_ink.png" alt="" aria-hidden="true">
+  <div class="page-inner">
+    <h2 class="head rise" id="h-bd">OWNYOUR<em>WEB</em><br>SHOPNASGFX</h2>
+    <p class="lede rise">Work with me. OwnYourWeb builds websites and automation that make it easier for customers to act. ShopNasGfx builds the brand: logos and identity.</p>
+    <p class="yt rise"><a class="yt-btn visit" href="https://ownyourweb.xyz/" target="_blank" rel="noopener">OWNYOURWEB<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a><span class="yt-url">ownyourweb.xyz</span></p>
+    <p class="yt rise"><a class="yt-btn visit" href="https://shopnasgfx.com/" target="_blank" rel="noopener">SHOPNASGFX<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a><span class="yt-url">shopnasgfx.com</span></p>
+  </div>
+  <p class="folio page-folio">No. 005 &bull; OWNYOURWEB &bull; SHOPNASGFX &bull; 2026</p>
+</section>
 
-      .mentorship-main-card .link-copy {
-        gap: 9px;
-      }
-
-      .mentorship-main-card .link-copy strong {
-        max-width: 450px;
-        color: #fff;
-        font-size: clamp(27px, 6vw, 40px);
-        letter-spacing: -0.065em;
-        line-height: 0.96;
-      }
-
-      .mentorship-main-card .link-copy small {
-        max-width: 430px;
-        color: #b8b8b0;
-        font-size: 13px;
-        line-height: 1.5;
-      }
-
-      .mentorship-main-disclosure {
-        max-width: 430px;
-        color: #8f8f88;
-        font-size: 10px;
-        line-height: 1.45;
-      }
-
-      .mentorship-main-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .mentorship-main-action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        min-height: 44px;
-        padding: 11px 14px 11px 16px;
-        border-radius: 10px;
-        font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-decoration: none;
-        transition-property: transform, background-color, color, box-shadow;
-        transition-duration: 160ms;
-        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-      }
-
-      .mentorship-main-action:hover {
-        transform: translateY(-2px);
-      }
-
-      .mentorship-main-action:active {
-        transform: scale(0.96);
-      }
-
-      .mentorship-main-action:focus-visible {
-        outline: 3px solid #c8d9ff;
-        outline-offset: 3px;
-      }
-
-      .mentorship-main-action-primary {
-        color: #171717;
-        background: #c7ff38;
-        box-shadow: 0 8px 18px rgba(199, 255, 56, 0.18);
-      }
-
-      .mentorship-main-action-primary:hover {
-        background: #d7ff70;
-      }
-
-      @keyframes mentorship-border-spin {
-        to {
-          transform: rotate(1turn);
-        }
-      }
-
-      .social-menu:has(.mentorship-social-link).is-open .social-menu__item {
-        transform: translateX(calc((var(--social-index) - 2) * 43px)) scale(1);
-      }
-
-      .social-menu:has(.mentorship-social-link).is-open .social-menu__item:hover {
-        transform: translateX(calc((var(--social-index) - 2) * 43px)) translateY(-3px) scale(1.08);
-      }
-
-      .link-list > .hire-links {
-        padding: 8px 4px 0;
-      }
-
-      .talk-business h2 {
-        max-width: 440px;
-        margin: 18px 0 0;
-        font-size: clamp(30px, 6vw, 44px);
-        line-height: 0.96;
-        letter-spacing: -0.07em;
-      }
-
-      .talk-business-intro {
-        max-width: 480px;
-        margin: 14px 0 0;
-        color: #666;
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      .talk-business-actions {
-        display: grid;
-        gap: 11px;
-        margin-top: 22px;
-      }
-
-      .talk-business-action {
-        display: grid;
-        grid-template-columns: 42px auto minmax(0, 1fr);
-        gap: 10px 13px;
-        align-items: center;
-        padding: 16px 17px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #ffffffb8;
-        color: var(--ink);
-        text-decoration: none;
-        transition: transform 180ms ease, background-color 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .talk-business-action:hover {
-        background: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px #17171712;
-      }
-
-      .talk-business-action:focus-visible {
-        outline: 3px solid #c8d9ff;
-        outline-offset: 3px;
-      }
-
-      .talk-business-time {
-        color: #999;
-        font-size: 11px;
-        letter-spacing: 0.08em;
-      }
-
-      .talk-business-icon {
-        display: inline-flex;
-        width: 42px;
-        height: 42px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        color: #171717;
-        background: #caff37;
-        box-shadow: 0 0 0 1px #17171714, 0 8px 18px #6b891926;
-      }
-
-      .talk-business-icon svg {
-        width: 21px;
-        height: 21px;
-      }
-
-      .talk-business-copy {
-        display: grid;
-        gap: 3px;
-      }
-
-      .talk-business-action strong {
-        font-size: 16px;
-        letter-spacing: -0.04em;
-      }
-
-      .talk-business-action small {
-        color: #7d7d76;
-        font-size: 12px;
-        line-height: 1.4;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .talk-business-action,
-        .mentorship-main-action {
-          transition: none;
-        }
-
-        .mentorship-main-card::before {
-          animation: none;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .mentorship-main-card {
-          gap: 20px;
-          min-height: 224px;
-          padding: 24px 20px;
-        }
-
-        .mentorship-main-meta {
-          align-items: flex-start;
-        }
-
-        .mentorship-main-actions {
-          display: grid;
-        }
-
-        .mentorship-main-action {
-          width: 100%;
-        }
-      }
-    </style>
-    <script type="application/json" src="/_next/static/chunks/0n2~uv08bjkj4.js"></script>
-    <script type="application/json" src="/_next/static/chunks/18aj.vtt~uxkn.js"></script>
-    <script type="application/json" src="/_next/static/chunks/14eb7.qug_yz6.js"></script>
-    <script
-      type="application/json"
-      src="/_next/static/chunks/turbopack-02ze~antcshi..js"
-    ></script>
-    <script type="application/json" src="/_next/static/chunks/0wru98n6d4gda.js"></script>
-    <script type="application/json" src="/_next/static/chunks/03p1pfu8bce4_.js"></script>
-    <script type="application/json" src="/_next/static/chunks/0qjebp~jsdyqi.js"></script>
-    <title>NASIRR &quot;G&quot; MAYO</title>
-    <meta
-      name="description"
-      content="Nasirr G. Mayo helps founders, creatives, and business owners build brands, websites, and digital systems they can own."
-    />
-    <link rel="canonical" href="https://nasirr.innergintel.org/" />
-    <meta property="og:title" content='NASIRR "G" MAYO' />
-    <meta
-      property="og:description"
-      content="Nasirr G. Mayo helps founders, creatives, and business owners build brands, websites, and digital systems they can own."
-    />
-    <meta property="og:url" content="https://nasirr.innergintel.org/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content='NASIRR "G" MAYO' />
-    <meta
-      name="twitter:description"
-      content="Nasirr G. Mayo helps founders, creatives, and business owners build brands, websites, and digital systems they can own."
-    />
-    <script type="application/json" src="/_next/static/chunks/03~yq9q893hmn.js"></script>
-  </head>
-  <body>
-    <div hidden=""><!--$--><!--/$--></div>
-    <main class="link-tree-page">
-      <div class="link-tree-shell">
-        <header class="profile-header">
-          <img
-            alt="Nasirr G. Mayo logo"
-            width="62"
-            height="62"
-            decoding="async"
-            data-nimg="1"
-            class="profile-mark"
-            style="color: transparent"
-            src="/nasirr-g-mark.png"
-          />
-          <p class="profile-kicker">PHILADELPHIA - EST 2015</p>
-          <h1 class="scramble-title" aria-label='NASIRR "G" MAYO'>
-            <span class="scramble-title-sizer" aria-hidden="true"
-              >NASIRR &quot;G&quot; MAYO</span
-            ><span class="scramble-title-output" aria-hidden="true"
-              >NASIRR &quot;G&quot; MAYO</span
-            >
-          </h1>
-          <p class="profile-role">
-            FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER
-          </p>
-          <div class="social-menu profile-social-links">
-            <nav
-              class="social-menu__items"
-              aria-label="Nasirr Mayo social links"
-            >
-              <a
-                class="social-menu__item"
-                style="--social-index: 0"
-                href="https://github.com/innergclaw"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                title="GitHub"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 2.4a9.6 9.6 0 0 0-3.04 18.7c.48.09.66-.21.66-.46v-1.68c-2.69.58-3.26-1.14-3.26-1.14-.44-1.12-1.07-1.42-1.07-1.42-.88-.6.07-.59.07-.59.97.07 1.48 1 1.48 1 .86 1.47 2.26 1.05 2.81.8.09-.63.34-1.05.61-1.3-2.15-.24-4.42-1.08-4.42-4.79 0-1.06.38-1.93 1-2.61-.1-.25-.43-1.24.1-2.58 0 0 .82-.26 2.64 1a9.1 9.1 0 0 1 4.8 0c1.82-1.24 2.64-1 2.64-1 .53 1.34.2 2.33.1 2.58.62.68 1 1.55 1 2.61 0 3.72-2.27 4.55-4.43 4.79.35.3.65.88.65 1.78v2.64c0 .25.18.55.66.46A9.6 9.6 0 0 0 12 2.4Z"
-                  ></path></svg></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 1"
-                href="https://www.youtube.com/watch?v=l51OeTcUJK4"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube"
-                title="YouTube"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M21.6 7.1a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.4a2.7 2.7 0 0 0-1.9 1.9C2 8.8 2 12 2 12s0 3.2.4 4.9a2.7 2.7 0 0 0 1.9 1.9c1.7.4 7.7.4 7.7.4s6 0 7.7-.4a2.7 2.7 0 0 0 1.9-1.9c.4-1.7.4-4.9.4-4.9s0-3.2-.4-4.9ZM10 15.8V8.2l6.2 3.8-6.2 3.8Z"
-                  ></path></svg></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 2"
-                href="https://open.substack.com/pub/innergintelligence"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Substack"
-                title="Substack"
-                ><span class="substack-icon" aria-hidden="true">S</span></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 3"
-                href="https://x.com/InnerGNas"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Twitter / X"
-                title="Twitter / X"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M18.9 2.5h3.7l-8.1 9.3L24 21.5h-7.4l-5.8-6.7-5.9 6.7H1.2l8.7-10L0 2.5h7.6l5.2 6.1 6.1-6.1Zm-1.3 17h2L6.5 4.4H4.4l13.2 15.1Z"
-                  ></path></svg
-              ></a>
-            </nav>
-            <button
-              class="social-menu__trigger"
-              type="button"
-              aria-expanded="false"
-              aria-label="Open social links"
-            >
-              <span aria-hidden="true">•••</span>
-            </button>
-          </div>
-        </header>
-        <section class="video-card" aria-labelledby="video-title">
-          <div class="video-heading">
-            <div>
-              <h2 id="video-title">
-                HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]
-              </h2>
-              <p>A short look at the work, the lessons, and what comes next.</p>
-            </div>
-          </div>
-          <div class="video-frame">
-            <iframe
-              src="https://www.youtube.com/embed/l51OeTcUJK4"
-              title='NASIRR "G" MAYO — HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]'
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen=""
-            ></iframe>
-          </div>
-        </section>
-        <details class="about">
-          <summary id="about-title">
-            <span class="section-label">About me</span
-            ><span class="about-toggle" aria-hidden="true">press me</span>
-          </summary>
-          <div class="about-copy">
-            <p>
-              Philadelphia-based creative entrepreneur and educator with more
-              than 10 years of experience in branding, digital systems, sales,
-              project management, and business operations. As the owner and lead
-              designer of NGVISIONS, I help clients turn ideas into organized
-              brands, websites, and business tools. Through InnerG Intel and
-              InnerG Reads, I also create educational content focused on
-              entrepreneurship, technology, ownership, and independent thinking.
-              I want to help Philadelphia youth move from ideas to practical
-              business skills, stronger confidence, and real opportunities.
-            </p>
-          </div>
-        </details>
-        <details class="about skills" id="skills">
-          <summary id="skills-title">
-            <span class="section-label">skills</span>
-            <span class="about-toggle" aria-hidden="true">press me</span>
-          </summary>
-          <div class="about-copy">
-            <ul class="skills-list">
-              <li>branding &amp; visual identity</li>
-              <li>graphic &amp; digital design</li>
-              <li>websites &amp; digital systems</li>
-              <li>sales &amp; client communication</li>
-              <li>project management &amp; business operations</li>
-              <li>entrepreneurship &amp; technology education</li>
-            </ul>
-          </div>
-        </details>
-        <nav class="link-list" aria-label="Nasirr&#x27;s links">
-          <section class="hire-links" id="how-can-i-help" aria-labelledby="hire-links-title">
-            <p class="section-label" id="hire-links-title">HOW CAN I HELP YOU?</p>
-          </section>
-          <a
-            class="link-card"
-            href="https://ownyourweb.marketing/"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">01</span
-            ><span class="link-copy"
-              ><strong>OWNYOURWEB SYSTEMS</strong
-              ><small
-                >Websites and digital systems you can actually control.</small
-              ></span
-            ></a
-          ><a
-            class="link-card"
-            href="https://www.innergreads.study"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">02</span
-            ><span class="link-copy"
-              ><strong>INNERG INTEL EDUCATION</strong
-              ><small
-                >Education, systems, and the ideas behind the work.</small
-              ></span
-            ></a
-          ><a
-            class="link-card"
-            href="https://shopnasgfx.com/"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="link-number">03</span
-            ><span class="link-copy"
-              ><strong>CREATIVE DESIGN SERVICES</strong
-              ><small
-                >Graphics, branding, and creative services built with
-                purpose.</small
-              ></span
-            ></a
-          >
-          <div class="link-card link-card-disabled" aria-disabled="true">
-            <span class="link-number">04</span
-            ><span class="link-copy"
-              ><strong>AGENT ACADEMY / COMING SOON</strong
-              ><small
-                >Hands-on training for directing, building, and evaluating AI
-                agent systems.</small
-              ></span
-            ><span class="link-status">COMING SOON</span>
-          </div>
-          <section class="project-intake" id="project-intake" aria-labelledby="project-intake-title">
-            <p class="project-intake__eyebrow">Let's work together</p>
-            <h2 id="project-intake-title">Tell me what you need.</h2>
-            <p class="project-intake__intro" id="project-intake-help">Share a few details, then text them directly to me. All fields are required.</p>
-            <form id="project-intake-form" action="sms:+12674730397" aria-describedby="project-intake-help project-intake-note">
-              <div class="project-intake__row">
-                <div class="project-intake__field">
-                  <label for="project-first-name">First Name</label>
-                  <input id="project-first-name" name="firstName" autocomplete="given-name" maxlength="60" required />
-                </div>
-                <div class="project-intake__field">
-                  <label for="project-last-name">Last Name</label>
-                  <input id="project-last-name" name="lastName" autocomplete="family-name" maxlength="60" required />
-                </div>
-              </div>
-              <div class="project-intake__field">
-                <label for="project-service">Service Needed</label>
-                <textarea id="project-service" name="service" rows="4" maxlength="500" placeholder="What are you creating, updating, or trying to solve?" aria-describedby="project-service-help" required></textarea>
-                <div class="project-intake__field-help">
-                  <span id="project-service-help">Up to 500 characters.</span>
-                  <span id="project-service-count" aria-hidden="true">0 / 500</span>
-                </div>
-              </div>
-              <div class="project-intake__field">
-                <label for="project-budget">Budget</label>
-                <select id="project-budget" name="budget" required>
-                  <option value="" disabled selected>Select your budget</option>
-                  <option value="$100-$250">$100-$250</option>
-                  <option value="$250 - $500">$250 - $500</option>
-                  <option value="$750 - $1000">$750 - $1000</option>
-                </select>
-              </div>
-              <div class="project-intake__field">
-                <label for="project-delivery">Expected delivery of project</label>
-                <select id="project-delivery" name="delivery" required>
-                  <option value="" disabled selected>Select a timeframe</option>
-                  <option value="ASAP">ASAP</option>
-                  <option value="A Few Days">A Few Days</option>
-                  <option value="A Few Weeks">A Few Weeks</option>
-                  <option value="Not Sure">Not Sure</option>
-                </select>
-              </div>
-              <p class="project-intake__note" id="project-intake-note">This opens your text app with the details filled in. Tap send to finish. I'll confirm availability and timing with you.</p>
-              <button class="project-intake__send" id="project-intake-send" type="submit" disabled>Send details by text</button>
-              <div class="project-intake__fallback">
-                <button class="project-intake__copy" id="project-intake-copy" type="button" disabled>Copy details instead</button>
-                <a href="sms:+12674730397">267 473 0397</a>
-              </div>
-              <p class="project-intake__status" id="project-intake-status" role="status" aria-live="polite"></p>
-              <div id="project-intake-manual" hidden>
-                <label for="project-intake-message">Copy this message and text it to 267 473 0397</label>
-                <textarea id="project-intake-message" rows="7" readonly></textarea>
-              </div>
-              <a id="project-intake-sms" href="sms:+12674730397" hidden>Open prepared text</a>
-              <noscript><p>Enable JavaScript to prepare your message, or text your name, service, budget, and timeframe to <a href="sms:+12674730397">267 473 0397</a>.</p></noscript>
-            </form>
-          </section>
-        </nav>
-        <section
-          class="talk-business"
-          id="talk-business"
-          aria-labelledby="talk-business-title"
-        >
-          <p class="section-label">SPEAK WITH ME</p>
-          <h2 id="talk-business-title">Get the right help for the work.</h2>
-          <p class="talk-business-intro">
-            Book a short fit call for direction, or use the full briefing to
-            plan a website or digital system.
-          </p>
-          <div class="talk-business-actions">
-            <a
-              class="talk-business-action"
-              href="https://cal.com/ownyourwebsmm/15min"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="talk-business-icon" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <path
-                    d="M7.2 3.5 9.6 7l-1.8 2.1a15.7 15.7 0 0 0 7.1 7.1l2.1-1.8 3.5 2.4-.9 3.1c-.2.7-.9 1.2-1.7 1.1A17.1 17.1 0 0 1 3 6.1c-.1-.8.4-1.5 1.1-1.7l3.1-.9Z"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg
-              ></span>
-              <span class="talk-business-time">15 MIN</span>
-              <span class="talk-business-copy"
-                ><strong>Project fit call</strong
-                ><small>Decide the best next step for your idea.</small></span
-              >
-            </a>
-            <a
-              class="talk-business-action"
-              href="https://cal.com/ownyourwebsmm/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="talk-business-icon" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <path
-                    d="M7.2 3.5 9.6 7l-1.8 2.1a15.7 15.7 0 0 0 7.1 7.1l2.1-1.8 3.5 2.4-.9 3.1c-.2.7-.9 1.2-1.7 1.1A17.1 17.1 0 0 1 3 6.1c-.1-.8.4-1.5 1.1-1.7l3.1-.9Z"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg
-              ></span>
-              <span class="talk-business-time">30 MIN</span>
-              <span class="talk-business-copy"
-                ><strong>Website &amp; system briefing</strong
-                ><small>Discuss goals, scope, timeline, and setup.</small></span
-              >
-            </a>
-          </div>
-        </section>
-        <footer class="link-tree-footer">
-          <blockquote class="founder-footer-quote">
-            <p>
-              "I help founders, creatives, and business owners shape ideas,
-              build brands, launch websites, and organize digital systems they
-              can own."
-            </p>
-            <cite>NASIRR G. MAYO</cite>
-          </blockquote>
-          <span>NM</span
-          ><span>Making useful things, one system at a time.</span>
-          <div class="social-menu">
-            <nav class="social-menu__items" aria-label="Social links">
-              <a
-                class="social-menu__item"
-                style="--social-index: 0"
-                href="https://github.com/innergclaw"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                title="GitHub"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 2.4a9.6 9.6 0 0 0-3.04 18.7c.48.09.66-.21.66-.46v-1.68c-2.69.58-3.26-1.14-3.26-1.14-.44-1.12-1.07-1.42-1.07-1.42-.88-.6.07-.59.07-.59.97.07 1.48 1 1.48 1 .86 1.47 2.26 1.05 2.81.8.09-.63.34-1.05.61-1.3-2.15-.24-4.42-1.08-4.42-4.79 0-1.06.38-1.93 1-2.61-.1-.25-.43-1.24.1-2.58 0 0 .82-.26 2.64 1a9.1 9.1 0 0 1 4.8 0c1.82-1.24 2.64-1 2.64-1 .53 1.34.2 2.33.1 2.58.62.68 1 1.55 1 2.61 0 3.72-2.27 4.55-4.43 4.79.35.3.65.88.65 1.78v2.64c0 .25.18.55.66.46A9.6 9.6 0 0 0 12 2.4Z"
-                  ></path></svg></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 1"
-                href="https://www.youtube.com/watch?v=l51OeTcUJK4"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube"
-                title="YouTube"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M21.6 7.1a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.4a2.7 2.7 0 0 0-1.9 1.9C2 8.8 2 12 2 12s0 3.2.4 4.9a2.7 2.7 0 0 0 1.9 1.9c1.7.4 7.7.4 7.7.4s6 0 7.7-.4a2.7 2.7 0 0 0 1.9-1.9c.4-1.7.4-4.9.4-4.9s0-3.2-.4-4.9ZM10 15.8V8.2l6.2 3.8-6.2 3.8Z"
-                  ></path></svg></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 2"
-                href="https://open.substack.com/pub/innergintelligence"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Substack"
-                title="Substack"
-                ><span class="substack-icon" aria-hidden="true">S</span></a
-              ><a
-                class="social-menu__item"
-                style="--social-index: 3"
-                href="https://x.com/InnerGNas"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Twitter / X"
-                title="Twitter / X"
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M18.9 2.5h3.7l-8.1 9.3L24 21.5h-7.4l-5.8-6.7-5.9 6.7H1.2l8.7-10L0 2.5h7.6l5.2 6.1 6.1-6.1Zm-1.3 17h2L6.5 4.4H4.4l13.2 15.1Z"
-                  ></path></svg
-              ></a>
-            </nav>
-            <button
-              class="social-menu__trigger"
-              type="button"
-              aria-expanded="false"
-              aria-label="Open social links"
-            >
-              <span aria-hidden="true">•••</span>
-            </button>
-          </div>
-        </footer>
-      </div>
-    </main>
-    <!--$--><!--/$-->
-    <script
-      type="application/json"
-      src="/_next/static/chunks/0alipekgurvhm.js"
-      id="_R_"
-    ></script>
-    <script type="application/json">
-      (self.__next_f = self.__next_f || []).push([0]);
-    </script>
-    <script type="application/json">
-      self.__next_f.push([
-        1,
-        '1:"$Sreact.fragment"\n2:I[60526,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"default"]\n3:I[30195,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"default"]\n4:I[95265,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"Image"]\n5:I[63771,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n6:I[83103,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\ne:I[53549,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"default",1]\n:HL["/_next/static/chunks/0_4aywx-3i3z1.css","style"]\n',
-      ]);
-    </script>
-    <script type="application/json">
-      self.__next_f.push([
-        1,
-        '0:{"P":null,"c":["",""],"q":"","i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0wru98n6d4gda.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/03p1pfu8bce4_.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\\"Segoe UI\\",Roboto,Helvetica,Arial,sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":[["$","$1","c",{"children":[["$","main",null,{"className":"link-tree-page","children":["$","div",null,{"className":"link-tree-shell","children":[["$","header",null,{"className":"profile-header","children":[["$","$L4",null,{"className":"profile-mark","src":"/nasirr-g-mark.png","alt":"Nasirr G. Mayo logo","width":62,"height":62,"priority":true}],["$","p",null,{"className":"profile-kicker","children":"PHILADELPHIA - EST 2015"}],["$","$L5",null,{"text":"NASIRR \\"G\\" MAYO"}],["$","p",null,{"className":"profile-role","children":"FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER"}],["$","$L6",null,{"className":"profile-social-links","label":"Nasirr Mayo social links"}]]}],["$","section",null,{"className":"video-card","aria-labelledby":"video-title","children":[["$","div",null,{"className":"video-heading","children":["$","div",null,{"children":[["$","h2",null,{"id":"video-title","children":"HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]"}],["$","p",null,{"children":"A short look at the work, the lessons, and what comes next."}]]}]}],["$","div",null,{"className":"video-frame","children":["$","iframe",null,{"src":"https://www.youtube.com/embed/l51OeTcUJK4","title":"NASIRR \\"G\\" MAYO — HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]","loading":"lazy","allow":"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share","allowFullScreen":true}]}]]}],["$","details",null,{"className":"about","children":[["$","summary",null,{"id":"about-title","children":[["$","span",null,{"className":"section-label","children":"About me"}],["$","span",null,{"className":"about-toggle","aria-hidden":"true","children":"+"}]]}],["$","div",null,{"className":"about-copy","children":[["$","p",null,{"children":"I started building in 2015 because I saw problems that needed solving. The early years were not about recognition. They were about learning how websites, visual identity, client experience, and digital systems actually work together."}],["$","p",null,{"children":[["$","strong",null,{"children":"ShopNasGfx"}]," taught me how trust is designed. ",["$","strong",null,{"children":"OwnYourWeb"}]," turned that craft into systems businesses can control. ",["$","strong",null,{"children":"InnerG Intel"}]," made education part of the infrastructure."]}],["$","p",null,{"children":"This next chapter is about stepping forward without abandoning the builder’s discipline: sharing what I know, showing what I make, and helping experienced people stop hiding the value they have already earned."}]]}]]}],"$L8","$L7","$L9","$La"]}]}],["$Lb"],"$Lc"]}],{},null,false,null]},null,false,null],"$Ld",false]],"m":"$undefined","G":["$e",["$Lf"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"MaR-HISx8n4I46eCw4W7a"}\n',
-      ]);
-    </script>
-    <script type="application/json">
-      self.__next_f.push([
-        1,
-        '10:I[72126,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js","/_next/static/chunks/0qjebp~jsdyqi.js"],"default"]\n11:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"OutletBoundary"]\n12:"$Sreact.suspense"\n14:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"ViewportBoundary"]\n16:I[86277,["/_next/static/chunks/0wru98n6d4gda.js","/_next/static/chunks/03p1pfu8bce4_.js"],"MetadataBoundary"]\n7:["$","section",null,{"className":"hire-links","aria-labelledby":"hire-links-title","children":["$","p",null,{"className":"section-label","id":"hire-links-title","children":"HOW CAN I HELP YOU?"}]}]\n8:["$","$L10",null,{"links":[{"number":"01","title":"OWNYOURWEB SYSTEMS","description":"Websites and digital systems you can actually control.","href":"https://ownyourweb.marketing/"},{"number":"02","title":"INNERG INTEL EDUCATION","description":"Education, systems, and the ideas behind the work.","href":"https://www.innergreads.study"},{"number":"03","title":"CREATIVE DESIGN SERVICES","description":"Graphics, branding, and creative services built with purpose.","href":"https://shopnasgfx.com/"},{"number":"04","title":"AGENT ACADEMY / COMING SOON","description":"Hands-on training for directing, building, and evaluating AI agent systems.","href":"","status":"COMING SOON"}]}]\n9:["$","section",null,{"className":"home-reference-room","aria-labelledby":"home-reference-title","children":[["$","div",null,{"className":"home-reference-heading","children":[["$","p",null,{"className":"section-label","children":"REFERENCE ROOM / CREATIVE ASSET RESOURCE"}],["$","span",null,{"children":"06"}]]}],["$","h2",null,{"id":"home-reference-title","children":"Give the next idea a better starting point."}],["$","p",null,{"children":"PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic AI can provide."}],["$","a",null,{"className":"home-reference-link","href":"resources/","children":["ENTER REFERENCE ROOM ",["$","span",null,{"children":"↗"}]]}]]}]\na:["$","footer",null,{"className":"link-tree-footer","children":[["$","span",null,{"children":"NM"}],["$","span",null,{"children":"Making useful things, one system at a time."}],["$","$L6",null,{}]]}]\nb:["$","script","script-0",{"src":"/_next/static/chunks/0qjebp~jsdyqi.js","async":true,"nonce":"$undefined"}]\nc:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]\nd:["$","$1","h",{"children":[null,["$","$L14",null,{"children":"$L15"}],["$","div",null,{"hidden":true,"children":["$","$L16",null,{"children":["$","$12",null,{"name":"Next.Metadata","children":"$L17"}]}]}],null]}]\nf:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0_4aywx-3i3z1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]\n',
-      ]);
-    </script>
-    <script type="application/json">
-      self.__next_f.push([
-        1,
-        '15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]\n',
-      ]);
-    </script>
-    <script type="application/json">
-      self.__next_f.push([
-        1,
-        '13:null\n17:[["$","title","0",{"children":"NASIRR \\"G\\" MAYO"}],["$","meta","1",{"name":"description","content":"NASIRR \\"G\\" MAYO — founder, creative digital designer, and developer based in Philadelphia."}],["$","link","2",{"rel":"canonical","href":"https://nasirr.innergintel.org/"}],["$","meta","3",{"property":"og:title","content":"NASIRR \\"G\\" MAYO"}],["$","meta","4",{"property":"og:description","content":"FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER"}],["$","meta","5",{"property":"og:url","content":"https://nasirr.innergintel.org/"}],["$","meta","6",{"property":"og:type","content":"website"}],["$","meta","7",{"name":"twitter:card","content":"summary"}],["$","meta","8",{"name":"twitter:title","content":"NASIRR \\"G\\" MAYO"}],["$","meta","9",{"name":"twitter:description","content":"FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER"}]]\n',
-      ]);
-    </script>
-    <script src="/odyssey-card.js?v=5"></script>
-    <script src="/business-booking.js?v=6"></script>
-    <script src="/scramble-title.js?v=1"></script>
-    <script src="/social-stats.js?v=3"></script>
-    <script src="/home-clarity.js?v=15"></script>
-    <script src="/mentorship-entry.js?v=services-10"></script>
-    <script type="module" src="/project-intake.mjs?v=1"></script>
-    <script src="/account-entry.js?v=2"></script>
-    <script src="/mentorship-social.js"></script>
-    <script src="/home-motion.js?v=1"></script>
-  </body>
+<script src="/hub/app.js?v=2a19cb9"></script>
+</body>
 </html>

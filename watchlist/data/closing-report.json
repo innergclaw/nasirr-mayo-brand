@@ -1,0 +1,95 @@
+{
+  "marketDate": "2026-11-12",
+  "generatedAt": "2026-11-12T21:25:54.552646Z",
+  "universe": "Public INNERG watchlist, excluding crypto",
+  "method": "Regular-session daily percentage change",
+  "gainers": [
+    {
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 56,
+      "currency": "USD",
+      "changePercent": 4.6729
+    },
+    {
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "sector": "energy",
+      "price": 146.07,
+      "currency": "USD",
+      "changePercent": 3.2516
+    },
+    {
+      "symbol": "HAFN",
+      "name": "Hafnia Limited",
+      "sector": "energy",
+      "price": 9.62,
+      "currency": "USD",
+      "changePercent": 2.1231
+    },
+    {
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries",
+      "sector": "materials",
+      "price": 63.88,
+      "currency": "USD",
+      "changePercent": 2.0773
+    },
+    {
+      "symbol": "OXY",
+      "name": "Occidental Petroleum",
+      "sector": "energy",
+      "price": 58.4,
+      "currency": "USD",
+      "changePercent": 2.0266
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies",
+      "sector": "platforms",
+      "price": 1.235,
+      "currency": "USD",
+      "changePercent": -9.5238
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "sector": "ai-compute",
+      "price": 56.6,
+      "currency": "USD",
+      "changePercent": -6.8619
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "sector": "ai-compute",
+      "price": 19.48,
+      "currency": "USD",
+      "changePercent": -6.5259
+    },
+    {
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 21.76,
+      "currency": "USD",
+      "changePercent": -4.5614
+    },
+    {
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 22.25,
+      "currency": "USD",
+      "changePercent": -4.0948
+    }
+  ],
+  "sources": [
+    "Yahoo Finance chart data",
+    "Hyperliquid public API"
+  ],
+  "disclaimer": "Research and education only. Prices can be delayed."
+}

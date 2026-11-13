@@ -48,8 +48,8 @@ test("member signup explains the INNERG ID ecosystem utility", () => {
   assert.match(html, /Your access grows as the INNERG ecosystem grows\./);
 });
 
-test("member signup returns to the INNERG ID offer and links the public channels", () => {
-  assert.match(html, /href="\.\.\/innergid\/">Back to INNERG ID/);
+test("member signup returns to the membership plans and links the public channels", () => {
+  assert.match(html, /href="\.\.\/membership\/">Back to plans/);
   assert.doesNotMatch(html, />Back to Home Base</);
   for (const href of [
     "https://www.youtube.com/@innergintel",
