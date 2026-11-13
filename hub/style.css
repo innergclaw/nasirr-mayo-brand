@@ -250,3 +250,14 @@ body:not(.portrait) .socials ul{margin:0;justify-content:flex-end}
   body:not(.portrait) .socials ul{flex-direction:column;align-items:flex-end;gap:7px}
   .soc{font-size:11px;letter-spacing:2px;padding:6px 9px 5px}
 }
+
+/* play icon on WATCH ON YOUTUBE (2026-11-13) */
+.yt-play{gap:10px}
+.yt-play .play{width:18px;height:18px;flex:none;margin:-2px 0}
+.yt-play .play circle{fill:none;stroke:currentColor;stroke-width:1.6}
+.yt-play .play path{fill:var(--red);transition:fill .25s}
+.yt-play:hover .play path,.yt-play:focus-visible .play path{fill:currentColor}
+.yt-play:hover .play{animation:playPop .4s var(--out)}
+@keyframes playPop{40%{transform:scale(1.25) rotate(-8deg)}}
+@media (prefers-reduced-motion:reduce){.yt-play:hover .play{animation:none}}
+.yt+.yt{margin-top:16px}
