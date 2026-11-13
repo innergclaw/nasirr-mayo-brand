@@ -67,7 +67,7 @@ const showActivationPanel = ({ processing = false } = {}) => {
   activationTitle.textContent = processing ? "Your INNERG ID is being activated." : "Your account is ready.";
   activationCopy.textContent = processing
     ? "We are waiting for confirmed member access. Check again in a moment. If you already paid, do not start another checkout."
-    : "Choose a Child, Parent, or Family membership to activate your INNERG ID and open the full Media Hub.";
+    : "Choose your access plan to activate your INNERG ID and open the member resources.";
   activationLink.hidden = processing;
   activationRetry.hidden = !processing;
   status.classList.add("is-hidden");
@@ -140,7 +140,7 @@ const setMemberCard = (member) => {
   idAccessLabel.textContent = fullAccess ? "Active member" : "Free ID";
   idAccessBadge.textContent = fullAccess ? "Access active" : "Identity active";
   idAccessLine.textContent = fullAccess
-    ? "Research / media / community / founder sessions"
+    ? "Workflows / research / media / direct guidance"
     : "Identity / public lessons / selected resources";
   if (member.joinedAt) {
     const joined = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(new Date(member.joinedAt));

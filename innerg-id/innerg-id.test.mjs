@@ -6,14 +6,14 @@ const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const js = await readFile(new URL("./auth.js", import.meta.url), "utf8");
 
 test("INNERG ID route presents the named member credential", () => {
-  assert.match(html, /Your place has a number/);
+  assert.match(html, /Your work system has an identity/);
   assert.match(html, /id="id-name"/);
   assert.match(html, /id="id-number"/);
   assert.match(html, /firstName/);
   assert.match(html, /lastName/);
   assert.match(html, /innerg-member-badge\.png/);
   assert.match(html, /Verified/);
-  assert.match(html, /Identity \/ access \/ community/i);
+  assert.match(html, /Identity \/ access \/ systems/i);
 });
 
 test("INNERG ID is guarded and loads the secured member record", () => {
@@ -39,7 +39,7 @@ test("payment return does not claim confirmation from a URL parameter", () => {
 
 test("signed-in unpaid accounts receive a clear activation path", () => {
   assert.match(html, /id="activation-panel"/);
-  assert.match(html, /Choose a Child, Parent, or Family membership/);
+  assert.match(html, /Choose your access plan to activate your INNERG ID/);
   assert.match(html, /href="\.\.\/membership\/#plans"/);
   assert.doesNotMatch(html, /innergid\/#access/);
   assert.match(js, /showActivationPanel/);
@@ -54,7 +54,7 @@ test("free ID holders keep the credential without paid member resources", () => 
   assert.match(js, /member\.accessTier === "member"/);
   assert.match(js, /paidAccessNodes\.forEach/);
   assert.match(js, /Identity active/);
-  assert.match(js, /founder sessions/);
+  assert.match(js, /direct guidance/);
 });
 
 test("member card contains no OwnYourWeb client portal destination", () => {
