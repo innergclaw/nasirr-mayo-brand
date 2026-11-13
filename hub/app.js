@@ -115,3 +115,66 @@
   route(true);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&current&&!busy){history.pushState(null,'',location.pathname);goHome(false)}});
 })();
+
+/* ===== funk layer (2026-11-12): haptics, ink, letter boil, scramble, spazz mode ===== */
+(function(){
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)'),body=document.body;
+  function rnd(n){return ((Math.random()*2-1)*n).toFixed(2)}
+  // haptics: Android/Chrome via vibrate; iOS 18+ via the native switch tick
+  var sw;
+  function tick(){try{if(!sw){sw=document.createElement('label');sw.className='hx';sw.setAttribute('aria-hidden','true');
+    var i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.tabIndex=-1;sw.appendChild(i);body.appendChild(sw)}sw.click()}catch(e){}}
+  function buzz(p){
+    if(navigator.vibrate){try{navigator.vibrate(p)}catch(e){}return}
+    var n=Array.isArray(p)?Math.ceil(p.length/2):1;for(var k=0;k<n;k++)setTimeout(tick,k*85);
+  }
+  // NAS letters boil like hand-inked animation
+  var link=document.querySelector('.nas-link');
+  if(link){var t=link.textContent;link.textContent='';t.split('').forEach(function(c,i){var s=document.createElement('span');s.className='ltr';s.setAttribute('aria-hidden','true');s.textContent=c;
+    s.style.cssText='--i:'+i+';--d:-'+(Math.random()*2.4).toFixed(2)+'s;--r1:'+rnd(2)+'deg;--r2:'+rnd(3)+'deg;--r3:'+rnd(2)+'deg';link.appendChild(s)})}
+  // ink splat on taps of anything interactive
+  function splat(x,y){
+    if(RM.matches)return;
+    var r=document.createElement('i');r.className='ink ring';r.style.left=x+'px';r.style.top=y+'px';body.appendChild(r);
+    r.animate([{transform:'scale(.3)',opacity:1},{transform:'scale(2.4)',opacity:0}],{duration:420,easing:'cubic-bezier(0.16,1,0.3,1)'}).finished.then(function(){r.remove()});
+    for(var k=0;k<7;k++){var d=document.createElement('i');d.className='ink';d.style.left=x+'px';d.style.top=y+'px';body.appendChild(d);
+      var a=Math.random()*Math.PI*2,dist=26+Math.random()*34,s=.4+Math.random()*.8;
+      d.animate([{transform:'translate(0,0) scale('+s+')'},{transform:'translate('+(Math.cos(a)*dist).toFixed(1)+'px,'+(Math.sin(a)*dist).toFixed(1)+'px) scale(0)'}],
+        {duration:380+Math.random()*220,easing:'cubic-bezier(0.16,1,0.3,1)'}).finished.then((function(el){return function(){el.remove()}})(d))}
+  }
+  document.addEventListener('pointerdown',function(e){
+    if(e.target.closest('.hx'))return;
+    var hit=e.target.closest('a,button,.card,.node');if(!hit)return;
+    splat(e.clientX,e.clientY);
+    if(hit.classList.contains('card')){hit.classList.remove('wig');void hit.offsetWidth;hit.classList.add('wig');buzz(6)}
+    else if(hit.classList.contains('node')){hit.classList.remove('pressed');void hit.offsetWidth;hit.classList.add('pressed')}
+    else if(!hit.classList.contains('nas-link'))buzz(8);
+  },true);
+  document.addEventListener('animationend',function(e){var t=e.target;if(t.classList&&t.classList.contains('wig'))t.classList.remove('wig');
+    if(t.parentElement&&t.parentElement.classList.contains('pressed'))t.parentElement.classList.remove('pressed')});
+  // nodes: a crooked tilt when hot, a tick on preview, a double thump on open
+  [].forEach.call(document.querySelectorAll('.node'),function(n){n.style.setProperty('--tilt',rnd(4)+'deg');
+    n.addEventListener('click',function(e){buzz(e.defaultPrevented?10:[14,50,24])})});
+  // skill + method cards sit slightly crooked, like stickers
+  [].forEach.call(document.querySelectorAll('.card'),function(c){c.style.setProperty('--tilt',rnd(1.2)+'deg')});
+  // spazz mode: long-press NAS, or type "spazz"
+  // once the intro has played, drop the loading state so later effects don't replay it
+  setTimeout(function(){var h=document.getElementById('hub');h&&h.classList.remove('loading')},3500);
+  var spazzing=false;
+  function spazz(){if(spazzing)return;spazzing=true;body.classList.add('spazz');buzz([30,40,30,40,30,40,90]);
+    setTimeout(function(){body.classList.remove('spazz');spazzing=false},2200)}
+  if(link){var lp=0,fired=false;
+    link.addEventListener('pointerdown',function(){fired=false;clearTimeout(lp);lp=setTimeout(function(){fired=true;spazz()},550)});
+    ['pointerup','pointerleave','pointercancel'].forEach(function(ev){link.addEventListener(ev,function(){clearTimeout(lp)})});
+    link.addEventListener('contextmenu',function(e){e.preventDefault()});
+    link.addEventListener('click',function(e){if(fired){e.preventDefault();e.stopImmediatePropagation();fired=false;return}buzz([14,50,24])},true);
+  }
+  var keys='';document.addEventListener('keydown',function(e){if(e.key&&e.key.length===1){keys=(keys+e.key.toLowerCase()).slice(-5);if(keys==='spazz')spazz()}});
+  // corner line scrambles through a few moods
+  var corner=document.querySelector('.corner'),lines=['NAS ~ HUB','PHILLY ~ EST 2015','BUILD ~ SHOW ~ TEACH','RECODE ~ THE ~ MIND','OWN ~ YOUR ~ WEB'],li=0,G='#%&*+=/<>?NAS0123';
+  function scramble(el,to){var len=Math.max(el.textContent.length,to.length),f=0,tot=16;
+    (function step(){f++;var out='';for(var k=0;k<len;k++){var c=to[k]||'';out+=(k<(f/tot)*len||c===' '||c==='~')?c:G[Math.random()*G.length|0]}
+      el.textContent=out;if(f<tot)setTimeout(step,40);else el.textContent=to})()}
+  if(corner&&!RM.matches){corner.setAttribute('aria-label','NAS ~ HUB');
+    setInterval(function(){if(document.hidden||spazzing)return;li=(li+1)%lines.length;scramble(corner,lines[li])},5200)}
+})();
