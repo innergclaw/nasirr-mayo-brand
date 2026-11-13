@@ -8,13 +8,13 @@ const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const js = await readFile(new URL("./membership.js", import.meta.url), "utf8");
 
 test("page prices match the plan table", () => {
-  assert.equal(PLANS.child.cents, 1900);
-  assert.equal(PLANS.parent.cents, 2900);
-  assert.equal(PLANS.family.cents, 39000);
-  assert.match(html, /\$19<\/span><span class="ms-per">\/ month/);
-  assert.match(html, /\$29<\/span><span class="ms-per">\/ month/);
-  assert.match(html, /\$390<\/span><span class="ms-per">\/ year/);
-  assert.match(html, /A focused pilot for teams that need a safe starting system/);
+  assert.equal(PLANS.child.cents, 3000);
+  assert.equal(PLANS.parent.cents, 7500);
+  assert.equal(PLANS.family.cents, 25000);
+  assert.match(html, /\$30\.00<\/span><span class="ms-per">\/ month/);
+  assert.match(html, /\$75\.00<\/span><span class="ms-per">\/ month/);
+  assert.match(html, /\$250\.00<\/span><span class="ms-per">\/ year/);
+  assert.match(html, /\$390\.00 regular price/);
 });
 
 test("every plan has a pick button and nothing else is sold", () => {

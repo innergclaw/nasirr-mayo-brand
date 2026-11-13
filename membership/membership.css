@@ -18,6 +18,7 @@
 .ms-list li{position:relative;padding-left:22px}
 .ms-list li::before{content:"";position:absolute;left:0;top:.45em;width:10px;height:10px;background:currentColor;rotate:45deg}
 .ms-save{margin:-4px 0 12px;font:700 11px/1.5 var(--mono);letter-spacing:2px;text-transform:uppercase}
+.ms-save del{opacity:.72}
 .ms-pick{margin-top:auto;width:100%}
 .mh-card.red .ms-pick{background:var(--paper);color:var(--ink)}
 .mh-card.red .ms-pick:hover,.mh-card.red .ms-pick:focus-visible{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--paper)}

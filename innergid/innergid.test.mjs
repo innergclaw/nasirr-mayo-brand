@@ -8,11 +8,11 @@ const css = await readFile(new URL("./innergid.css", import.meta.url), "utf8");
 
 test("landing page presents the three memberships and the one-time briefing", () => {
   assert.match(html, /id="family-plan-cards"/);
-  assert.match(html, /Child \$19\/month/);
-  assert.match(html, /Parent \$29\/month/);
-  assert.match(html, /\$390\/year/);
+  assert.match(html, /Individual \$30\.00\/month/);
+  assert.match(html, /Team lead \$75\.00\/month/);
+  assert.match(html, /\$250\.00\/year/);
   assert.match(html, /href="\/membership\/#plans"/);
-  assert.match(html, /\$19/);
+  assert.match(html, /\$30\.00/);
   assert.match(html, /NO MEMBERSHIP REQUIRED/);
   assert.match(html, /href="\.\/briefing\/"/);
   assert.doesNotMatch(html, /FREE MEMBERSHIP/);
@@ -54,7 +54,7 @@ test("video preview uses the widescreen Market Pulse export and its poster", () 
 
 test("member home uses the INNERG community badge", () => {
   assert.match(html, /innerg-member-badge\.png/);
-  assert.match(html, /YOUR KEY TO INNERG/);
+  assert.match(html, /WORKPLACE AI SYSTEMS/);
   assert.match(html, /alt="INNERG Member badge"/);
 });
 
@@ -106,6 +106,6 @@ test("legacy checkout script stays untouched but has no page button", () => {
 
 test("each member's own ID gives kids child access and parents parent access", async () => {
   const about = await readFile(new URL("./about/index.html", import.meta.url), "utf8");
-  assert.match(html, /kids get child access and parents get parent access/);
-  assert.match(about, /gives kids child access and parents parent access/);
+  assert.match(html, /Every member gets their own INNERG ID/);
+  assert.match(about, /INNERG ID/);
 });
