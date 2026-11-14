@@ -6,7 +6,7 @@
 <title>NAS ~ Hub | INNERG INTEL</title>
 <meta name="description" content="NAS hub: INNERG INTEL, PULSE, PROGRAMS, OWNYOURWEB and SHOPNASGFX.">
 <link rel="preload" href="/hub/fonts/Fraunces.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="/hub/style.css?v=2a19cb9">
+<link rel="stylesheet" href="/hub/style.css?v=f5502a6">
 </head>
 <body>
 <a class="skip" href="#hub-nodes">Skip to menu</a>
@@ -111,6 +111,22 @@
     <p class="lede rise">SI literacy for the future. Join the InnerG Intelligence Program, or book a workshop for your team or community.</p>
     <p class="yt rise"><a class="yt-btn visit" href="https://innergclaw.github.io/innerg-ai-program-signup/" target="_blank" rel="noopener">JOIN THE PROGRAM<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a><span class="yt-url">InnerG Intelligence Program 2026</span></p>
     <p class="yt rise"><a class="yt-btn visit ghost" href="https://innergclaw.github.io/innerg-ai-classes/" target="_blank" rel="noopener">BOOK A WORKSHOP<span class="sr"> (opens in a new tab)</span></a></p>
+
+    <section class="fc rise" aria-labelledby="h-fc">
+      <div class="fc-head">
+        <video class="fc-mark" src="/hub/assets/frequency-connector.mp4" poster="/hub/assets/frequency-connector.jpg" muted playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="fc-copy">
+          <p class="fc-kicker">TUNE IN &middot; LINK UP &middot; TRANSMIT</p>
+          <h3 class="fc-title" id="h-fc">FREQUENCY <em>CONNECTORS</em></h3>
+          <p class="fc-def">Tools and resources that keep you connected to what&rsquo;s really moving, so you can make better moves.</p>
+        </div>
+      </div>
+      <ul class="fc-nodes">
+        <li><a class="fc-node" href="https://innergclaw.github.io/nas-hub/playbook/" target="_blank" rel="noopener"><span class="fc-ring" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="19"/><circle class="core" cx="32" cy="32" r="6"/><circle class="node" cx="32" cy="3" r="3.5"/><circle class="node" cx="51" cy="32" r="3.5"/></svg></span><span class="fc-type">PLAYBOOK &middot; TOOL</span><span class="fc-name">TikTok Autopilot Playbook</span><span class="fc-to"><b>Connects you to:</b> how attention works now. Schedule your business&rsquo;s TikToks by messaging Claude.</span><span class="fc-price">$9</span><svg class="fc-ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a></li>
+        <li><a class="fc-node" href="https://pulse.innergintel.study/labor/" target="_blank" rel="noopener"><span class="fc-ring" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="19"/><circle class="core" cx="32" cy="32" r="6"/><circle class="node" cx="32" cy="3" r="3.5"/><circle class="node" cx="51" cy="32" r="3.5"/></svg></span><span class="fc-type">BRIEF &middot; EVERY MONDAY</span><span class="fc-name">Labor Brief</span><span class="fc-to"><b>Connects you to:</b> the job market. Who&rsquo;s cutting, who&rsquo;s hiring, and where you can work and earn next.</span><span class="fc-price free">FREE</span><svg class="fc-ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 L9 3 M4 3 H9 V8"/></svg><span class="sr"> (opens in a new tab)</span></a></li>
+        <li class="fc-next" aria-label="More connectors coming"><span class="fc-ring" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="19"/><circle class="core" cx="32" cy="32" r="6"/></svg></span><span class="fc-type">NEXT SIGNAL</span><span class="fc-name">More connectors loading</span></li>
+      </ul>
+    </section>
   </div>
   <p class="folio page-folio">No. 004 &bull; PROGRAMS &bull; 2026</p>
 </section>
@@ -127,6 +143,12 @@
   <p class="folio page-folio">No. 005 &bull; OWNYOURWEB &bull; SHOPNASGFX &bull; 2026</p>
 </section>
 
-<script src="/hub/app.js?v=2a19cb9"></script>
+<script src="/hub/app.js?v=f5502a6"></script>
+<script>
+/* Frequency Connectors: play the mark once each time the PROGRAMS page opens; poster stays for reduced motion */
+(function(){var v=document.querySelector('.fc-mark');if(!v||!('IntersectionObserver' in window))return;
+var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(still)return;
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){try{if(v.ended)v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})}catch(_){}}else{v.pause()}})},{threshold:.35}).observe(v)})();
+</script>
 </body>
 </html>

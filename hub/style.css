@@ -261,3 +261,36 @@ body:not(.portrait) .socials ul{margin:0;justify-content:flex-end}
 @keyframes playPop{40%{transform:scale(1.25) rotate(-8deg)}}
 @media (prefers-reduced-motion:reduce){.yt-play:hover .play{animation:none}}
 .yt+.yt{margin-top:16px}
+
+/* FREQUENCY CONNECTORS (2026-11-14): digital products + resources shelf on PROGRAMS */
+.fc{margin:clamp(30px,5vh,64px) 0 clamp(40px,6vh,80px);padding-top:clamp(24px,4vh,44px);border-top:4px solid var(--ink);position:relative}
+.fc::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:1px solid var(--ink);opacity:.55}
+.fc-head{display:grid;grid-template-columns:clamp(200px,22vw,320px) 1fr;gap:clamp(20px,3vw,48px);align-items:center;margin-bottom:clamp(20px,3.4vh,40px)}
+.fc-mark{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;border:4px solid var(--ink);box-shadow:5px 4px 0 var(--mis);background:var(--paper)}
+.fc-kicker{margin:0 0 10px;font-family:"Courier Prime",monospace;font-weight:700;font-size:clamp(12px,1vw,16px);letter-spacing:6px}
+.fc-title{margin:0 0 14px;font-family:"Fraunces",serif;font-weight:900;font-variation-settings:"opsz" 144,"SOFT" 100;font-size:clamp(40px,6vw,104px);line-height:.92;text-shadow:4px 3px 0 var(--mis)}
+.fc-title em{font-style:normal;color:var(--red);text-shadow:4px 3px 0 rgba(30,20,20,.55)}
+.fc-def{margin:0;max-width:44ch;font-size:clamp(18px,1.5vw,26px);line-height:1.3}
+.fc-nodes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.6vw,28px)}
+.fc-node,.fc-next{position:relative;display:grid;align-content:start;gap:8px;height:100%;padding:22px 22px 26px;border:4px solid var(--ink);background:var(--paper);color:var(--ink);text-decoration:none;box-shadow:5px 4px 0 var(--mis);transition:transform .25s var(--out),box-shadow .25s var(--out)}
+.fc-node:hover,.fc-node:focus-visible{transform:translate(-3px,-3px);box-shadow:8px 7px 0 var(--mis)}
+.fc-node:focus-visible{outline:3px dashed var(--red);outline-offset:5px}
+.fc-next{border-style:dashed;box-shadow:none;opacity:.7}
+.fc-ring{width:58px;height:58px;display:block;margin-bottom:6px}
+.fc-ring svg{width:100%;height:100%;overflow:visible}
+.fc-ring circle{fill:none;stroke:var(--ink);stroke-width:2.5}
+.fc-ring .core{fill:var(--red);stroke:var(--red)}
+.fc-ring .node{fill:var(--ink);stroke:none}
+.fc-node:hover .fc-ring svg,.fc-node:focus-visible .fc-ring svg{animation:fcspin 2.4s linear infinite}
+@keyframes fcspin{to{transform:rotate(360deg)}}
+.fc-ring svg{transform-origin:50% 50%}
+.fc-type{font-family:"Courier Prime",monospace;font-weight:700;font-size:12px;letter-spacing:5px}
+.fc-name{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(24px,2vw,36px);line-height:1}
+.fc-to{font-size:clamp(17px,1.25vw,22px);line-height:1.3}
+.fc-to b{font-family:"Courier Prime",monospace;font-size:.72em;letter-spacing:2px}
+.fc-price{justify-self:start;margin-top:6px;background:var(--red);color:var(--paper);padding:6px 12px;font-family:"Courier Prime",monospace;font-weight:700;font-size:16px;letter-spacing:4px}
+.fc-price.free{background:var(--ink)}
+.fc-ext{position:absolute;top:18px;right:18px;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+@media (max-width:1000px){.fc-nodes{grid-template-columns:1fr 1fr}.fc-next{grid-column:1/-1}}
+@media (max-width:620px){.fc-head{grid-template-columns:1fr}.fc-mark{max-width:340px}.fc-nodes{grid-template-columns:1fr}.fc-kicker{letter-spacing:4px}}
+@media (prefers-reduced-motion:reduce){.fc-node:hover,.fc-node:focus-visible{transform:none}.fc-node:hover .fc-ring svg,.fc-node:focus-visible .fc-ring svg{animation:none}}
