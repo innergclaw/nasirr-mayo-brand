@@ -272,6 +272,7 @@ body:not(.portrait) .socials ul{margin:0;justify-content:flex-end}
 .fc-title em{font-style:normal;color:var(--red);text-shadow:4px 3px 0 rgba(30,20,20,.55)}
 .fc-def{margin:0;max-width:44ch;font-size:clamp(18px,1.5vw,26px);line-height:1.3}
 .fc-nodes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.6vw,28px)}
+.fc-nodes .fc-next{grid-column:1/-1}
 .fc-node,.fc-next{position:relative;display:grid;align-content:start;gap:8px;height:100%;padding:22px 22px 26px;border:4px solid var(--ink);background:var(--paper);color:var(--ink);text-decoration:none;box-shadow:5px 4px 0 var(--mis);transition:transform .25s var(--out),box-shadow .25s var(--out)}
 .fc-node:hover,.fc-node:focus-visible{transform:translate(-3px,-3px);box-shadow:8px 7px 0 var(--mis)}
 .fc-node:focus-visible{outline:3px dashed var(--red);outline-offset:5px}
