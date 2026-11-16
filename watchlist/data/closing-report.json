@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-16",
-  "generatedAt": "2026-11-16T21:39:50.257934Z",
+  "generatedAt": "2026-11-16T23:20:42.368088Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -21,14 +21,6 @@
       "changePercent": 0.1164
     },
     {
-      "symbol": "FXAIX",
-      "name": "Fidelity 500 Index Fund",
-      "sector": "core-funds",
-      "price": 262.98,
-      "currency": "USD",
-      "changePercent": 0
-    },
-    {
       "symbol": "SCHD",
       "name": "Schwab U.S. Dividend Equity ETF",
       "sector": "core-funds",
@@ -43,6 +35,14 @@
       "price": 227.07,
       "currency": "USD",
       "changePercent": -1.0631
+    },
+    {
+      "symbol": "COP",
+      "name": "ConocoPhillips",
+      "sector": "energy",
+      "price": 140.52,
+      "currency": "USD",
+      "changePercent": -1.237
     }
   ],
   "losers": [
