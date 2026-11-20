@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-20",
-  "generatedAt": "2026-11-20T21:28:57.999057Z",
+  "generatedAt": "2026-11-20T21:46:01.433292Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -63,6 +63,14 @@
       "changePercent": -14.0938
     },
     {
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 33.36,
+      "currency": "USD",
+      "changePercent": -13.1928
+    },
+    {
       "symbol": "SKHY",
       "name": "SK hynix ADR",
       "sector": "ai-compute",
@@ -77,14 +85,6 @@
       "price": 14.51,
       "currency": "USD",
       "changePercent": -12.643
-    },
-    {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
-      "sector": "ai-compute",
-      "price": 33.67,
-      "currency": "USD",
-      "changePercent": -12.3862
     }
   ],
   "sources": [
