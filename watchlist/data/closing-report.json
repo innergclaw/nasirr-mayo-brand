@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-20",
-  "generatedAt": "2026-11-20T21:46:01.433292Z",
+  "generatedAt": "2026-11-20T22:40:36.584468Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -29,20 +29,20 @@
       "changePercent": 0.1673
     },
     {
-      "symbol": "FXAIX",
-      "name": "Fidelity 500 Index Fund",
-      "sector": "core-funds",
-      "price": 249.66,
-      "currency": "USD",
-      "changePercent": 0
-    },
-    {
       "symbol": "GSG",
       "name": "iShares S&P GSCI Commodity Trust",
       "sector": "energy",
       "price": 32.57,
       "currency": "USD",
       "changePercent": -0.3976
+    },
+    {
+      "symbol": "SCHD",
+      "name": "Schwab U.S. Dividend Equity ETF",
+      "sector": "core-funds",
+      "price": 33.94,
+      "currency": "USD",
+      "changePercent": -0.7602
     }
   ],
   "losers": [
