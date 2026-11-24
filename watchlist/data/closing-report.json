@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-11-23",
-  "generatedAt": "2026-11-23T21:38:34.838825Z",
+  "marketDate": "2026-11-24",
+  "generatedAt": "2026-11-24T23:13:58.038347Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "IREN",
-      "name": "IREN Limited",
-      "sector": "ai-compute",
-      "price": 14.64,
+      "symbol": "NTR",
+      "name": "Nutrien",
+      "sector": "materials",
+      "price": 66.33,
       "currency": "USD",
-      "changePercent": 23.8579
+      "changePercent": 2.4085
     },
     {
-      "symbol": "CRWV",
-      "name": "CoreWeave",
-      "sector": "ai-compute",
-      "price": 48.33,
+      "symbol": "OLN",
+      "name": "Olin Corporation",
+      "sector": "materials",
+      "price": 15.82,
       "currency": "USD",
-      "changePercent": 22.3235
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix ADR",
-      "sector": "ai-compute",
-      "price": 124.28,
-      "currency": "USD",
-      "changePercent": 19.9961
-    },
-    {
-      "symbol": "DRAM",
-      "name": "Themes Generative AI ETF",
-      "sector": "ai-compute",
-      "price": 39.57,
-      "currency": "USD",
-      "changePercent": 18.6151
-    },
-    {
-      "symbol": "MRVL",
-      "name": "Marvell Technology",
-      "sector": "ai-compute",
-      "price": 144.74,
-      "currency": "USD",
-      "changePercent": 18.3677
-    }
-  ],
-  "losers": [
-    {
-      "symbol": "USO",
-      "name": "United States Oil Fund",
-      "sector": "energy",
-      "price": 133.36,
-      "currency": "USD",
-      "changePercent": -4.4904
+      "changePercent": 2.1304
     },
     {
       "symbol": "COP",
       "name": "ConocoPhillips",
       "sector": "energy",
-      "price": 132.19,
+      "price": 134.64,
       "currency": "USD",
-      "changePercent": -2.8872
+      "changePercent": 1.8534
     },
     {
-      "symbol": "OPEN",
-      "name": "Opendoor Technologies",
-      "sector": "platforms",
-      "price": 1.27,
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries",
+      "sector": "materials",
+      "price": 55.62,
       "currency": "USD",
-      "changePercent": -2.682
+      "changePercent": 1.6076
     },
     {
-      "symbol": "MTDR",
-      "name": "Matador Resources",
+      "symbol": "HAFN",
+      "name": "Hafnia Limited",
       "sector": "energy",
-      "price": 47.46,
+      "price": 8.86,
       "currency": "USD",
-      "changePercent": -2.4059
+      "changePercent": 1.6055
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "sector": "ai-compute",
+      "price": 42.605,
+      "currency": "USD",
+      "changePercent": -11.8456
     },
     {
-      "symbol": "OXY",
-      "name": "Occidental Petroleum",
-      "sector": "energy",
-      "price": 52.7,
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "sector": "ai-compute",
+      "price": 12.95,
       "currency": "USD",
-      "changePercent": -2.2263
+      "changePercent": -11.5437
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix ADR",
+      "sector": "ai-compute",
+      "price": 111.98,
+      "currency": "USD",
+      "changePercent": -9.897
+    },
+    {
+      "symbol": "DRAM",
+      "name": "Themes Generative AI ETF",
+      "sector": "ai-compute",
+      "price": 35.92,
+      "currency": "USD",
+      "changePercent": -9.2242
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "ai-compute",
+      "price": 131.57,
+      "currency": "USD",
+      "changePercent": -9.0991
     }
   ],
   "sources": [
