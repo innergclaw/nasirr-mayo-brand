@@ -84,3 +84,90 @@
 .row-chart{min-height:36px;padding:6px 14px;border-radius:999px;background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);font:500 12px var(--display)}.row-chart[aria-pressed="true"]{background:var(--ink);color:var(--paper);box-shadow:none}
 .market-flash-chart-link{display:inline-flex;align-items:center;min-height:44px;margin:0 28px 8px;font-size:14px;font-weight:600}@media(max-width:620px){.market-flash-chart-link{margin-inline:20px}}
 @media(max-width:620px){.line-card{padding:14px;margin-inline:-6px}.line-card-head{flex-direction:column;gap:10px}.segmented{align-self:stretch}.segmented .pill{flex:1}.pill{min-height:40px}.ticker-row{flex-wrap:nowrap;overflow-x:auto}.asset-row{grid-template-columns:minmax(0,1fr) auto}.asset-row .returns{grid-column:1/-1}.row-chart{justify-self:end;grid-column:2;grid-row:1}.asset-row .price{grid-column:2;grid-row:2;justify-self:end}.filters{grid-template-columns:1fr}}
+
+/* INNERG Market Pulse ~ Style A v3 (2026-11-25)
+   Cream paper, warm black ink, one brick red accent, chunky serif.
+   Overrides look only. Selectors and hooks the scripts use stay the same.
+   Gain and loss colors stay distinct so the data still reads clearly. */
+:root{
+  --cream:#F3EBDD;
+  --sheet:#FAF4E8;
+  --ink:#1E1414;
+  --paper:var(--cream);
+  --red:#9E2B25;
+  --muted:#5A4A42;
+  --line:rgba(30,20,20,.18);
+  --signal:var(--red);
+  --gain:#126b39;
+  --loss:#9E2B25;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --garamond:"Cormorant Garamond",Georgia,serif;
+  --mono:"Courier Prime","Courier New",Courier,monospace;
+  color-scheme:light;
+}
+body{background:var(--cream);color:var(--ink);font-family:var(--garamond);font-weight:600;line-height:1.5}
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.16;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+h1,h2,h3,h4{font-family:var(--display);font-weight:900;letter-spacing:-.02em;font-variation-settings:"opsz" 144,"SOFT" 100}
+h1{text-transform:uppercase;line-height:.92;text-shadow:4px 3px 0 rgba(158,43,37,.55)}
+h1 .red{color:var(--red);text-shadow:4px 3px 0 rgba(30,20,20,.75)}
+.eyebrow{font-family:var(--mono);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+::selection{background:var(--ink);color:var(--cream)}
+:focus-visible,.line-plot:focus-visible,.back-to-top:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* square print edges instead of pills and soft cards */
+:is(button,input,select,textarea,.pill,.member-cta,.member-panel input:not([type=checkbox]),.research-lock,.setup-card,.leader-card,.asset-card,.market-flash-card,.line-card,.market-view-nav a,.site-header .section-nav a,.chart-controls button,.referral a,.holdings-heatmap .holding-tile){border-radius:0}
+.back-to-top{border-radius:0;box-shadow:4px 4px 0 var(--ink)}
+
+/* header lockup */
+.site-header{background:var(--cream);border-bottom:2px solid var(--ink);align-items:center}
+.site-header .seal{width:56px;height:56px;flex:none;padding:0;min-height:0;display:block}
+.site-header .seal img{display:block;width:56px;height:56px;border-radius:50%;box-shadow:0 0 0 2px var(--ink)}
+.site-header .brand{margin:0 auto 0 0;font:700 13px/1 var(--mono);letter-spacing:.28em;text-transform:uppercase;min-height:44px;display:inline-flex;align-items:center}
+.site-header .brand b{background:var(--ink);color:var(--cream);padding:4px 6px 4px 8px;margin-left:.55em;letter-spacing:.2em}
+.site-header a{font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.site-header .section-nav a{font-family:var(--mono);font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0;box-shadow:inset 0 0 0 1px var(--line)}
+.section-nav a[aria-current="location"]{background:var(--ink);color:var(--cream);box-shadow:none}
+.section-nav a:hover{box-shadow:inset 0 0 0 2px var(--ink)}
+.site-header .member-signin{font-family:var(--mono);font-weight:700}
+
+/* market view strip */
+.market-view-nav{background:var(--ink);color:var(--cream)}
+.market-view-nav a{border-radius:0;color:#D8CBBE;box-shadow:inset 0 0 0 1px #5A4A42}
+.market-view-nav a:hover{background:#2A1C1C;color:var(--cream)}
+.market-view-nav a[aria-current="page"]{background:var(--cream);color:var(--ink);box-shadow:inset 0 .35rem 0 var(--red)}
+.market-view-nav span{font-family:var(--display);font-weight:900;letter-spacing:0}
+
+/* buttons and selected controls */
+button,.referral a,.member-cta{background:var(--ink);color:var(--cream);border:2px solid var(--ink);border-radius:0;font-family:var(--mono);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+button:hover,.referral a:hover,.member-cta:hover{background:var(--red);color:var(--cream)}
+.chart-controls button[aria-pressed="true"],
+.pulse .chart-controls button[aria-pressed="true"],
+.pill[aria-pressed="true"],
+.row-chart[aria-pressed="true"]{background:var(--ink);color:var(--cream);box-shadow:none}
+.pill{border-radius:0}
+
+/* cards and panels */
+.leader-card,.setup-card,.asset-card,.market-flash-card,.line-card,.research-lock{border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);border-radius:0}
+.setup-card.setup-near{box-shadow:6px 6px 0 var(--red)}
+.referral{border-top:2px solid var(--ink)}
+
+/* footer */
+footer{flex-wrap:wrap;border-top:2px solid var(--ink);color:var(--ink);font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+footer .no{flex-basis:100%;letter-spacing:.2em;margin:0 0 8px;color:var(--ink)}
+footer a{text-decoration:none;border-bottom:2px solid currentColor}
+footer a:hover{color:var(--red)}
+
+@media (max-width:620px){
+  .site-header .brand{letter-spacing:.16em;font-size:12px}
+  .site-header .seal,.site-header .seal img{width:48px;height:48px}
+  h1{text-shadow:3px 2px 0 rgba(158,43,37,.55)}
+}
+@media (prefers-reduced-motion:reduce){
+  body::before{opacity:.1}
+}
+.closing-board article,.filters input,.filters select,.asset-tag,.portfolio-group,.portfolio-tickers li,.founder-watch,.holding-tile,.market-flash-metrics>div,.segmented,.line-plot,.line-tip,.row-chart,.mover-placeholder span{border-radius:0}
+.back-to-top{border-radius:0}
