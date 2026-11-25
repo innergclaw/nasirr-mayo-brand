@@ -1,90 +1,90 @@
 {
-  "marketDate": "2026-11-24",
-  "generatedAt": "2026-11-24T23:13:58.038347Z",
+  "marketDate": "2026-11-25",
+  "generatedAt": "2026-11-25T22:41:46.657487Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
     {
-      "symbol": "NTR",
-      "name": "Nutrien",
-      "sector": "materials",
-      "price": 66.33,
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies",
+      "sector": "platforms",
+      "price": 1.26,
       "currency": "USD",
-      "changePercent": 2.4085
+      "changePercent": 6.7797
     },
     {
       "symbol": "OLN",
       "name": "Olin Corporation",
       "sector": "materials",
-      "price": 15.82,
+      "price": 16.83,
       "currency": "USD",
-      "changePercent": 2.1304
+      "changePercent": 6.3843
     },
     {
-      "symbol": "COP",
-      "name": "ConocoPhillips",
-      "sector": "energy",
-      "price": 134.64,
+      "symbol": "ASST",
+      "name": "Strive",
+      "sector": "platforms",
+      "price": 14.95,
       "currency": "USD",
-      "changePercent": 1.8534
+      "changePercent": 5.3559
     },
     {
-      "symbol": "LYB",
-      "name": "LyondellBasell Industries",
+      "symbol": "CANE",
+      "name": "Teucrium Sugar Fund",
       "sector": "materials",
-      "price": 55.62,
+      "price": 11.07,
       "currency": "USD",
-      "changePercent": 1.6076
+      "changePercent": 3.6517
     },
     {
-      "symbol": "HAFN",
-      "name": "Hafnia Limited",
-      "sector": "energy",
-      "price": 8.86,
+      "symbol": "MOS",
+      "name": "The Mosaic Company",
+      "sector": "materials",
+      "price": 20.35,
       "currency": "USD",
-      "changePercent": 1.6055
+      "changePercent": 3.4045
     }
   ],
   "losers": [
     {
-      "symbol": "CRWV",
-      "name": "CoreWeave",
-      "sector": "ai-compute",
-      "price": 42.605,
+      "symbol": "ALGT",
+      "name": "Allegiant Travel",
+      "sector": "industrials",
+      "price": 91.77,
       "currency": "USD",
-      "changePercent": -11.8456
-    },
-    {
-      "symbol": "IREN",
-      "name": "IREN Limited",
-      "sector": "ai-compute",
-      "price": 12.95,
-      "currency": "USD",
-      "changePercent": -11.5437
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix ADR",
-      "sector": "ai-compute",
-      "price": 111.98,
-      "currency": "USD",
-      "changePercent": -9.897
+      "changePercent": -3.4508
     },
     {
       "symbol": "DRAM",
       "name": "Themes Generative AI ETF",
       "sector": "ai-compute",
-      "price": 35.92,
+      "price": 34.83,
       "currency": "USD",
-      "changePercent": -9.2242
+      "changePercent": -3.0345
     },
     {
-      "symbol": "MRVL",
-      "name": "Marvell Technology",
-      "sector": "ai-compute",
-      "price": 131.57,
+      "symbol": "CECO",
+      "name": "CECO Environmental",
+      "sector": "industrials",
+      "price": 46.88,
       "currency": "USD",
-      "changePercent": -9.0991
+      "changePercent": -0.9717
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "sector": "ai-compute",
+      "price": 12.85,
+      "currency": "USD",
+      "changePercent": -0.7722
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix ADR",
+      "sector": "ai-compute",
+      "price": 111.14,
+      "currency": "USD",
+      "changePercent": -0.7501
     }
   ],
   "sources": [
