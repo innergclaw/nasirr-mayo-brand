@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frequency Connector No. 002: Grok Bot Guides, Start Here · InnerG Intel</title>
+<meta name="description" content="A free beginner start on the official Grok Bot guides: build your first bot, a routine and a safe setup. Free guide plus a free agent skill.">
+<link rel="canonical" href="https://innergclaw.github.io/nas-hub/frequency-connectors/no-002-grok-bot-guides/">
+<meta property="og:title" content="Frequency Connector No. 002: Grok Bot Guides, Start Here">
+<meta property="og:description" content="A free beginner start on the official Grok Bot guides: build your first bot, a routine and a safe setup. Free guide plus a free agent skill.">
+<meta property="og:image" content="https://innergclaw.github.io/nas-hub/frequency-connectors/no-002-grok-bot-guides/assets/card.jpg">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%231E1414'/><circle cx='32' cy='32' r='8' fill='%239E2B25'/></svg>">
+<style>
+  @font-face { font-family: "Abril"; src: url("../fonts/AbrilFatface-Regular.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Slab"; src: url("../fonts/AlfaSlabOne-Regular.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Type"; src: url("../fonts/SpecialElite-Regular.ttf") format("truetype"); font-display: swap; }
+  :root { --paper:#F3EBDD; --ink:#1E1414; --red:#9E2B25; --muted:#5a4b45; --line:rgba(30,20,20,.18); }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; color: var(--ink); background: var(--paper); font: 18px/1.6 "Type", "Courier New", monospace; }
+  a { color: inherit; overflow-wrap: anywhere; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .top { border-bottom: 3px double var(--ink); }
+  .top .wrap { display: flex; justify-content: space-between; align-items: center; min-height: 60px; gap: 16px; font-family: "Slab"; font-size: 14px; letter-spacing: .08em; }
+  h1, h2 { font-family: "Abril", Georgia, serif; font-weight: 400; line-height: 1.02; margin: 0; letter-spacing: .005em; text-wrap: balance; }
+  .red { color: var(--red); }
+  .kicker { font-family: "Slab"; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; display: inline-block; border: 2px solid var(--ink); padding: 4px 10px; }
+  .hero { padding: 56px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(42px, 6vw, 80px); text-transform: uppercase; margin: 18px 0 20px; }
+  .hero p.sub { font-size: 20px; max-width: 36ch; margin: 0 0 28px; }
+  .buyrow { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .price { font-family: "Abril"; font-size: 56px; line-height: 1; }
+  .price small { font-family: "Type"; font-size: 15px; display: block; color: var(--muted); }
+  .btn { font-family: "Slab"; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+    background: var(--red); color: var(--paper); padding: 18px 30px; border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink); transition: transform .12s, box-shadow .12s; display: inline-block; }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--ink); }
+  .btn:active { transform: translate(4px,4px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn:focus-visible { outline: 3px dashed var(--red); outline-offset: 5px; }
+  .btn.small { font-size: 15px; padding: 10px 18px; margin: 4px 8px 4px 0; }
+  .btn.ghost { background: var(--paper); color: var(--ink); }
+  .fine { font-size: 15px; color: var(--muted); margin-top: 16px; }
+  .shot { width: 100%; height: auto; border: 3px solid var(--ink); box-shadow: 10px 10px 0 rgba(30,20,20,.18); display: block; }
+  .cover { justify-self: center; max-width: 440px; transform: rotate(1.5deg); }
+  section { padding: 56px 0; border-top: 2px solid var(--ink); }
+  section h2 { font-size: clamp(30px, 4vw, 48px); text-transform: uppercase; margin: 36px 0 14px; }
+  section h2:first-child { margin-top: 0; }
+  .article { max-width: 820px; }
+  .article p { margin: 0 0 16px; }
+  ul.list, ol.list { margin: 0 0 18px; padding-left: 26px; }
+  ul.list { list-style: none; padding-left: 0; }
+  ul.list li { padding: 8px 0 8px 28px; position: relative; border-bottom: 1px dashed var(--line); }
+  ul.list li::before { content: ""; position: absolute; left: 0; top: 20px; width: 14px; border-top: 3px solid var(--red); }
+  ol.list li { padding: 6px 0; }
+  .alt .wrap { max-width: 820px; }
+  .alt .shot { max-width: 520px; margin-top: 20px; }
+  .agent { border: 2px dashed var(--ink); padding: 14px 16px; margin-top: 20px; }
+  .agent pre { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 12px; font: inherit; font-size: 15px; }
+  .tip { margin-left: 8px; font-size: 15px; color: var(--muted); }
+  footer { border-top: 3px double var(--ink); padding: 26px 0 30px; text-align: center; font-family: "Slab"; font-size: 13px; letter-spacing: .12em; }
+  footer small { display: block; font-family: "Type"; letter-spacing: 0; font-size: 13px; color: var(--muted); margin-top: 10px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; gap: 36px; } .cover { transform: none; order: -1; max-width: 360px; } }
+  @media (max-width: 560px) { body { font-size: 17px; } .top .wrap span:last-child { display: none; } }
+
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span>INNERG INTEL</span><span>FREQUENCY CONNECTOR No. 002 · 2026</span></div></header>
+<main>
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="kicker">For first-time bot builders</span>
+    <h1>Build your first <span class="red">bot</span>.</h1>
+    <p class="sub">A plain-language start on the official Grok Bot guides. Pick a job, write it down, connect only what it needs. Free, from INNERG INTEL.</p>
+    <div class="buyrow">
+      <div class="price">FREE<small>no sign-up · instant download</small></div>
+      <a class="btn" href="innerg-frequency-connector-002-grok-bot-guides.zip" download>Download the skill (.zip)</a>
+    </div>
+    <p class="fine">Built on the official guides at x.ai/bot/guides. Read them, they are the source.</p>
+  </div>
+  <img class="shot cover" src="assets/card.jpg" alt="Frequency Connector No. 002, Grok Bot Guides, Start Here" width="1080" height="1350">
+</div></div>
+
+<section><div class="wrap article">
+<p>FREE from INNERG INTEL.</p>
+<p>Learn the system. Recode the mind. Build the future.</p>
+<p>This is a plain-language starter built on the official Grok Bot guides. The guides are written by the people who build and use Grok Bot, and they are the real source. Read them here: <a href="https://x.ai/bot/guides" rel="noopener">https://x.ai/bot/guides</a></p>
+<h2>What a bot is</h2>
+<p>A Grok Bot is an agent with its own computer in the cloud. The official guide puts it this way: "Grok Bot is an agent with a computer." It can use apps, browse the web, and write and run code. It keeps working after you close your laptop. When it needs you, for a CAPTCHA, a 2FA code or a password, it hands the screen back or sends you a secure form.</p>
+<p>Start here: <a href="https://x.ai/bot/guides/grok-bot-101" rel="noopener">https://x.ai/bot/guides/grok-bot-101</a></p>
+<h2>Build your first bot in five steps</h2>
+<ol class="list"><li>Pick one job you repeat. If you do something more than once a day in the same pattern, that is a good first job.</li><li>Write the job like a job description. Give the bot a name, a title and a description. Say what it owns, what it checks, and where it must stop and ask you. The guides say that last part matters most.</li><li>Connect only the tools that job needs. Email, calendar, a doc, a sheet. Add more later.</li><li>Teach it once. Describe the steps, or record yourself doing the task on the bot's computer so it keeps the click-path.</li><li>Put it on a schedule. A routine is a trigger, on a clock or on an event, that runs whether you show up or not. Most runs should say nothing. A routine that looks and decides you do not need to know is doing its job.</li></ol>
+<h2>Five habits from the guides</h2>
+<ul class="list"><li>Keep the send for yourself. Let the bot research and draft. You press send, post and approve spending.</li><li>One bot, one job. Several small specialists beat one bot that tries to do everything. When you have several, give them one front door so you talk to one bot, not twenty.</li><li>Fix it once, save it. When you correct the same thing twice, turn the correction into a rule or a skill.</li><li>Give it your voice. Ask the bot to read your own sent messages and write a style guide before it drafts for you.</li><li>Start small and earn trust. Begin with read-only or draft-only. Add more access after the bot delivers good work.</li></ul>
+<h2>Keep it safe</h2>
+<ul class="list"><li>Rules are written in plain words in Settings, and a separate reviewer checks what the bot wants to do.</li><li>A shared computer means a login made by one bot can be reached by your other bots.</li><li>Never type a password into chat. Use the secure form the bot sends you.</li><li>Share a bot as a template and you share a recipe, not a copy. Secrets and custom code are left out. If you install someone else's template, open View Details and read what is inside first.</li></ul>
+<h2>Through the INNERG lens</h2>
+<p>This part is INNERG INTEL's own framing, not from the official guides.</p>
+<ul class="list"><li>DEPROGRAM: notice the chores you do on autopilot. Who taught you that you have to do them by hand?</li><li>RELEARN: read the guides and learn how the system works before you build.</li><li>RECODE: write the job description and the rules. Choose what the bot does on purpose.</li><li>REBUILD: grow a small team of bots you own, with you making the final calls.</li></ul>
+<p>The goal is the same as every INNERG INTEL connector. You are not here to depend on a bot for answers. You are here to build the capacity to investigate, decide and act. The bot is a tool. You keep thinking.</p>
+<h2>Read the official guides</h2>
+<p>Hub: <a href="https://x.ai/bot/guides" rel="noopener">https://x.ai/bot/guides</a></p>
+<ul class="list"><li>Grok Bot 101: <a href="https://x.ai/bot/guides/grok-bot-101" rel="noopener">https://x.ai/bot/guides/grok-bot-101</a></li><li>Grok Bot for Work: <a href="https://x.ai/bot/guides/grok-bot-for-work" rel="noopener">https://x.ai/bot/guides/grok-bot-for-work</a></li><li>Templates for Grok Bot: <a href="https://x.ai/bot/guides/templates-for-grok-bot" rel="noopener">https://x.ai/bot/guides/templates-for-grok-bot</a></li><li>How I run multiple teams of Grok Bots: <a href="https://x.ai/bot/guides/how-i-run-multiple-teams-of-grok-bots" rel="noopener">https://x.ai/bot/guides/how-i-run-multiple-teams-of-grok-bots</a></li><li>Role guides for engineering, design, product, marketing, sales, support, recruiting and legal are on the hub.</li></ul>
+<p>Credit: all guides are by their listed authors at x.ai. Thanks to Melvin Vivas (@melvindvivas) for sharing the hub. This page is a short beginner summary, and the quoted lines are from the official pages.</p>
+<h2>Stay up to date</h2>
+<p>Each Frequency Connector carries a number, a version and a "last updated" date. This is No. 002, version 1.0, last updated 2026-11-26, published 2026-11-26.</p>
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2>One page <span class="red">to keep</span></h2>
+  <p>Print it or save it to your phone. It is the whole start on one page.</p>
+  <p><a class="btn small" href="assets/onepager_1080x1350.jpg" download>Download the one-pager (JPG)</a> <a class="btn small ghost" href="assets/onepager.pdf" download>Download the one-pager (PDF)</a></p>
+  <img class="shot" src="assets/onepager_1080x1350.jpg" alt="One-page summary: pick one job, write it like a job description, connect only what it needs, teach it once, put it on a routine" loading="lazy" width="1080" height="1350">
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2>For your <span class="red">agent</span></h2>
+  <p>Every Frequency Connector has two sides: this page for you, and a skill for your agent. Install the skill once and your agent works with the same ideas.</p>
+  <p><a class="btn small" href="innerg-frequency-connector-002-grok-bot-guides.zip" download>Download the skill (.zip)</a> <a class="btn small ghost" href="SKILL.md">Open SKILL.md</a></p>
+  <ol class="list">
+    <li>In Claude, open <b>Customize, then Skills</b>, click <b>+</b>, choose <b>Create skill, then Upload a skill</b>, and pick the zip. Do not unzip it.</li>
+    <li>In Grok, ChatGPT or another agent, paste the contents of SKILL.md into your custom instructions, or at the start of a chat.</li>
+  </ol>
+  <div class="agent">
+    <p class="fine" style="margin:0 0 8px"><b>Or let your agent do it.</b> Copy this and paste it in.</p>
+    <pre id="agentcode">I want the free INNERG Frequency Connector No. 002, Grok Bot Guides. Open https://innergclaw.github.io/nas-hub/frequency-connectors/no-002-grok-bot-guides/ , download the skill, and help me install it. Then use it when I ask how to build or run a Grok Bot.</pre>
+    <button type="button" class="btn small" data-copy="agentcode">Copy for your agent</button>
+    <span class="tip" role="status"></span>
+  </div>
+</div></section>
+<section class="alt"><div class="wrap">
+  <p><a href="https://nasirr.innergintel.study/#programs">Back to all Frequency Connectors</a></p>
+  <p class="fine">Credit: the official Grok Bot guides at <a href="https://x.ai/bot/guides" rel="noopener">x.ai/bot/guides</a>, written by their listed authors. This page is a short beginner summary. Not affiliated with x.ai. Product names belong to their owners.</p>
+</div></section>
+</main>
+<footer>INNERG INTEL · LEARN THE SYSTEM. RECODE THE MIND. BUILD THE FUTURE.
+  <small>No. 002 · INNERG FREQUENCY CONNECTOR · 2026</small></footer>
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function(b){
+  var tip=b.parentNode.querySelector('.tip');
+  b.addEventListener('click',async function(){
+    var t=document.getElementById(b.dataset.copy).innerText.trim(),m;
+    try{await navigator.clipboard.writeText(t);m='Copied'}catch(e){m='Copy failed. Select the text and copy it by hand.'}
+    tip.textContent=m;setTimeout(function(){tip.textContent=''},2500);
+  });
+});
+</script>
+</body>
+</html>
