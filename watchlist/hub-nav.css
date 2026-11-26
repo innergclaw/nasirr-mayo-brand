@@ -1,0 +1,116 @@
+/* hub-nav.css ~ INNERG INTEL shared "Back to the hub" link + scroll-to-top arrow.
+   Loaded automatically by hub-nav.js (same folder). Style A by default.
+   Override on a site with CSS variables or data-* attributes on the script tag:
+   --hn-bg --hn-ink --hn-accent --hn-accent-ink --hn-icon --hn-font
+   --hn-left --hn-bottom --hn-top --hn-right --hn-m-bottom --hn-z */
+.hub-nav-link,
+.hub-nav-top {
+  --_bg: var(--hn-bg, #F3EBDD);
+  --_ink: var(--hn-ink, #1E1414);
+  --_accent: var(--hn-accent, #9E2B25);
+  --_aink: var(--hn-accent-ink, var(--_bg));
+  --_icon: var(--hn-icon, var(--_accent));
+  position: fixed;
+  z-index: var(--hn-z, 2000);
+  box-sizing: border-box;
+  margin: 0;
+  background: var(--_bg);
+  color: var(--_ink);
+  border: 2px solid var(--_ink);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--_ink);
+  cursor: pointer;
+  text-decoration: none;
+  font: 700 12px/1 var(--hn-font, "Courier Prime", "Courier New", ui-monospace, monospace);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .15s, color .15s, box-shadow .15s, transform .15s, opacity .2s, visibility .2s;
+}
+.hub-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px 0 10px;
+  left: calc(var(--hn-left, 16px) + env(safe-area-inset-left, 0px));
+  bottom: calc(var(--hn-link-bottom, var(--hn-bottom, 16px)) + env(safe-area-inset-bottom, 0px));
+}
+.hub-nav-link[data-pos="top"] {
+  bottom: auto;
+  top: calc(var(--hn-top, 12px) + env(safe-area-inset-top, 0px));
+}
+.hub-nav-link svg,
+.hub-nav-top svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  stroke: var(--_icon);
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  transition: stroke .15s;
+}
+.hub-nav-top {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  right: calc(var(--hn-right, 16px) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--hn-bottom, 16px) + env(safe-area-inset-bottom, 0px));
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+}
+.hub-nav-top svg { width: 20px; height: 20px; }
+.hub-nav-top[data-visible] { opacity: 1; visibility: visible; transform: none; }
+.hub-nav-link:hover,
+.hub-nav-top:hover {
+  background: var(--_accent);
+  color: var(--_aink);
+  box-shadow: 1px 1px 0 var(--_ink);
+}
+.hub-nav-link:hover svg,
+.hub-nav-top:hover svg { stroke: var(--_aink); }
+.hub-nav-link:focus-visible,
+.hub-nav-top:focus-visible { outline: 3px solid var(--_icon); outline-offset: 3px; }
+.hub-nav-focus { outline: none; }
+.hub-nav-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 320px;
+  pointer-events: none;
+  visibility: hidden;
+}
+@media (max-width: 640px) {
+  .hub-nav-link {
+    min-height: 32px;
+    padding: 0 10px 0 8px;
+    gap: 6px;
+    font-size: 11px;
+    left: calc(var(--hn-left, 10px) + env(safe-area-inset-left, 0px));
+    bottom: calc(var(--hn-m-link-bottom, var(--hn-m-bottom, 12px)) + env(safe-area-inset-bottom, 0px));
+  }
+  .hub-nav-link[data-pos="top"] {
+    bottom: auto;
+    top: calc(var(--hn-top, 8px) + env(safe-area-inset-top, 0px));
+  }
+  .hub-nav-link svg { width: 14px; height: 14px; }
+  .hub-nav-top {
+    width: 40px;
+    height: 40px;
+    right: calc(var(--hn-right, 10px) + env(safe-area-inset-right, 0px));
+    bottom: calc(var(--hn-m-bottom, 12px) + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-nav-link, .hub-nav-top { transition: none; }
+  .hub-nav-top { transform: none; }
+}
+@media print {
+  .hub-nav-link, .hub-nav-top { display: none !important; }
+}
