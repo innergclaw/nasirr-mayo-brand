@@ -153,5 +153,6 @@
 var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(still)return;
 new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){try{if(v.ended)v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){})}catch(_){}}else{v.pause()}})},{threshold:.35}).observe(v)})();
 </script>
+<script src="hub-nav.js" defer data-home></script>
 </body>
 </html>

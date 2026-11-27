@@ -21,6 +21,8 @@ const files = [
   'closing-report.mjs',
   'market-update.mjs',
   'watchlist-chart.mjs',
+  'hub-nav.js',
+  'hub-nav.css',
   'stocks/index.html',
   'crypto/index.html',
 ];
