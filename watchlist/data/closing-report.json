@@ -1,6 +1,6 @@
 {
   "marketDate": "2026-11-27",
-  "generatedAt": "2026-11-27T22:17:07.634499Z",
+  "generatedAt": "2026-11-27T22:38:44.576237Z",
   "universe": "Public INNERG watchlist, excluding crypto",
   "method": "Regular-session daily percentage change",
   "gainers": [
@@ -55,14 +55,6 @@
       "changePercent": -1.5155
     },
     {
-      "symbol": "FXAIX",
-      "name": "Fidelity 500 Index Fund",
-      "sector": "core-funds",
-      "price": 249.94,
-      "currency": "USD",
-      "changePercent": 0
-    },
-    {
       "symbol": "MTDR",
       "name": "Matador Resources",
       "sector": "energy",
@@ -85,6 +77,14 @@
       "price": 54.17,
       "currency": "USD",
       "changePercent": 0.4078
+    },
+    {
+      "symbol": "SCHD",
+      "name": "Schwab U.S. Dividend Equity ETF",
+      "sector": "core-funds",
+      "price": 35.67,
+      "currency": "USD",
+      "changePercent": 1.0768
     }
   ],
   "sources": [
